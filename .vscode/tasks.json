@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build_runner_watch",
+      "type": "shell",
+      "command": "flutter",
+      "args": [
+        "packages",
+        "pub",
+        "run",
+        "build_runner",
+        "watch",
+        "--delete-conflicting-outputs"
+      ],
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "__________"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\[INFO\\] Starting Build",
+          "endsPattern": "^\\[INFO\\] Succeeded after"
+        }
+      }
+    },
+    {
+      "label": "build_icons",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["packages", "pub", "run", "tool/build_icons"],
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "__________"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\[INFO\\] Starting Build",
+          "endsPattern": "^\\[INFO\\] Succeeded after"
+        }
+      }
+    },
+    {
+      "label": "build_locales",
+      "type": "shell",
+      "command": "flutter",
+      "args": ["packages", "pub", "run", "tool/build_locales"],
+      "group": "build",
+      "isBackground": false,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "__________"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^\\[INFO\\] Starting Build",
+          "endsPattern": "^\\[INFO\\] Succeeded after"
+        }
+      }
+    }
+  ]
+}

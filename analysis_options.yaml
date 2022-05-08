@@ -1,0 +1,53 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - third_party/flutter_flipperkit/**
+    - third_party/flutter_k_chart/**
+
+linter:
+  rules:
+    prefer_constructors_over_static_methods: false
+    avoid_classes_with_only_static_members: false
+    prefer_const_constructors: false
+    sort_constructors_first: true
+    sort_unnamed_constructors_first: true
+    unnecessary_await_in_return: true
+    implementation_imports: false
+    sort_pub_dependencies: false
+    prefer_single_quotes: true
+    public_member_api_docs: false
+    always_specify_types: false
+    lines_longer_than_80_chars: true
+    avoid_returning_null_for_future: true
+    avoid_type_to_string: true
+    cancel_subscriptions: true
+    always_put_control_body_on_new_line: true
+    always_put_required_named_parameters_first: true
+    always_require_non_null_named_parameters: true
+    avoid_bool_literals_in_conditional_expressions: true
+    avoid_field_initializers_in_const_classes: true
+    avoid_js_rounded_ints: true
+    avoid_positional_boolean_parameters: true
+    avoid_private_typedef_functions: true
+    avoid_returning_null_for_void: true
+    avoid_types_on_closure_parameters: true
+    await_only_futures: true
+    camel_case_extensions: true
+    camel_case_types: true
+    constant_identifier_names: true
+    directives_ordering: true
+    empty_catches: true
+    exhaustive_cases: true
+    library_prefixes: true
+    missing_whitespace_between_adjacent_strings: true
+    non_constant_identifier_names: true
+    only_throw_errors: true
+    prefer_contains: true
+    prefer_expression_function_bodies: false
+    prefer_function_declarations_over_variables: true
+    prefer_interpolation_to_compose_strings: true
+    prefer_is_not_operator: true
+    unnecessary_lambdas: false
+    unnecessary_parenthesis: true
+    use_to_and_as_if_applicable: true

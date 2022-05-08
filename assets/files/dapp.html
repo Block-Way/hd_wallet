@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sugar Dapp Demo</title>
+</head>
+<script src="https://cdn.bootcss.com/jquery/2.0.1/jquery.js"></script>
+
+<body style="margin: 12px; padding:0; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+
+    <h1>Sugar Dapp Demo</h1>
+
+    <hr />
+
+    <h5>Hello Wallet: <span id="sugWalletId"></span></h5>
+
+    <p>
+        Language: <b id="sugLanguage"></b>
+        <br />
+        Currency: <b id="sugFiatCurrency"></b>
+    </p>
+
+    <p>
+        Your SUG address is: <b><small id="sugAddress">...</small></b>
+    </p>
+
+    <p>
+        Your SUG balance is: <b id="sugBalance"> press the button </b>
+    </p>
+
+    <button onclick="handleGetBalance();">Get Balance</button>
+
+    <script>
+        // SDK Class
+        // TODO: Move to a js library 
+        class SugarSDK {
+            sdkVersion = '0.0.1';
+
+            // Used by SugarApp to check if can close the webview
+            canExit = () => true;
+
+            // Get the balance of a given Coin
+            // @params chain: the coin chain
+            // @params symbol: the coin symbol
+            getBalance(chain, symbol) {
+                return window.flutter_inappwebview.callHandler('sugGetBalance', { chain: chain, symbol: symbol });
+            }
+
+            // Get the address of a given Coin
+            // @params chain: the coin chain
+            // @params symbol: the coin symbol
+            getAddress(chain, symbol) {
+                return window.flutter_inappwebview.callHandler('sugGetAddress', { chain: chain, symbol: symbol });
+            }
+
+            // Get current active wallet Id
+            // NOTE: backend call this "hash" or "wallet hash"
+            getWalletId() {
+                return window.flutter_inappwebview.callHandler('sugGetWalletId');
+            }
+
+            // Get SugarApp user settings language
+            getLanguage() {
+                return window.flutter_inappwebview.callHandler('sugGetLanguage');
+            }
+
+            // Get SugarApp user settings Fiat currency
+            getFiatCurrency() {
+                return window.flutter_inappwebview.callHandler('sugGetFiatCurrency');
+            }
+
+            // Set a callback that will be called once the user try to close/exit the DApp
+            setCanExit(callback) {
+                this.canExit = callback;
+            }
+
+            // DApp initialization entry point
+            // The callback will be called when the Sugar SDK is ready to be use
+            onInit(callback) {
+                window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+                    callback(this);
+                });
+            }
+        }
+    </script>
+    <script>
+        window.SugarSDK = new SugarSDK();
+
+        window.SugarSDK.setCanExit(() => {
+            // Return false when DApp is loading/processing
+            return true;
+        });
+
+        window.SugarSDK.onInit(() => {
+            window.SugarSDK.getAddress('BBC', 'SUG').then((result) => {
+                $('#sugAddress').html(result);
+            });
+            window.SugarSDK.getWalletId().then((result) => {
+                $('#sugWalletId').html(result);
+            });
+            window.SugarSDK.getLanguage().then((result) => {
+                $('#sugLanguage').html(result);
+            });
+            window.SugarSDK.getFiatCurrency().then((result) => {
+                $('#sugFiatCurrency').html(result);
+            });
+        });
+
+        function handleGetBalance() {
+            window.SugarSDK.getBalance('BBC', 'SUG').then((address) => {
+                $('#sugBalance').html(address);
+            });
+        }
+
+    </script>
+</body>
+
+</html>

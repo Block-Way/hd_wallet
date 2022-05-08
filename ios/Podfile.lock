@@ -1,0 +1,272 @@
+PODS:
+  - Amplitude (7.2.0)
+  - amplitude_flutter (0.0.1):
+    - Amplitude (= 7.2.0)
+    - Flutter
+  - boost-for-react-native (1.63.0)
+  - CocoaAsyncSocket (7.6.4)
+  - CocoaLibEvent (1.0.0)
+  - ComponentKit (0.30):
+    - RenderCore (= 0.30)
+    - Yoga (~> 1.14)
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - countdown_flutter (0.0.1):
+    - Flutter
+  - device_info (0.0.1):
+    - Flutter
+  - Flipper (0.37.0):
+    - Flipper-Folly (~> 2.2)
+    - Flipper-RSocket (~> 1.1)
+  - Flipper-DoubleConversion (1.1.7)
+  - Flipper-Folly (2.3.0):
+    - boost-for-react-native
+    - CocoaLibEvent (~> 1.0)
+    - Flipper-DoubleConversion
+    - Flipper-Glog
+    - OpenSSL-Universal (= 1.0.2.20)
+  - Flipper-Glog (0.3.6)
+  - Flipper-PeerTalk (0.0.4)
+  - Flipper-RSocket (1.1.0):
+    - Flipper-Folly (~> 2.2)
+  - FlipperKit (0.37.0):
+    - FlipperKit/Core (= 0.37.0)
+  - FlipperKit/Core (0.37.0):
+    - Flipper (~> 0.37.0)
+    - FlipperKit/CppBridge
+    - FlipperKit/FBCxxFollyDynamicConvert
+    - FlipperKit/FBDefines
+    - FlipperKit/FKPortForwarding
+  - FlipperKit/CppBridge (0.37.0):
+    - Flipper (~> 0.37.0)
+  - FlipperKit/FBCxxFollyDynamicConvert (0.37.0):
+    - Flipper-Folly (~> 2.2)
+  - FlipperKit/FBDefines (0.37.0)
+  - FlipperKit/FKPortForwarding (0.37.0):
+    - CocoaAsyncSocket (~> 7.6)
+    - Flipper-PeerTalk (~> 0.0.4)
+  - FlipperKit/FlipperKitHighlightOverlay (0.37.0)
+  - FlipperKit/FlipperKitLayoutComponentKitSupport (0.37.0):
+    - ComponentKit (~> 0.0)
+    - FlipperKit/Core
+    - FlipperKit/FlipperKitHighlightOverlay
+    - FlipperKit/FlipperKitLayoutPlugin
+    - FlipperKit/FlipperKitLayoutTextSearchable
+  - FlipperKit/FlipperKitLayoutPlugin (0.37.0):
+    - FlipperKit/Core
+    - FlipperKit/FlipperKitHighlightOverlay
+    - FlipperKit/FlipperKitLayoutTextSearchable
+    - YogaKit (~> 1.18)
+  - FlipperKit/FlipperKitLayoutTextSearchable (0.37.0)
+  - FlipperKit/FlipperKitNetworkPlugin (0.37.0):
+    - FlipperKit/Core
+  - FlipperKit/FlipperKitUserDefaultsPlugin (0.37.0):
+    - FlipperKit/Core
+  - FlipperKit/SKIOSNetworkPlugin (0.37.0):
+    - FlipperKit/Core
+    - FlipperKit/FlipperKitNetworkPlugin
+  - Flutter (1.0.0)
+  - flutter_flipperkit (0.0.23):
+    - FlipperKit (~> 0.37.0)
+    - FlipperKit/FlipperKitLayoutComponentKitSupport (~> 0.37.0)
+    - FlipperKit/FlipperKitUserDefaultsPlugin (~> 0.37.0)
+    - FlipperKit/SKIOSNetworkPlugin (~> 0.37.0)
+    - Flutter
+  - flutter_hdkey (0.0.2):
+    - Flutter
+  - flutter_inappwebview (0.0.1):
+    - Flutter
+  - flutter_secure_storage (3.3.1):
+    - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - image_gallery_saver (1.5.0):
+    - Flutter
+  - image_picker (0.0.1):
+    - Flutter
+  - MTBBarcodeScanner (5.0.11)
+  - OpenSSL-Universal (1.0.2.20):
+    - OpenSSL-Universal/Static (= 1.0.2.20)
+  - OpenSSL-Universal/Static (1.0.2.20)
+  - package_info (0.0.1):
+    - Flutter
+  - path_provider (0.0.1):
+    - Flutter
+  - "permission_handler (5.0.1+1)":
+    - Flutter
+  - qr_code_scanner (0.2.0):
+    - Flutter
+    - MTBBarcodeScanner
+  - qr_code_tools (0.0.1):
+    - Flutter
+  - Reachability (3.2)
+  - RenderCore (0.30)
+  - Sentry (6.0.10):
+    - Sentry/Core (= 6.0.10)
+  - Sentry/Core (6.0.10)
+  - sentry_flutter (0.0.1):
+    - Flutter
+    - Sentry (~> 6.0.10)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
+  - url_launcher (0.0.1):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
+  - wallet_sdk_flutter (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
+    - Flutter
+  - Yoga (1.14.0)
+  - YogaKit (1.18.1):
+    - Yoga (~> 1.14)
+
+DEPENDENCIES:
+  - amplitude_flutter (from `.symlinks/plugins/amplitude_flutter/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - countdown_flutter (from `.symlinks/plugins/countdown_flutter/ios`)
+  - device_info (from `.symlinks/plugins/device_info/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_flipperkit (from `.symlinks/plugins/flutter_flipperkit/ios`)
+  - flutter_hdkey (from `.symlinks/plugins/flutter_hdkey/ios`)
+  - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
+  - qr_code_tools (from `.symlinks/plugins/qr_code_tools/ios`)
+  - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - wallet_sdk_flutter (from `.symlinks/plugins/wallet_sdk_flutter/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Amplitude
+    - boost-for-react-native
+    - CocoaAsyncSocket
+    - CocoaLibEvent
+    - ComponentKit
+    - Flipper
+    - Flipper-DoubleConversion
+    - Flipper-Folly
+    - Flipper-Glog
+    - Flipper-PeerTalk
+    - Flipper-RSocket
+    - FlipperKit
+    - FMDB
+    - MTBBarcodeScanner
+    - OpenSSL-Universal
+    - Reachability
+    - RenderCore
+    - Sentry
+    - Yoga
+    - YogaKit
+
+EXTERNAL SOURCES:
+  amplitude_flutter:
+    :path: ".symlinks/plugins/amplitude_flutter/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  countdown_flutter:
+    :path: ".symlinks/plugins/countdown_flutter/ios"
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
+  Flutter:
+    :path: Flutter
+  flutter_flipperkit:
+    :path: ".symlinks/plugins/flutter_flipperkit/ios"
+  flutter_hdkey:
+    :path: ".symlinks/plugins/flutter_hdkey/ios"
+  flutter_inappwebview:
+    :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  image_gallery_saver:
+    :path: ".symlinks/plugins/image_gallery_saver/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  qr_code_scanner:
+    :path: ".symlinks/plugins/qr_code_scanner/ios"
+  qr_code_tools:
+    :path: ".symlinks/plugins/qr_code_tools/ios"
+  sentry_flutter:
+    :path: ".symlinks/plugins/sentry_flutter/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+  url_launcher:
+    :path: ".symlinks/plugins/url_launcher/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+  wallet_sdk_flutter:
+    :path: ".symlinks/plugins/wallet_sdk_flutter/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
+
+SPEC CHECKSUMS:
+  Amplitude: c948c6f99c7f798c196523b2a5584367401d910f
+  amplitude_flutter: 5c934cf8331619b62bbd5a69f3cfea9090b3ca94
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
+  CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
+  ComponentKit: c34da1ab3515cf18db68a4ba22c6599568d1de74
+  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
+  countdown_flutter: 423a4cc24614ccb078c2ce4ac6739b1d85cbe98b
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
+  Flipper: 1670db365568191bd123a0c905b834e77ba9e3d3
+  Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
+  Flipper-Folly: e4493b013c02d9347d5e0cb4d128680239f6c78a
+  Flipper-Glog: 1dfd6abf1e922806c52ceb8701a3599a79a200a6
+  Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
+  Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
+  FlipperKit: afd4259ef9eadeeb2d30250b37d95cb3b6b97a69
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_flipperkit: af7dd1462572a75cdc351cde7d7ee8cfba0d8560
+  flutter_hdkey: c0ad215a0a769e0744ee3639325c7896542fe5cc
+  flutter_inappwebview: 69dfbac46157b336ffbec19ca6dfd4638c7bf189
+  flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
+  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
+  qr_code_tools: bd0c76036813e6251a1df7d130b9c366fe961444
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  RenderCore: d779c47622b313ce2d51bb36d084517af38b0dc1
+  Sentry: 0a48d832ce921578a0c31c68272382fbef9a1726
+  sentry_flutter: e57e33f56d5791e4effa48e85e44505367686b27
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
+  wallet_sdk_flutter: 8b51113b6bd15f5fd8bca41320e23122a26201dd
+  webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
+  Yoga: cff67a400f6b74dc38eb0bad4f156673d9aa980c
+  YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
+
+PODFILE CHECKSUM: 507fd3559b47321677a46ee5a01be5656f66bb31
+
+COCOAPODS: 1.9.3

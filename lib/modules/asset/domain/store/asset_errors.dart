@@ -1,0 +1,1 @@
+part of asset_domain_module;
