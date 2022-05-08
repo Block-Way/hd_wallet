@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>hd_wallet</string>
+	<string>Sugar</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,6 +29,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
@@ -41,5 +42,41 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>use your location information to provide more accurate service</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>to play videos</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>to check events dates</string>
+	<key>NSCameraUsageDescription</key>
+	<string>uses the camera to take photos</string>
+	<key>NSContactsUsageDescription</key>
+	<string>uses your contacts to find new friends</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>use your location information to provide more accurate service</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>uses the microphone to record and send chat voice message</string>
+	<key>NSMotionUsageDescription</key>
+	<string>to track wallet performance</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>saves photos and videos to your photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>to select photos to upload as user avatar, etc</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>to use the advance wallet functions</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh</string>
+		<string>ja</string>
+		<string>ko</string>
+		<string>ru</string>
+	</array>
 </dict>
 </plist>

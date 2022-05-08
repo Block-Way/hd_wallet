@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CDC driver -->
+    <!-- TODO this is test -->
+    <usb-device vendor-id="111111" product-id="111111" /> <!-- 0x0483 / 0x5740 加密模块  -->
+</resources>
