@@ -115,7 +115,8 @@ class HomePricesCard extends StatelessWidget {
                             ),
                             SizedBox(height: 2),
                             PriceText(
-                              fiatPrice,
+                              // fiatPrice,
+                              '888.99',
                               fiatCurrency,
                               TextSize.tiny,
                               color: context.placeholderColor,
