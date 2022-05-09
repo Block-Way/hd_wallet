@@ -165,23 +165,6 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     } else {
       fetchNonceData(address, isTou);
     }
-    // final time = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toInt();
-    // final params = {
-    //   'time': time,
-    //   'fork': AppConstants.hah_fork,
-    //   'nonce': nonce,
-    //   'from': isTou ? widget.coinInfo.address : address,
-    //   'to': isTou ? address : widget.coinInfo.address,
-    //   'amount': myController.text,
-    //   'gasprice': '0.0000010000',
-    //   'gaslimit': '20000',
-    //   'data': isTou ? '01010146$hex' : '00'
-    // };
-    // final ret = getTx(params);
-    // print('发送参数$params');
-    // setState(() {
-    //   txData = ret;
-    // });
   }
 
   //获取投票地址
@@ -216,11 +199,6 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     }
     var res = await AssetRepository()
         .getTransactionFee(address: addressNonce.toString(), symbol: 'HAH');
-    // setState(() {
-    //   nonce = res['nonce'] + 1;
-    //   //gas_price = res['gas_price'];
-    //   //gas_limit = res['gas_limit'];
-    // });
     final time = (DateTime.now().millisecondsSinceEpoch ~/ 1000).toInt();
     final params = {
       'time': time,
@@ -234,7 +212,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
       'data': isTou ? '01010146$hex' : '00'
     };
     final ret = getTx(params);
-    // print('发送参数$params');
+    print('发送参数$ret');
     setState(() {
       txData = ret;
     });

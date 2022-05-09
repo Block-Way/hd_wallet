@@ -349,7 +349,7 @@ class WalletActionBBCTxSubmit extends _BaseAction {
       forkId: AppConstants.bbc_fork,
     );
 
-    //print('pri $pri');
+    print('pri $pri');
 
     final privateKey = Uint8List.fromList(HEX.decode(pri));
     final rpk = Uint8List.fromList(privateKey.reversed.toList());
