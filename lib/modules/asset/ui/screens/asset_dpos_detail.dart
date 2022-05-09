@@ -234,7 +234,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
       'data': isTou ? '01010146$hex' : '00'
     };
     final ret = getTx(params);
-    print('发送参数$params');
+    // print('发送参数$params');
     setState(() {
       txData = ret;
     });
@@ -389,7 +389,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                     readOnly: true,
                     hintText: tr(compoundInterestAddressBalance),
                   ),
-                  FormBox( //复利地址锁定金额
+                  FormBox( //复利地址锁定
                     type: FormBoxType.inputText,
                     title: tr('wallet:fuli_address_locked_amount'),
                     readOnly: true,
