@@ -158,7 +158,7 @@ class AssetTransactionPage extends HookWidget {
               item['value'] ?? '',
               style: context.textSecondary(
                 bold: true,
-                color: context.bodyColor,
+                color: context.iconColor,
               ),
             ),
           ],

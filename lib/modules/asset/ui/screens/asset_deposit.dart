@@ -43,7 +43,7 @@ class AssetDepositPage extends HookWidget {
           Container(
             width: context.mediaWidth,
             height: context.mediaHeight * 0.75,
-            color: Color(0xFF32383E),
+            color: context.mainColor,
           ),
           CSContainer(
             // decoration: new BoxDecoration(color: Color(0xFF32383E)),
@@ -52,7 +52,7 @@ class AssetDepositPage extends HookWidget {
               children: [
                 CSContainer(
                   margin: EdgeInsets.zero,
-                  // decoration: new BoxDecoration(color: Color(0xFF32383E)),
+                  decoration: new BoxDecoration(color: context.cardColor),
                   secondary: true,
                   child: Column(
                     children: [
@@ -67,7 +67,7 @@ class AssetDepositPage extends HookWidget {
                       SizedBox(height: context.edgeSize),
                       Center(
                         child: CSContainer(
-                          decoration: new BoxDecoration(color: Color(0xFF32383E)),
+                          // decoration: new BoxDecoration(color: Color(0xFF32383E)),
                           width: null,
                           child: QrCodeView(
                             coinInfo.address,
@@ -103,7 +103,7 @@ class AssetDepositPage extends HookWidget {
                         coinInfo.address,
                         style: context.textSecondary(
                           bold: true,
-                          color: context.bodyColor,
+                          color: context.iconColor,
                         ),
                         textAlign: TextAlign.start,
                       ),

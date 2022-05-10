@@ -96,6 +96,7 @@ class AssetListPage extends StatelessWidget {
         fiatCurrency: viewModel.fiatCurrency,
         wallet: viewModel.activeWallet,
         walletStatus: viewModel.activeWalletStatus,
+        walletCoins: viewModel.coins,
         onSync: (wallet) {
           LoadingDialog.show(context);
           viewModel.doSyncWallet(wallet).catchError((error) {
@@ -105,17 +106,18 @@ class AssetListPage extends StatelessWidget {
           });
         },
         onPressed: () {
-          AssetWalletSelectPage.open().then((wallet) {
-            if (wallet != null) {
-              viewModel.doSwitchWallet(wallet);
-              // _ignoreIndexChange = true;
-              // final index = viewModel.wallets.indexOf(wallet);
-              // swiperController.move(index, animation: false).
-              // whenComplete(() {
-              //   _ignoreIndexChange = false;
-              // });
-            }
-          });
+          // AssetWalletSelectPage.open().then((wallet) {
+          //   if (wallet != null) {
+          //     viewModel.doSwitchWallet(wallet);
+          //     // _ignoreIndexChange = true;
+          //     // final index = viewModel.wallets.indexOf(wallet);
+          //     // swiperController.move(index, animation: false).
+          //     // whenComplete(() {
+          //     //   _ignoreIndexChange = false;
+          //     // });
+          //   }
+          // });
+          print('dddd${viewModel}');
         },
       ),
     );

@@ -7,7 +7,7 @@ class QrCodeView extends StatelessWidget {
       this.embeddedImage,
       this.embeddedSize,
       this.errorCorrectionLevel = QrErrorCorrectLevel.L,
-      this.backgroundColor = const Color(0x00FFFFFF),
+      this.backgroundColor = const Color(0xFFFFFFFF),
       this.foregroundColor = const Color(0xFF000000),
       this.padding = const EdgeInsets.all(10),
       this.gapless = true})
@@ -20,7 +20,7 @@ class QrCodeView extends StatelessWidget {
   final Color foregroundColor; // default 0xFF000000
   final EdgeInsets padding;
 
-  /// 二维码纠错登记 如果中间有logo 建议提高 不然容易识别错误
+  /// QR code error correction registration If there is a logo in the middle, it is recommended to improve, otherwise it is easy to identify errors
   final int errorCorrectionLevel; //  QrErrorCorrectLevel.L,
 
   // center image
