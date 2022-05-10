@@ -46,7 +46,7 @@ class FormCell extends StatelessWidget {
       child: Container(
         height: autoHeight ? null : height,
         decoration: BorderDecorator(
-          color: context.borderColor,
+          color: context.cardColor,
           width: 0.5,
           hasTop: showBorderTop,
           hasBottom: showBorderBottom,
@@ -70,7 +70,7 @@ class FormCell extends StatelessWidget {
                 child: Icon(
                   CSIcons.More,
                   size: 12,
-                  color: context.bodyColor,
+                  color: context.iconColor,
                 ),
               ),
           ],

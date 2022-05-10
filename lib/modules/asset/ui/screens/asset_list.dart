@@ -89,7 +89,7 @@ class AssetListPage extends StatelessWidget {
     //   controller: swiperController,
     //   itemBuilder: (context, index) {
     return CSContainer(
-      decoration: context.boxCardShadow(),
+      decoration: context.boxCardShadow(color: context.mainColor),
       margin: context.edgeAll.copyWith(bottom: 20, top: 8),
       padding: EdgeInsets.zero,
       child: AssetWalletCard(
@@ -175,7 +175,7 @@ class AssetListPage extends StatelessWidget {
         [
           Container(
             // decoration: context.boxDecorationOnlyTop(radius: 30),
-            color: Color(0xFF32383E),
+            color: context.mainColor,
             padding: context.edgeBottom,
             constraints: BoxConstraints(
               minHeight: context.mediaHeight - 200,
@@ -191,8 +191,8 @@ class AssetListPage extends StatelessWidget {
                       height: 5,
                       margin: EdgeInsets.only(top: 7),
                       decoration: BoxDecoration(
-                        color: context.borderColor,
-                        borderRadius: BorderRadius.circular(3),
+                        color: context.cardColor,
+                        borderRadius: BorderRadius.circular(14),
                       ),
                     ),
                   ),
@@ -225,8 +225,8 @@ class AssetListPage extends StatelessWidget {
       hideLeading: true,
       titleCenter: false,
       title: tr('asset:list_title'),
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       titleStyle: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
       child: StoreConnector<AppState, AssetListVM>(
         distinct: true,
@@ -252,7 +252,7 @@ class AssetListPage extends StatelessWidget {
                 });
               },
               header: ListViewHeader(
-                background: context.bgSecondaryColor,
+                background: context.cardColor,
                 useProgressLoading: true,
               ),
               controller: refreshController,
@@ -268,7 +268,7 @@ class AssetListPage extends StatelessWidget {
                     elevation: 0,
                     // backgroundColor: context.bgSecondaryColor,
                     expandedHeight: 220,
-                    backgroundColor: Color(0xFF32383E),
+                    backgroundColor: context.mainColor,
                     collapsedHeight: 1,
                     toolbarHeight: 0,
                     flexibleSpace: FlexibleSpaceBar(

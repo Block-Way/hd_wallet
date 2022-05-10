@@ -106,6 +106,8 @@ class WalletManagementPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return CSScaffold(
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: tr('wallet:management_title'),
       scrollable: true,
       child: StoreConnector<AppState, WalletManagementVM>(

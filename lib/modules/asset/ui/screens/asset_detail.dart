@@ -284,8 +284,8 @@ class AssetDetailPage extends HookWidget {
         useBehaviorStreamController<CSListViewParams<_GetAssetListParams>>();
 
     return CSScaffold(
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       addBottomInset: false,
       title: tr('asset:detail_title'),
       child: StoreConnector<AppState, AssetDetailVM>(
@@ -305,7 +305,7 @@ class AssetDetailPage extends HookWidget {
                   requestStream: request,
                   margin: context.edgeHorizontal,
                   decoration: new BoxDecoration(
-                      color: Color(0xFF17191C),
+                      color: context.cardColor,
                     borderRadius: BorderRadius.all(Radius.circular(context.edgeSize)),
                   ),
                   padding: context.edgeAll,

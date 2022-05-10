@@ -44,6 +44,20 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF2B2E37);
   }
 
+  //#949699
+  Color get iconColor {
+    return const Color(0xFF949699);
+  }
+
+  Color get copyColor {
+    return const Color(0xFFDEAE6A);
+  }
+
+  ///#FFFFFF
+  Color get cardTitleColor {
+    return const Color(0xFFFFFFFF);
+  }
+
   /// #999999
   Color get secondaryColor {
     return const Color(0xFF999999);

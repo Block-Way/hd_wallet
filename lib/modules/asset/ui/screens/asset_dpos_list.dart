@@ -28,7 +28,7 @@ class AssetDposList extends StatefulWidget {
 }
 
 class _AssetDposList extends State<AssetDposList> {
-  var voteNodeList = []; // 节点列表
+  var voteNodeList = []; // node list
   void checkIfWalletHasBackup(BuildContext context, AssetDetailVM viewModel) {
     if (!viewModel.activeWallet.hasBackup && !kDebugMode) {
       showConfirmDialog(
@@ -195,8 +195,8 @@ class _AssetDposList extends State<AssetDposList> {
   @override
   Widget build(BuildContext context) {
     return CSScaffold(
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       addBottomInset: false,
       title: tr('asset:node_vote_infor'),
       child: StoreConnector<AppState, AssetDetailVM>(
@@ -213,7 +213,7 @@ class _AssetDposList extends State<AssetDposList> {
             padding: context.edgeAll,
             // decoration: context.boxDecorationOnlyTop(),
                 decoration: new BoxDecoration(
-                  color: Color(0xFF17191C),
+                  color: context.cardColor,
                   borderRadius: BorderRadius.all(Radius.circular(context.edgeSize)),
                 ),
             slivers: [

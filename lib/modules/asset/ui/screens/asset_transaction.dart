@@ -171,8 +171,8 @@ class AssetTransactionPage extends HookWidget {
       scrollable: true,
       // backgroundColor: context.bgSecondaryColor,
       // headerBgColor: context.bgSecondaryColor,
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       child: StoreConnector<AppState, AssetTransactionVM>(
         distinct: true,
         converter: AssetTransactionVM.fromStore,

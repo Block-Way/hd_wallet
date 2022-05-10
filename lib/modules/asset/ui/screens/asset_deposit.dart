@@ -34,8 +34,8 @@ class AssetDepositPage extends HookWidget {
   Widget build(BuildContext context) {
     return CSScaffold(
       scrollable: true,
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: tr('asset:deposit_title'),
       child: Stack(
         children: [

@@ -49,8 +49,8 @@ class WalletImportPage extends HookWidget {
 
     return CSScaffold(
       title: tr('wallet:import_title'),
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       scrollable: true,
       child: Form(
         key: formKey,

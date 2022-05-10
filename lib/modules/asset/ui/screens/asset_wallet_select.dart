@@ -18,8 +18,8 @@ class AssetWalletSelectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CSScaffold(
       title: tr('asset:select_wallet_title'),
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       addBottomInset: false,
       child: StoreConnector<AppState, AssetListVM>(
         distinct: true,
@@ -41,7 +41,7 @@ class AssetWalletSelectPage extends StatelessWidget {
             ),
             // DividerShadow(),
             Container(
-              color: Color(0xFF17191C),
+              color: context.mainColor,
               padding: context.edgeHorizontal.copyWith(
                 bottom: context.safeAreaBottom,
               ),

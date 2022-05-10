@@ -206,8 +206,8 @@ class AssetWithdrawPage extends HookWidget {
 
     return CSScaffold(
       scrollable: true,
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: tr('asset:withdraw_title'),
       child: StoreConnector<AppState, AssetWithdrawVM>(
         distinct: true,
@@ -246,7 +246,7 @@ class AssetWithdrawPage extends HookWidget {
                     type: FormBoxType.inputText,
                     title: tr('asset:withdraw_lbl_address'),
                     iconName: CSIcons.Scan,
-                    iconColor: context.bodyColor,
+                    iconColor: context.iconColor,
                     validator: RequiredValidator(
                       errorText: tr('asset:withdraw_req_address'),
                     ),

@@ -20,7 +20,7 @@ class AssetWalletCard extends HookWidget {
     return CSContainer(
       margin: EdgeInsets.zero,
       padding: context.edgeVertical5,
-      decoration: AssetBackgroundCircle(),
+      // decoration: AssetBackgroundCircle(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,6 +32,7 @@ class AssetWalletCard extends HookWidget {
                 child: CSContainer(
                   margin: context.edgeAll8,
                   padding: context.edgeAll8,
+                  decoration: BoxDecoration(color: context.cardColor),
                   width: null,
                   onTap: onPressed,
                   child: Column(
@@ -47,17 +48,17 @@ class AssetWalletCard extends HookWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(width: 4),
-                          CSButtonIcon(
-                            padding: EdgeInsets.only(
-                              right: 1,
-                              top: 1,
-                            ),
-                            containerSize: 14,
-                            size: 6,
-                            borderRadius: 14,
-                            icon: CSIcons.ArrowDown,
-                            disabled: true,
-                          ),
+                          // CSButtonIcon(
+                          //   padding: EdgeInsets.only(
+                          //     right: 1,
+                          //     top: 1,
+                          //   ),
+                          //   containerSize: 14,
+                          //   size: 6,
+                          //   borderRadius: 14,
+                          //   icon: CSIcons.ArrowDown,
+                          //   disabled: true,
+                          // ),
                         ],
                       ),
                       SizedBox(height: 8),
@@ -71,19 +72,22 @@ class AssetWalletCard extends HookWidget {
                       ),
                       SizedBox(height: 8),
                       SizedBox(
-                        width: 60,
+                        width: 50,
                         height: 20,
                         child: CSButton(
+                          bordered: true,
+                          borderColor: context.copyColor,
+                          borderWidth: 1.0,
+                          backgroundColor: Colors.transparent,
+                          borderRadius: 20,
                           onPressed: () {
                             copyTextToClipboard(wallet.toString());
                             Toast.show(tr('global:msg_copy_success'));
                             print('${wallet}');
                           },
-                          bordered: false,
-                          backgroundColor: Color(0xFF32383E),
                           child: Text(
                             tr('global:btn_copy'),
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 12, color: context.copyColor),
                           ),
                           // style: context.textSmall(),
                         ),

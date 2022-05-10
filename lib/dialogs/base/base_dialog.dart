@@ -18,28 +18,28 @@ class CSBaseDialog extends StatelessWidget {
     this.confirmTimeout,
   }) : super(key: key);
 
-  /// 弹窗内容
+  /// dialog content
   final Widget contentWidget;
 
-  /// 取消按钮
+  /// cancel button
   final String cancelBtnText;
 
-  /// 确认按钮
+  /// confirm button
   final String confirmBtnText;
   final TextStyle cancelBtnStyle;
   final TextStyle confirmBtnStyle;
 
-  /// 点击背景以及返回键 关闭弹框
+  /// click background and back button to close dialog
   final bool dismissOnBgClick;
   final bool dismissOnConfirm;
 
-  /// 弹窗关闭回调
+  /// dialog close call back
   final void Function() onDismiss;
 
-  /// 弹窗关闭回调
+  /// dialog close call back
   final void Function() onCancel;
 
-  /// 弹窗关闭回调
+  /// dialog close call back
   final void Function() onConfirm;
 
   final bool hideCancel;
@@ -82,7 +82,7 @@ class CSBaseDialog extends StatelessWidget {
           child: Container(
             width: context.mediaWidth - 40,
             decoration: BoxDecoration(
-              color: context.bgPrimaryColor,
+              color: context.cardColor,
               borderRadius: context.radiusAll,
             ),
             child: Column(
@@ -98,7 +98,7 @@ class CSBaseDialog extends StatelessWidget {
                         Expanded(
                           child: CSButton(
                             bordered: true,
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: context.mainColor,
                             onPressed: handleCancel,
                             label: cancelBtnText,
                           ),

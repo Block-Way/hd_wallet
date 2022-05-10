@@ -90,8 +90,8 @@ class WalletCreatePage extends HookWidget {
     final fieldPwd2 = useTextEditingController(text: '');
 
     return CSScaffold(
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: importMnemonic.isEmpty
           ? tr('wallet:create_title')
           : tr('wallet:import_title'),

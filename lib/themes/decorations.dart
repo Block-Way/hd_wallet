@@ -67,13 +67,13 @@ extension DecorationStyles on BuildContext {
 
   BoxDecoration boxCardShadow({Color color, double radius}) {
     return BoxDecoration(
-      color: color ?? bgPrimaryColor,
+      color: color ?? mainColor,
       borderRadius: BorderRadius.all(
         Radius.circular(radius ?? edgeSize),
       ),
       boxShadow: const [
         BoxShadow(
-          color: Color.fromRGBO(226, 226, 226, 0.5),
+          // color: Color.fromRGBO(226, 226, 226, 0.5),
           blurRadius: 16,
           spreadRadius: 1,
           offset: Offset(0, 6),

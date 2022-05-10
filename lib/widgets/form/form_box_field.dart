@@ -104,7 +104,7 @@ class FormBox extends HookWidget {
         borderRadius: 8,
         onPressed: onPressIcon,
         icon: iconName,
-        color: iconColor ?? context.bodyColor,
+        color: iconColor ?? context.iconColor,
       );
     }
     if (iconText != null) {
@@ -220,25 +220,25 @@ class FormBox extends HookWidget {
                   ),
                   filled: true,
                   // fillColor: context.whiteColor,
-                  fillColor:  Color(0xFF17191C),
+                  fillColor:  context.cardColor,
                   border: OutlineInputBorder(
                     gapPadding: 0,
                     borderSide: bordered == true
-                        ? BorderSide(color: context.borderColor)
+                        ? BorderSide(color: context.cardColor)
                         : BorderSide.none,
                     borderRadius: context.radiusAll,
                   ),
                   focusedBorder: OutlineInputBorder(
                     gapPadding: 0,
                     borderSide: bordered == true
-                        ? BorderSide(color: context.borderColor)
+                        ? BorderSide(color: context.cardColor)
                         : BorderSide.none,
                     borderRadius: context.radiusAll,
                   ),
                   enabledBorder: OutlineInputBorder(
                     gapPadding: 0,
                     borderSide: bordered == true
-                        ? BorderSide(color: context.borderColor)
+                        ? BorderSide(color: context.cardColor)
                         : BorderSide.none,
                     borderRadius: context.radiusAll,
                   ),

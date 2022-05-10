@@ -47,7 +47,7 @@ class FormBoxPassword extends HookWidget {
       hintText: hintText,
       iconName: obscurePwd.value ? CSIcons.EyeClose : CSIcons.EyeOpen,
       // iconColor: context.blackColor,
-      iconColor: Color(0xFF17191C),
+      iconColor: context.iconColor,
       obscureText: obscurePwd.value,
       onPressIcon: () {
         obscurePwd.value = !obscurePwd.value;

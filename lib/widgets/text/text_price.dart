@@ -22,7 +22,7 @@ class PriceText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = color ?? context.bodyColor;
+    final textColor = color ?? context.iconColor;
     TextStyle valueStyle;
     switch (size) {
       case TextSize.huge:

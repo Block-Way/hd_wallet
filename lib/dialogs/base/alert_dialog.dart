@@ -24,7 +24,7 @@ class CSAlertDialog extends StatelessWidget {
     this.confirmTimeout,
   }) : super(key: key);
 
-  /// 弹窗标题
+  /// dialog title
   final String title;
   final TextStyle titleStyle;
 
@@ -32,29 +32,29 @@ class CSAlertDialog extends StatelessWidget {
   final TextStyle confirmBtnStyle;
   final int confirmTimeout;
 
-  /// 取消按钮
+  /// cancel button
   final String cancelBtnText;
   final TextStyle cancelBtnStyle;
 
   final String rightTitle;
   final TextStyle rightTitleStyle;
 
-  /// 弹窗内容
+  /// dialog content
   final String content;
 
-  /// 弹窗关闭回调
+  /// dialog close call back
   final void Function() onDismiss;
 
-  /// 弹窗关闭回调
+  /// dialog close call back
   final void Function() onConfirm;
 
-  /// 弹窗关闭回调
+  /// dialog close call back
   final void Function() onCancel;
 
   final bool hideCancel;
   final bool hideConfirm;
 
-  /// 点击背景以及返回键 关闭弹框
+  /// click background and back button  close dialog
   final bool dismissOnBgClick;
 
   final bool dismissOnConfirm;
@@ -91,7 +91,7 @@ class CSAlertDialog extends StatelessWidget {
               child: Text(
                 title ?? tr('global:dialog_alert_title'),
                 textAlign: TextAlign.center,
-                style: titleStyle ?? context.textBig(bold: true),
+                style: titleStyle ?? context.textBig(bold: true, color: context.iconColor),
               ),
             ),
           ),
@@ -100,7 +100,7 @@ class CSAlertDialog extends StatelessWidget {
             child: Container(
               constraints: BoxConstraints(
                 minHeight: width * 0.48,
-                maxHeight: height * 0.65,
+                maxHeight: height * 0.65
               ),
               child: SingleChildScrollView(
                 child: child ??

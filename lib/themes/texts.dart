@@ -75,7 +75,7 @@ extension TextStyles on BuildContext {
     return textFont.copyWith(
       fontSize: 15.0,
       fontWeight: _getBold(bold, fontWeight),
-      color: color ?? bodyColor,
+      color: color ?? cardTitleColor,
       height: lineHeight,
     );
   }

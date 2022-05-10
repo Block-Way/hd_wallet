@@ -62,7 +62,7 @@ class CSButtonIcon extends StatelessWidget {
               icon: Icon(icon),
               iconSize: size,
               padding: EdgeInsets.zero,
-              color: color ?? context.bodyColor,
+              color: color ?? context.iconColor,
               splashColor: splashColor ?? context.bgSecondaryColor,
               onPressed: handlePress,
             ),

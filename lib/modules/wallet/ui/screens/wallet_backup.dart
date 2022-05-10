@@ -104,7 +104,7 @@ class WalletBackupPage extends HookWidget {
     return state;
   }
 
-  // 验证 选择页面
+  // check chose page
   Widget buildConfirmView(
     BuildContext context,
     WalletBackupVM viewModel,
@@ -117,7 +117,7 @@ class WalletBackupPage extends HookWidget {
       list[index] = '${value}_$index';
     });
 
-    // 重置列表随机列表
+    // reset list random list
     if (randomList.value.isEmpty) {
       for (var i = list.length - 1; i >= 0; i--) {
         final randomIndex = math.Random().nextInt(i == 0 ? 1 : i);
@@ -254,7 +254,6 @@ class WalletBackupPage extends HookWidget {
       };
     }, []);
 
-    // VALID 下面会单独判断 因为参数 不一样
     final viewBuild =
         step.value == _BackupStep.intro ? buildTipView : buildMnemonicView;
 
@@ -273,6 +272,8 @@ class WalletBackupPage extends HookWidget {
       },
       child: CSScaffold(
         title: tr('wallet:backup_title'),
+        headerBgColor: context.mainColor,
+        backgroundColor: context.mainColor,
         scrollable: true,
         actions: [
           if (AppConstants.isBeta)
