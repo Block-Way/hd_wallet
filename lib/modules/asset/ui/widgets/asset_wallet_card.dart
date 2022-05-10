@@ -2,6 +2,7 @@ part of asset_ui_module;
 
 class AssetWalletCard extends HookWidget {
   const AssetWalletCard({
+    this.walletCoins,
     @required this.wallet,
     @required this.walletStatus,
     @required this.fiatCurrency,
@@ -10,6 +11,7 @@ class AssetWalletCard extends HookWidget {
   }) : assert(wallet != null);
 
   final Wallet wallet;
+  final walletCoins;
   final WalletStatus walletStatus;
   final String fiatCurrency;
   final void Function(Wallet) onSync;
@@ -81,9 +83,8 @@ class AssetWalletCard extends HookWidget {
                           backgroundColor: Colors.transparent,
                           borderRadius: 20,
                           onPressed: () {
-                            copyTextToClipboard(wallet.toString());
+                            copyTextToClipboard(walletCoins[0].address.toString());
                             Toast.show(tr('global:msg_copy_success'));
-                            print('${wallet}');
                           },
                           child: Text(
                             tr('global:btn_copy'),
