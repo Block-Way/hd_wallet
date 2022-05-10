@@ -22,11 +22,11 @@ class AssetDposDetail extends StatefulWidget {
 }
 
 class _AssetDposDetail extends State<AssetDposDetail> {
-  String nodeAddress = ''; //投票地址
-  String compoundInterestAddress = ''; //复利地址
-  String superNodeAddress = ''; //超级节点地址
-  String superNodeName = ''; // 超级节点名称
-  String addressBalance = '0'; //钱包地址余额
+  String nodeAddress = ''; //vote address
+  String compoundInterestAddress = ''; //address
+  String superNodeAddress = ''; //super node address
+  String superNodeName = ''; // super node name
+  String addressBalance = '0'; //wallet address balance
   String voteAddressBalance = '0';
   String compoundInterestAddressBalance = '0';
   String voteLockedAmount = '0';
@@ -35,7 +35,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
   dynamic nonce;
   //dynamic gas_price;
   //dynamic gas_limit;
-  dynamic status = 1; //投票地址或者复利地址 0：复利地址， 1：投票地址
+  dynamic status = 1; // 0：address， 1：vote address
   dynamic txData;
   final myController = TextEditingController();
   String hex;
@@ -81,7 +81,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
 
   void handleCreateTransaction(BuildContext context, AssetWithdrawVM viewModel, bool isTou) {
     assemblyTransaction(isTou);
-    print('是否余额不足 $insufficientBalance');
+    print('insufficientBalance $insufficientBalance');
     if(!insufficientBalance) {
       showPasswordDialog(
         context,
@@ -92,7 +92,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
             AssetRepository()
                 .submitTransaction(hex: res.toString())
                 .then((hexRes) => {
-                  Toast.show(tr('操作成功，稍后更新交易记录')),
+                  Toast.show(tr('asset:operating_success')),
                   AppNavigator.goBack()
                 });
           });
@@ -116,7 +116,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     getVoteAddress();
     getCompoundInterestAddress();
   }
-//获取要投票的地址余额
+//get vote address balance
   void getVoteAddressBalance(address) async {
     var res = await AssetRepository()
         .getCoinBalance(address: address.toString(), symbol: 'HAH');
@@ -126,7 +126,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     });
     print('投票地址余额 $res $address');
   }
-  //获取复利地址地址余额
+  //get address balance
   void getCompoundInterestAddressBalance(address) async {
     var res = await AssetRepository().getCoinBalance(address: address.toString(), symbol: 'HAH');
     setState(() {
@@ -134,7 +134,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
       fuliLockedAmount = res['locked'].toString();
     });
   }
-//获取钱包地址余额
+//get wallet address balance
   void getWalletBalance(address) async {
     var res = await AssetRepository().getCoinBalance(address: address.toString(), symbol: 'HAH');
     setState(() {
@@ -142,7 +142,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     });
   }
 
-//  组装交易函数
+//
   void assemblyTransaction(bool isTou) {
     print('isTou $voteAddressBalance $compoundInterestAddressBalance $addressBalance');
     // if(!isTou) { //撤投
@@ -167,7 +167,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     }
   }
 
-  //获取投票地址
+  //get vote address
   void getVoteAddress() {
     final ret = getVote(widget.voteNodeItem['address'].toString(),
         widget.coinInfo.address.toString(), 1);
@@ -178,7 +178,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     getVoteAddressBalance(nodeAddress);
   }
 
-  //获取复利地址
+  //get address
   void getCompoundInterestAddress() {
     final ret = getVote(widget.voteNodeItem['address'].toString(),
         widget.coinInfo.address.toString(), 0);
@@ -188,9 +188,9 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     getCompoundInterestAddressBalance(compoundInterestAddress);
   }
 
-  // 获取nonce
+  // get nonce
   void fetchNonceData(addressNonce, bool isTou) async {
-    print('是否为投票 $isTou');
+    print('isTou $isTou');
     dynamic address;
     if (status == 1) {
       address = nodeAddress;
@@ -212,7 +212,9 @@ class _AssetDposDetail extends State<AssetDposDetail> {
       'data': isTou ? '01010146$hex' : '00'
     };
     final ret = getTx(params);
-    print('发送参数$ret');
+    print('$ret');
+    print('$params');
+
     setState(() {
       txData = ret;
     });
@@ -222,8 +224,8 @@ class _AssetDposDetail extends State<AssetDposDetail> {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return CSScaffold(
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       scrollable: true,
       title: tr('asset:lbl_vote_detail'),
       child: StoreConnector<AppState, AssetWithdrawVM>(
@@ -249,7 +251,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                   FormBox(
                     type: FormBoxType.inputText,
 //                    title: tr('asset:withdraw_lbl_address'),
-                    title: tr('asset:super_node_address'), //超级节点地址
+                    title: tr('asset:super_node_address'), //super node address
                     hintText: tr(superNodeAddress),
                     // iconName: CSIcons.Scan,
                     // iconColor: context.bodyColor,
@@ -281,10 +283,10 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                     },
                   ),
                   FormBox(
-                    //超级节点名称
+                    //super node name
                     type: FormBoxType.inputText,
 //                    title: tr('asset:withdraw_lbl_address'),
-                    title: tr('asset:super_node_name'), //超级节点地址
+                    title: tr('asset:super_node_name'), //super node address
                     // iconName: CSIcons.Scan,
                     // iconColor: context.bodyColor,
                     readOnly: true,
@@ -318,7 +320,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                   FormBox(
                     type: FormBoxType.inputText,
 //                    title: tr('asset:withdraw_lbl_address'),
-                    title: tr('asset:amount_of_votes'), //投票金额
+                    title: tr('asset:amount_of_votes'), //vote amount
                     // iconName: CSIcons.Scan,
                     // iconColor: context.bodyColor,
                     readOnly: true,
@@ -349,25 +351,25 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                       }
                     },
                   ),
-                  FormBox( //投票地址余额
+                  FormBox( //vote address balance
                     type: FormBoxType.inputText,
                     title: tr('wallet:vote_address_balance'),
                     readOnly: true,
                     hintText: tr(voteAddressBalance),
                   ),
-                  FormBox( //投票地址锁定金额
+                  FormBox( //vote address locked amount
                     type: FormBoxType.inputText,
                     title: tr('wallet:vote_address_locked_amount'),
                     readOnly: true,
                     hintText: tr(voteLockedAmount),
                   ),
-                  FormBox( //复利地址余额
+                  FormBox( //address balance
                     type: FormBoxType.inputText,
                     title: tr('wallet:fuli_address_balance'),
                     readOnly: true,
                     hintText: tr(compoundInterestAddressBalance),
                   ),
-                  FormBox( //复利地址锁定
+                  FormBox( //address locked amount
                     type: FormBoxType.inputText,
                     title: tr('wallet:fuli_address_locked_amount'),
                     readOnly: true,
@@ -379,12 +381,12 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                         decoration: new BoxDecoration(
                           color: Color(0xFF17191C),
                           borderRadius:
-                              new BorderRadius.circular((12.0)), // 圆角度
+                              new BorderRadius.circular((12.0)),
                         ),
                         child: Column(
                           children: [
                             RadioListTile(
-                                //投票地址
+                                //vote address
                                 value: 1,
                                 onChanged: (value) {
                                   setState(() {
@@ -398,7 +400,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                                 selected: this.status == 1,
                                 activeColor: context.placeholderColor),
                             RadioListTile(
-                                //复利地址
+                                //address
                                 value: 0,
                                 onChanged: (value) {
                                   setState(() {
@@ -440,7 +442,6 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                     hintText: tr('asset:defi_vote_number'),
                     onFocusChanged: (hasFocus) {
                       if (!hasFocus) {
-                        //投票金额不得大于余额
                         bool exceedBalance = double.parse(addressBalance) -
                                 0.01 -
                                 int.parse(myController.text) <

@@ -39,7 +39,7 @@ class CSContainer extends StatelessWidget {
             // color: secondary == true
             //     ? context.bgSecondaryColor
             //     : context.bgPrimaryColor,
-            color: Color(0xFF17191C),
+            color: context.cardColor,
           ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
@@ -51,7 +51,7 @@ class CSContainer extends StatelessWidget {
                   child: child,
                 )
               : InkWell(
-                  splashColor: splashColor ?? context.bgSecondaryColor,
+                  splashColor: splashColor ?? context.cardColor,
                   borderRadius: BorderRadius.all(Radius.circular(radius)),
                   onTap: onTap,
                   child: Padding(

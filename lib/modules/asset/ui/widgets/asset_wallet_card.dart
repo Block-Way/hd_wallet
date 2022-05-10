@@ -65,8 +65,8 @@ class AssetWalletCard extends HookWidget {
                         tr('asset:lbl_bbc_address', namedArgs: {
                           'address': wallet.bbcAddress,
                         }),
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
+                        maxLines: 2,
+                        // overflow: TextOverflow.fade,
                         style: context.textSmall(),
                       ),
                       SizedBox(height: 8),
@@ -77,6 +77,7 @@ class AssetWalletCard extends HookWidget {
                           onPressed: () {
                             copyTextToClipboard(wallet.toString());
                             Toast.show(tr('global:msg_copy_success'));
+                            print('${wallet}');
                           },
                           bordered: false,
                           backgroundColor: Color(0xFF32383E),

@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
     return CSScaffold(
       hideLeading: true,
       titleCenter: false,
-      headerBgColor: Color(0xFF32383E),
-      backgroundColor: Color(0xFF32383E),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
         // Color(0xFF17191C)
       titleWidget: StoreConnector<AppState, HomePageVM>(
         distinct: true,
