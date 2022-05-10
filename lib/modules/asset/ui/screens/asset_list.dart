@@ -106,18 +106,17 @@ class AssetListPage extends StatelessWidget {
           });
         },
         onPressed: () {
-          // AssetWalletSelectPage.open().then((wallet) {
-          //   if (wallet != null) {
-          //     viewModel.doSwitchWallet(wallet);
-          //     // _ignoreIndexChange = true;
-          //     // final index = viewModel.wallets.indexOf(wallet);
-          //     // swiperController.move(index, animation: false).
-          //     // whenComplete(() {
-          //     //   _ignoreIndexChange = false;
-          //     // });
-          //   }
-          // });
-          print('dddd${viewModel}');
+          AssetWalletSelectPage.open().then((wallet) {
+            if (wallet != null) {
+              viewModel.doSwitchWallet(wallet);
+              // _ignoreIndexChange = true;
+              // final index = viewModel.wallets.indexOf(wallet);
+              // swiperController.move(index, animation: false).
+              // whenComplete(() {
+              //   _ignoreIndexChange = false;
+              // });
+            }
+          });
         },
       ),
     );
