@@ -145,7 +145,7 @@ class AssetListPage extends StatelessWidget {
         // decoration: context.boxDecorationOnlyTop(radius: 30),
         decoration: new BoxDecoration(
           borderRadius: new BorderRadius.vertical(top: Radius.elliptical(30, 30)),
-          color: Color(0xFF32383E),
+          color: context.cardColor
         ),
         padding: context.edgeAll,
         child: Column(

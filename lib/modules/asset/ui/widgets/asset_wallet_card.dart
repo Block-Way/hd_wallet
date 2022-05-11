@@ -50,17 +50,17 @@ class AssetWalletCard extends HookWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(width: 4),
-                          // CSButtonIcon(
-                          //   padding: EdgeInsets.only(
-                          //     right: 1,
-                          //     top: 1,
-                          //   ),
-                          //   containerSize: 14,
-                          //   size: 6,
-                          //   borderRadius: 14,
-                          //   icon: CSIcons.ArrowDown,
-                          //   disabled: true,
-                          // ),
+                          CSButtonIcon(
+                            padding: EdgeInsets.only(
+                              right: 1,
+                              top: 1,
+                            ),
+                            containerSize: 14,
+                            size: 6,
+                            borderRadius: 14,
+                            icon: CSIcons.ArrowDown,
+                            disabled: true,
+                          ),
                         ],
                       ),
                       SizedBox(height: 8),
@@ -69,19 +69,19 @@ class AssetWalletCard extends HookWidget {
                           'address': wallet.bbcAddress,
                         }),
                         maxLines: 2,
-                        // overflow: TextOverflow.fade,
+                        overflow: TextOverflow.fade,
                         style: context.textSmall(),
                       ),
                       SizedBox(height: 8),
                       SizedBox(
-                        width: 50,
-                        height: 20,
+                        width: 80,
+                        height: 32,
                         child: CSButton(
                           bordered: true,
                           borderColor: context.copyColor,
                           borderWidth: 1.0,
                           backgroundColor: Colors.transparent,
-                          borderRadius: 20,
+                          borderRadius: 40,
                           onPressed: () {
                             copyTextToClipboard(walletCoins[0].address.toString());
                             Toast.show(tr('global:msg_copy_success'));
@@ -119,7 +119,7 @@ class AssetWalletCard extends HookWidget {
               //     tr('asset:list_lbl_valuation'),
               //     style: context.textBody(
               //       bold: true,
-              //       color: context.bodyColor,
+              //       color: context.iconColor,
               //     ),
               //   ),
               // ),
@@ -134,7 +134,7 @@ class AssetWalletCard extends HookWidget {
           // Padding(
           //   padding: context.edgeAll16.copyWith(top: 0),
           //   child: AssetPriceListener(
-          //     symbol: 'BBC/USDT', // Update total when BBC price changes
+          //     symbol: 'HAH/USDT', // Update total when HAH price changes
           //     builder: (context, price, fiatCurrency, _) => PriceText(
           //       wallet.getTotalValuation(fiatCurrency),
           //       fiatCurrency,

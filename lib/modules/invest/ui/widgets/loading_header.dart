@@ -16,7 +16,7 @@ class LoadingHeader extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         hasWallet ? tr('global:lbl_loading') : '',
-        style: context.textSmall(color: context.bodyColor),
+        style: context.textSmall(color: context.iconColor),
       ),
     );
   }

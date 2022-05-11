@@ -39,11 +39,11 @@ class AppDrawerMenuVersion extends StatelessWidget {
             ),
           ),
           if (hasNew) CSBadge(size: 6),
-          Icon(
-            CSIcons.More,
-            size: 8,
-            color: context.blackColor,
-          ),
+          // Icon(
+          //   CSIcons.More,
+          //   size: 8,
+          //   color: context.blackColor,
+          // ),
         ],
       ),
     );

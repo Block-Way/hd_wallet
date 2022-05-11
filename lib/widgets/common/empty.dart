@@ -57,7 +57,10 @@ class CSEmpty extends HookWidget {
         if (showButton == true)
           CSButton(
             label: btnText,
-            backgroundColor: context.primaryColor,
+            backgroundColor: context.cardColor,
+            bordered: true,
+            borderColor: context.refreshBtnColor,
+            textColor: context.refreshBtnColor,
             borderRadius: 25,
             onPressed: onPressed,
             margin: EdgeInsets.only(top: 30),

@@ -24,7 +24,7 @@ class HomePricesCard extends StatelessWidget {
         children: [
           Text(
             tr('home:price_title'),
-            style: context.textMedium(bold: true),
+            style: context.textMedium(bold: true, color: context.cardTitleColor),
           ),
           Padding(
             padding: context.edgeTop,
@@ -35,7 +35,7 @@ class HomePricesCard extends StatelessWidget {
                   child: Text(
                     tr('home:price_lbl_pair'),
                     maxLines: 1,
-                    style: context.textSmall(),
+                    style: context.textSmall(color: context.cardSecondColor),
                   ),
                 ),
                 Expanded(
@@ -43,7 +43,7 @@ class HomePricesCard extends StatelessWidget {
                   child: Text(
                     tr('home:price_lbl_price'),
                     maxLines: 1,
-                    style: context.textSmall(),
+                    style: context.textSmall(color: context.cardSecondColor),
                   ),
                 ),
                 Expanded(
@@ -53,7 +53,7 @@ class HomePricesCard extends StatelessWidget {
                     child: Text(
                       tr('home:price_lbl_change'),
                       maxLines: 1,
-                      style: context.textSmall(),
+                      style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ),
                 )
@@ -91,6 +91,7 @@ class HomePricesCard extends StatelessWidget {
                         item.tradeSymbol,
                         item.priceSymbol,
                         TextSize.body,
+                        color: context.cardTitleColor
                       ),
                     ),
                     Expanded(
@@ -112,6 +113,7 @@ class HomePricesCard extends StatelessWidget {
                               item.displayPrice,
                               '',
                               TextSize.body,
+                              color: context.cardTitleColor
                             ),
                             SizedBox(height: 2),
                             PriceText(
@@ -119,7 +121,7 @@ class HomePricesCard extends StatelessWidget {
                               '888.99',
                               fiatCurrency,
                               TextSize.tiny,
-                              color: context.placeholderColor,
+                              color: context.cardSecondWordColor,
                               approximate: true,
                               sameStyle: true,
                             ),

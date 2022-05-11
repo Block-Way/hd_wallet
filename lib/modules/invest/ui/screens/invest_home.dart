@@ -54,7 +54,7 @@ class InvestHomePage extends HookWidget {
         width: 264,
         elevation: 100,
         decoration: BoxDecoration(
-          color: context.bgSecondaryColor,
+          color: context.mainColor,
           borderRadius: BorderRadius.horizontal(
             right: Radius.circular(24.0),
           ),
@@ -108,8 +108,8 @@ class InvestHomePage extends HookWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: const [
-                        Color(0xFF32383E),
-                        Color(0xFF32383E),
+                        Color(0xFF1F2229),
+                        Color(0xFF1F2229),
                       ],
                     ),
                   ),
@@ -143,8 +143,9 @@ class InvestHomePage extends HookWidget {
                         // ],
                       ),
                       CSContainer(
-                        decoration: context.boxDecorationOnlyTop(
-                          color: context.whiteColor.withOpacity(0.5),
+                        decoration: context.boxDecoration(
+                          // color: context.whiteColor.withOpacity(0.5),
+                          color: context.cardColor
                         ),
                         padding: EdgeInsets.zero,
                         margin: context.edgeHorizontal,

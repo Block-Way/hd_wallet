@@ -38,7 +38,7 @@ class HomeBanners extends StatelessWidget {
         width: bannerWidth,
         height: bannerHeight,
         radius: context.edgeSize,
-        backgroundColor: context.bgPrimaryColor,
+        backgroundColor: context.mainColor,
         fallbackUrl: 'assets/images/banner_default.png',
       );
     }

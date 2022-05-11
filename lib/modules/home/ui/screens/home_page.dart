@@ -140,9 +140,9 @@ class HomePage extends StatelessWidget {
                       },
                       customBorder: CircleBorder(),
                       child: CSImage(
-                        'assets/images/logo_hah.png',
-                        width: 44,
-                        height: 44,
+                        'assets/images/hamburger_tab.png',
+                        width: 25,
+                        height: 25,
                         backgroundColor: Colors.transparent,
                       ),
                     ),
