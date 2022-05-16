@@ -250,11 +250,11 @@ class AssetDetailPage extends HookWidget {
             Flexible(
               child: CSButton(
                 label: tr('asset:lbl_deposit'),
-                backgroundColor: Color(0xFF17191C),
+                backgroundColor: context.confirmTopColor,
                 onPressed: () {
                   AssetDepositPage.open(coinInfo);
                 },
-                textColor: context.placeholderColor,
+                textColor: context.confirmWordColor,
 
               ),
             ),

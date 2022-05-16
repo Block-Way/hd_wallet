@@ -224,8 +224,8 @@ class _CSExpansionTileState extends State<CSExpansionTile>
                   turns: _iconTurns,
                   child: Icon(
                     CSIcons.More,
-                    color: context.blackColor,
-                    size: 8,
+                    color: context.drawMoreColor,
+                    size: 12,
                   ),
                 ),
               ],

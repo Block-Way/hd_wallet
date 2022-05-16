@@ -31,8 +31,8 @@ class AppDrawerMenuTap extends StatelessWidget {
           ),
           Icon(
             CSIcons.More,
-            size: 8,
-            color: context.blackColor,
+            size: 12,
+            color: context.drawMoreColor,
           ),
         ],
       ),

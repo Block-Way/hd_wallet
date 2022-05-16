@@ -83,6 +83,8 @@ class WalletBackupPage extends HookWidget {
         SizedBox(height: 50),
         CSButton(
           label: tr('wallet:backup_btn_next'),
+          backgroundColor: context.confirmTopColor,
+          textColor: context.confirmWordColor,
           onPressed: () {
             step.value = _BackupStep.validateMnemonic;
           },

@@ -170,6 +170,10 @@ flutter:
     - assets/images/logo_hah.png
     - assets/images/2.0x/logo_hah.png
     - assets/images/hamburger_tab.png
+    - assets/images/social_twitter.png
+    - assets/images/social_tele.png
+    - assets/images/social_ins.png
+    - assets/images/social_facebook.png
     - assets/images/logo.svg
     - assets/images/2.0x/logo.svg
     - assets/images/3.0x/logo.svg

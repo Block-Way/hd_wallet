@@ -142,7 +142,7 @@ class FormBox extends HookWidget {
               style: context.textSecondary(
                 color: length < maxLength
                     ? context.placeholderColor
-                    : context.redColor,
+                    : context.warninColor,
               ),
             );
           },
@@ -166,16 +166,11 @@ class FormBox extends HookWidget {
 
     return Container(
       margin: margin ?? context.edgeAll,
-
       child: Column(
-
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: context.edgeBottom,
-            // decoration: new BoxDecoration(
-            //   color: Colors.grey,
-            // ),
             child: Row(
               children: [
                 Expanded(
@@ -205,7 +200,7 @@ class FormBox extends HookWidget {
                 decoration: InputDecoration(
                   hintText: hintText,
                   hintStyle: hintStyle ?? context.textPlaceholder(),
-                  errorStyle: context.textSecondary(color: context.redColor),
+                  errorStyle: context.textSecondary(color: context.warninColor),
                   errorMaxLines: 3,
                   alignLabelWithHint: true,
                   floatingLabelBehavior: FloatingLabelBehavior.always,

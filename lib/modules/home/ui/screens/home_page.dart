@@ -46,15 +46,15 @@ class HomePage extends StatelessWidget {
       headerBgColor: context.mainColor,
       backgroundColor: context.mainColor,
         // Color(0xFF17191C)
-      titleWidget: StoreConnector<AppState, HomePageVM>(
-        distinct: true,
-        converter: HomePageVM.fromStore,
-        builder: (context, viewModel) => Text(
-          tr('home:title'),
-          style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
-
-        ),
-      ),
+      // titleWidget: StoreConnector<AppState, HomePageVM>(
+      //   distinct: true,
+      //   converter: HomePageVM.fromStore,
+      //   builder: (context, viewModel) => Text(
+      //     tr('home:title'),
+      //     style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
+      //
+      //   ),
+      // ),
       outerChild: Container(
         width: double.infinity,
         height: 112,
@@ -171,10 +171,10 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              HomeBanners(
-                viewModel.homeBanners?.toList(),
-                handleOpenBannerPage,
-              ),
+              // HomeBanners(
+              //   viewModel.homeBanners?.toList(),
+              //   handleOpenBannerPage,
+              // ),
               /*
               CommunityTypeCard(
                 config: viewModel.communityConfig,
@@ -197,10 +197,10 @@ class HomePage extends StatelessWidget {
                 communityConfig: viewModel.communityConfig,
               ),*/
               SizedBox(height: 8),
-              AdmissionLatest(
-                list: viewModel.admissionList.toList(),
-                hasWallet: viewModel.hasWallet,
-              ),
+              // AdmissionLatest(
+              //   list: viewModel.admissionList.toList(),
+              //   hasWallet: viewModel.hasWallet,
+              // ),
               HomePricesCard(
                 prices: viewModel.homePrices.toList(),
                 doChangeTradePair: (tradePair) {

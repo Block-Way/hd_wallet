@@ -73,6 +73,36 @@ extension ColorStyles on BuildContext {
     return const Color(0xFFDEAE6A);
   }
 
+  ///#ECC586
+  Color get confirmTopColor {
+    return const Color(0xFFECC586 );
+  }
+
+  ///#DCAA65
+  Color get confirmBottomColor {
+    return const Color(0xFFDCAA65);
+  }
+
+  ///#673704
+  Color get confirmWordColor {
+    return const Color(0xFF673704);
+  }
+
+  ///#FF4141
+  Color get warninColor {
+    return const Color(0xFFFF4141);
+  }
+
+  ///#8A8A8A
+  Color get drawMoreColor {
+    return const Color(0xFF8A8A8A);
+  }
+
+  ///#1F2229
+  Color get languageBgColor {
+    return const Color(0xFF1F2229);
+  }
+
   /// #999999
   Color get secondaryColor {
     return const Color(0xFF999999);
@@ -141,9 +171,10 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF17191C).withOpacity(0.5);
   }
 
-  /// #333333 withOpacity
+  /// #1F2229
   Color get btnDisabledTextColor {
-    return const Color(0xFF333333).withOpacity(0.5);
+    // return const Color(0xFF333333).withOpacity(0.5);
+    return const Color(0xFF1F2229).withOpacity(0.5);
   }
 
   ///*** Backgrounds ***///

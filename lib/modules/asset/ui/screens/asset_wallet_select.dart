@@ -66,7 +66,8 @@ class AssetWalletSelectPage extends StatelessWidget {
       child: FormCell(
         autoHeight: true,
         padding: context.edgeVertical8,
-        hideAccess: activeWalletId == wallet.id,
+        // hideAccess: activeWalletId == wallet.id,
+        hideAccess: true,
         cmpRight: activeWalletId == wallet.id
             ? CSButtonIcon(
                 padding: EdgeInsets.only(
@@ -77,8 +78,19 @@ class AssetWalletSelectPage extends StatelessWidget {
                 size: 6,
                 borderRadius: 16,
                 icon: CSIcons.WalletCheck,
+                background: context.confirmTopColor,
+                color: context.confirmWordColor,
               )
-            : Container(),
+            : CSButtonIcon(
+                padding: EdgeInsets.only(
+                  right: 2,
+                  top: 1,
+                ),
+                containerSize: 16,
+                size: 6,
+                borderRadius: 16,
+                icon: CSIcons.WalletCheck,
+              ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

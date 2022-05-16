@@ -200,23 +200,23 @@ class HelpCenterPage extends HookWidget {
     ];
 
     return CSScaffold(
-      headerBgColor: context.primaryColor,
+      headerBgColor: context.mainColor,
       backgroundColor: context.whiteColor,
       child: Column(
         children: [
           Container(
-            color: context.primaryColor,
+            color: context.mainColor,
             child: Transform.translate(
               offset: Offset(0, context.edgeSize),
               child: Container(
-                color: context.primaryColor,
+                color: context.mainColor,
                 padding: context.edgeAll.copyWith(top: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       tr('user:help_title'),
-                      style: context.textHuge(bold: true),
+                      style: context.textHuge(bold: true, color: context.iconColor),
                     ),
                     CSImage(
                       'assets/images/help_bg.png',
@@ -280,6 +280,7 @@ class HelpCenterPage extends HookWidget {
           CSButton(
             margin: context.edgeVertical,
             label: tr('user:help_btn_more'),
+              textColor: context.iconColor,
             onPressed: () {
               WebViewPage.open(tr('user:help_btn_more_url'));
             },

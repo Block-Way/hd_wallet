@@ -163,19 +163,19 @@ class AppDrawer extends StatelessWidget {
               Spacer(),
               Row(children: const [
                 AppDrawerMenuSocial(
-                  icon: CSIcons.Twitter,
+                  icon: 'assets/images/social_twitter.png',
                   // url: AppLinks.appTwitter,
                 ),
                 AppDrawerMenuSocial(
-                  icon: CSIcons.Facebook,
+                  icon: 'assets/images/social_facebook.png',
                   // url: AppLinks.appFacebook,
                 ),
                 AppDrawerMenuSocial(
-                  icon: CSIcons.Instagram,
+                  icon: 'assets/images/social_ins.png',
                   // url: AppLinks.appInstagram,
                 ),
                 AppDrawerMenuSocial(
-                  icon: CSIcons.Telegram,
+                  icon: 'assets/images/social_tele.png',
                   // url: AppLinks.appTelegram,
                 ),
               ]),

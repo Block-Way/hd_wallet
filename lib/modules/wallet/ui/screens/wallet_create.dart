@@ -158,7 +158,9 @@ class WalletCreatePage extends HookWidget {
                   listenValues: [fieldName, fieldPwd1, fieldPwd2],
                   builder: (disabled) {
                     return CSButton(
-                      disabled: disabled,
+                      // disabled: disabled,
+                      textColor: context.confirmWordColor,
+                      backgroundColor: context.confirmTopColor,
                       label: importMnemonic.isEmpty
                           ? tr('wallet:create_btn_submit')
                           : tr('wallet:import_btn_submit'),

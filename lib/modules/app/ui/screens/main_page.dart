@@ -52,6 +52,14 @@ class AppMainPage extends HookWidget {
 
   final tabBarItems = [
     TabBarItem(
+      AssetMainTab(),
+      'global:main_tab_wallet',
+      '',
+      '',
+      'wallet',
+      'Wallet',
+    ),
+    TabBarItem(
       HomeMainTab(),
       'global:main_tab_home',
       '',
@@ -67,14 +75,7 @@ class AppMainPage extends HookWidget {
     //   'trade',
     //   'Trading',
     // ),
-    TabBarItem(
-      AssetMainTab(),
-      'global:main_tab_wallet',
-      '',
-      '',
-      'wallet',
-      'Wallet',
-    ),
+
     if (AppConstants.isBeta)
       TabBarItem(
         InvestMainTab(),

@@ -114,6 +114,8 @@ class AssetDepositPage extends HookWidget {
                 SizedBox(height: 16),
                 CSButton(
                   label: tr('asset:deposit_btn_address_save'),
+                  backgroundColor: context.confirmTopColor,
+                  textColor: context.confirmWordColor,
                   width: context.mediaWidth - 48,
                   onPressed: () {
                     saveQRCodeView(context);

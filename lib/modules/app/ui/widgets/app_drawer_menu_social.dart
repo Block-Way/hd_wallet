@@ -8,7 +8,7 @@ class AppDrawerMenuSocial extends StatelessWidget {
   }) : super(key: key);
 
   final String url;
-  final IconData icon;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,16 @@ class AppDrawerMenuSocial extends StatelessWidget {
       },
       child: Padding(
         padding: context.edgeAll,
-        child: Icon(
+        // child: Icon(
+        //   icon,
+        //   size: 28,
+        //   color: context.blackColor,
+        // ),
+        child: CSImage(
           icon,
-          size: 28,
-          color: context.blackColor,
+          width: 30,
+          height: 30,
+          backgroundColor: Colors.transparent,
         ),
       ),
     );

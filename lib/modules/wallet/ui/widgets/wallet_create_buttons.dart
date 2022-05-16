@@ -51,8 +51,8 @@ class WalletCreateButtons extends StatelessWidget {
               Flexible(
                 child: CSButton(
                   label: tr('wallet:create_title'),
-                  textColor: context.placeholderColor,
-                  backgroundColor: Color(0xFF2a3037),
+                  backgroundColor: context.confirmTopColor,
+                  textColor: context.confirmWordColor,
                   onPressed: () {
                     if (isUseDialog) {
                       AppNavigator.goBack();

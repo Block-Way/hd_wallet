@@ -110,6 +110,8 @@ class WalletImportPage extends HookWidget {
                   return CSButton(
                     disabled: disabled,
                     label: tr('wallet:backup_btn_next'),
+                    backgroundColor: context.confirmTopColor,
+                    textColor: context.confirmWordColor,
                     onPressed: () {
                       doImportWallet(
                         context,

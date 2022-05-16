@@ -142,8 +142,8 @@ class WalletPasswordDialog extends HookWidget {
                   builder: (context, snapshot) => CSButton(
                     label: tr('global:btn_commit'),
                     disabled: snapshot.data,
-                    backgroundColor: Color(0xFF2f3741),
-                    textColor: context.placeholderColor,
+                    backgroundColor: context.confirmTopColor,
+                    textColor: context.confirmWordColor,
                     onPressed: () {
                       handleSubmit(context, fieldPassword.text);
                     },

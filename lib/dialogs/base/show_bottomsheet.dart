@@ -35,7 +35,7 @@ void showCSBottomSheet(
       child: Container(
         decoration: BoxDecoration(
           borderRadius: radiusTop,
-          color: context.bgPrimaryColor,
+          color: context.cardColor,
         ),
         constraints: BoxConstraints(
           maxHeight: _maxHeight + dragHeight,
@@ -63,7 +63,7 @@ void showCSBottomSheet(
             Container(
               decoration: BoxDecoration(
                 borderRadius: radiusTop,
-                color: context.bgPrimaryColor,
+                color: context.cardColor,
               ),
               // If Keyboard is visible, do not add SafeAreaView bottom padding
               // If there is not Keyboard, add SafeAreaView bottom padding

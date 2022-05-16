@@ -28,7 +28,7 @@ class AppDrawerMenuLanguage extends HookWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: context.bgSecondaryColor,
+          color: context.languageBgColor,
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(16),
           ),
