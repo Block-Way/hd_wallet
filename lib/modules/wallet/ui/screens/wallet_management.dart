@@ -121,7 +121,7 @@ class WalletManagementPage extends HookWidget {
               child: Text(
                 tr('wallet:management_title'),
                 style: context.textBody(
-                  color: context.labelColor,
+                  color: context.iconColor,
                   bold: true,
                 ),
               ),

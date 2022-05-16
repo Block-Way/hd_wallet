@@ -195,7 +195,7 @@ class FormBox extends HookWidget {
                 focusNode: focusNode,
                 autofocus: autoFocus,
                 initialValue: controller != null ? null : initialValue ?? value,
-                cursorColor: context.bodyColor,
+                cursorColor: context.languageBgColor,
                 style: inputTextStyle ?? context.textBody(),
                 decoration: InputDecoration(
                   hintText: hintText,
@@ -214,8 +214,8 @@ class FormBox extends HookWidget {
                     minWidth: 28,
                   ),
                   filled: true,
-                  // fillColor: context.whiteColor,
-                  fillColor:  context.cardColor,
+                  fillColor:  context.languageBgColor,
+
                   border: OutlineInputBorder(
                     gapPadding: 0,
                     borderSide: bordered == true

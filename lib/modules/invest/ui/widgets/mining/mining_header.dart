@@ -21,7 +21,7 @@ class MiningHeader extends StatelessWidget {
         children: [
           Text(
             tr('invest:mining_lbl_header'),
-            style: context.textSmall(color: context.bodyColor),
+            style: context.textSmall(color: context.iconColor),
           ),
           SizedBox(height: 6),
           PriceText(

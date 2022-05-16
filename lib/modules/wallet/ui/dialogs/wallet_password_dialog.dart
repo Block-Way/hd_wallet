@@ -108,7 +108,7 @@ class WalletPasswordDialog extends HookWidget {
               tr('wallet:lbl_verify_pwd_countdown', namedArgs: {
                 'seconds': snapshot.data.toString(),
               }),
-              style: context.textSecondary(),
+              style: context.textSecondary(color: context.confirmTopColor),
             ),
           ),
           hintText: tr('wallet:hint_verify_pwd'),

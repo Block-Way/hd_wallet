@@ -14,6 +14,7 @@ class MiningRewardItem extends StatelessWidget {
     final symbol = mintItem.symbol;
     return CSContainer(
       margin: context.edgeAll.copyWith(top: 0),
+      decoration: BoxDecoration(color: context.cardColor),
       child: Column(
         children: [
           Row(
@@ -46,6 +47,7 @@ class MiningRewardItem extends StatelessWidget {
           ),
           CSContainer(
             margin: context.edgeTop,
+            decoration: BoxDecoration(color: context.cardColor),
             secondary: true,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,12 +56,12 @@ class MiningRewardItem extends StatelessWidget {
                   children: [
                     Text(
                       tr('invest:mining_record_lbl_holding'),
-                      style: context.textSecondary(color: context.bodyColor),
+                      style: context.textSecondary(color: context.cardSecondColor),
                     ),
                     SizedBox(height: context.edgeSizeHalf),
                     Text(
                       item.stakeReward ?? '0',
-                      style: context.textSmall(color: context.bodyColor),
+                      style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ],
                 ),
@@ -68,12 +70,12 @@ class MiningRewardItem extends StatelessWidget {
                   children: [
                     Text(
                       tr('invest:mining_record_lbl_invitation'),
-                      style: context.textSecondary(color: context.bodyColor),
+                      style: context.textSecondary(color: context.cardSecondColor),
                     ),
                     SizedBox(height: context.edgeSizeHalf),
                     Text(
                       item.promotionReward ?? '0',
-                      style: context.textSmall(color: context.bodyColor),
+                      style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ],
                 )
