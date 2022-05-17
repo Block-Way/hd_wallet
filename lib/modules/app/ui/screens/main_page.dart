@@ -264,7 +264,6 @@ class AppMainPage extends HookWidget {
         ),
         bottomNavigationBar: BottomAppBar(
           color: context.bgPrimaryColor,
-
           shape: CircularNotchedRectangle(),
           elevation: 0.0,
           child: Container(
