@@ -60,6 +60,7 @@ class HomePricesCard extends StatelessWidget {
               ],
             ),
           ),
+
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -85,6 +86,7 @@ class HomePricesCard extends StatelessWidget {
                 height: 50,
                 child: Row(
                   children: [
+                    SizedBox(height: 15),
                     Expanded(
                       flex: 4,
                       child: TextTradePair(

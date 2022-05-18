@@ -110,6 +110,7 @@ class HelpCenterPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final links = [
       HelpCenterGroup(
         icon: CSIcons.Help,
@@ -199,34 +200,58 @@ class HelpCenterPage extends HookWidget {
       ),
     ];
 
+    final searchController = useTextEditingController(text: '');
+    void handleSearch() {
+      print('sjisoifjas');
+    }
     return CSScaffold(
+      hideLeading: true,
+      titleCenter: false,
+      title: tr('user:help_title'),
       headerBgColor: context.mainColor,
-      backgroundColor: context.whiteColor,
+      backgroundColor: context.mainColor,
+      titleStyle: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
       child: Column(
         children: [
-          Container(
-            color: context.mainColor,
-            child: Transform.translate(
-              offset: Offset(0, context.edgeSize),
-              child: Container(
-                color: context.mainColor,
-                padding: context.edgeAll.copyWith(top: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr('user:help_title'),
-                      style: context.textHuge(bold: true, color: context.iconColor),
-                    ),
-                    CSImage(
-                      'assets/images/help_bg.png',
-                      backgroundColor: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
+          // Container(
+          //   color: context.mainColor,
+          //   child: Transform.translate(
+          //     offset: Offset(0, context.edgeSize),
+          //     child: Container(
+          //       color: context.mainColor,
+          //       padding: context.edgeAll.copyWith(top: 0),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           Text(
+          //             tr('user:help_title'),
+          //             style: context.textHuge(bold: true, color: context.iconColor),
+          //           ),
+          //           CSImage(
+          //             'assets/images/help_bg.png',
+          //             backgroundColor: Colors.transparent,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          SizedBox(height: 32),
+          CSSearchInput(
+            controller: searchController,
+            autofocus: false,
+            radius: 25,
+            maxLength: 256,
+            margin: context.edgeHorizontal,
+            hintText: 'Please enter your problem',
+            showSearchIcon: false,
+            onChanged: (_) {},
+            hintStyle: context.textSmall(),
+            cmpRight: CSButtonIcon(
+              icon: CSIcons.Search
             ),
           ),
+          SizedBox(height: 32),
           Expanded(
             child: Container(
               decoration: context.boxDecorationOnlyTop(),
