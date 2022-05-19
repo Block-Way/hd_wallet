@@ -236,6 +236,7 @@ class HelpCenterPage extends HookWidget {
           //     ),
           //   ),
           // ),
+
           SizedBox(height: 32),
           CSSearchInput(
             controller: searchController,
@@ -247,11 +248,20 @@ class HelpCenterPage extends HookWidget {
             showSearchIcon: false,
             onChanged: (_) {},
             hintStyle: context.textSmall(),
+            background: context.mainColor,
             cmpRight: CSButtonIcon(
-              icon: CSIcons.Search
+              icon: CSIcons.Search,
+                borderRadius: 40.0,
+              background: context.mainColor,
+              size: 16
             ),
           ),
           SizedBox(height: 32),
+          Container(
+              child: CSTabBar(
+                itemList: 'test'
+              )
+          ),
           Expanded(
             child: Container(
               decoration: context.boxDecorationOnlyTop(),

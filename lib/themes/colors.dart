@@ -39,6 +39,10 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF1F2229);
   }
 
+  Color get helpColor{
+    return const Color(0xFF303644);
+  }
+
   ///#2B2E37
   Color get cardColor{
     return const Color(0xFF2B2E37);

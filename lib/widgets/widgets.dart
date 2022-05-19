@@ -51,6 +51,7 @@ part 'button/button_utils.dart';
 part 'common/badge.dart';
 part 'common/empty.dart';
 part 'common/loadmore.dart';
+part 'common/tabbar.dart';
 part 'form/form_box_field.dart';
 part 'form/form_box_password.dart';
 part 'form/form_box_phone.dart';
