@@ -1,0 +1,24 @@
+# pre-push:
+#     parallel: true
+#     commands:
+#         tests:
+#         run: flutter test
+#         linter:
+#         run: flutter analyze
+
+commit-msg:
+  commands:
+    linter:
+      run: commitlint --edit
+
+pre-commit:
+  piped: true
+  commands:
+    linter:
+      run: flutter analyze lib
+    sort-imports:
+      glob: "*.dart"
+      run: flutter pub run import_sorter:main && git add {staged_files}
+    pretty:
+      glob: "*.dart"
+      run: flutter format {staged_files} && git add {staged_files}

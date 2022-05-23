@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter: Run",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "preLaunchTask": "build_runner_watch"
+    },
+    {
+      "name": "Flutter: Run Without Watch",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "Flutter: Attach to Device",
+      "type": "dart",
+      "request": "attach"
+    },
+    {
+      "name": "Flutter: Run Without Install (Android)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "args": [
+        "--use-application-binary=build/app/outputs/apk/debug/app-debug.apk"
+      ]
+    },
+    {
+      "name": "Run Build Locales",
+      "request": "launch",
+      "type": "dart",
+      "program": "tool/build_locales.dart"
+    }
+  ]
+}
