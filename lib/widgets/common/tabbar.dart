@@ -27,12 +27,12 @@ class _CSTabBarState extends State<CSTabBar>
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: Colors.orange),
+      data: ThemeData(primaryColor: context.mainColor),
       child: Scaffold(
         appBar: AppBar(
           elevation: 1.0,
           centerTitle: true,
-          title: Text('首页',style: TextStyle(fontSize: 24.0,color: Colors.white),),
+          title: Text(tr('user:help_title'),style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor)),
         ),
         body: NestedScrollView(
           controller: _scrollController,
@@ -44,23 +44,23 @@ class _CSTabBarState extends State<CSTabBar>
                 expandedHeight: 80,
 
                 bottom: TabBar(controller: _tabController, tabs: [
-                  Tab(text: "test1",),
-                  Tab(text: "test2",),
-                  Tab(text: "test3",),
-                  Tab(text: "test4",),
-                  Tab(text: "test5",),
+                  Tab(text: tr('user:help_quick_title')),
+                  Tab(text: tr('user:help_manual_title')),
+                  Tab(text: tr('user:help_operation_title')),
+                  Tab(text: tr('user:help_asset_title')),
+                  Tab(text: tr('user:help_transaction_title')),
                 ],
                   isScrollable: true,
-                  indicatorColor: Color(0xffff0000),
+                  indicatorColor: context.tabBarColor,
                   indicatorWeight: 1,
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: EdgeInsets.only(bottom: 10.0),
+                  indicatorPadding: EdgeInsets.only(bottom: 20.0),
 //                  labelPadding: EdgeInsets.only(left: 20),
-                  labelColor: Color(0xff333333),
+                  labelColor: context.tabBarColor,
                   labelStyle: TextStyle(
                     fontSize: 15.0,
                   ),
-                  unselectedLabelColor: Colors.yellowAccent,
+                  unselectedLabelColor: context.tabBarColor,
                   unselectedLabelStyle: TextStyle(
                     fontSize: 12.0,
                   ),

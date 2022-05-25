@@ -72,6 +72,11 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF95969B);
   }
 
+  ///#d9d7d8
+  Color get tabBarColor {
+    return const Color(0xFFD9D7D8);
+  }
+
   ///#DEAE6A
   Color get refreshBtnColor {
     return const Color(0xFFDEAE6A);
