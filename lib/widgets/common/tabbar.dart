@@ -39,23 +39,22 @@ class _CSTabBarState extends State<CSTabBar>
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                //吸顶
                 pinned: true,
                 floating: true,
                 expandedHeight: 80,
 
                 bottom: TabBar(controller: _tabController, tabs: [
-                  Tab(text: "鉴定",),
-                  Tab(text: "古玩",),
-                  Tab(text: "瓷器",),
-                  Tab(text: "收藏",),
-                  Tab(text: "乐趣",),
+                  Tab(text: "test1",),
+                  Tab(text: "test2",),
+                  Tab(text: "test3",),
+                  Tab(text: "test4",),
+                  Tab(text: "test5",),
                 ],
                   isScrollable: true,
                   indicatorColor: Color(0xffff0000),
                   indicatorWeight: 1,
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: EdgeInsets.only(bottom: 0.0),
+                  indicatorPadding: EdgeInsets.only(bottom: 10.0),
 //                  labelPadding: EdgeInsets.only(left: 20),
                   labelColor: Color(0xff333333),
                   labelStyle: TextStyle(
@@ -72,11 +71,11 @@ class _CSTabBarState extends State<CSTabBar>
           body: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              _buildListView("鉴定:"),
-              _buildListView("古玩:"),
-              _buildListView("瓷器:"),
-              _buildListView("收藏:"),
-              _buildListView("乐趣:"),
+              _buildListView("test1:"),
+              _buildListView("test2:"),
+              _buildListView("test3:"),
+              _buildListView("test4:"),
+              _buildListView("test5:"),
             ],
           ),
         ),
