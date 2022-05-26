@@ -24,14 +24,74 @@ class _CSTabBarState extends State<CSTabBar>
     _tabController.dispose();
   }
 
+  List listDataQuick = [
+    {
+      "title": "user:help_quick_question_1",
+    },
+    {
+      "title": "user:help_quick_question_2",
+    },
+    {
+      "title": "user:help_quick_question_3",
+    }
+  ];
+
+  List listDataManual = [
+    {
+      "title": "user:help_manual_question_1",
+    },
+    {
+      "title": "user:help_manual_question_2",
+    },
+    {
+      "title": "user:help_manual_question_3",
+    }
+  ];
+
+  List listDataOperation = [
+    {
+      "title": "user:help_operation_question_1",
+    },
+    {
+      "title": "user:help_operation_question_2",
+    }
+  ];
+
+  List listDataAsset = [
+    {
+      "title": "user:help_asset_question_1",
+    },
+    {
+      "title": "user:help_asset_question_2",
+    },
+    {
+      "title": "user:help_asset_question_3",
+    },
+    {
+      'title': 'user:help_asset_question_4'
+    }
+  ];
+
+  List listDataTransaction = [
+    {
+      "title": "user:help_transaction_question_1",
+    },
+    {
+      "title": "user:help_transaction_question_2",
+    },
+    {
+      "title": "user:help_transaction_question_3",
+    }
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: context.mainColor),
+      data: ThemeData(primaryColor: context.cardColor),
       child: Scaffold(
         appBar: AppBar(
           elevation: 1.0,
-          centerTitle: true,
+          centerTitle: false,
           title: Text(tr('user:help_title'),style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor)),
         ),
         body: NestedScrollView(
@@ -42,7 +102,7 @@ class _CSTabBarState extends State<CSTabBar>
                 pinned: true,
                 floating: true,
                 expandedHeight: 80,
-
+                automaticallyImplyLeading: false, //hide left back arrow
                 bottom: TabBar(controller: _tabController, tabs: [
                   Tab(text: tr('user:help_quick_title')),
                   Tab(text: tr('user:help_manual_title')),
@@ -52,9 +112,9 @@ class _CSTabBarState extends State<CSTabBar>
                 ],
                   isScrollable: true,
                   indicatorColor: context.tabBarColor,
-                  indicatorWeight: 1,
+                  indicatorWeight: 3,
                   indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: EdgeInsets.only(bottom: 20.0),
+                  indicatorPadding: EdgeInsets.only(bottom: 10.0),
 //                  labelPadding: EdgeInsets.only(left: 20),
                   labelColor: context.tabBarColor,
                   labelStyle: TextStyle(
@@ -71,11 +131,11 @@ class _CSTabBarState extends State<CSTabBar>
           body: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              _buildListView("test1:"),
-              _buildListView("test2:"),
-              _buildListView("test3:"),
-              _buildListView("test4:"),
-              _buildListView("test5:"),
+              _buildListView(listDataQuick),
+              _buildListView(listDataManual),
+              _buildListView(listDataOperation),
+              _buildListView(listDataAsset),
+              _buildListView(listDataTransaction),
             ],
           ),
         ),
@@ -83,18 +143,34 @@ class _CSTabBarState extends State<CSTabBar>
     );
   }
 
-  Widget _buildListView(String s) {
-    return ListView.separated(
-        itemCount: 20,
-        separatorBuilder: (BuildContext context, int index) =>
-            Divider(
-              color: Colors.grey,
-              height: 1,
-            ),
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-              color: Colors.white,
-              child: ListTile(title: Text("$s第$index 个条目")));
-        });
+  List<Widget> getQuestionList(List targetList) {
+    var tempList = targetList.map((value) {
+      return ListTile(
+        title: Text(tr(value["title"].toString())),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () => {
+          doOpenUrl('https://www.google.com')
+        },
+      );
+    });
+    return tempList.toList();
+  }
+
+
+  Widget _buildListView(List listView) {
+    return ListView(
+        // itemCount: 4,
+        // separatorBuilder: (BuildContext context, int index) =>
+        //     Divider(
+        //       color: Colors.grey,
+        //       height: 1,
+        //     ),
+        // itemBuilder: (BuildContext context, int index) {
+        //   return ListView(
+        //     children: getQuestionList(),
+        //   );
+        // }
+      children: getQuestionList(listView),
+        );
   }
 }

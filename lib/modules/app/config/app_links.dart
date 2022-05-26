@@ -17,7 +17,7 @@ class AppLinks {
   static String appContactUrl(String lang) =>
       lang == 'zh' ? appContactUrlZh : appContactUrlEn;
 
-  static const appWebsiteUrl = 'https://blockway.io/';
+  static const appWebsiteUrl = 'http://hashahead.org';
 
   static const appTwitter = 'https://www.twitter.com/sugarofficial0';
   static const appFacebook = 'https://www.facebook.com/sugaroffcial';
