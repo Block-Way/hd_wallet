@@ -103,19 +103,19 @@ class _CSTabBarState extends State<CSTabBar>
                 floating: true,
                 expandedHeight: 180,
                 automaticallyImplyLeading: false, //hide left back arrow
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  background: Container(
-                    // height: double.infinity,
-                    height: 500,
-                    color: context.searchBgColor,
-                    // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                    padding: EdgeInsets.symmetric(vertical: 54),
-                    child: Column(
-                      children: <Widget>[_searchInput()],
-                    ),
-                  ),
-                ),
+                // flexibleSpace: FlexibleSpaceBar(
+                //   collapseMode: CollapseMode.pin,
+                //   background: Container(
+                //     // height: double.infinity,
+                //     height: 500,
+                //     color: context.searchBgColor,
+                //     // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                //     padding: EdgeInsets.symmetric(vertical: 54),
+                //     child: Column(
+                //       children: <Widget>[_searchInput()],
+                //     ),
+                //   ),
+                // ),
                 bottom: TabBar(
                   controller: _tabController,
                   tabs: [
@@ -169,25 +169,26 @@ class _CSTabBarState extends State<CSTabBar>
     return tempList.toList();
   }
 
-  Widget _searchInput() {
-    return CSSearchInput(
-      // controller: searchController,
-      autofocus: true,
-      radius: 25,
-      maxLength: 256,
-      margin: context.edgeHorizontal,
-      hintText: 'Please enter your problem',
-      showSearchIcon: false,
-      onChanged: (_) {},
-      hintStyle: context.textSmall(),
-      background: context.mainColor,
-      cmpRight: CSButtonIcon(
-          icon: CSIcons.Search,
-          borderRadius: 40.0,
-          background: context.mainColor,
-          size: 16),
-    );
-  }
+  // Widget _searchInput() {
+  //   return Text(tr('ddddd'));
+  //   // return CSSearchInput(
+  //   //   // controller: searchController,
+  //   //   autofocus: true,
+  //   //   radius: 25,
+  //   //   maxLength: 256,
+  //   //   margin: context.edgeHorizontal,
+  //   //   hintText: 'Please enter your problem',
+  //   //   showSearchIcon: false,
+  //   //   onChanged: (_) {},
+  //   //   hintStyle: context.textSmall(),
+  //   //   background: context.mainColor,
+  //   //   cmpRight: CSButtonIcon(
+  //   //       icon: CSIcons.Search,
+  //   //       borderRadius: 40.0,
+  //   //       background: context.mainColor,
+  //   //       size: 16),
+  //   // );
+  // }
 
   Widget _buildListView(List listView) {
     // return ListView.separated(
@@ -206,8 +207,9 @@ class _CSTabBarState extends State<CSTabBar>
     //         ),
     //       );
     //     });
-    return ListView(
-      children: getQuestionList(listView),
-    );
+    // return ListView(
+    //   children: getQuestionList(listView),
+    // );
+    return Text(tr('dddddd'));
   }
 }
