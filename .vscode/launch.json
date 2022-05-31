@@ -6,6 +6,9 @@
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
+      "args": [
+        "--no-sound-null-safety"
+      ],
       "preLaunchTask": "build_runner_watch"
     },
     {

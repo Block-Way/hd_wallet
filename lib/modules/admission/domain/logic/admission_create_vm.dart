@@ -9,7 +9,7 @@ abstract class AdmissionCreateVM
 
 // Fields
   @nullable
-  String get walletId;
+  String? get walletId;
 
 // Withdraw Methods
   @override
