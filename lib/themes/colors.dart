@@ -62,6 +62,16 @@ extension ColorStyles on BuildContext {
     return const Color(0xFFEAEAEB);
   }
 
+  ///#2e3343
+  Color get searchBgColor {
+    return const Color(0xFF2E3343);
+  }
+
+  ///#202328
+  Color get searchTextColor {
+    return const Color(0xFF202328);
+  }
+
   ///#7F8187#
   Color get cardSecondColor {
     return const Color(0xFF7F8187);

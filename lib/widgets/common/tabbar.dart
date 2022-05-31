@@ -6,7 +6,7 @@ class CSTabBar extends StatefulWidget {
 }
 
 class _CSTabBarState extends State<CSTabBar>
-  with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
   TabController _tabController;
 
@@ -67,9 +67,7 @@ class _CSTabBarState extends State<CSTabBar>
     {
       "title": "user:help_asset_question_3",
     },
-    {
-      'title': 'user:help_asset_question_4'
-    }
+    {'title': 'user:help_asset_question_4'}
   ];
 
   List listDataTransaction = [
@@ -83,7 +81,7 @@ class _CSTabBarState extends State<CSTabBar>
       "title": "user:help_transaction_question_3",
     }
   ];
-
+  final searchController = useTextEditingController(text: '');
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -92,7 +90,9 @@ class _CSTabBarState extends State<CSTabBar>
         appBar: AppBar(
           elevation: 1.0,
           centerTitle: false,
-          title: Text(tr('user:help_title'),style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor)),
+          title: Text(tr('user:help_title'),
+              style: context.textHuge(
+                  fontWeight: FontWeight.w700, color: context.bgPrimaryColor)),
         ),
         body: NestedScrollView(
           controller: _scrollController,
@@ -101,15 +101,30 @@ class _CSTabBarState extends State<CSTabBar>
               SliverAppBar(
                 pinned: true,
                 floating: true,
-                expandedHeight: 80,
+                expandedHeight: 180,
                 automaticallyImplyLeading: false, //hide left back arrow
-                bottom: TabBar(controller: _tabController, tabs: [
-                  Tab(text: tr('user:help_quick_title')),
-                  Tab(text: tr('user:help_manual_title')),
-                  Tab(text: tr('user:help_operation_title')),
-                  Tab(text: tr('user:help_asset_title')),
-                  Tab(text: tr('user:help_transaction_title')),
-                ],
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.pin,
+                  background: Container(
+                    // height: double.infinity,
+                    height: 500,
+                    color: context.searchBgColor,
+                    // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    padding: EdgeInsets.symmetric(vertical: 54),
+                    child: Column(
+                      children: <Widget>[_searchInput()],
+                    ),
+                  ),
+                ),
+                bottom: TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(text: tr('user:help_quick_title')),
+                    Tab(text: tr('user:help_manual_title')),
+                    Tab(text: tr('user:help_operation_title')),
+                    Tab(text: tr('user:help_asset_title')),
+                    Tab(text: tr('user:help_transaction_title')),
+                  ],
                   isScrollable: true,
                   indicatorColor: context.tabBarColor,
                   indicatorWeight: 3,
@@ -148,29 +163,51 @@ class _CSTabBarState extends State<CSTabBar>
       return ListTile(
         title: Text(tr(value["title"].toString())),
         trailing: Icon(Icons.keyboard_arrow_right),
-        onTap: () => {
-          doOpenUrl('https://www.google.com')
-        },
+        onTap: () => {doOpenUrl('https://www.google.com')},
       );
     });
     return tempList.toList();
   }
 
+  Widget _searchInput() {
+    return CSSearchInput(
+      // controller: searchController,
+      autofocus: true,
+      radius: 25,
+      maxLength: 256,
+      margin: context.edgeHorizontal,
+      hintText: 'Please enter your problem',
+      showSearchIcon: false,
+      onChanged: (_) {},
+      hintStyle: context.textSmall(),
+      background: context.mainColor,
+      cmpRight: CSButtonIcon(
+          icon: CSIcons.Search,
+          borderRadius: 40.0,
+          background: context.mainColor,
+          size: 16),
+    );
+  }
 
   Widget _buildListView(List listView) {
+    // return ListView.separated(
+    //     itemCount: listView.length,
+    //     separatorBuilder: (BuildContext context, int index) =>
+    //         Divider(
+    //           color: context.mainColor,
+    //           height: 1,
+    //         ),
+    //     itemBuilder: (BuildContext context, int index) {
+    //       return Container(
+    //         color: context.mainColor,
+    //         child: ListTile(
+    //           title: Text(tr('第$index 个条目')),
+    //           trailing: Icon(Icons.keyboard_arrow_right),
+    //         ),
+    //       );
+    //     });
     return ListView(
-        // itemCount: 4,
-        // separatorBuilder: (BuildContext context, int index) =>
-        //     Divider(
-        //       color: Colors.grey,
-        //       height: 1,
-        //     ),
-        // itemBuilder: (BuildContext context, int index) {
-        //   return ListView(
-        //     children: getQuestionList(),
-        //   );
-        // }
       children: getQuestionList(listView),
-        );
+    );
   }
 }
