@@ -174,7 +174,7 @@ class _CSTabBarState extends State<CSTabBar>
         title: Text(tr(value['title'].toString())),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () => {
-          doOpenUrl((value['pageUrl']).toString());
+          doOpenUrl((value['pageUrl']).toString())
         },
       );
     });
