@@ -67,6 +67,11 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF2E3343);
   }
 
+  ///#8C8E91
+  Color get tabContentColor {
+    return const Color(0xfF8C8E91);
+  }
+
   ///#202328
   Color get searchTextColor {
     return const Color(0xFF202328);
