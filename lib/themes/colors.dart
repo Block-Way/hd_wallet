@@ -99,7 +99,7 @@ extension ColorStyles on BuildContext {
 
   ///#ECC586
   Color get confirmTopColor {
-    return const Color(0xFFECC586 );
+    return const Color(0xFFECC586);
   }
 
   ///#DCAA65

@@ -273,7 +273,6 @@ class AppMainPage extends HookWidget {
                 InkWell(
                   onTap: () {
                     currentTab.value = 0;
-                    print('点击了钱包 ${currentTab.value}');
                   },
                   child: Container(
                     height: 50,
@@ -286,7 +285,6 @@ class AppMainPage extends HookWidget {
                 InkWell(
                   onTap: () {
                     currentTab.value = 1;
-                    print('点击了首页 ${currentTab.value}');
                   },
                   child: Container(
                     height: 50,
@@ -299,7 +297,6 @@ class AppMainPage extends HookWidget {
                 InkWell(
                   onTap: () {
                     currentTab.value = 2;
-                    print('点击了资产 ${currentTab.value}');
                   },
                   child: Container(
                     height: 50,
