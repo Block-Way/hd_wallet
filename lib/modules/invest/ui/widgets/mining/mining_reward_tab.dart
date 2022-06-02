@@ -61,7 +61,7 @@ class MiningRewardTab extends HookWidget {
         header: ListViewHeader(),
         child: SingleChildScrollView(
           child: Container(
-            decoration: context.boxDecorationOnlyBottom(color: context.cardColor),
+            decoration: context.boxDecorationOnlyBottom(color: context.mainColor),
             margin: context.edgeAll.copyWith(top: 0),
             padding: context.edgeAll,
             child: Column(

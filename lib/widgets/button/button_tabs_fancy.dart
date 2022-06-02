@@ -16,13 +16,11 @@ class _TabFancySelectedPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
       ..strokeWidth = 3
-      ..color = isSelected ? Color(0xFF32383E) : Color(0xFFf0f0f0);
-    // ..color = isSelected ? Colors.red : Colors.blue;
+      ..color = isSelected ? Color(0xFFECC586) : Color(0xFF32383E);
 
     final bgPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = isSelected ? Colors.white : Color(0xFFfefcf1);
-    // ..color = isSelected ? Colors.red : Colors.blue;
+      ..color = isSelected ? Color(0xFFECC586) : Color(0xFF32383E);
 
     const borderRadius = 10.0;
     const angle = 15.0;
@@ -178,13 +176,15 @@ class CSButtonTabsFancy extends StatelessWidget {
                         Text(
                           holdLbl,
                           style: context.textSmall(
-                            color: context.labelColor,
+                            color: context.iconColor,
                           ),
                         ),
                         SizedBox(height: context.edgeSizeHalf),
                         Text(
                           holdValue,
-                          style: context.textBodyPrice(),
+                          style: context.textBodyPrice(
+                            color: context.iconColor
+                          ),
                         ),
                       ],
                     ),
@@ -208,13 +208,15 @@ class CSButtonTabsFancy extends StatelessWidget {
                       Text(
                         invitationLbl,
                         style: context.textSmall(
-                          color: context.labelColor,
+                          color: context.iconColor,
                         ),
                       ),
                       SizedBox(height: context.edgeSizeHalf),
                       Text(
                         invitationValue,
-                        style: context.textBodyPrice(),
+                        style: context.textBodyPrice(
+                          color: context.iconColor
+                        ),
                       ),
                     ],
                   ),
