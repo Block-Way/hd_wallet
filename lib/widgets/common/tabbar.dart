@@ -204,16 +204,19 @@ class _CSTabBarState extends State<CSTabBar>
               title: Text(
                   tr('${listView[index]['title']}'),
                   style: TextStyle(
-                      color: context.tabContentColor
+                      color: context.tabContentColor,
+                      fontSize: 14
                   )
               ),
               trailing: Icon(
                   Icons.keyboard_arrow_right,
                  color: context.tabContentColor
               ),
-              onTap: () => {
-                doOpenUrl('${listView[index]['pageUrl']}')
+              onTap: () {
+                // doOpenUrl('${listView[index]['pageUrl']}')
                 // print('${listView[index]['pageUrl']}')
+                Navigator.pop(context);
+                WebViewPage.open('${listView[index]['pageUrl']}');
               },
             ),
           );
