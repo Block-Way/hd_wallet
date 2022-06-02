@@ -71,7 +71,7 @@ class CSSearchInput extends HookWidget {
               maxLength: maxLength,
               style: inputStyle ??
                   context.textSmall(
-                    color: context.bodyColor,
+                    color: context.placeholderColor,
                   ),
               autocorrect: false, //是否自动更正
               decoration: InputDecoration(

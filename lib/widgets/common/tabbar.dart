@@ -168,19 +168,6 @@ class _CSTabBarState extends State<CSTabBar>
     );
   }
 
-  List<Widget> getQuestionList(List targetList) {
-    var tempList = targetList.map((value) {
-      return ListTile(
-        title: Text(tr(value['title'].toString())),
-        trailing: Icon(Icons.keyboard_arrow_right),
-        onTap: () => {
-          doOpenUrl((value['pageUrl']).toString())
-        },
-      );
-    });
-    return tempList.toList();
-  }
-
   Widget _searchInput() {
     return CSSearchInput(
       // controller: searchController,
@@ -224,6 +211,10 @@ class _CSTabBarState extends State<CSTabBar>
                   Icons.keyboard_arrow_right,
                  color: context.tabContentColor
               ),
+              onTap: () => {
+                doOpenUrl('${listView[index]['pageUrl']}')
+                // print('${listView[index]['pageUrl']}')
+              },
             ),
           );
         });
