@@ -1,4 +1,4 @@
-part of widgets;
+part of common_ui_module;
 
 class CSTabBar extends StatefulWidget {
   @override
@@ -210,16 +210,15 @@ class _CSTabBarState extends State<CSTabBar>
               ),
               trailing: Icon(
                   Icons.keyboard_arrow_right,
-                 color: context.tabContentColor
+                  color: context.tabContentColor
               ),
               onTap: () {
                 // doOpenUrl('${listView[index]['pageUrl']}')
                 // print('${listView[index]['pageUrl']}')
-                Navigator.pop(context);
-                // WebViewPage.open('${listView[index]['pageUrl']}');
+                WebViewPage.open('${listView[index]['pageUrl']}');
               },
             ),
           );
         });
- }
+  }
 }
