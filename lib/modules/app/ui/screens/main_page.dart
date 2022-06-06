@@ -273,37 +273,76 @@ class AppMainPage extends HookWidget {
                 InkWell(
                   onTap: () {
                     currentTab.value = 0;
+                    print('${currentTab.value}');
                   },
                   child: Container(
+                      padding: EdgeInsets.only(top: 8.0),
                     height: 50,
-                    child: Image(
-                        image: currentTab.value == 0 ? AssetImage("assets/images/wallet_active.png") : AssetImage("assets/images/wallet_unselected.png"),
-                        width: 20.0
-                    ),
+                    child: Column(
+                      children: [
+                        Image(
+                            image: currentTab.value == 0 ? AssetImage("assets/images/wallet_active.png") : AssetImage("assets/images/wallet_unselected.png"),
+                            width: 20.0
+                        ),
+                        Text(
+                            tr('global:main_tab_wallet'),
+                          style: TextStyle(
+                              fontSize: 10,
+                            color: currentTab.value == 0 ? Colors.orange : Colors.grey[600]
+                          ),
+                        )
+                      ]
+                    )
                   ),
                 ),
                 InkWell(
                   onTap: () {
                     currentTab.value = 1;
+                    print('${currentTab.value}');
                   },
                   child: Container(
-                    height: 50,
-                    child: Image(
-                        image: currentTab.value == 1 ? AssetImage("assets/images/home_active.png") : AssetImage("assets/images/home_unselected.png"),
-                        width: 20.0
-                    ),
+                      padding: EdgeInsets.only(top: 8.0),
+                      height: 50,
+                      child: Column(
+                          children: [
+                            Image(
+                                image: currentTab.value == 1 ? AssetImage("assets/images/home_active.png") : AssetImage("assets/images/home_unselected.png"),
+                                width: 20.0
+                            ),
+                            Text(
+                                tr('global:main_tab_home'),
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: currentTab.value == 1 ? Colors.orange : Colors.grey[600]
+                              ),
+                            )
+                          ]
+                      )
                   ),
                 ),
                 InkWell(
                   onTap: () {
                     currentTab.value = 2;
+                    print('${currentTab.value}');
                   },
                   child: Container(
-                    height: 50,
-                    child: Image(
-                        image: currentTab.value == 2 ? AssetImage("assets/images/invest_active.png") : AssetImage("assets/images/invest_unselected.png"),
-                        width: 20.0
-                    ),
+                      padding: EdgeInsets.only(top: 8.0),
+                      height: 50,
+                      child: Column(
+                          children: [
+                            Image(
+                                image: currentTab.value == 2 ? AssetImage("assets/images/invest_active.png") : AssetImage("assets/images/invest_unselected.png"),
+                                width: 20.0
+                            ),
+                            Text(
+                                tr('global:main_tab_invest'),
+                              style: TextStyle(
+                                 fontSize: 10,
+                                  color: currentTab.value == 2 ?  Colors.orange : Colors.grey[600]
+                              ),
+                            )
+                          ]
+                      )
                   ),
                 ),
               ]

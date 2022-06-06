@@ -132,6 +132,16 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF999999);
   }
 
+  ///#C87C53
+  Color get bottomTabCheckedColor {
+    return const Color(0xFFC87C53);
+  }
+
+  ///#7C7D82
+  Color get bottomTabUnselecteColor{
+    return const Color(0xFFC87C53);
+  }
+
   /// #40CD6A
   Color get greenColor {
     return const Color(0xFF2CBC85);
