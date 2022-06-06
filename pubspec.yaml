@@ -202,6 +202,7 @@ flutter:
     - assets/images/wallet_unselected.png
     - assets/images/invest_unselected.png
     - assets/images/home_unselected.png
+    - assets/images/start_page.jpg
     # Images - 第三方市场
     - assets/images/wallet_binance.png
     - assets/images/wallet_bitfinex.png
