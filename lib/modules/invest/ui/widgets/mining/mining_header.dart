@@ -28,7 +28,7 @@ class MiningHeader extends StatelessWidget {
             mintInfo?.totalProfit?.toString() ?? '-',
             symbol,
             TextSize.big,
-            color: context.redColor,
+            color: context.refreshBtnColor,
           ),
         ],
       ),

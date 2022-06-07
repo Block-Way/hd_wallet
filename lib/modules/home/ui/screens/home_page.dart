@@ -201,6 +201,7 @@ class HomePage extends StatelessWidget {
               //   list: viewModel.admissionList.toList(),
               //   hasWallet: viewModel.hasWallet,
               // ),
+
               HomePricesCard(
                 prices: viewModel.homePrices.toList(),
                 doChangeTradePair: (tradePair) {

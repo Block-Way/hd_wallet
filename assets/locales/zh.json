@@ -1,7 +1,7 @@
 {
   "global:language_api": "zh-cn",
   "global:language_name": "中文",
-  "global:main_tab_home": "首页",
+  "global:main_tab_home": "市场",
   "global:main_tab_wallet": "钱包",
   "global:main_tab_invest": "投资",
   "global:main_tab_trade": "交易",
@@ -123,7 +123,7 @@
   "global:photo_lbl_title": "选项",
   "global:photo_btn_camera": "拍摄",
   "global:photo_btn_select_image": "从相册中选择",
-  "home:title": "首页",
+  "home:title": "市场",
   "home:notice_list_title": "公告列表",
   "home:notice_list_msg_empty": "暂无交易信息",
   "home:home_lbl_announcement": "公告",

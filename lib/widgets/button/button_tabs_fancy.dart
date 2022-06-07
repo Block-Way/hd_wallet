@@ -176,14 +176,14 @@ class CSButtonTabsFancy extends StatelessWidget {
                         Text(
                           holdLbl,
                           style: context.textSmall(
-                            color: context.iconColor,
+                            color: context.mainColor,
                           ),
                         ),
                         SizedBox(height: context.edgeSizeHalf),
                         Text(
                           holdValue,
                           style: context.textBodyPrice(
-                            color: context.iconColor
+                            color: context.mainColor
                           ),
                         ),
                       ],
@@ -208,14 +208,14 @@ class CSButtonTabsFancy extends StatelessWidget {
                       Text(
                         invitationLbl,
                         style: context.textSmall(
-                          color: context.iconColor,
+                          color: context.mainColor,
                         ),
                       ),
                       SizedBox(height: context.edgeSizeHalf),
                       Text(
                         invitationValue,
                         style: context.textBodyPrice(
-                          color: context.iconColor
+                          color: context.mainColor
                         ),
                       ),
                     ],

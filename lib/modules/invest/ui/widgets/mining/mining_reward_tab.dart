@@ -109,7 +109,7 @@ class MiningRewardTab extends HookWidget {
       SizedBox(height: context.edgeSizeHalf),
       Text(value, style: context.textMedium(bold: true, color: context.iconColor)),
       SizedBox(height: context.edgeSize),
-      Divider(height: 0.2, color: context.greyColor),
+      Divider(height: 0.2, color: context.dividingLineaColor),
       SizedBox(height: context.edgeSizeHalf),
     ];
   }

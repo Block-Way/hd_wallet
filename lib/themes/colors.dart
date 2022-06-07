@@ -137,6 +137,11 @@ extension ColorStyles on BuildContext {
     return const Color(0xFFC87C53);
   }
 
+  ///#3A3D48
+  Color get dividingLineaColor {
+    return const Color(0xFF3A3D48);
+  }
+
   ///#7C7D82
   Color get bottomTabUnselecteColor{
     return const Color(0xFFC87C53);

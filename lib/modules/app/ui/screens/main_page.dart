@@ -288,7 +288,7 @@ class AppMainPage extends HookWidget {
                             tr('global:main_tab_wallet'),
                           style: TextStyle(
                               fontSize: 10,
-                            color: currentTab.value == 0 ? Colors.orange : Colors.grey[600]
+                            color: currentTab.value == 0 ? context.bottomTabCheckedColor : Colors.grey[600]
                           ),
                         )
                       ]
@@ -313,7 +313,7 @@ class AppMainPage extends HookWidget {
                                 tr('global:main_tab_home'),
                               style: TextStyle(
                                   fontSize: 10,
-                                  color: currentTab.value == 1 ? Colors.orange : Colors.grey[600]
+                                  color: currentTab.value == 1 ? context.bottomTabCheckedColor : Colors.grey[600]
                               ),
                             )
                           ]
@@ -338,7 +338,7 @@ class AppMainPage extends HookWidget {
                                 tr('global:main_tab_invest'),
                               style: TextStyle(
                                  fontSize: 10,
-                                  color: currentTab.value == 2 ?  Colors.orange : Colors.grey[600]
+                                  color: currentTab.value == 2 ?  context.bottomTabCheckedColor : Colors.grey[600]
                               ),
                             )
                           ]
