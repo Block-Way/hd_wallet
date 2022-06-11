@@ -5,11 +5,12 @@ class SwapActionReviseSwap extends _BaseAction {
     this.swap,
     this.isAdd,
   });
-  final Swap swap;
-  final bool isAdd;
+  final Swap? swap;
+  final bool? isAdd;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = state.walletState.activeWalletId;
     final allSwaps = await SwapRepository().getSwapsFromCache(walletId);
     if (isAdd) {
@@ -29,7 +30,8 @@ class SwapActionReviseSwap extends _BaseAction {
 
     return store.state.rebuild(
       (a) => a.swapState..swaps.replace(allSwaps),
-    );
+    );*/
+    return null;
   }
 }
 
@@ -39,7 +41,8 @@ class _SwapActionLoadSwaps extends _BaseAction {
   final int page;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = state.walletState.activeWalletId;
     final swaps = await SwapRepository().getSwapsFromCache(walletId);
 
@@ -53,15 +56,15 @@ class _SwapActionLoadSwaps extends _BaseAction {
 
     return store.state.rebuild(
       (a) => a.swapState..swaps.replace(displayData),
-    );
+    );*/
   }
 }
 
 class SwapActionGetSwaps extends _BaseAction {
   SwapActionGetSwaps({
-    @required this.page,
-    @required this.skip,
-    @required this.completer,
+    required this.page,
+    required this.skip,
+    required this.completer,
   });
 
   final int page;
@@ -70,11 +73,12 @@ class SwapActionGetSwaps extends _BaseAction {
 
   @override
   Future<void> before() {
-    return dispatchFuture(_SwapActionLoadSwaps(page));
+    return dispatchAsync(_SwapActionLoadSwaps(page));
   }
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final allSwaps = await SwapRepository().getSwapsFromCache(walletId);
 
     final apiResult = await SwapRepository().getSwapsFromApi(
@@ -118,12 +122,12 @@ class SwapActionGetSwaps extends _BaseAction {
 
     return store.state.rebuild(
       (a) => a.swapState..swaps.replace(displayData),
-    );
+    );*/
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }

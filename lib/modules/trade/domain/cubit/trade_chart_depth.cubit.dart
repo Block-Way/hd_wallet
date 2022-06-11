@@ -2,9 +2,9 @@ part of trade_domain_module;
 
 class TradeChartDepthState {
   TradeChartDepthState({
-    @required this.tradePair,
-    @required this.bids,
-    @required this.asks,
+    required this.tradePair,
+    required this.bids,
+    required this.asks,
   });
   final TradePair tradePair;
   final List<DepthEntity> bids;
@@ -12,47 +12,53 @@ class TradeChartDepthState {
 }
 
 class TradeChartDepthCubit extends Cubit<TradeChartDepthState> {
-  TradeChartDepthCubit([TradeRepository tradeRepository])
-      : super(TradeChartDepthState(
-          tradePair: null,
-          bids: [],
-          asks: [],
-        )) {
+  TradeChartDepthCubit([TradeRepository? tradeRepository])
+      : super(
+          TradeChartDepthState(
+            tradePair: TradePair(),
+            bids: [],
+            asks: [],
+          ),
+        ) {
     _tradeRepository = tradeRepository ?? TradeRepository();
   }
 
-  TradeRepository _tradeRepository;
-
+  late TradeRepository _tradeRepository;
+  /*
   Stream<Map<String, List<DepthEntity>>> byTradePair(String tradePairId) =>
       map((event) => {
-            'bids': event.bids,
-            'asks': event.asks,
+            'bids': 0,
+            'asks': 0,
           });
-
+  */
   // ▼▼▼▼▼▼ Update/Load Data ▼▼▼▼▼▼  //
 
   Future<void> loadData({
-    @required TradePair tradePair,
-    StreamController<bool> chartLoadingStream,
+    required TradePair tradePair,
+    StreamController<bool>? chartLoadingStream,
   }) async {
     chartLoadingStream?.add(true);
     try {
-      if (state.tradePair?.id != tradePair?.id) {
-        emit(TradeChartDepthState(
-          tradePair: tradePair,
-          bids: [],
-          asks: [],
-        ));
+      if (state.tradePair.id != tradePair.id) {
+        emit(
+          TradeChartDepthState(
+            tradePair: tradePair,
+            bids: [],
+            asks: [],
+          ),
+        );
       }
 
       final data =
           await _tradeRepository.getChartDepths(tradePairId: tradePair.id);
 
-      emit(TradeChartDepthState(
-        tradePair: null,
-        bids: data['bids'],
-        asks: data['asks'],
-      ));
+      emit(
+        TradeChartDepthState(
+          tradePair: TradePair(),
+          bids: [],
+          asks: [],
+        ),
+      );
       if (chartLoadingStream?.isClosed == false) {
         chartLoadingStream?.add(false);
       }
@@ -64,11 +70,13 @@ class TradeChartDepthCubit extends Cubit<TradeChartDepthState> {
   }
 
   void clearData() {
-    emit(TradeChartDepthState(
-      tradePair: null,
-      bids: [],
-      asks: [],
-    ));
+    emit(
+      TradeChartDepthState(
+        tradePair: TradePair(),
+        bids: [],
+        asks: [],
+      ),
+    );
   }
 
   /// Reload current cubit data, using state last TradePair
@@ -80,7 +88,7 @@ class TradeChartDepthCubit extends Cubit<TradeChartDepthState> {
 
   /// Add/Update a ticker from mqtt
   Future<void> updateFromMqtt({
-    @required Map<String, dynamic> json,
+    required Map<String, dynamic> json,
   }) async {
     // TODO: wait api
   }

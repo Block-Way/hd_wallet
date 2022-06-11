@@ -35,26 +35,28 @@ class UploadResult extends Error {
 class UploadUtils {
   static const supportedExtension = ['jpg', 'jpeg', 'png', 'aac', 'protobuf'];
 
-  static Future<UploadResult> requestUpload(
+  static Future<UploadResult?> requestUpload(
     String type,
     File file, {
-    String signature,
-    String filename,
-    StreamController<num> uploadProgress,
+    String? signature,
+    String? filename,
+    StreamController<num>? uploadProgress,
   }) async {
+    return null;
+    /*
     // If a given filename is provided, use it, otherwise make a new one
     final fileName = filename ?? randomNumeric(20);
     Timer timer;
     var progress = 0;
 
-    uploadProgress.add(1);
+    uploadProgress?.add(1);
 
     // Fix extension
     final fileExt = path.extension(file.path).substring(1);
 
     final fileMime = mimeFromExtension(fileExt);
 
-    final fileType = fileMime.split('/').last;
+    final fileType = fileMime?.split('/').last;
 
     // Check if server can handle this file
     if (!supportedExtension.contains(fileExt)) {
@@ -64,7 +66,7 @@ class UploadUtils {
     var uploadRequest = {};
     try {
       uploadRequest = await addAuthSignature(
-        signature,
+        signature ?? '',
         {},
         (params, auth) => Request().getObject(
           '/v1/upload/proxy_url/$type/$fileName/$fileType',
@@ -134,6 +136,6 @@ class UploadUtils {
     } catch (error) {
       timer.cancel();
       throw UploadError(UploadErrorCode.uploadFileFailed, error.toString());
-    }
+    }*/
   }
 }

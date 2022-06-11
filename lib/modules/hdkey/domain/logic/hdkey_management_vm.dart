@@ -7,10 +7,10 @@ abstract class HDKeyManagementVM
   HDKeyManagementVM._();
 
 // UI Fields
-  @nullable
-  Wallet get activeWallet;
-  @nullable
-  AssetCoin get invitationCoin;
+  //@nullable
+  Wallet? get activeWallet;
+  //@nullable
+  AssetCoin? get invitationCoin;
 
   List<Wallet> get wallets;
 
@@ -35,29 +35,30 @@ abstract class HDKeyManagementVM
     final allCoin = store.state.assetState.coins;
     final coinItem = allCoin.firstWhere(
       (e) => e.symbol == 'BBC',
-      orElse: () => null,
     );
     final localWallets = store.state.walletState.wallets ?? [];
 
-    return HDKeyManagementVM((viewModel) => viewModel
-      ..wallets = localWallets
-      ..localIds = localWallets.map((e) => e.id).toList()
-      ..validateMnemonic = (mnemonic) {
-        return store.dispatchFuture(WalletActionValidateMnemonic(mnemonic));
-      }
-      ..changeName = (name) {
-        return store.dispatchFuture(WalletActionChangeName(name));
-      }
-      ..changePassword = (pwdOld, pwdNew) {
-        return store.dispatchFuture(WalletActionChangePassword(
-          pwdOld,
-          pwdNew,
-        ));
-      }
-      ..deleteWallet = () {
-        return store.dispatchFuture(WalletActionDeleteWallet());
-      }
-      ..activeWallet = store.state.walletState.activeWallet
-      ..invitationCoin = coinItem?.toBuilder());
+    return HDKeyManagementVM(
+      (viewModel) => viewModel
+        ..wallets = localWallets
+        ..localIds = localWallets.map((e) => e.id).toList()
+        ..validateMnemonic = (mnemonic) {
+          return store.dispatchAsync(WalletActionValidateMnemonic(mnemonic));
+        }
+        ..changeName = (name) {
+          return store.dispatchAsync(WalletActionChangeName(name));
+        }
+        ..changePassword = (pwdOld, pwdNew) {
+          return store.dispatchAsync(WalletActionChangePassword(
+            pwdOld,
+            pwdNew,
+          ));
+        }
+        ..deleteWallet = () {
+          return store.dispatchAsync(WalletActionDeleteWallet());
+        }
+        ..activeWallet = store.state.walletState.activeWallet
+        ..invitationCoin = coinItem.toBuilder(),
+    );
   }
 }

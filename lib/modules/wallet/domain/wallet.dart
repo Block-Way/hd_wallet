@@ -23,7 +23,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:network_flutter/network_flutter.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:wallet_sdk_flutter/wallet_sdk_flutter.dart';
 import 'package:sugar/crypto/hah.dart';

@@ -5,9 +5,9 @@ abstract class ProjectCreateMint
   // Constructors
 
   factory ProjectCreateMint({
-    @required int index,
-    @required String month,
-    @required String ratio,
+    required int index,
+    required String month,
+    required String ratio,
   }) {
     return _$ProjectCreateMint._(
       index: index,

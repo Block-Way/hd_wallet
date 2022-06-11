@@ -2,9 +2,9 @@ part of trade_domain_module;
 
 class TradeChartKLineState {
   TradeChartKLineState({
-    @required this.resolution,
-    @required this.tradePairId,
-    @required this.data,
+    required this.resolution,
+    required this.tradePairId,
+    required this.data,
   });
   final ResolutionItem resolution;
   final String tradePairId;
@@ -12,23 +12,25 @@ class TradeChartKLineState {
 }
 
 class TradeChartKLineCubit extends Cubit<TradeChartKLineState> {
-  TradeChartKLineCubit([TradeRepository tradeRepository])
-      : super(TradeChartKLineState(
-          data: [],
-          resolution: null,
-          tradePairId: null,
-        )) {
+  TradeChartKLineCubit([TradeRepository? tradeRepository])
+      : super(
+          TradeChartKLineState(
+            data: [],
+            resolution: ResolutionItem(),
+            tradePairId: '',
+          ),
+        ) {
     _tradeRepository = tradeRepository ?? TradeRepository();
   }
 
-  TradeRepository _tradeRepository;
+  late TradeRepository _tradeRepository;
 
   // ▼▼▼▼▼▼ Utility ▼▼▼▼▼▼  //
-
+  /*
   Stream<List<KLineEntity>> byTradePair(String tradePairId) => map(
         (event) => event.data,
       );
-
+  */
   ResolutionItem getResolution(String tradePairId) {
     final preference = _tradeRepository.getPreference();
     final resolution = preference.tradePairResolution.containsKey(tradePairId)
@@ -41,6 +43,7 @@ class TradeChartKLineCubit extends Cubit<TradeChartKLineState> {
   }
 
   Future<void> changeResolution(ResolutionItem resolution) async {
+    /*
     final preference = _tradeRepository.getPreference();
     preference.tradePairResolution.update(
       state.tradePairId,
@@ -52,16 +55,16 @@ class TradeChartKLineCubit extends Cubit<TradeChartKLineState> {
       data: [],
       resolution: resolution,
       tradePairId: state.tradePairId,
-    ));
+    ));*/
   }
 
   // ▼▼▼▼▼▼ Update/Load Data ▼▼▼▼▼▼  //
 
   Future<void> loadData({
-    @required String tradePairId,
-    @required ResolutionItem resolution,
-    StreamController<bool> chartLoadingStream,
-    bool isMqtt,
+    required String tradePairId,
+    required ResolutionItem resolution,
+    StreamController<bool>? chartLoadingStream,
+    bool? isMqtt,
   }) async {
     chartLoadingStream?.add(true);
     try {
@@ -84,7 +87,7 @@ class TradeChartKLineCubit extends Cubit<TradeChartKLineState> {
         remoteData.retainWhere((element) => !existingIds.contains(element.id));
         if (remoteData.isNotEmpty) {
           state.data.addAll(remoteData);
-          state.data.sort((a, b) => a.id.compareTo(b.id));
+          state.data.sort((a, b) => (a.id ?? 0).compareTo(b.id ?? 0));
           emit(state);
         }
       } else {
@@ -109,8 +112,8 @@ class TradeChartKLineCubit extends Cubit<TradeChartKLineState> {
   void clearData() {
     emit(TradeChartKLineState(
       data: [],
-      resolution: null,
-      tradePairId: null,
+      resolution: ResolutionItem(),
+      tradePairId: '',
     ));
   }
 
@@ -125,7 +128,7 @@ class TradeChartKLineCubit extends Cubit<TradeChartKLineState> {
 
   /// Add/Update a ticker from mqtt
   Future<void> updateFromMqtt({
-    @required Map<String, dynamic> json,
+    required Map<String, dynamic> json,
   }) async {
     // TODO: wait api
   }

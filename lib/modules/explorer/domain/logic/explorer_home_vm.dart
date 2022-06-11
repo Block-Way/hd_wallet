@@ -19,11 +19,9 @@ abstract class ExplorerHomeVM
     for (final item in ExplorerUtils.explorerChains) {
       final explorerConfig = ExplorerUtils.explorerConfigs.firstWhere(
         (config) => config.chain == item,
-        orElse: () => null,
       );
       final coinInfo = store.state.assetState.coins.firstWhere(
         (coin) => coin.chain == item,
-        orElse: () => null,
       );
       if (explorerConfig != null) {
         list.add(ExplorerItem(

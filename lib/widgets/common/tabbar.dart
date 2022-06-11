@@ -6,9 +6,9 @@ class CSTabBar extends StatefulWidget {
 }
 
 class _CSTabBarState extends State<CSTabBar>
-  with SingleTickerProviderStateMixin {
-  ScrollController _scrollController;
-  TabController _tabController;
+    with SingleTickerProviderStateMixin {
+  ScrollController? _scrollController;
+  TabController? _tabController;
 
   @override
   void initState() {
@@ -20,8 +20,8 @@ class _CSTabBarState extends State<CSTabBar>
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
-    _tabController.dispose();
+    _scrollController?.dispose();
+    _tabController?.dispose();
   }
 
   List listDataQuick = [
@@ -67,9 +67,7 @@ class _CSTabBarState extends State<CSTabBar>
     {
       "title": "user:help_asset_question_3",
     },
-    {
-      'title': 'user:help_asset_question_4'
-    }
+    {'title': 'user:help_asset_question_4'}
   ];
 
   List listDataTransaction = [
@@ -92,7 +90,9 @@ class _CSTabBarState extends State<CSTabBar>
         appBar: AppBar(
           elevation: 1.0,
           centerTitle: false,
-          title: Text(tr('user:help_title'),style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor)),
+          title: Text(tr('user:help_title'),
+              style: context.textHuge(
+                  fontWeight: FontWeight.w700, color: context.bgPrimaryColor)),
         ),
         body: NestedScrollView(
           controller: _scrollController,
@@ -103,13 +103,15 @@ class _CSTabBarState extends State<CSTabBar>
                 floating: true,
                 expandedHeight: 80,
                 automaticallyImplyLeading: false, //hide left back arrow
-                bottom: TabBar(controller: _tabController, tabs: [
-                  Tab(text: tr('user:help_quick_title')),
-                  Tab(text: tr('user:help_manual_title')),
-                  Tab(text: tr('user:help_operation_title')),
-                  Tab(text: tr('user:help_asset_title')),
-                  Tab(text: tr('user:help_transaction_title')),
-                ],
+                bottom: TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(text: tr('user:help_quick_title')),
+                    Tab(text: tr('user:help_manual_title')),
+                    Tab(text: tr('user:help_operation_title')),
+                    Tab(text: tr('user:help_asset_title')),
+                    Tab(text: tr('user:help_transaction_title')),
+                  ],
                   isScrollable: true,
                   indicatorColor: context.tabBarColor,
                   indicatorWeight: 3,
@@ -148,29 +150,26 @@ class _CSTabBarState extends State<CSTabBar>
       return ListTile(
         title: Text(tr(value["title"].toString())),
         trailing: Icon(Icons.keyboard_arrow_right),
-        onTap: () => {
-          doOpenUrl('https://www.google.com')
-        },
+        onTap: () => {doOpenUrl('https://www.google.com')},
       );
     });
     return tempList.toList();
   }
 
-
   Widget _buildListView(List listView) {
     return ListView(
-        // itemCount: 4,
-        // separatorBuilder: (BuildContext context, int index) =>
-        //     Divider(
-        //       color: Colors.grey,
-        //       height: 1,
-        //     ),
-        // itemBuilder: (BuildContext context, int index) {
-        //   return ListView(
-        //     children: getQuestionList(),
-        //   );
-        // }
+      // itemCount: 4,
+      // separatorBuilder: (BuildContext context, int index) =>
+      //     Divider(
+      //       color: Colors.grey,
+      //       height: 1,
+      //     ),
+      // itemBuilder: (BuildContext context, int index) {
+      //   return ListView(
+      //     children: getQuestionList(),
+      //   );
+      // }
       children: getQuestionList(listView),
-        );
+    );
   }
 }

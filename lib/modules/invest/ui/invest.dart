@@ -42,7 +42,7 @@ part 'widgets/mining/mining_reward_item.dart';
 part 'widgets/mining/mining_reward_tab.dart';
 part 'widgets/mint_select_drawer.dart';
 
-Route<dynamic> moduleInvestRoutes(RouteSettings settings) {
+Route<dynamic>? moduleInvestRoutes(RouteSettings settings) {
   switch (settings.name) {
     case MiningRewardRecordPage.routeName:
       return MiningRewardRecordPage.route(settings);

@@ -8,13 +8,13 @@ class HomePage extends StatelessWidget {
   void handleOpenBannerPage(HomeBanner bannerItem) {
     switch (bannerItem.type) {
       case 'URL':
-        WebViewPage.open(bannerItem.content, bannerItem.title);
+        WebViewPage.open(bannerItem.content ?? '', bannerItem.title);
         break;
       case 'SYSTEM_NOTICE':
-        NoticeDetailPage.open(
-          null,
-          NumberUtil.getInt(bannerItem.content, -1),
-        );
+        //NoticeDetailPage.open(
+        //  null,
+        //  NumberUtil.getInt(bannerItem.content, -1),
+        //);
         break;
       default:
     }
@@ -24,9 +24,9 @@ class HomePage extends StatelessWidget {
     if (data != null) {
       showUpdateAppDialog(
         context,
-        downloadUrl: data.downloadUrl,
-        description: data.description,
-        version: data.version,
+        downloadUrl: data.downloadUrl ?? '',
+        description: data.description ?? '',
+        version: data.version ?? '',
       );
       _hasShownNewVersionDialog = true;
     }
@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
       titleCenter: false,
       headerBgColor: context.mainColor,
       backgroundColor: context.mainColor,
-        // Color(0xFF17191C)
+      // Color(0xFF17191C)
       // titleWidget: StoreConnector<AppState, HomePageVM>(
       //   distinct: true,
       //   converter: HomePageVM.fromStore,
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
       child: StoreConnector<AppState, HomePageVM>(
         distinct: true,
         converter: HomePageVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           viewModel.doLoadHomeData();
           if (AppConstants.isBeta && !kDebugMode) {
             // Only on Beta force check for new version
@@ -81,39 +81,44 @@ class HomePage extends StatelessWidget {
               handleShowNewVersion(context, value);
             });
           }
-          if (viewModel.hasNewVersion && !_hasShownNewVersionDialog) {
-            handleShowNewVersion(context, viewModel.newVersionData);
+          if ((viewModel.hasNewVersion ?? false) &&
+              !_hasShownNewVersionDialog) {
+            handleShowNewVersion(context, viewModel.newVersionData!);
           } else {
-            viewModel.doCheckLanguage().then((lang) async {
-              if (lang != null) {
-                final newLangTr =
-                    await AppLocalizations.getTranslationsByLocale(lang.locale);
+            viewModel.doCheckLanguage().then(
+              (lang) async {
+                if (lang != null) {
+                  final newLangTr =
+                      await AppLocalizations.getTranslationsByLocale(
+                    lang.locale,
+                  );
 
-                showConfirmDialog(
-                  context,
-                  title: newLangTr.get('global:dialog_alert_title'),
-                  content: newLangTr
-                      .get(
-                        'global:msg_change_language',
-                      )
-                      .replaceAll(RegExp('{name}'), lang.name),
-                  cancelBtnText: newLangTr.get('global:btn_not_ask'),
-                  confirmBtnText: newLangTr.get('global:btn_confirm'),
-                  onConfirm: () {
-                    context.locale = lang.locale;
-                    viewModel.doChangeLanguage(lang.languageCode);
-                  },
-                  onCancel: () {
-                    viewModel.doChangeLanguage(context.locale.languageCode);
-                  },
-                );
-              }
-            });
+                  showConfirmDialog(
+                    context,
+                    title: newLangTr.get('global:dialog_alert_title'),
+                    content: newLangTr
+                        .get(
+                          'global:msg_change_language',
+                        )!
+                        .replaceAll(RegExp('{name}'), lang.name),
+                    cancelBtnText: newLangTr.get('global:btn_not_ask'),
+                    confirmBtnText: newLangTr.get('global:btn_confirm'),
+                    onConfirm: () {
+                      context.locale = lang.locale;
+                      viewModel.doChangeLanguage(lang.languageCode);
+                    },
+                    onCancel: () {
+                      viewModel.doChangeLanguage(context.locale.languageCode);
+                    },
+                  );
+                }
+              },
+            );
           }
         },
-        onDidChange: (viewModel) {
-          if (viewModel.hasNewVersion && !_hasShownNewVersionDialog) {
-            handleShowNewVersion(context, viewModel.newVersionData);
+        onDidChange: (_, __, viewModel) {
+          if (viewModel.hasNewVersion! && !_hasShownNewVersionDialog) {
+            handleShowNewVersion(context, viewModel.newVersionData!);
           }
         },
         builder: (context, viewModel) => CSRefresher(
@@ -202,7 +207,7 @@ class HomePage extends StatelessWidget {
               //   hasWallet: viewModel.hasWallet,
               // ),
               HomePricesCard(
-                prices: viewModel.homePrices.toList(),
+                prices: viewModel.homePrices?.toList() ?? [],
                 doChangeTradePair: (tradePair) {
                   return handleOpenTrade(viewModel, tradePair);
                 },

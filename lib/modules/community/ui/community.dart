@@ -12,7 +12,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:network_flutter/network_flutter.dart';
 
 // Project imports:
 import 'package:sugar/dialogs/dialogs.dart';
@@ -42,7 +41,7 @@ part 'widgets/community_type_card.dart';
 part 'widgets/community_quick_entry.dart';
 part 'process/community_join_process.dart';
 
-Route<dynamic> moduleCommunityInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleCommunityInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case CommunityTeamPage.routeName:
       return CommunityTeamPage.route(settings);

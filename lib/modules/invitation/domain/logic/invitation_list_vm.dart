@@ -28,7 +28,7 @@ abstract class InvitationListVM
         return VMWithInvitation.getInvitationCoins(store);
       }
       ..loadInvitationList = (isRefresh, skip, coin) async {
-        await store.dispatchFuture(InvitationActionGetList(
+        await store.dispatch(InvitationActionGetList(
           isRefresh: isRefresh,
           skip: skip,
           coin: coin,
@@ -36,7 +36,7 @@ abstract class InvitationListVM
         return Future.value(store.state.invitationState.invitations.length);
       }
       ..clearInvitationList = () {
-        return store.dispatchFuture(InvitationActionClear());
+        return store.dispatchAsync(InvitationActionClear());
       });
   }
 }

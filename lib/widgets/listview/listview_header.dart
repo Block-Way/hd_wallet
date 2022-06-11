@@ -2,7 +2,7 @@ part of widgets;
 
 class ListViewHeader extends RefreshIndicator {
   const ListViewHeader({
-    Key key,
+    Key? key,
     this.color,
     this.background,
     this.useProgressLoading = false,
@@ -12,8 +12,8 @@ class ListViewHeader extends RefreshIndicator {
           refreshStyle: RefreshStyle.UnFollow,
         );
 
-  final Color background;
-  final Color color;
+  final Color? background;
+  final Color? color;
   final bool useProgressLoading;
 
   @override
@@ -24,8 +24,8 @@ class ListViewHeader extends RefreshIndicator {
 
 class _ListViewHeaderState extends RefreshIndicatorState<ListViewHeader>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
-  AnimationController _dismissCtl;
+  late AnimationController _animationController;
+  late AnimationController _dismissCtl;
 
   double get headerHeight => widget.useProgressLoading == true ? 60 : 80;
 
@@ -65,7 +65,7 @@ class _ListViewHeaderState extends RefreshIndicatorState<ListViewHeader>
 
   @override
   Widget buildContent(BuildContext context, RefreshStatus mode) {
-    Widget child;
+    late Widget child;
 
     if (mode == RefreshStatus.refreshing || mode == RefreshStatus.completed) {
       if (widget.useProgressLoading == true) {
@@ -77,17 +77,14 @@ class _ListViewHeaderState extends RefreshIndicatorState<ListViewHeader>
           ),
         );
       } else {
-        child = RiveAnimation(
-          fileName: 'refreshing',
-          animation: 'Top Loading',
-          width: 100,
-          height: 60,
+        child = Icon(
+          Icons.sync,
         );
       }
     } else if (mode == RefreshStatus.failed) {
       child = Text(
         tr('global:list_refresh_failed'),
-        style: context.textSmall(),
+        style: context.textSmall(bold: true, fontWeight: FontWeight.normal),
       );
     } else if (mode == RefreshStatus.idle || mode == RefreshStatus.canRefresh) {
       // None

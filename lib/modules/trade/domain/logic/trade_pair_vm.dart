@@ -20,10 +20,10 @@ abstract class TradePairVM implements Built<TradePairVM, TradePairVMBuilder> {
     final tradeState = store.state.tradeState;
     final fiatCurrency = store.state.commonState.fiatCurrency ?? '';
 
-    final tradePair = tradeState.tradePair ?? tradeState.getDefaultTradePair();
+    //final tradePair = tradeState.tradePair ?? tradeState.getDefaultTradePair();
 
     return TradePairVM((viewModel) => viewModel
-      ..tradePair = tradePair.toBuilder()
+      //..tradePair = tradePair.toBuilder()
       ..allTradePairs = ListBuilder(tradeState.config?.allTradePairs ?? [])
       ..allTradeMarkets = ListBuilder(tradeState.config?.allTradeMarkets ?? [])
       ..fiatCurrency = fiatCurrency

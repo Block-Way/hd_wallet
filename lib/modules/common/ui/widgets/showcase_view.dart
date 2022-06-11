@@ -2,9 +2,9 @@ part of common_ui_module;
 
 class ShowcaseView extends StatefulWidget {
   const ShowcaseView({
-    @required this.message,
-    @required this.child,
-    Key key,
+    required this.message,
+    required this.child,
+    Key? key,
     this.width = 164,
     this.alignment = Alignment.center,
     this.hideImage = false,
@@ -128,7 +128,7 @@ Widget renderTipsView(
       color: context.btnPrimaryBgColor,
     ),
     child: Text(
-      widget.message ?? '',
+      widget.message,
       style: context.textSecondary(
         bold: true,
         color: context.whiteColor,

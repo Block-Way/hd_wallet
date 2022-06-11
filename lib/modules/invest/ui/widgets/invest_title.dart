@@ -2,11 +2,11 @@ part of invest_ui_module;
 
 class InvestTitle extends StatelessWidget {
   const InvestTitle({
-    @required this.onPressed,
+    required this.onPressed,
     this.activeMint,
   });
 
-  final MintItem activeMint;
+  final MintItem? activeMint;
   final void Function() onPressed;
 
   @override

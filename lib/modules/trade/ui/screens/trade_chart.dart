@@ -2,8 +2,8 @@ part of trade_ui_module;
 
 class RequestParams {
   RequestParams({
-    @required this.tradePair,
-    @required this.resolution,
+    required this.tradePair,
+    required this.resolution,
   });
 
   TradePair tradePair;
@@ -29,8 +29,8 @@ class RequestParams {
   int get hashCode => tradePair.hashCode ^ resolution.hashCode;
 
   RequestParams copyWith({
-    TradePair tradePair,
-    ResolutionItem resolution,
+    TradePair? tradePair,
+    ResolutionItem? resolution,
   }) {
     return RequestParams(
       tradePair: tradePair ?? this.tradePair,
@@ -40,7 +40,7 @@ class RequestParams {
 }
 
 class TradeChartPage extends HookWidget {
-  TradeChartPage(this.openTradePair, {Key key}) : super(key: key);
+  TradeChartPage(this.openTradePair, {Key? key}) : super(key: key);
   final TradePair openTradePair;
 
   static const routeName = '/trade/chart';
@@ -92,7 +92,7 @@ class TradeChartPage extends HookWidget {
     final chartInfoCubit = context.read<TradeInfo24hCubit>();
     final kLineCubit = context.read<TradeChartKLineCubit>();
     final depthCubit = context.read<TradeChartDepthCubit>();
-    kChartWidgetKey?.currentState?.closeInfoWindow();
+    //kChartWidgetKey.currentState.closeInfoWindow();
 
     return Future.wait([
       GetIt.I<CoinPriceCubit>().updateSingle(params.tradePair.id),
@@ -116,13 +116,13 @@ class TradeChartPage extends HookWidget {
   }
 
   void doExitFullScreen(ValueNotifier<bool> isFullScreen) {
-    kChartWidgetKey?.currentState?.closeInfoWindow();
+    //kChartWidgetKey.currentState?.closeInfoWindow();
     isFullScreen.value = false;
     ThemeDisplay.setPortraitMode();
   }
 
   void doEnterFullScreen(ValueNotifier<bool> isFullScreen) {
-    kChartWidgetKey?.currentState?.closeInfoWindow();
+    //kChartWidgetKey?.currentState?.closeInfoWindow();
     isFullScreen.value = true;
     ThemeDisplay.setLandscapeMode();
   }
@@ -220,7 +220,6 @@ class TradeChartPage extends HookWidget {
           backgroundColor: bgColor,
           automaticallyImplyLeading: false,
           titleSpacing: 0,
-          brightness: Brightness.dark,
           iconTheme: IconThemeData(color: context.whiteLightColor),
           leadingWidth: isFullScreen.value
               ? Platform.isIOS
@@ -248,11 +247,9 @@ class TradeChartPage extends HookWidget {
                     hideChange: true,
                     color: context.whiteLightColor,
                     isFullScreen: isFullScreen.value,
-                    onPressed: isFullScreen.value == true
-                        ? null
-                        : () {
-                            Scaffold.of(context).openDrawer();
-                          },
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
                   ),
                 ),
               ),
@@ -315,19 +312,21 @@ class TradeChartPage extends HookWidget {
                     top: isFullScreen.value ? 0 : 80,
                   ),
                   duration: Duration(milliseconds: 500),
-                  child: ChartKLine(
+                  child:
+                      Center(), /*ChartKLine(
                     key: ValueKey('chart'),
                     selectedResolution: currentResolution,
-                    chartDataStream: request.stream.switchMap(
-                      (value) => context
-                          .read<TradeChartKLineCubit>()
-                          .byTradePair(value.tradePair.id),
-                    ),
-                    chartDepthStream: request.stream.switchMap(
-                      (value) => context
-                          .read<TradeChartDepthCubit>()
-                          .byTradePair(value.tradePair.id),
-                    ),
+                    //chartDataStream: request.stream,
+                    //chartDataStream: request.stream.switchMap(
+                    //  (value) => context
+                    //      .read<TradeChartKLineCubit>()
+                    //      .byTradePair(value.tradePair.id),
+                    //),
+                    //chartDepthStream: request.stream.switchMap(
+                    //  (value) => context
+                    //      .read<TradeChartDepthCubit>()
+                    //      .byTradePair(value.tradePair.id),
+                    //),
                     chartIsLoading: dataIsLoading.stream,
                     isFullScreen: isFullScreen.value,
                     onChangeResolution: (resolution) {
@@ -338,7 +337,7 @@ class TradeChartPage extends HookWidget {
                         resolution: resolution,
                       ));
                     },
-                  ),
+                  ),*/
                 ),
                 if (!isFullScreen.value)
                   AnimatedPadding(

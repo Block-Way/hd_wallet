@@ -10,13 +10,13 @@ class CoinPriceState {
   /// Coin Prices
   final Map<String, AssetPrice> prices;
 
-  AssetPrice getCoinPrice({
-    @required String tradePairId,
+  AssetPrice? getCoinPrice({
+    required String tradePairId,
   }) {
     return prices.containsKey(tradePairId)
         ? prices[tradePairId]
         : AssetPrice.fromPrice(
-            tradePairId: tradePairId ?? '',
+            tradePairId: tradePairId,
             precision: 8,
             price: 0,
             price24h: 0,
@@ -24,8 +24,8 @@ class CoinPriceState {
   }
 
   void updateCoinPrice({
-    @required String tradePairId,
-    @required AssetPrice price,
+    required String tradePairId,
+    required AssetPrice price,
   }) {
     prices[tradePairId] = price;
   }
@@ -44,12 +44,12 @@ class CoinPriceState {
 }
 
 class CoinPriceCubit extends Cubit<CoinPriceState> {
-  CoinPriceCubit([AssetRepository assetRepository])
+  CoinPriceCubit([AssetRepository? assetRepository])
       : super(CoinPriceState({})) {
     _assetRepository = assetRepository ?? AssetRepository();
   }
 
-  AssetRepository _assetRepository;
+  late AssetRepository _assetRepository;
 
   Future<void> updateSingle(String tradePairId) async {
     final coinConfigs = GetIt.I<CoinConfig>();
@@ -106,8 +106,8 @@ class CoinPriceCubit extends Cubit<CoinPriceState> {
 
   /// Add/Update a ticker from mqtt
   Future<void> updateFromMqtt({
-    @required String tradePairId,
-    @required Map<String, dynamic> json,
+    required String tradePairId,
+    required Map<String, dynamic> json,
   }) async {
     final coinConfigs = GetIt.I<CoinConfig>();
     final symbol = tradePairId.split('/').first;
@@ -121,7 +121,7 @@ class CoinPriceCubit extends Cubit<CoinPriceState> {
       tradePairId: tradePairId,
       precision: coinConfigs.getDisplayPrecision(symbol),
       price: NumberUtil.getIntAmountAsDouble(json['new'], 10),
-      price24h: currentPrice.price, // TODO: should be 24h before price
+      price24h: currentPrice?.price ?? 0, // TODO: should be 24h before price
     );
     newState.updateCoinPrice(tradePairId: tradePairId, price: price);
 

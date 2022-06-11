@@ -9,13 +9,13 @@ class PriceTextAnimated extends HookWidget {
     this.bold = true,
     this.approximate = false,
     this.sameStyle = false,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String value;
   final String symbol;
   final TextSize size;
-  final Color color;
+  final Color? color;
   final bool bold;
   final bool approximate;
   final bool sameStyle;

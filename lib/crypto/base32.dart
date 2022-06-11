@@ -273,8 +273,8 @@ var hexDigits = Uint8List.fromList([
 ]);
 
 Uint8List uint256SetHex(String hex) {
-  var result = List<int>(32);
-  for (int i = 0, j = hex.length - 1; i < 32; i++) {
+  final result = List<int>.filled(32, 0);
+  for (var i = 0, j = hex.length - 1; i < 32; i++) {
     result[i] = hexDigits[hex.codeUnitAt(j)];
     j--;
     result[i] = result[i] | hexDigits[hex.codeUnitAt(j)] << 4;
@@ -293,7 +293,7 @@ int crc24q(Uint8List list, int size) {
 }
 
 String base32Encode5Bytes(Uint8List list) {
-  String result = "";
+  String result = '';
   result = result + alphabet[(list[0] >> 3) & 0x1F];
   result = result + alphabet[((list[0] << 2) & 0x1C) | ((list[1] >> 6) & 0x03)];
   result = result + alphabet[(list[1] >> 1) & 0x1F];
@@ -582,7 +582,7 @@ Uint8List base32Decode5Bytes(String psz) {
     -1
   ]);
 
-  final idx = List<int>(8);
+  final idx = List<int>.filled(8, 0);
   idx[0] = digit[psz.codeUnitAt(0)];
   idx[1] = digit[psz.codeUnitAt(1)];
   idx[2] = digit[psz.codeUnitAt(2)];
@@ -591,7 +591,7 @@ Uint8List base32Decode5Bytes(String psz) {
   idx[5] = digit[psz.codeUnitAt(5)];
   idx[6] = digit[psz.codeUnitAt(6)];
   idx[7] = digit[psz.codeUnitAt(7)];
-  final md5 = List<int>(5);
+  final md5 = List<int>.filled(5, 0);
   md5[0] = ((idx[0] << 3) & 0xF8) | ((idx[1] >> 2) & 0x07);
   md5[1] =
       ((idx[1] << 6) & 0xC0) | ((idx[2] << 1) & 0x3E) | ((idx[3] >> 4) & 0x01);
@@ -605,8 +605,8 @@ Uint8List base32Decode5Bytes(String psz) {
 Uint8List base32Decode(String strBase) {
   final pre = strBase.substring(0, 1);
   final strBase32 = strBase.substring(1);
-  final data = List<int>(35);
-  var temp = List<int>(5);
+  final data = List<int>.filled(35, 0);
+  var temp = List<int>.filled(5, 0);
   var m = 0;
   for (int i = 0; i < 7; i++) {
     temp = base32Decode5Bytes(strBase32.substring(i * 8, 8 * (i + 1)));
@@ -614,7 +614,7 @@ Uint8List base32Decode(String strBase) {
       data[m++] = temp[j];
     }
   }
-  final ret = List<int>(33);
+  final ret = List<int>.filled(33, 0);
   if (pre == '1') {
     ret[0] = 1;
   } else {

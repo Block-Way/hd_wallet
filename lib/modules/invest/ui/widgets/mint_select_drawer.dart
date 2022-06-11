@@ -2,9 +2,9 @@ part of invest_ui_module;
 
 class MintSelectDrawer extends StatelessWidget {
   const MintSelectDrawer({
-    @required this.mints,
-    @required this.activeMintId,
-    @required this.onLoadMint,
+    required this.mints,
+    required this.activeMintId,
+    required this.onLoadMint,
   });
 
   final List<MintItem> mints;

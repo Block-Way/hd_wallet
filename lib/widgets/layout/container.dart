@@ -2,8 +2,8 @@ part of widgets;
 
 class CSContainer extends StatelessWidget {
   const CSContainer({
-    @required this.child,
-    Key key,
+    required this.child,
+    Key? key,
     this.width = double.infinity,
     this.height,
     this.radius = 12,
@@ -17,15 +17,15 @@ class CSContainer extends StatelessWidget {
         super(key: key);
 
   final double width;
-  final double height;
+  final double? height;
   final double radius;
-  final EdgeInsetsGeometry margin;
-  final EdgeInsetsGeometry padding;
-  final bool secondary;
-  final Decoration decoration;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final bool? secondary;
+  final Decoration? decoration;
   final Widget child;
-  final void Function() onTap;
-  final Color splashColor;
+  final void Function()? onTap;
+  final Color? splashColor;
 
   @override
   Widget build(BuildContext context) {

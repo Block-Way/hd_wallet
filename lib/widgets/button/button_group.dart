@@ -2,26 +2,26 @@ part of widgets;
 
 class CSButtonGroup extends StatelessWidget {
   const CSButtonGroup({
-    @required this.selectedId,
-    Key key,
+    required this.selectedId,
+    Key? key,
     this.onSelectedId,
   }) : super(key: key);
 
   final int selectedId;
-  final Function(int value) onSelectedId;
+  final Function(int value)? onSelectedId;
 
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
       offset: Offset(8, 0),
       child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.only(right: 2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(
-                  child: buttonWidget(
+        width: double.infinity,
+        padding: EdgeInsets.only(right: 2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              child: buttonWidget(
                 context,
                 label: tr('trade:btn_buy'),
                 isLeft: true,
@@ -29,67 +29,72 @@ class CSButtonGroup extends StatelessWidget {
                 selectedId: selectedId,
                 onPress: () {
                   // TradeSide.buy.index;
-                  onSelectedId(0);
+                  onSelectedId?.call(0);
                 },
-              )),
-              Flexible(
-                child: Transform.translate(
-                  offset: Offset(-14, 0),
-                  child: buttonWidget(
-                    context,
-                    label: tr('trade:btn_sell'),
-                    isLeft: false,
-                    isSelect: selectedId == 1,
-                    selectedId: selectedId,
-                    onPress: () {
-                      // TradeSide.sell.index;
-                      onSelectedId(1);
-                    },
-                  ),
+              ),
+            ),
+            Flexible(
+              child: Transform.translate(
+                offset: Offset(-14, 0),
+                child: buttonWidget(
+                  context,
+                  label: tr('trade:btn_sell'),
+                  isLeft: false,
+                  isSelect: selectedId == 1,
+                  selectedId: selectedId,
+                  onPress: () {
+                    // TradeSide.sell.index;
+                    onSelectedId?.call(1);
+                  },
                 ),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
 Widget buttonWidget(
   BuildContext context, {
-  String label,
-  bool isLeft,
-  bool isSelect,
-  Function onPress,
-  int selectedId,
+  String? label,
+  bool? isLeft,
+  bool? isSelect,
+  Function? onPress,
+  int? selectedId,
 }) {
   return ClipPath(
-    clipper: TopBarClipper(isLeft: isLeft),
-    child: ClipRRect(
-      borderRadius: isLeft
-          ? BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              bottomLeft: Radius.circular(10.0),
-            )
-          : BorderRadius.only(
-              topRight: Radius.circular(10.0),
-              bottomRight: Radius.circular(10.0),
-            ),
-      child: CSButton(
-        label: label,
-        height: 40,
-        margin: EdgeInsets.zero,
-        padding: EdgeInsets.zero,
-        borderRadius: 0,
-        // textColor: isSelect ? context.whiteColor : context.bodyColor,
-        textColor: isSelect ? context.whiteColor : Color(0xFF999999),
-        backgroundColor: isSelect
-            ? selectedId == 0
-                ? context.greenColor
-                : context.redColor
-            : context.greyDarkColor,
-        onPressed: () {
-          onPress();
-        },
+    clipper: TopBarClipper(
+      isLeft: isLeft ?? false,
+      child: ClipRRect(
+        borderRadius: isLeft ?? false
+            ? BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                bottomLeft: Radius.circular(10.0),
+              )
+            : BorderRadius.only(
+                topRight: Radius.circular(10.0),
+                bottomRight: Radius.circular(10.0),
+              ),
+        child: CSButton(
+          label: label ?? '',
+          height: 40,
+          margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
+          borderRadius: 0,
+          // textColor: isSelect ? context.whiteColor : context.bodyColor,
+          textColor:
+              (isSelect ?? false) ? context.whiteColor : Color(0xFF999999),
+          backgroundColor: (onPress == null)
+              ? selectedId == 0
+                  ? context.greenColor
+                  : context.redColor
+              : context.greyDarkColor,
+          onPressed: () {
+            onPress?.call();
+          },
+        ),
       ),
     ),
   );
@@ -98,9 +103,10 @@ Widget buttonWidget(
 class TopBarClipper extends CustomClipper<Path> {
   TopBarClipper({
     this.isLeft,
+    ClipRRect? child,
   });
 
-  bool isLeft;
+  bool? isLeft;
 
   @override
   Path getClip(Size size) {

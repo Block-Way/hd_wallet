@@ -2,9 +2,9 @@ part of home_ui_module;
 
 class HomePricesCard extends StatelessWidget {
   const HomePricesCard({
-    @required this.prices,
-    @required this.doChangeTradePair,
-    @required this.allTradePairs,
+    required this.prices,
+    required this.doChangeTradePair,
+    required this.allTradePairs,
   }) : assert(prices != null);
 
   final List<AssetPrice> prices;
@@ -68,8 +68,8 @@ class HomePricesCard extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = prices[index];
               final tradePair = allTradePairs.firstWhere(
-                  (e) => e.id == item.tradePairId,
-                  orElse: () => null);
+                (e) => e.id == item.tradePairId,
+              );
 
               return CSContainer(
                 radius: 0,
@@ -90,11 +90,8 @@ class HomePricesCard extends StatelessWidget {
                     Expanded(
                       flex: 4,
                       child: TextTradePair(
-                        item.tradeSymbol,
-                        item.priceSymbol,
-                        TextSize.body,
-                        color: context.cardTitleColor
-                      ),
+                          item.tradeSymbol, item.priceSymbol, TextSize.body,
+                          color: context.cardTitleColor),
                     ),
                     Expanded(
                       flex: 4,
@@ -111,12 +108,8 @@ class HomePricesCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(height: 2),
-                            PriceText(
-                              item.displayPrice,
-                              '',
-                              TextSize.body,
-                              color: context.cardTitleColor
-                            ),
+                            PriceText(item.displayPrice, '', TextSize.body,
+                                color: context.cardTitleColor),
                             SizedBox(height: 2),
                             PriceText(
                               // fiatPrice,

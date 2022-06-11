@@ -2,7 +2,7 @@ part of widgets;
 
 class CSEmpty extends HookWidget {
   const CSEmpty({
-    Key key,
+    Key? key,
     this.header,
     this.imageUrl,
     this.label,
@@ -15,14 +15,14 @@ class CSEmpty extends HookWidget {
     this.height = 156,
   }) : super(key: key);
 
-  final Widget header;
-  final String imageUrl;
-  final String label;
-  final String btnText;
+  final Widget? header;
+  final String? imageUrl;
+  final String? label;
+  final String? btnText;
   final bool isLoading;
   final bool showButton;
   final double heightFromTop;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final double width;
   final double height;
 

@@ -1,19 +1,19 @@
 part of asset_domain_module;
 
 class AssetRepository {
-  factory AssetRepository([AssetApi _api]) {
+  factory AssetRepository([AssetApi? _api]) {
     _instance._api = _api ?? AssetApi();
     return _instance;
   }
   AssetRepository._internal();
 
-  AssetApi _api;
+  late AssetApi _api;
   static final _instance = AssetRepository._internal();
 
-  String fingerprint;
+  String? fingerprint;
 
-  static Box<Prices> _prices;
-  static LazyBox<List<dynamic>> _transactions;
+  static Box<Prices>? _prices;
+  static LazyBox<List<dynamic>>? _transactions;
 
   static const _pricesKey = 'prices_v1';
   static const _transactionsKey = 'transactions_v1';
@@ -23,8 +23,8 @@ class AssetRepository {
     _transactions =
         await AppHiveCache.openLazyBox<List<dynamic>>(_transactionsKey);
 
-    if (_prices.get(_pricesKey) == null) {
-      await _prices.put(
+    if (_prices?.get(_pricesKey) == null) {
+      await _prices?.put(
         _pricesKey,
         Prices(),
       );
@@ -38,40 +38,41 @@ class AssetRepository {
     //return json;
     return {};
   }
-
+  /*
   Future<Map<String, dynamic>> getDexPrices() async {
     final prices = await _api.getDexPrices();
-    return prices;
-  }
+    return prices as Map<String, dynamic>;
+  }*/
 
   Future<void> savePricesToCache({
-    Map<String, double> coinPrices,
-    Map<String, double> fiatPrices,
+    Map<String, double>? coinPrices,
+    Map<String, double>? fiatPrices,
   }) async {
     final prices = _prices?.get(_pricesKey);
-    prices.coinPrices = coinPrices ?? prices.coinPrices;
-    prices.fiatPrices = fiatPrices ?? prices.fiatPrices;
+    prices?.coinPrices = coinPrices ?? prices.coinPrices;
+    prices?.fiatPrices = fiatPrices ?? prices.fiatPrices;
     if (coinPrices != null && coinPrices.isNotEmpty) {
-      prices.coinUpdatedAt = DateTime.now();
+      prices?.coinUpdatedAt = DateTime.now();
     }
     if (fiatPrices != null && fiatPrices.isNotEmpty) {
-      prices.fiatUpdatedAt = DateTime.now();
+      prices?.fiatUpdatedAt = DateTime.now();
     }
-    prices.updatedAt = DateTime.now();
-    await prices.save();
+    prices?.updatedAt = DateTime.now();
+    await prices?.save();
   }
 
   /// Price of coins in USD
   /// - This api will return a map of Coin symbol with USD price
   /// - Es: BTC => 12000 (USD)
   Future<Map<String, double>> getCoinPrices() async {
-    final json = await _api.getPrices();
-    final data = <String, double>{};
-    json.forEach((key, value) {
-      data[key] = NumberUtil.getDouble(value['USD']);
-    });
-    await savePricesToCache(coinPrices: data);
-    return data;
+    return {};
+    //final json = await _api.getPrices();
+    //final data = <String, double>{};
+    //json.forEach((key, value) {
+    //  data[key] = NumberUtil.getDouble(value['USD']);
+    //});
+    //await savePricesToCache(coinPrices: data);
+    //return data;
     //return {'BTC': 12000, 'ETH': 1200, 'BBC': 120, 'SUG': 12, 'TRX': 1.2};
 
     /*
@@ -120,8 +121,8 @@ class AssetRepository {
 
   //  获取交易费
   Future<Map<String, dynamic>> getTransactionFee({
-    @required String symbol,
-    @required String address,
+    required String symbol,
+    required String address,
   }) async {
     final res = await _api.getTransactionFeeInformation(
       symbol: symbol,
@@ -144,9 +145,9 @@ class AssetRepository {
 
   // 投票地址生成
   Future<Map<String, dynamic>> getVoteNodeDetail({
-    @required String delegate,
-    @required String owner,
-    @required int rewardmode,
+    required String delegate,
+    required String owner,
+    required int rewardmode,
   }) async {
     /*
     final res = await _api.getVoteNodeDetail(
@@ -160,20 +161,18 @@ class AssetRepository {
     return getVote(delegate, owner, rewardmode);
   }
 
-  // 投票/撤投
+  /*
   Future<Map<String, dynamic>> createTransaction({
-    @required dynamic time,
-    @required String fork,
-    @required dynamic nonce,
-    @required dynamic from,
-    @required dynamic to,
-    @required String amount,
-    @required dynamic gasprice,
-    @required dynamic gaslimit,
-    @required String data,
+    required dynamic time,
+    required String fork,
+    required dynamic nonce,
+    required dynamic from,
+    required dynamic to,
+    required String amount,
+    required dynamic gasprice,
+    required dynamic gaslimit,
+    required String data,
   }) async {
-    print("撤投 ========== ");
-
     final res = await _api.createTransaction(
         time: time,
         fork: fork,
@@ -184,25 +183,22 @@ class AssetRepository {
         gasprice: gasprice,
         gaslimit: gaslimit,
         data: data);
-
-    print("看看结果 $res");
     return res;
   }
-
+*/
   //  发送交易
   Future<dynamic> submitTransaction({
-    @required String hex,
+    required String hex,
   }) async {
-    dynamic res = await _api.submitTransaction(hex: hex);
-    print("看看发送交易 $res");
+    final res = await _api.submitTransaction(hex: hex);
     return res;
   }
 
   Future<Map<String, dynamic>> getCoinBalance({
-    @required String chain,
-    @required String symbol,
-    @required String address,
-    @required String contract,
+    required String chain,
+    required String symbol,
+    required String address,
+    required String contract,
   }) async {
     final res = await _api.getCoinBalanceWithUnconfirmed(
       chain: chain,
@@ -275,7 +271,7 @@ class AssetRepository {
   }
 
   /// ***  Search Coins *** ///
-
+  /*
   Future<List<Map<String, dynamic>>> searchCoins(
     String chain,
     String term,
@@ -285,14 +281,14 @@ class AssetRepository {
     }
     return Future.value([]);
   }
-
+  */
   /// ***  Transactions *** ///
-
+  /*
   Future<Map<String, dynamic>> getSingleTransaction({
-    @required String chain,
-    @required String symbol,
-    @required String txId,
-    @required String walletId,
+    required String chain,
+    required String symbol,
+    required String txId,
+    required String walletId,
   }) async {
     return _api.getSingleTransaction(
       chain: chain,
@@ -301,14 +297,14 @@ class AssetRepository {
       walletId: walletId,
     );
   }
-
+  */
   Future<MapEntry<int, List<Map<String, dynamic>>>> getTransactionsFromApi({
-    @required String chain,
-    @required String symbol,
-    @required String address,
-    @required String contract,
-    @required int page,
-    @required int skip,
+    required String chain,
+    required String symbol,
+    required String address,
+    required String contract,
+    required int page,
+    required int skip,
   }) async {
     var count = 0;
     var transactions = <Map<String, dynamic>>[];
@@ -376,46 +372,46 @@ class AssetRepository {
   }
 
   Future<List<Transaction>> getTransactionsFromCache({
-    @required String symbol,
-    @required String address,
+    required String symbol,
+    required String address,
   }) async {
-    final list = await _transactions.get(
+    final list = await _transactions?.get(
       '$symbol:$address',
       defaultValue: [],
     );
-    return List.from(list);
+    return List.from(list ?? []);
   }
 
   Future<void> saveTransactionsToCache({
-    @required String symbol,
-    @required String address,
-    @required List<Transaction> transactions,
+    required String symbol,
+    required String address,
+    required List<Transaction> transactions,
   }) async {
-    await _transactions.put(
+    await _transactions?.put(
       '$symbol:$address',
       transactions,
     );
   }
 
   Future<void> clearTransactionsCache({
-    @required String symbol,
-    @required String address,
+    required String symbol,
+    required String address,
   }) async {
-    await _transactions.put(
+    await _transactions?.put(
       '$symbol:$address',
       [],
     );
   }
 
   /// ***  Address *** ///
-
+  /*
   Future<String> submitAddressAdd({
-    @required String walletId,
-    @required String chain,
-    @required String symbol,
-    @required String addressId,
-    @required String address,
-    @required String comments,
+    required String walletId,
+    required String chain,
+    required String symbol,
+    required String addressId,
+    required String address,
+    required String comments,
   }) async {
     final result = await _api.submitAddressAdd(
       walletId: walletId,
@@ -460,11 +456,11 @@ class AssetRepository {
     );
     return result;
   }
-
+  
   Future<List<AssetAddress>> getAddressList({
-    @required String walletId,
-    @required String chain,
-    @required String symbol,
+    required String walletId,
+    required String chain,
+    required String symbol,
   }) async {
     final json = await _api.getAddressList(
       walletId: walletId,
@@ -472,5 +468,5 @@ class AssetRepository {
       symbol: symbol,
     );
     return deserializeListOf<AssetAddress>(json).toList();
-  }
+  }*/
 }

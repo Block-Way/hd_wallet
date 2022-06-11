@@ -38,7 +38,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
   dynamic status = 1; // 0：address， 1：vote address
   dynamic txData;
   final myController = TextEditingController();
-  String hex;
+  String hex = '';
   Widget buildFooter(BuildContext context, AssetWithdrawVM viewModel) {
     return Container(
       // color: context.bgPrimaryColor,
@@ -79,22 +79,22 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     );
   }
 
-  void handleCreateTransaction(BuildContext context, AssetWithdrawVM viewModel, bool isTou) {
+  void handleCreateTransaction(
+      BuildContext context, AssetWithdrawVM viewModel, bool isTou) {
     assemblyTransaction(isTou);
     print('insufficientBalance $insufficientBalance');
-    if(!insufficientBalance) {
+    if (!insufficientBalance) {
       showPasswordDialog(
         context,
-            (password) => viewModel.doUnlockWallet(password),
-            (walletData, _) async {
-          WalletActionBBCTxSubmit.reduceDpos(txData, walletData.mnemonic)
+        (password) => viewModel.doUnlockWallet(password),
+        (walletData, _) async {
+          WalletActionBBCTxSubmit.reduceDpos(txData, walletData.mnemonic ?? '')
               .then((res) {
-            AssetRepository()
-                .submitTransaction(hex: res.toString())
-                .then((hexRes) => {
-                  Toast.show(tr('asset:operating_success')),
-                  AppNavigator.goBack()
-                });
+            AssetRepository().submitTransaction(hex: res.toString()).then(
+                (hexRes) => {
+                      Toast.show(tr('asset:operating_success')),
+                      AppNavigator.goBack()
+                    });
           });
         },
       );
@@ -116,27 +116,44 @@ class _AssetDposDetail extends State<AssetDposDetail> {
     getVoteAddress();
     getCompoundInterestAddress();
   }
+
 //get vote address balance
   void getVoteAddressBalance(address) async {
-    var res = await AssetRepository()
-        .getCoinBalance(address: address.toString(), symbol: 'HAH');
+    var res = await AssetRepository().getCoinBalance(
+      address: address.toString(),
+      symbol: 'HAH',
+      chain: '',
+      contract: '',
+    );
     setState(() {
       voteAddressBalance = res['balance'].toString();
       voteLockedAmount = res['locked'].toString();
     });
     print('投票地址余额 $res $address');
   }
+
   //get address balance
   void getCompoundInterestAddressBalance(address) async {
-    var res = await AssetRepository().getCoinBalance(address: address.toString(), symbol: 'HAH');
+    var res = await AssetRepository().getCoinBalance(
+      address: address.toString(),
+      symbol: 'HAH',
+      chain: '',
+      contract: '',
+    );
     setState(() {
       compoundInterestAddressBalance = res['balance'].toString();
       fuliLockedAmount = res['locked'].toString();
     });
   }
+
 //get wallet address balance
   void getWalletBalance(address) async {
-    var res = await AssetRepository().getCoinBalance(address: address.toString(), symbol: 'HAH');
+    var res = await AssetRepository().getCoinBalance(
+      address: address.toString(),
+      symbol: 'HAH',
+      chain: '',
+      contract: '',
+    );
     setState(() {
       // addressBalance = res['balance'].toString();
     });
@@ -144,7 +161,8 @@ class _AssetDposDetail extends State<AssetDposDetail> {
 
 //
   void assemblyTransaction(bool isTou) {
-    print('isTou $voteAddressBalance $compoundInterestAddressBalance $addressBalance');
+    print(
+        'isTou $voteAddressBalance $compoundInterestAddressBalance $addressBalance');
     // if(!isTou) { //撤投
     //   if(status == 1) {
     //     insufficientBalance = double.parse(voteAddressBalance) < double.parse(addressBalance);
@@ -169,8 +187,11 @@ class _AssetDposDetail extends State<AssetDposDetail> {
 
   //get vote address
   void getVoteAddress() {
-    final ret = getVote(widget.voteNodeItem['address'].toString(),
-        widget.coinInfo.address.toString(), 1);
+    final ret = getVote(
+      widget.voteNodeItem['address'].toString(),
+      widget.coinInfo.address.toString(),
+      1,
+    );
     setState(() {
       nodeAddress = ret['address'].toString();
       hex = ret['hex'].toString();
@@ -180,8 +201,11 @@ class _AssetDposDetail extends State<AssetDposDetail> {
 
   //get address
   void getCompoundInterestAddress() {
-    final ret = getVote(widget.voteNodeItem['address'].toString(),
-        widget.coinInfo.address.toString(), 0);
+    final ret = getVote(
+      widget.voteNodeItem['address'].toString(),
+      widget.coinInfo.address.toString(),
+      0,
+    );
     setState(() {
       compoundInterestAddress = ret['address'].toString();
     });
@@ -211,7 +235,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
       'gaslimit': '20000',
       'data': isTou ? '01010146$hex' : '00'
     };
-    final ret = getTx(params);
+    final ret = getTx(params as Map<String, Object>);
     print('$ret');
     print('$params');
 
@@ -231,7 +255,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
       child: StoreConnector<AppState, AssetWithdrawVM>(
         distinct: true,
         converter: AssetWithdrawVM.fromStore,
-        onInitialBuild: (viewModel) {},
+        onInitialBuild: (_, __, viewModel) {},
         builder: (context, viewModel) => Column(
           children: [
             Form(
@@ -275,7 +299,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                         onPressed: () {},
                       ),
                     ),
-                    maxLines: null,
+                    //maxLines: null,
                     onFocusChanged: (hasFocus) {
                       if (!hasFocus) {
 //                        handleChangeAddress(viewModel);
@@ -310,7 +334,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                         onPressed: () {},
                       ),
                     ),
-                    maxLines: null,
+                    //maxLines: null,
                     onFocusChanged: (hasFocus) {
                       if (!hasFocus) {
 //                        handleChangeAddress(viewModel);
@@ -344,32 +368,36 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                         onPressed: () {},
                       ),
                     ),
-                    maxLines: null,
+                    //maxLines: null,
                     onFocusChanged: (hasFocus) {
                       if (!hasFocus) {
 //                        handleChangeAddress(viewModel);
                       }
                     },
                   ),
-                  FormBox( //vote address balance
+                  FormBox(
+                    //vote address balance
                     type: FormBoxType.inputText,
                     title: tr('wallet:vote_address_balance'),
                     readOnly: true,
                     hintText: tr(voteAddressBalance),
                   ),
-                  FormBox( //vote address locked amount
+                  FormBox(
+                    //vote address locked amount
                     type: FormBoxType.inputText,
                     title: tr('wallet:vote_address_locked_amount'),
                     readOnly: true,
                     hintText: tr(voteLockedAmount),
                   ),
-                  FormBox( //address balance
+                  FormBox(
+                    //address balance
                     type: FormBoxType.inputText,
                     title: tr('wallet:fuli_address_balance'),
                     readOnly: true,
                     hintText: tr(compoundInterestAddressBalance),
                   ),
-                  FormBox( //address locked amount
+                  FormBox(
+                    //address locked amount
                     type: FormBoxType.inputText,
                     title: tr('wallet:fuli_address_locked_amount'),
                     readOnly: true,
@@ -380,8 +408,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                         width: 390,
                         decoration: new BoxDecoration(
                           color: Color(0xFF17191C),
-                          borderRadius:
-                              new BorderRadius.circular((12.0)),
+                          borderRadius: new BorderRadius.circular((12.0)),
                         ),
                         child: Column(
                           children: [
@@ -412,7 +439,7 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                                     Text(tr('asset:compound_interest_address')),
                                 subtitle: Text(compoundInterestAddress),
                                 selected: this.status == 0,
-                                activeColor:context.placeholderColor),
+                                activeColor: context.placeholderColor),
                           ],
                         )),
                   ),
@@ -454,12 +481,13 @@ class _AssetDposDetail extends State<AssetDposDetail> {
                     },
                   ),
                   FormBox(
-                      type: FormBoxType.inputText,
-                      title: tr('asset:gas_free'),
-                      iconColor: context.bodyColor,
-                      hintText: tr('0.000001'),
-                      maxLines: null,
-                      readOnly: true)
+                    type: FormBoxType.inputText,
+                    title: tr('asset:gas_free'),
+                    iconColor: context.bodyColor,
+                    hintText: tr('0.000001'),
+                    //maxLines: null,
+                    readOnly: true,
+                  )
                 ],
               ),
             ),

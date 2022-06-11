@@ -2,7 +2,7 @@ part of widgets;
 
 class FormCell extends StatelessWidget {
   const FormCell({
-    Key key,
+    Key? key,
     this.hidden = false,
     this.height = 64,
     this.autoHeight = false,
@@ -23,18 +23,18 @@ class FormCell extends StatelessWidget {
   final bool hidden;
   final double height;
   final bool autoHeight;
-  final EdgeInsetsGeometry padding;
-  final String label;
-  final TextStyle labelStyle;
-  final VoidCallback onPress;
-  final Widget child;
-  final Widget cmpLeft;
-  final Widget cmpRight;
+  final EdgeInsetsGeometry? padding;
+  final String? label;
+  final TextStyle? labelStyle;
+  final VoidCallback? onPress;
+  final Widget? child;
+  final Widget? cmpLeft;
+  final Widget? cmpRight;
   final bool hideAccess;
   final bool showBorderTop;
   final bool showBorderBottom;
-  final BorderSide borderTop;
-  final BorderSide borderBottom;
+  final BorderSide? borderTop;
+  final BorderSide? borderBottom;
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +55,15 @@ class FormCell extends StatelessWidget {
         padding: padding ?? context.edgeAll,
         child: Row(
           children: [
-            if (cmpLeft != null) cmpLeft,
+            if (cmpLeft != null) cmpLeft!,
             if (label != null)
               Text(
                 label ?? '',
                 style: labelStyle ?? context.textBody(bold: true),
               ),
-            if (child != null) Expanded(child: child),
+            if (child != null) Expanded(child: child!),
             if (child == null) Spacer(),
-            if (cmpRight != null) cmpRight,
+            if (cmpRight != null) cmpRight!,
             if (hideAccess != true)
               Padding(
                 padding: context.edgeLeft8,

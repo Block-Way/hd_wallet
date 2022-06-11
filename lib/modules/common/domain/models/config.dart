@@ -7,7 +7,7 @@ abstract class Config implements Built<Config, ConfigBuilder> {
 
   static Serializer<Config> get serializer => _$configSerializer;
 
-  static Config fromJson(Map<String, dynamic> json) {
+  static Config? fromJson(Map<String, dynamic> json) {
     return deserialize<Config>(json);
   }
 
@@ -18,9 +18,9 @@ abstract class Config implements Built<Config, ConfigBuilder> {
   @BuiltValueField(wireName: 'otc_on_chain')
   ConfigOtc get otc;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'system_store')
-  ConfigSystem get system;
+  ConfigSystem? get system;
 
   ConfigUpdate get version;
 }

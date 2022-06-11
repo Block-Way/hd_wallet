@@ -2,12 +2,12 @@ part of common_ui_module;
 
 class CSHorizontalProgress extends StatelessWidget {
   const CSHorizontalProgress({
-    @required this.width,
-    @required this.height,
-    @required this.value,
-    @required this.valueColor,
-    @required this.backgroundColor,
-    Key key,
+    required this.width,
+    required this.height,
+    required this.value,
+    required this.valueColor,
+    required this.backgroundColor,
+    Key? key,
   }) : super(key: key);
   final double width;
   final double height;

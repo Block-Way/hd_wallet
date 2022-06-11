@@ -16,8 +16,8 @@ void showHDKeyConnectingDialog(
 
 class HDKeyWalletConnect extends HookWidget {
   const HDKeyWalletConnect({
-    @required this.initialStatus,
-    @required this.statusStream,
+    required this.initialStatus,
+    required this.statusStream,
   });
 
   final HDKeyDeviceStatus initialStatus;

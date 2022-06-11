@@ -1,6 +1,7 @@
 part of invest_domain_module;
 
 class InvestApi {
+  /*
   /// Invest config
   Future<List<Map<String, dynamic>>> getConfig() =>
       Request().getListOfObjects('/v1/hd/defi/mint/config');
@@ -68,4 +69,5 @@ class InvestApi {
           authorization: auth,
         ),
       );
+      */
 }

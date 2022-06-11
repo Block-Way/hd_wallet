@@ -15,7 +15,7 @@ class SettingsTestnetPage extends HookWidget {
 
   List<MapEntry<String, bool>> getNetMaps() {
     return [
-      MapEntry('BBC', WalletConfigNetwork.bbc),
+      MapEntry('BBC', WalletConfigNetwork.hah),
       MapEntry('BTC', WalletConfigNetwork.btc),
       MapEntry('ETH', WalletConfigNetwork.eth),
       MapEntry('TRX', WalletConfigNetwork.trx),

@@ -23,7 +23,7 @@ class ProjectApplyRulePage extends HookWidget {
         child: StoreConnector<AppState, ProjectApplyVM>(
           distinct: true,
           converter: ProjectApplyVM.fromStore,
-          onInitialBuild: (viewModel) {
+          onInitialBuild: (_, __, viewModel) {
             LoadingDialog.show(context);
             viewModel.getProjectConfig().catchError((e) {
               Toast.showError(e);

@@ -4,7 +4,7 @@ class AssetBackgroundCircle extends Decoration {
   const AssetBackgroundCircle();
 
   @override
-  BoxPainter createBoxPainter([_]) {
+  BoxPainter createBoxPainter([void Function()? f]) {
     const startColor = Color(0xFFfff0a2);
     const endColor = Color(0xFFf5c600);
     return _AssetBackgroundCirclePainter(
@@ -25,12 +25,12 @@ class _AssetBackgroundCirclePainter extends BoxPainter {
     this.radius = 10,
   });
 
-  final List<Color> colors;
+  final List<Color>? colors;
   final double radius;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final bounds = offset & configuration.size;
+    final bounds = offset & (configuration.size ?? Size(0, 0));
 
     canvas.drawRRect(
       BorderRadius.all(Radius.circular(12))
@@ -41,7 +41,7 @@ class _AssetBackgroundCirclePainter extends BoxPainter {
     );
 
     final gradient = LinearGradient(
-      colors: colors,
+      colors: colors!,
     );
 
     final brush = Paint()

@@ -6,13 +6,13 @@ class AssetAddressAddPage extends HookWidget {
     this.coinInfo,
   });
 
-  final AssetAddress item;
-  final AssetCoin coinInfo;
+  final AssetAddress? item;
+  final AssetCoin? coinInfo;
   final formKey = GlobalKey<FormState>();
 
   static const routeName = '/asset/address/add';
 
-  static void open(AssetCoin coinInfo, [AssetAddress item]) {
+  static void open(AssetCoin coinInfo, [AssetAddress? item]) {
     AppNavigator.push(routeName, params: {
       'item': item,
       'coinInfo': coinInfo,
@@ -35,23 +35,23 @@ class AssetAddressAddPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEdit = item != null && item.id != null;
+    final isEdit = item != null && item?.id != null;
 
     final address = useTextEditingController(text: item?.address ?? '');
     final name = useTextEditingController(text: item?.comments ?? '');
     final autovalidate = useState(false);
 
     Future<void> handleSubmit(AssetAddressVM viewModel) async {
-      final isValid = formKey.currentState.validate();
+      final isValid = formKey.currentState?.validate();
       if (!autovalidate.value) {
         autovalidate.value = true;
       }
-      if (!isValid) {
+      if (!(isValid ?? false)) {
         return;
       }
 
       final addressValid = await viewModel.validateAddress(
-        chain: coinInfo.chain,
+        chain: coinInfo?.chain ?? '',
         address: address.text,
       );
       if (addressValid == null || addressValid == false) {
@@ -61,7 +61,7 @@ class AssetAddressAddPage extends HookWidget {
       LoadingDialog.show(context);
       viewModel
           .submitAddressAdd(
-              coinInfo,
+              coinInfo!,
               AssetAddress.fromAdd(
                 id: item?.id,
                 address: address.text,
@@ -96,7 +96,7 @@ class AssetAddressAddPage extends HookWidget {
               children: [
                 AssetCoinBox(
                   title: tr('asset:withdraw_lbl_coin'),
-                  coinInfo: coinInfo,
+                  coinInfo: coinInfo!,
                 ),
                 FormBox(
                   type: FormBoxType.inputText,
@@ -107,7 +107,7 @@ class AssetAddressAddPage extends HookWidget {
                     errorText: tr('asset:address_add_address_req'),
                   ),
                   onPressIcon: () {
-                    QRScannerPage.open().then((toAddress) {
+                    QRScannerPage.open()?.then((toAddress) {
                       if (toAddress != null && toAddress.isNotEmpty) {
                         address.text = toAddress;
                       }
@@ -115,7 +115,7 @@ class AssetAddressAddPage extends HookWidget {
                   },
                   controller: address,
                   hintText: tr('asset:address_add_address_hint'),
-                  maxLines: null,
+                  //maxLines: null,
                   maxLength: 512,
                 ),
                 FormBox(

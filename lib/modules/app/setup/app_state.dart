@@ -16,7 +16,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
           ..assetState.replace(AssetState())
           ..walletState.replace(WalletState())
           ..homeState.replace(HomeState())
-          ..swapState.replace(SwapState())
+          //..swapState.replace(SwapState())
           ..tradeState.replace(TradeState())
           ..noticeState.replace(NoticeState())
           ..invitationState.replace(InvitationState())
@@ -28,13 +28,13 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       );
 
   factory AppState.fromCache({
-    HomeState homeState,
-    TradeState tradeState,
-    NoticeState noticeState,
-    AssetState assetState,
-    WalletState walletState,
-    CommunityState communityState,
-    ProjectState projectState,
+    HomeState? homeState,
+    TradeState? tradeState,
+    NoticeState? noticeState,
+    AssetState? assetState,
+    WalletState? walletState,
+    CommunityState? communityState,
+    ProjectState? projectState,
   }) =>
       AppState(
         (a) => a
@@ -42,7 +42,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
           ..assetState.replace(assetState ?? AssetState())
           ..walletState.replace(walletState ?? WalletState())
           ..homeState.replace(homeState ?? HomeState())
-          ..swapState.replace(SwapState())
+          //..swapState.replace(SwapState())
           ..tradeState.replace(tradeState ?? TradeState())
           ..noticeState.replace(noticeState ?? NoticeState())
           ..invitationState.replace(InvitationState())
@@ -60,7 +60,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   WalletState get walletState;
   NoticeState get noticeState;
   HomeState get homeState;
-  SwapState get swapState;
+  //SwapState get swapState;
   TradeState get tradeState;
   InvitationState get invitationState;
   CommunityState get communityState;

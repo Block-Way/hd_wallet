@@ -77,6 +77,7 @@ class AppDrawer extends StatelessWidget {
               // ),
               AppDrawerMenuLanguage(
                 onSelected: (language) {
+                  // ignore: deprecated_member_use
                   context.locale = Locale(language);
                   viewModel.doChangeLanguage(language);
                 },
@@ -84,7 +85,7 @@ class AppDrawer extends StatelessWidget {
               AppDrawerMenuVersion(
                 label: tr('user:menu_version'),
                 hasNew: viewModel.hasNewVersion,
-                version: viewModel.appVersion,
+                version: viewModel.appVersion, onPressed: () {},
                 // onPressed: () {
                 //   LoadingDialog.show(context);
                 //   viewModel.doCheckForUpdates(false).then((data) {
@@ -161,24 +162,26 @@ class AppDrawer extends StatelessWidget {
               //     },
               //   ),
               Spacer(),
-              Row(children: const [
-                AppDrawerMenuSocial(
-                  icon: 'assets/images/social_twitter.png',
-                  // url: AppLinks.appTwitter,
-                ),
-                AppDrawerMenuSocial(
-                  icon: 'assets/images/social_facebook.png',
-                  // url: AppLinks.appFacebook,
-                ),
-                AppDrawerMenuSocial(
-                  icon: 'assets/images/social_ins.png',
-                  // url: AppLinks.appInstagram,
-                ),
-                AppDrawerMenuSocial(
-                  icon: 'assets/images/social_tele.png',
-                  // url: AppLinks.appTelegram,
-                ),
-              ]),
+              Row(
+                children: const [
+                  AppDrawerMenuSocial(
+                    icon: 'assets/images/social_twitter.png',
+                    url: AppLinks.appTwitter,
+                  ),
+                  AppDrawerMenuSocial(
+                    icon: 'assets/images/social_facebook.png',
+                    url: AppLinks.appFacebook,
+                  ),
+                  AppDrawerMenuSocial(
+                    icon: 'assets/images/social_ins.png',
+                    url: AppLinks.appInstagram,
+                  ),
+                  AppDrawerMenuSocial(
+                    icon: 'assets/images/social_tele.png',
+                    url: AppLinks.appTelegram,
+                  ),
+                ],
+              ),
               Padding(
                 padding: context.edgeAll.copyWith(top: 0),
                 child: Text(

@@ -10,7 +10,7 @@ class WalletCreatePage extends HookWidget {
 
   static const routeName = '/wallet/create';
 
-  static void open([String importMnemonic = '', WalletType type]) {
+  static void open([String importMnemonic = '', WalletType? type]) {
     AppNavigator.push(
       routeName,
       params: {'importMnemonic': importMnemonic, 'type': type},
@@ -20,13 +20,13 @@ class WalletCreatePage extends HookWidget {
   static Route<dynamic> route(RouteSettings settings) {
     final map =
         settings != null ? settings.arguments as Map<String, dynamic> : null;
-    final importMnemonic = map['importMnemonic'] as String;
+    final importMnemonic = map!['importMnemonic'] as String;
     final type = map['type'] as WalletType;
     return DefaultTransition(
       settings,
       WalletCreatePage(
-        importMnemonic ?? '',
-        type ?? WalletType.mnemonicBip44,
+        importMnemonic,
+        type,
       ),
     );
   }
@@ -34,23 +34,23 @@ class WalletCreatePage extends HookWidget {
   final formKey = GlobalKey<FormState>();
 
   void doCreateWallet({
-    @required BuildContext context,
-    @required WalletManagementVM viewModel,
-    @required ValueNotifier<bool> autovalidate,
-    @required TextEditingController fieldName,
-    @required TextEditingController fieldPwd1,
+    required BuildContext context,
+    required WalletManagementVM viewModel,
+    required ValueNotifier<bool> autovalidate,
+    required TextEditingController fieldName,
+    required TextEditingController fieldPwd1,
   }) {
-    final isValid = formKey.currentState.validate();
+    final isValid = formKey.currentState?.validate();
 
     if (!autovalidate.value) {
       autovalidate.value = true;
     }
 
-    if (!isValid) {
-      return;
-    }
+    //if (!isValid) {
+    //  return;
+    //}
 
-    formKey.currentState.save();
+    formKey.currentState?.save();
     LoadingDialog.show(context);
     viewModel
         .createWallet(

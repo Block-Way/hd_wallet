@@ -34,7 +34,7 @@ part 'widgets/hdkey_device_authorize.dart';
 part 'widgets/hdkey_device_empty.dart';
 part 'widgets/hdkey_mnemonic_item.dart';
 
-Route<dynamic> moduleHDKeyInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleHDKeyInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case HDKeyMnemonicListPage.routeName:
       return HDKeyMnemonicListPage.route(settings);

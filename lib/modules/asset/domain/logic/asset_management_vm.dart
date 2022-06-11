@@ -27,14 +27,14 @@ abstract class AssetManagementVM
     final coins = store.state.assetState.coins.toList();
     if (store.state.assetState.coinsSearchTerm.isNotEmpty) {
       coins.retainWhere(
-        (element) => element.name.toLowerCase().contains(
+        (element) => element.name!.toLowerCase().contains(
               store.state.assetState.coinsSearchTerm.toLowerCase(),
             ),
       );
     }
 
-    final coinsEnabled = coins.where((e) => e.isEnabled).toList();
-    final coinsDisabled = coins.where((e) => !e.isEnabled).toList();
+    final coinsEnabled = coins.where((e) => e.isEnabled!).toList();
+    final coinsDisabled = coins.where((e) => !e.isEnabled!).toList();
 
     return AssetManagementVM(
       (viewModel) => viewModel
@@ -46,7 +46,7 @@ abstract class AssetManagementVM
         ..updateCoinAddress = (data, chain) {
           final completer = Completer<bool>();
           store.dispatch(WalletActionUpdateAddress(
-            mnemonic: data.mnemonic,
+            mnemonic: data.mnemonic ?? '',
             completer: completer,
             chain: chain,
           ));

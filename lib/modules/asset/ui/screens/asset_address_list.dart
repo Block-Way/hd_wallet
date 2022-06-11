@@ -6,16 +6,19 @@ class AssetAddressListPage extends HookWidget {
     this.selectAddress,
   });
 
-  final AssetCoin coinInfo;
-  final String selectAddress;
+  final AssetCoin? coinInfo;
+  final String? selectAddress;
 
   static const routeName = '/asset/address/list';
 
-  static Future<String> open(AssetCoin coinInfo, String selectAddress) {
-    return AppNavigator.push<String>(routeName, params: {
-      'coinInfo': coinInfo,
-      'selectAddress': selectAddress,
-    });
+  static Future<String?>? open(AssetCoin coinInfo, String selectAddress) {
+    return AppNavigator.push<String>(
+      routeName,
+      params: {
+        'coinInfo': coinInfo,
+        'selectAddress': selectAddress,
+      },
+    );
   }
 
   static Route<String> route(RouteSettings settings) {
@@ -33,7 +36,7 @@ class AssetAddressListPage extends HookWidget {
   void showAddressManageDialog(
     BuildContext context,
     AssetAddressVM viewModel, {
-    AssetAddress item,
+    AssetAddress? item,
   }) {
     final options = [
       CSOptionsItem(
@@ -51,14 +54,14 @@ class AssetAddressListPage extends HookWidget {
       options: options,
       onSelected: (value) {
         if (value == 'edit') {
-          AssetAddressAddPage.open(coinInfo, item);
+          AssetAddressAddPage.open(coinInfo!, item);
         } else if (value == 'delete') {
           showConfirmDialog(
             context,
             content: tr('asset:address_delete_dialog_content'),
             onConfirm: () {
               LoadingDialog.show(context);
-              viewModel.submitAddressDelete(coinInfo, item).then((_) {
+              viewModel.submitAddressDelete(coinInfo!, item!).then((_) {
                 Toast.show(tr('asset:address_delete_msg_success'));
                 LoadingDialog.dismiss(context);
               }).catchError((e) {
@@ -95,7 +98,7 @@ class AssetAddressListPage extends HookWidget {
       child: StoreConnector<AppState, AssetAddressVM>(
         distinct: true,
         converter: AssetAddressVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           viewModel.clearAddressList();
           request.add(CSListViewParams.withParams(true, delay: 0));
         },
@@ -135,15 +138,15 @@ class AssetAddressListPage extends HookWidget {
                 requestStream: request,
                 onLoadData: (params) {
                   return viewModel.loadAddressList(
-                    coin: coinInfo,
+                    coin: coinInfo!,
                     requestId: params.requestId ?? '',
-                    isLocal: params.params,
+                    isLocal: params.params!,
                   );
                 },
-                itemCount: viewModel.addressList.length,
+                itemCount: viewModel.addressList?.length ?? 0,
                 itemBuilder: (context, index) {
                   return buildItem(
-                      context, viewModel, viewModel.addressList[index]);
+                      context, viewModel, viewModel.addressList![index]);
                 },
               ),
             ),
@@ -153,7 +156,7 @@ class AssetAddressListPage extends HookWidget {
                   label: tr('asset:address_btn_add'),
                   margin: context.edgeVertical,
                   onPressed: () {
-                    AssetAddressAddPage.open(coinInfo);
+                    AssetAddressAddPage.open(coinInfo!);
                   },
                 ),
               ),
@@ -199,7 +202,7 @@ class AssetAddressListPage extends HookWidget {
     AssetAddress item,
   ) {
     final addressStr =
-        StringUtils.strCut(item.address, startKeep: 6, endKeep: 6);
+        StringUtils.strCut(item.address ?? '', startKeep: 6, endKeep: 6);
 
     final isSelect = item.address == selectAddress;
 
@@ -246,14 +249,14 @@ class AssetAddressListPage extends HookWidget {
                       ),
                       padding: context.edgeAll5,
                       child: Text(
-                        coinInfo.fullName,
+                        coinInfo?.fullName ?? '',
                         style: context.textSmall(
                           color: Color(0xFF94820d),
                         ),
                       ),
                     ),
                     SizedBox(width: context.edgeSizeHalf),
-                    Text(addressStr ?? '', style: context.textSmall()),
+                    Text(addressStr, style: context.textSmall()),
                   ],
                 ),
               ],

@@ -2,8 +2,8 @@ part of common_ui_module;
 
 class QRView extends StatefulWidget {
   const QRView({
-    @required Key key,
-    @required this.onQRViewCreated,
+    required Key key,
+    required this.onQRViewCreated,
     this.overlay,
   })  : assert(key != null),
         assert(onQRViewCreated != null),
@@ -11,7 +11,7 @@ class QRView extends StatefulWidget {
 
   final void Function(QRViewController controller) onQRViewCreated;
 
-  final ShapeBorder overlay;
+  final ShapeBorder? overlay;
 
   @override
   State<StatefulWidget> createState() => _QRViewState();
@@ -26,7 +26,7 @@ class _QRViewState extends State<QRView> {
         if (widget.overlay != null)
           Container(
             decoration: ShapeDecoration(
-              shape: widget.overlay,
+              shape: widget.overlay!,
             ),
           ),
       ],
@@ -78,8 +78,8 @@ class _CreationParams {
     );
   }
 
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -109,7 +109,7 @@ class QRViewController {
             if (call.arguments != null) {
               if (call.arguments is Map) {
                 _scanUpdateController.sink
-                    .add(call.arguments['code']?.toString());
+                    .add(call.arguments['code'].toString());
               }
             }
         }

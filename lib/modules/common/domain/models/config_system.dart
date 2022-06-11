@@ -9,8 +9,9 @@ abstract class ConfigSystem
   static Serializer<ConfigSystem> get serializer => _$configSystemSerializer;
 
 // Fields
-  @nullable
-  BuiltMap<String, ConfigSystemApp> get config;
+  //@nullable
+  BuiltMap<String, ConfigSystemApp>? get config;
 
-  bool get isIOSAppStore => config['pg'] == null || config['pg'].enable == true;
+  bool get isIOSAppStore =>
+      config?['pg'] == null || (config?['pg']?.enable ?? false) == true;
 }

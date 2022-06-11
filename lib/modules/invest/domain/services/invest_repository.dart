@@ -1,7 +1,7 @@
 part of invest_domain_module;
 
 class InvestRepository {
-  factory InvestRepository([InvestApi _api]) {
+  factory InvestRepository([InvestApi? _api]) {
     _instance._api = _api ?? InvestApi();
     return _instance;
   }
@@ -9,7 +9,7 @@ class InvestRepository {
 
   static final _instance = InvestRepository._internal();
 
-  InvestApi _api;
+  late InvestApi _api;
 
   Future<InvestConfig> getConfig() async {
     final json = [
@@ -23,12 +23,12 @@ class InvestRepository {
       }
     ];
     final c = InvestConfig.fromJson(json);
-    return c;
+    return c!;
   }
 
   Future<Map<String, dynamic>> getMintInfo({
-    @required String fork,
-    @required String addr,
+    required String fork,
+    required String addr,
   }) async {
     final dio = Dio();
     final response =
@@ -38,8 +38,8 @@ class InvestRepository {
   }
 
   Future<List<dynamic>> getChartList({
-    @required String fork,
-    @required String addr,
+    required String fork,
+    required String addr,
   }) async {
     final dio = Dio();
     final response =
@@ -49,10 +49,10 @@ class InvestRepository {
 
   //
   Future<List<Map<String, dynamic>>> getProfitRecordList({
-    @required String fork,
-    @required String walletId,
-    @required int skip,
-    @required int take,
+    required String fork,
+    required String walletId,
+    required int skip,
+    required int take,
   }) async {
     /*
     final dio = Dio();
@@ -96,10 +96,10 @@ class InvestRepository {
 
   //
   Future<List<dynamic>> getProfitInvitationList({
-    @required String fork,
-    @required String addr,
-    @required int skip,
-    @required int take,
+    required String fork,
+    required String addr,
+    required int skip,
+    required int take,
   }) async {
     final dio = Dio();
     final response =

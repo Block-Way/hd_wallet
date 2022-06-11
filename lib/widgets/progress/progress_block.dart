@@ -2,7 +2,7 @@ part of widgets;
 
 class _StaggerAnimation extends StatelessWidget {
   _StaggerAnimation({
-    Key key,
+    Key? key,
     this.controller,
     this.end,
     this.start,
@@ -11,22 +11,22 @@ class _StaggerAnimation extends StatelessWidget {
           end: Color(0xFFff8c2e),
         ).animate(
           CurvedAnimation(
-            parent: controller,
+            parent: controller!,
             curve: Interval(
-              start,
-              end,
+              start!,
+              end!,
               curve: Curves.ease,
             ),
           ),
         ),
         super(key: key);
 
-  final Animation<double> controller;
-  final Animation<Color> color;
-  final double end;
-  final double start;
+  final Animation<double>? controller;
+  late final Animation<Color?> color;
+  final double? end;
+  final double? start;
 
-  Widget _buildAnimation(BuildContext context, Widget child) {
+  Widget _buildAnimation(BuildContext context, Widget? child) {
     return Container(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -44,14 +44,14 @@ class _StaggerAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       builder: _buildAnimation,
-      animation: controller,
+      animation: controller!,
     );
   }
 }
 
 class CSProgressBlock extends HookWidget {
   const CSProgressBlock({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

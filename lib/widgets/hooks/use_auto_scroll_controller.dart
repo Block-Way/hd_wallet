@@ -3,17 +3,17 @@ part of widgets;
 AutoScrollController useAutoScrollController({
   double initialScrollOffset = 0.0,
   bool keepScrollOffset = true,
-  String debugLabel,
-  Axis axis,
-  List<Object> keys,
+  String? debugLabel,
+  Axis? axis,
+  List<Object>? keys,
 }) {
   return use(
     _AutoScrollControllerHook(
       initialScrollOffset: initialScrollOffset,
       keepScrollOffset: keepScrollOffset,
-      debugLabel: debugLabel,
-      axis: axis,
-      keys: keys,
+      debugLabel: debugLabel ?? '',
+      axis: axis!,
+      keys: keys ?? [],
     ),
   );
 }
@@ -24,13 +24,13 @@ class _AutoScrollControllerHook extends Hook<AutoScrollController> {
     this.keepScrollOffset,
     this.debugLabel,
     this.axis,
-    List<Object> keys,
+    List<Object>? keys,
   }) : super(keys: keys);
 
-  final double initialScrollOffset;
-  final bool keepScrollOffset;
-  final String debugLabel;
-  final Axis axis;
+  final double? initialScrollOffset;
+  final bool? keepScrollOffset;
+  final String? debugLabel;
+  final Axis? axis;
 
   @override
   HookState<AutoScrollController, Hook<AutoScrollController>> createState() =>
@@ -39,23 +39,23 @@ class _AutoScrollControllerHook extends Hook<AutoScrollController> {
 
 class _AutoScrollControllerHookState
     extends HookState<AutoScrollController, _AutoScrollControllerHook> {
-  AutoScrollController controller;
+  AutoScrollController? controller;
 
   @override
   void initHook() {
     controller = AutoScrollController(
       axis: hook.axis,
-      initialScrollOffset: hook.initialScrollOffset,
-      keepScrollOffset: hook.keepScrollOffset,
+      initialScrollOffset: hook.initialScrollOffset ?? 0,
+      keepScrollOffset: hook.keepScrollOffset ?? false,
       debugLabel: hook.debugLabel,
     );
   }
 
   @override
-  AutoScrollController build(BuildContext context) => controller;
+  AutoScrollController build(BuildContext context) => controller!;
 
   @override
-  void dispose() => controller.dispose();
+  void dispose() => controller?.dispose();
 
   @override
   String get debugLabel => 'useAutoScrollController';

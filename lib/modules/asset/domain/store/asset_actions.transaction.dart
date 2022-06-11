@@ -5,17 +5,17 @@ class AssetActionAddTransaction extends _BaseAction {
   final Transaction transaction;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final allTransactions = await AssetRepository().getTransactionsFromCache(
-      symbol: transaction.symbol,
-      address: transaction.fromAddress,
+      symbol: transaction.symbol ?? '',
+      address: transaction.fromAddress ?? '',
     );
 
     allTransactions.insert(0, transaction);
 
     await AssetRepository().saveTransactionsToCache(
-      symbol: transaction.symbol,
-      address: transaction.fromAddress,
+      symbol: transaction.symbol ?? '',
+      address: transaction.fromAddress ?? '',
       transactions: allTransactions.toList(),
     );
 
@@ -27,12 +27,12 @@ class AssetActionAddTransaction extends _BaseAction {
 
 class AssetActionGetSingleTransaction extends _BaseAction {
   AssetActionGetSingleTransaction({
-    @required this.chain,
-    @required this.symbol,
-    @required this.chainPrecision,
-    @required this.txId,
-    @required this.fromAddress,
-    @required this.completer,
+    required this.chain,
+    required this.symbol,
+    required this.chainPrecision,
+    required this.txId,
+    required this.fromAddress,
+    required this.completer,
   });
 
   final String chain;
@@ -43,7 +43,9 @@ class AssetActionGetSingleTransaction extends _BaseAction {
   final Completer<Transaction> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    return null;
+    /*
     final walletId = store.state.walletState.activeWalletId;
 
     bool isFailed = false;
@@ -58,15 +60,15 @@ class AssetActionGetSingleTransaction extends _BaseAction {
       newTransaction = Transaction.fromJson(
         chain: chain,
         symbol: symbol,
-        json: json,
+        json: json as Map<String, dynamic>,
         chainPrecision: chainPrecision,
         fromAddress: fromAddress,
       );
     } catch (error) {
-      final responseError = Request().getResponseError(error);
-      if (responseError.message.contains('transaction info not found')) {
-        isFailed = true;
-      }
+      //final responseError = Request().getResponseError(error);
+      //if (responseError.message.contains('transaction info not found')) {
+      isFailed = true;
+      //}
     }
 
     final coinInfo = store.state.assetState.getCoinInfo(
@@ -75,14 +77,14 @@ class AssetActionGetSingleTransaction extends _BaseAction {
     );
     final cachedTransactions = await AssetRepository().getTransactionsFromCache(
       symbol: symbol,
-      address: coinInfo.address,
+      address: coinInfo.address ?? '',
     );
     for (final item in cachedTransactions) {
       if (item.txId == txId) {
         if (item.isConfirming) {
           item.failed = isFailed;
         }
-        if (newTransaction?.confirmations != null) {
+        if (newTransaction.confirmations != null) {
           item.confirmations = newTransaction.confirmations;
         }
         if (newTransaction?.fee != null && newTransaction.fee > 0) {
@@ -95,7 +97,7 @@ class AssetActionGetSingleTransaction extends _BaseAction {
     }
     await AssetRepository().saveTransactionsToCache(
       symbol: symbol,
-      address: coinInfo.address,
+      address: coinInfo.address ?? '',
       transactions: cachedTransactions.toList(),
     );
 
@@ -109,11 +111,12 @@ class AssetActionGetSingleTransaction extends _BaseAction {
     GetIt.I<AssetTransactionCubit>().updateList(cachedTransactions);
 
     return null;
+    */
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }

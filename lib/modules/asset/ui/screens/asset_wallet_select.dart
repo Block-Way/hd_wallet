@@ -3,7 +3,7 @@ part of asset_ui_module;
 class AssetWalletSelectPage extends StatelessWidget {
   static const routeName = '/asset/wallet/select';
 
-  static Future<Wallet> open() {
+  static Future? open() {
     return AppNavigator.push(routeName);
   }
 
@@ -55,8 +55,8 @@ class AssetWalletSelectPage extends StatelessWidget {
 
   Widget buildItem(
     BuildContext context, {
-    Wallet wallet,
-    String activeWalletId,
+    required Wallet wallet,
+    required String activeWalletId,
   }) {
     return CSContainer(
       margin: context.edgeAll.copyWith(bottom: 0),
@@ -103,7 +103,7 @@ class AssetWalletSelectPage extends StatelessWidget {
             SizedBox(height: 8),
             Text(
               tr('asset:lbl_bbc_address', namedArgs: {
-                'address': wallet.bbcAddress,
+                'address': wallet.addresses.toString(),
               }),
               maxLines: 1,
               style: context.textSmall(),

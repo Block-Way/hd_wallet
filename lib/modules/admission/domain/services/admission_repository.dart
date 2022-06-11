@@ -1,7 +1,7 @@
 part of admission_domain_module;
-
+/*
 class AdmissionRepository {
-  factory AdmissionRepository([AdmissionApi _api]) {
+  factory AdmissionRepository([AdmissionApi? _api]) {
     _instance._api = _api ?? AdmissionApi();
     return _instance;
   }
@@ -29,3 +29,4 @@ class AdmissionRepository {
     */
   }
 }
+*/

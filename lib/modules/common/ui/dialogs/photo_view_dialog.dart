@@ -16,7 +16,7 @@ class PhotoItem {
 
 void showPhotoViewDialog(
   BuildContext context, {
-  List<PhotoItem> photos,
+  List<PhotoItem>? photos,
   bool save = false, // show save image button,only net image show save button
   int initialPage = 0,
 }) {
@@ -25,7 +25,7 @@ void showPhotoViewDialog(
     barrierColor: context.backdropColor,
     context: context,
     builder: (_) => PhotoViewDialog(
-      photos,
+      photos!,
       initialPage,
       save: save,
     ),
@@ -36,7 +36,7 @@ class PhotoViewDialog extends HookWidget {
   PhotoViewDialog(
     this.photos,
     this.initialPage, {
-    @required this.save,
+    required this.save,
   }) : controller = PageController(initialPage: initialPage);
 
   final List<PhotoItem> photos;
@@ -60,7 +60,7 @@ class PhotoViewDialog extends HookWidget {
         path,
         options: Options(responseType: ResponseType.bytes),
       );
-      final _data = Uint8List.fromList(res.data);
+      final _data = Uint8List.fromList(res.data ?? []);
       await FileUtils.saveImage(_data);
       Toast.show(tr('global:msg_picture_saved_successfully'));
     } catch (e) {
@@ -96,10 +96,11 @@ class PhotoViewDialog extends HookWidget {
         itemCount: photoList.length,
         loadingBuilder: (context, event) => Center(
           child: CSProgressIndicator(
-              size: 20,
-              value: event == null
-                  ? 0
-                  : event.cumulativeBytesLoaded / event.expectedTotalBytes),
+            size: 20,
+            value: event == null
+                ? 0
+                : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
+          ),
         ),
         // backgroundDecoration: widget.backgroundDecoration,
         pageController: controller,

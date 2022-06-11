@@ -10,13 +10,15 @@ class ProjectActionGetList extends _BaseAction {
     this.isRefresh,
   });
 
-  final int skip;
-  final bool isRefresh;
+  final int? skip;
+  final bool? isRefresh;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    return null;
+    /*
     final projects = await ProjectRepository().getProjectList(
-      skip: skip,
+      skip: skip ?? 0,
       take: 10,
     );
 
@@ -34,6 +36,7 @@ class ProjectActionGetList extends _BaseAction {
           : a.projectState.projectList.addAll(projectsWithCoin);
       return a;
     });
+    */
   }
 }
 
@@ -43,19 +46,21 @@ class ProjectActionGetInfo extends _BaseAction {
     this.completer,
   });
 
-  final int id;
-  final Completer<ProjectInfo> completer;
+  final int? id;
+  final Completer<ProjectInfo>? completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final data = await ProjectRepository().getProjectInfo(id: id);
     completer.complete(data);
+    */
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    //completer.completeError(error);
     return error;
   }
 }
@@ -65,10 +70,10 @@ class ProjectActionSetActivePool extends _BaseAction {
     this.id,
   });
 
-  final int id;
+  final int? id;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     // final poolItem = state.poolState.pools.firstWhere(
     //   (item) => item.id == id,
     //   orElse: () => null,

@@ -2,19 +2,19 @@ part of invitation_domain_module;
 
 class InvitationCodeUtils {
   static String encodeQRCodeData({
-    @required String chain,
-    @required String symbol,
-    @required String address,
-    @required String subSign,
-    @required String sharePrvKey,
+    required String chain,
+    required String symbol,
+    required String address,
+    required String subSign,
+    required String sharePrvKey,
   }) {
     return '${chain}_${symbol}_${address}_${subSign}_$sharePrvKey';
   }
 
   static Future<List<String>> decodeQRCodeData({
-    @required String chain,
-    @required String symbol,
-    @required String data,
+    required String chain,
+    required String symbol,
+    required String data,
   }) {
     final list = data.split('_');
     if (list != null && list.length == 5) {

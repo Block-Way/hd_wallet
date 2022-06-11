@@ -8,14 +8,14 @@ abstract class TradeOrderDetailVM
 
 // Fields
 
-  @nullable
-  TradeOrderDetail get currentOrderDetail;
+  //@nullable
+  TradeOrderDetail? get currentOrderDetail;
 
 // Methods
 
-  @nullable
+  //@nullable
   @BuiltValueField(compare: false)
-  Future<TradeOrderDetail> Function(String txId) get getOrderDetail;
+  Future<TradeOrderDetail> Function(String txId)? get getOrderDetail;
 
   @BuiltValueField(compare: false)
   Future<double> Function(TradeOrder order) get getOrderBalance;

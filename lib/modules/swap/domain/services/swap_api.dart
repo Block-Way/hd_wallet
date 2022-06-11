@@ -1,6 +1,7 @@
 part of swap_domain_module;
 
 class SwapApi {
+  /*
   Future<List<List<dynamic>>> getConfig() =>
       Request().getListOfValues<List<dynamic>>(
         '/v1/hd/exchange/config',
@@ -70,4 +71,5 @@ class SwapApi {
           'fork_hash': toContract,
         },
       );
+      */
 }

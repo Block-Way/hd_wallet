@@ -199,42 +199,42 @@ class WalletBackupPage extends HookWidget {
   }
 
   Widget buildItem({
-    BuildContext context,
-    String text,
-    Function(String item) onPress,
+    BuildContext? context,
+    String? text,
+    Function(String item)? onPress,
   }) {
     return InkWell(
       onTap: () {
-        onPress(text);
+        onPress?.call(text!);
       },
-      borderRadius: context.radiusAll5,
+      borderRadius: context?.radiusAll5,
       child: CSContainer(
-        width: null,
+        //width: null,
         radius: 5,
-        margin: context.edgeRight8.copyWith(bottom: 10),
-        padding: context.edgeAll5,
+        margin: context?.edgeRight8.copyWith(bottom: 10),
+        padding: context?.edgeAll5,
         secondary: true,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              text.split('_')[0] ?? '',
-              style: context.textBody(
+              text!.split('_')[0],
+              style: context?.textBody(
                 color: context.secondaryColor,
                 bold: true,
               ),
             ),
             Container(
-              decoration: context.boxDecoration(
+              decoration: context?.boxDecoration(
                 color: context.primaryColor,
                 radius: 5,
               ),
-              margin: context.edgeLeft8,
+              margin: context?.edgeLeft8,
               padding: EdgeInsets.all(3),
               child: Icon(
                 Icons.close,
                 size: 15,
-                color: context.bodyColor,
+                color: context?.bodyColor,
               ),
             ),
           ],

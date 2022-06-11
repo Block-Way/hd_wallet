@@ -5,7 +5,7 @@ class AssetActionUpdatePrices extends _BaseAction {
   final String fiatCurrency;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final fiatPriceCubit = GetIt.I<FiatPriceCubit>();
     final coinPriceCubit = GetIt.I<CoinPriceCubit>();
 

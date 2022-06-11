@@ -4,25 +4,26 @@ part of wallet_domain_module;
 
 class WalletActionWalletLoadAll extends _BaseAction {
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final settings = CommonRepository().getSettings();
-    final allWallets = await WalletRepository().getAllWallets();
-
     final activeWalletId = settings?.activeWalletId;
+    if (activeWalletId == null) {
+      return null;
+    }
+    final allWallets = await WalletRepository().getAllWallets();
     final activeWallet = await WalletRepository().getWalletById(
       activeWalletId,
     );
-
     return state.rebuild(
       (b) => b.walletState
-        ..wallets = allWallets ?? []
+        ..wallets = allWallets
         ..activeWallet = activeWallet
         ..activeWalletId = activeWalletId,
     );
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     CrashesReport().reportEvent(
       'WalletLog_01_LoadAllWallets',
       error,
@@ -37,13 +38,13 @@ class WalletActionWalletSetActive extends _BaseAction {
   final Wallet wallet;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final settings = CommonRepository().getSettings();
-    if (wallet == null || settings?.activeWalletId == wallet.id) {
+    if (settings?.activeWalletId == wallet.id) {
       return null;
     }
-    settings.activeWalletId = wallet.id;
-    await settings.save();
+    settings?.activeWalletId = wallet.id;
+    await settings?.save();
 
     return state.rebuild(
       (a) => a
@@ -59,7 +60,7 @@ class WalletActionWalletRemoveAll extends _BaseAction {
     final wallets = state.walletState.wallets;
     if (wallets != null && wallets.isNotEmpty) {
       for (final _ in wallets) {
-        await store.dispatchFuture(WalletActionDeleteWallet());
+        await store.dispatchAsync(WalletActionDeleteWallet());
         await Future.delayed(Duration(milliseconds: 200));
       }
     }
@@ -81,11 +82,11 @@ class WalletActionWalletUnlock extends _BaseAction {
   final Completer<WalletPrivateData> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final activeWallet = state.walletState.activeWallet;
 
     WalletPrivateData data;
-    if (activeWallet.isDevice) {
+    if (activeWallet!.isDevice) {
       data = await getWalletDevicePrivateData(
         walletId: activeWallet.id,
       );
@@ -97,14 +98,13 @@ class WalletActionWalletUnlock extends _BaseAction {
       );
     }
 
-    assert(data != null);
     completer.complete(data);
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }
@@ -118,7 +118,7 @@ class WalletActionWalletRegister extends _BaseAction {
   final bool withOptions;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     if (wallet != null) {
       // Status is not update in AllWallet list
       // if (wallet.status == WalletStatus.synced &&
@@ -130,7 +130,7 @@ class WalletActionWalletRegister extends _BaseAction {
           withOptions == true ? await CrashesReport().getAppContexts() : null;
       await WalletRepository().postWalletRegister(
         wallet,
-        state.commonState.deviceId,
+        state.commonState.deviceId!,
         withOptions == true ? options?.toJson() : [],
       );
     }
@@ -148,13 +148,13 @@ class WalletActionWalletRegister extends _BaseAction {
 
 class WalletActionWalletCheckStatus extends _BaseAction {
   WalletActionWalletCheckStatus({
-    @required this.wallet,
-    @required this.forceCheck,
+    required this.wallet,
+    required this.forceCheck,
     this.completer,
   });
   final Wallet wallet;
   final bool forceCheck;
-  final Completer<WalletStatus> completer;
+  final Completer<WalletStatus>? completer;
 
   @override
   void before() {
@@ -162,7 +162,7 @@ class WalletActionWalletCheckStatus extends _BaseAction {
   }
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     if (wallet.status != WalletStatus.synced || forceCheck == true) {
       /* 不用向服务器查询状态，一切都是OK的
       final isSynced = await WalletRepository().getWalletStatus(
@@ -180,7 +180,7 @@ class WalletActionWalletCheckStatus extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     dispatch(WalletActionWalletUpdateStatus(wallet, WalletStatus.unknown));
     completer?.complete(WalletStatus.unknown);
     return error;
@@ -196,7 +196,7 @@ class WalletActionWalletUpdateStatus extends _BaseAction {
   final WalletStatus walletStatus;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
     wallet.updateStatus(status: WalletStatus.unknown);
 
     if (wallet.id == state.walletState.activeWalletId) {
@@ -214,10 +214,10 @@ class WalletActionWalletDidBackup extends _BaseAction {
   Future<AppState> reduce() async {
     final activeWallet = state.walletState.activeWallet;
 
-    activeWallet.hasBackup = true;
+    activeWallet?.hasBackup = true;
 
     final allWallets = await WalletRepository().saveWallet(
-      activeWallet.id,
+      activeWallet!.id,
       activeWallet,
     );
 
@@ -228,13 +228,13 @@ class WalletActionWalletDidBackup extends _BaseAction {
 class WalletActionWalletFromEnv extends _BaseAction {
   WalletActionWalletFromEnv([this.count]);
 
-  final int count; // 新建钱包的数量
+  final int? count; // 新建钱包的数量
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     // 新建钱包
     if (count != null) {
-      for (var index = 0; index < count; index++) {
+      for (var index = 0; index < count!; index++) {
         final completer = Completer<String>();
         WalletActionCreateFromMnemonic(
           'test_wallet_$index',
@@ -251,12 +251,12 @@ class WalletActionWalletFromEnv extends _BaseAction {
       return null;
     }
 
-    await DotEnv().load('.env.dev');
+    await DotEnv().load(fileName: '.env.dev');
     for (var index = 1; index < 20; index++) {
       final mnemonic = DotEnv().env['TEST_MNEMONIC_$index'];
       final name = DotEnv().env['TEST_MNEMONIC_NAME_$index'];
       if (mnemonic != null) {
-        await dispatchFuture(
+        await dispatchAsync(
           WalletActionCreateFromMnemonic(
             name ?? 'test_wallet_$index',
             'Qq111111',

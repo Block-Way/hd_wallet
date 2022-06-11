@@ -2,8 +2,8 @@ part of asset_ui_module;
 
 class AssetWalletStatus extends HookWidget {
   const AssetWalletStatus({
-    @required this.status,
-    @required this.onPressed,
+    required this.status,
+    required this.onPressed,
   }) : assert(status != null);
 
   final WalletStatus status;
@@ -44,7 +44,7 @@ class AssetWalletStatus extends HookWidget {
     return CSContainer(
       padding: context.edgeAll8,
       margin: EdgeInsets.zero,
-      width: null,
+      // width: null,
       decoration: context.boxDecorationOnlyLeft(
         color: context.blackColor.withOpacity(0.02),
         radius: 14,

@@ -2,9 +2,9 @@ part of trade_ui_module;
 
 class TradeBaseMqttProvider extends HookWidget {
   const TradeBaseMqttProvider({
-    @required this.mqtt,
-    @required this.child,
-    Key key,
+    required this.mqtt,
+    required this.child,
+    Key? key,
   }) : super(key: key);
 
   static Map<TradeMqttMsgTypes, DateTime> lastReceivedTimes = {};
@@ -27,7 +27,7 @@ class TradeBaseMqttProvider extends HookWidget {
 
   Duration getLastUpdateTime(TradeMqttMsgTypes type) {
     final timePassed = lastReceivedTimes.containsKey(type)
-        ? DateTime.now().difference(lastReceivedTimes[type])
+        ? DateTime.now().difference(lastReceivedTimes[type]!)
         : Duration(days: 1);
     return timePassed;
   }

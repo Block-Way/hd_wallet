@@ -2,32 +2,32 @@ part of asset_ui_module;
 
 class AssetWithdrawFee extends StatelessWidget {
   const AssetWithdrawFee({
-    @required this.withdrawInfo,
-    @required this.isRefreshing,
+    required this.withdrawInfo,
+    required this.isRefreshing,
     this.onPress,
-    Key key,
+    Key? key,
     this.padding,
     this.onGetFee,
   }) : super(key: key);
 
   final WalletWithdrawData withdrawInfo;
   final bool isRefreshing;
-  final EdgeInsetsGeometry padding;
-  final Function(String type) onPress;
-  final Function() onGetFee;
+  final EdgeInsetsGeometry? padding;
+  final Function(String type)? onPress;
+  final Function()? onGetFee;
 
   void handleShowFeeDialog(
     BuildContext context, {
-    ConfigCoinFee configCoinFee,
-    Function(String level) onSelected,
+    ConfigCoinFee? configCoinFee,
+    Function(String level)? onSelected,
   }) {
     DeviceUtils.hideKeyboard(context);
     final list = WalletFeeUtils.getFeeOptions(
-      chain: withdrawInfo?.chain,
-      defaultFee: withdrawInfo?.feeDefault,
-      configCoinFee: configCoinFee,
+      chain: withdrawInfo.chain,
+      defaultFee: withdrawInfo.feeDefault,
+      configCoinFee: configCoinFee!,
     );
-    final feeChain = withdrawInfo?.chain?.toLowerCase() ?? '';
+    final feeChain = withdrawInfo.chain.toLowerCase();
     final List<CSOptionsItem> options = list
         .map(
           (item) => CSOptionsItem(
@@ -35,11 +35,11 @@ class AssetWithdrawFee extends StatelessWidget {
               'asset:withdraw_lbl_fee_${feeChain}_${item.key}',
               namedArgs: {
                 'fuel': item.value.toString(),
-                'unit': withdrawInfo?.fee?.feeUnit ?? ''
+                'unit': withdrawInfo.fee.feeUnit
               },
             ),
             value: item.key,
-            color: withdrawInfo?.fee?.feeLevel == item.key
+            color: withdrawInfo.fee.feeLevel == item.key
                 ? context.primaryColor
                 : null,
           ),
@@ -48,9 +48,9 @@ class AssetWithdrawFee extends StatelessWidget {
 
     showOptionsDialog(
       context,
-      options: options,
+      //options: options,
       onSelected: (level) {
-        onSelected(level.toString());
+        onSelected?.call(level.toString());
       },
     );
   }
@@ -58,18 +58,18 @@ class AssetWithdrawFee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final configCoinFee = GetIt.I<CoinConfig>().getFeeLevel(
-      chain: withdrawInfo?.chain,
-      symbol: withdrawInfo?.symbol,
+      chain: withdrawInfo.chain,
+      symbol: withdrawInfo.symbol,
     );
     final showGasBtn = configCoinFee != null &&
         configCoinFee.enable != null &&
         configCoinFee.enable == true;
 
-    final feeChain = withdrawInfo?.chain?.toLowerCase();
-    final feeLevel = withdrawInfo?.fee?.feeLevel ?? '';
-    final feeUnit = withdrawInfo?.fee?.feeUnit ?? '';
-    final feeSymbol = withdrawInfo?.fee?.feeSymbol ?? '';
-    final feeRate = withdrawInfo?.fee?.feeRate ?? '';
+    final feeChain = withdrawInfo.chain.toLowerCase();
+    final feeLevel = withdrawInfo.fee.feeLevel;
+    final feeUnit = withdrawInfo.fee.feeUnit;
+    final feeSymbol = withdrawInfo.fee.feeSymbol;
+    final feeRate = withdrawInfo.fee.feeRate;
 
     final gasLevel = tr(
       'asset:withdraw_lbl_fee_${feeChain}_$feeLevel',
@@ -104,7 +104,7 @@ class AssetWithdrawFee extends StatelessWidget {
                       decoration: TextDecoration.underline,
                     ),
                 onPressed: () {
-                  onGetFee();
+                  onGetFee?.call();
                 },
               ),
           ],
@@ -118,7 +118,7 @@ class AssetWithdrawFee extends StatelessWidget {
                     context,
                     configCoinFee: configCoinFee,
                     onSelected: (level) {
-                      onPress(level);
+                      onPress?.call(level);
                     },
                   );
                 }
@@ -132,7 +132,7 @@ class AssetWithdrawFee extends StatelessWidget {
                     Text(
                       withdrawInfo == null
                           ? '-'
-                          : '${withdrawInfo?.displayFee ?? ''} $feeSymbol',
+                          : '${withdrawInfo.displayFee}$feeSymbol',
                       style: context.textBody(),
                     ),
                   if (isRefreshing == true)

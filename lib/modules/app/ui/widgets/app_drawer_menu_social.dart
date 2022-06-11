@@ -2,9 +2,9 @@ part of app_module;
 
 class AppDrawerMenuSocial extends StatelessWidget {
   const AppDrawerMenuSocial({
-    @required this.url,
-    @required this.icon,
-    Key key,
+    required this.url,
+    required this.icon,
+    Key? key,
   }) : super(key: key);
 
   final String url;

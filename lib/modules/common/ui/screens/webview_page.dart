@@ -10,7 +10,7 @@ class WebViewPage extends HookWidget {
 
   static const routeName = '/common/webview';
 
-  static void open(String url, [String title]) {
+  static void open(String url, [String? title]) {
     AppNavigator.push(routeName, params: {'url': url, 'title': title});
   }
 
@@ -20,16 +20,16 @@ class WebViewPage extends HookWidget {
     final title = params['title'];
     return DefaultTransition(
       settings,
-      WebViewPage(url, title),
+      WebViewPage(url ?? '', title ?? ''),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final title = useState(defaultTitle ?? tr('global:webview_title'));
+    final title = useState(defaultTitle);
     final loading = useState(true);
-    final controller = useState<WebViewController>(null);
-    final openUrl = useState<String>(url ?? '');
+    final controller = useState<WebViewController?>(null);
+    final openUrl = useState<String>(url);
 
     final canGoBack = useState(false);
     final canGoForward = useState(false);
@@ -45,15 +45,15 @@ class WebViewPage extends HookWidget {
       loading.value = false;
       openUrl.value = url;
 
-      controller.value.getTitle().then((value) {
-        title.value = value;
+      controller.value?.getTitle().then((value) {
+        title.value = value ?? '';
       });
 
-      controller.value.canGoBack().then((value) {
+      controller.value?.canGoBack().then((value) {
         canGoBack.value = value;
       });
 
-      controller.value.canGoForward().then((value) {
+      controller.value?.canGoForward().then((value) {
         canGoForward.value = value;
       });
     }

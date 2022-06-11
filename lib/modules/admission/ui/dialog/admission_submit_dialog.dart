@@ -1,11 +1,12 @@
 part of admission_ui_module;
 
 Future<bool> showAdmissionConfirmDialog({
-  @required BuildContext context,
-  @required WalletWithdrawData withdrawData,
-  @required AssetCoin coinInfo,
-  @required String amount,
-  @required AssetCoin Function({String chain, String symbol}) getCoinInfo,
+  required BuildContext context,
+  required WalletWithdrawData withdrawData,
+  required AssetCoin coinInfo,
+  required String amount,
+  required AssetCoin Function({required String chain, required String symbol})
+      getCoinInfo,
 }) {
   final response = Completer<bool>();
 
@@ -39,29 +40,29 @@ Future<bool> showAdmissionConfirmDialog({
     CSConfirmItem(
       label: tr(
         'admission:create_dialog_amount',
-        namedArgs: {'symbol': coinInfo.name},
+        namedArgs: {'symbol': coinInfo.name ?? ''},
       ),
       value: amount,
     ),
     CSConfirmItem(
       label: tr(
         'admission:create_dialog_fee',
-        namedArgs: {'symbol': feeCoin.name},
+        namedArgs: {'symbol': feeCoin.name ?? ''},
       ),
       value: '${withdrawData.fee.feeValue}',
     ),
     CSConfirmItem(
       label: tr(
         'admission:create_dialog_total_amount',
-        namedArgs: {'symbol': coinInfo.name},
+        namedArgs: {'symbol': coinInfo.name ?? ''},
       ),
-      value: totalAmount,
+      value: totalAmount ?? '',
     ),
     if (!isFeeSameChain)
       CSConfirmItem(
         label: tr(
           'admission:create_dialog_total_fee',
-          namedArgs: {'symbol': feeCoin.name},
+          namedArgs: {'symbol': feeCoin.name ?? ''},
         ),
         value: '${withdrawData.fee.feeValue}',
       ),
@@ -70,12 +71,12 @@ Future<bool> showAdmissionConfirmDialog({
   final errorText = payBalanceNotEnough
       ? tr(
           'admission:create_dialog_pay_balance_not_enough',
-          namedArgs: {'symbol': coinInfo.name},
+          namedArgs: {'symbol': coinInfo.name ?? ''},
         )
       : feeBalanceNotEnough
           ? tr(
               'admission:create_dialog_fee_balance_not_enough',
-              namedArgs: {'symbol': feeCoin.name},
+              namedArgs: {'symbol': feeCoin.name ?? ''},
             )
           : '';
 

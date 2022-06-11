@@ -23,7 +23,7 @@ class MiningRewardRecordPage extends HookWidget {
       title: tr('invest:mining_record_title'),
       child: StoreConnector<AppState, InvestProfitVM>(
         converter: InvestProfitVM.fromStore,
-        onInitialBuild: (_) {
+        onInitialBuild: (_, __, ___) {
           request.add(CSListViewParams());
         },
         builder: (context, viewModel) {
@@ -43,7 +43,7 @@ class MiningRewardRecordPage extends HookWidget {
             itemBuilder: (context, index) {
               return MiningRewardItem(
                 item: list[index],
-                mintItem: viewModel.activeMint,
+                mintItem: viewModel.activeMint!,
               );
             },
           );

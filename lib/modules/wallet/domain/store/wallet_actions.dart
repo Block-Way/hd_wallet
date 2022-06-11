@@ -6,11 +6,11 @@ abstract class _BaseAction extends ReduxAction<AppState> {
 
 class WalletActionGetUnspent extends _BaseAction {
   WalletActionGetUnspent({
-    @required this.chain,
-    @required this.symbol,
-    @required this.address,
-    @required this.completer,
-    @required this.balance,
+    required this.chain,
+    required this.symbol,
+    required this.address,
+    required this.completer,
+    required this.balance,
     this.unspentType,
     this.forceUpdate = false,
   });
@@ -20,13 +20,13 @@ class WalletActionGetUnspent extends _BaseAction {
   final String address;
   final bool forceUpdate;
   final double balance;
-  final String unspentType;
+  final String? unspentType;
   final Completer<List<Map<String, dynamic>>> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     if (!kChainsNeedUnspent.contains(chain)) {
-      completer.complete(null);
+      completer.complete([]);
       return null;
     }
 
@@ -42,7 +42,7 @@ class WalletActionGetUnspent extends _BaseAction {
         chain: chain,
         symbol: symbol,
         address: address,
-        type: unspentType,
+        type: unspentType!,
       );
       await WalletRepository().saveUnspentToCache(
         symbol: symbol,
@@ -55,7 +55,7 @@ class WalletActionGetUnspent extends _BaseAction {
 
     if (unspent == null || unspent.isEmpty) {
       dispatch(AssetActionResetCoinBalance(
-        wallet: store.state.walletState.activeWallet, // TODO: check
+        wallet: store.state.walletState.activeWallet!, // TODO: check
         chain: chain,
         symbol: symbol,
         address: address,
@@ -68,14 +68,14 @@ class WalletActionGetUnspent extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     WalletRepository().saveUnspentToCache(
       symbol: symbol,
       address: address,
-      unspent: null,
+      unspent: [],
     );
 
-    completer.completeError(error);
+    completer.completeError(error as Object);
     return error;
   }
 }
@@ -85,36 +85,40 @@ class WalletActionValidateMnemonic extends _BaseAction {
   final String mnemonic;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     await WalletRepository().validateMnemonic(mnemonic);
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
 
 class WalletActionValidateAddress extends _BaseAction {
-  WalletActionValidateAddress({this.chain, this.address, this.completer});
-  final String chain;
-  final String address;
-  final Completer<bool> completer;
+  WalletActionValidateAddress({
+    this.chain,
+    this.address,
+    this.completer,
+  });
+  final String? chain;
+  final String? address;
+  final Completer<bool>? completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     await WalletRepository().validateAddress(
-      chain: chain,
-      address: address,
+      chain: chain ?? '',
+      address: address ?? '',
     );
-    completer.complete(true);
+    completer?.complete(true);
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.complete(false);
+  Object? wrapError(dynamic error) {
+    completer?.complete(false);
     return error;
   }
 }

@@ -28,41 +28,41 @@ class CrashesReport {
   static final CrashesReport _instance = CrashesReport._internal();
 
   // Fields
-  SentryClient _sentry;
-  PackageInfo _appInfo;
-  DeviceInfo _deviceInfo;
+  late SentryClient _sentry;
+  late PackageInfo _appInfo;
+  late DeviceInfo _deviceInfo;
 
   static FutureOr<void> getSentryOptions(SentryFlutterOptions options) {
     options.dsn = AppConstants.sentryDns;
     options.environment = AppConstants.isBeta ? 'beta' : 'production';
     // options.debug = AppConstants.isBeta;
     options.beforeSend = (event, {hint}) {
-      if (kDebugMode ||
-          _ignoreErrors
-              .where((text) => event.exception?.value?.contains(text))
-              .isNotEmpty) {
-        dev.log(
-          'Report: Ignore error',
-          error: event.toJson(),
-          name: 'CrashesReport',
-        );
-        return null;
-      }
+      //if (kDebugMode ||
+      //    _ignoreErrors
+      //        .where((text) => event.exceptions?.contains(text))
+      //        .isNotEmpty) {
+      //  dev.log(
+      //    'Report: Ignore error',
+      //    error: event.toJson(),
+      //    name: 'CrashesReport',
+      //  );
+      //  return null;
+      //}
       return event;
     };
   }
 
   Future<Contexts> getAppContexts() async {
-    _appInfo = _appInfo ?? await PlatformUtils.getAppInfo();
-    _deviceInfo = _deviceInfo ?? await PlatformUtils.getDeviceInfo();
+    _appInfo = await PlatformUtils.getAppInfo();
+    _deviceInfo = (await PlatformUtils.getDeviceInfo())!;
 
     return Contexts(
-      operatingSystem: OperatingSystem(
+      operatingSystem: SentryOperatingSystem(
         name: _deviceInfo.osName,
         version: _deviceInfo.osVersion,
         build: _deviceInfo.osBuild ?? '',
       ),
-      app: App(
+      app: SentryApp(
         name: _appInfo.appName,
         version: _appInfo.version,
         identifier: _appInfo.packageName,
@@ -70,7 +70,7 @@ class CrashesReport {
         deviceAppHash: _deviceInfo.deviceId,
         startTime: DateTime.now().toUtc(),
       ),
-      device: Device(
+      device: SentryDevice(
         model: _deviceInfo.model,
         modelId: _deviceInfo.product,
         brand: _deviceInfo.brand,
@@ -86,7 +86,7 @@ class CrashesReport {
     String name,
     dynamic error,
     StackTrace stackTrace, [
-    Map<String, String> extra,
+    Map<String, String>? extra,
   ]) async {
     // Errors thrown in development mode are unlikely to be interesting. You can
     // check if you are running in dev mode using an assertion and omit sending
@@ -137,12 +137,12 @@ class CrashesReport {
       'fatal': true,
       'processName': AppConstants.appName,
       'device': {
-        'sdkVersion': osInfo.kernelVersion,
-        'osName': osInfo.name,
-        'osVersion': osInfo.version,
-        'model': deviceInfo.model,
-        'appVersion': appInfo.version,
-        'appBuild': appInfo.build,
+        'sdkVersion': osInfo?.kernelVersion,
+        'osName': osInfo?.name,
+        'osVersion': osInfo?.version,
+        'model': deviceInfo?.model,
+        'appVersion': appInfo?.version,
+        'appBuild': appInfo?.build,
         'appIsBeta': AppConstants.isBeta,
         'appReleaseId': AppConstants.buildId,
         'appCodeVersion': AppConstants.codeVersion,
@@ -152,8 +152,8 @@ class CrashesReport {
       'userId': _deviceInfo.deviceId,
       'exception': {
         'type': 'Exception',
-        'message': event.exception.toString(),
-        'stackTrace': event.stackTrace?.toString(),
+        'message': event.exceptions.toString(),
+        'stackTrace': event.toString(),
       }
     };
 
@@ -161,22 +161,6 @@ class CrashesReport {
   }
 
   Future<bool> submitToAppCenter(Map<String, dynamic> data) async {
-    // try {
-    //   final request = Request().postExternal('/logs?Api-Version=1.0.0',
-    //       baseUrl: 'https://in.appcenter.ms',
-    //       options: Options(headers: {
-    //         'app-secret': AppConfig().appCenterAppSecret,
-    //         'install-id': AppConfig().installId,
-    //       }),
-    //       data: data);
-    //   await request;
-    // } catch (error) {
-    //   dev.log(
-    //     'AppCenter Error $error',
-    //     name: 'CrashesReport',
-    //   );
-    // }
-
     return true;
   }
 }

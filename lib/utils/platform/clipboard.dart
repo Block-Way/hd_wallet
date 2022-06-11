@@ -13,7 +13,7 @@ void copyTextToClipboard(String text) {
 Future<String> getTextFromClipboard() async {
   try {
     final str = await Clipboard.getData('text/plain');
-    return Future.value(str.text);
+    return Future.value(str?.text ?? '');
   } catch (e) {
     return Future.value('');
   }

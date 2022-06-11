@@ -14,8 +14,8 @@ class TextAdapt extends HookWidget {
    * 外层会自动包裹 Expanded，让水平方向延展
    */
   final double maxWidth;
-  final Widget cmpRight;
-  final TextStyle textStyle;
+  final Widget? cmpRight;
+  final TextStyle? textStyle;
 
   final GlobalKey widgetKey = GlobalKey();
 
@@ -26,7 +26,7 @@ class TextAdapt extends HookWidget {
     useEffect(() {
       useExpand.value = false;
       Timer(Duration(milliseconds: 200), () {
-        final width = widgetKey?.currentContext?.size?.width;
+        final width = widgetKey.currentContext?.size?.width;
         useExpand.value = width != null && width > maxWidth;
       });
 
@@ -35,11 +35,12 @@ class TextAdapt extends HookWidget {
 
     Widget _textWidget() {
       return Text(
-        text ?? '',
+        text,
         softWrap: true,
         key: widgetKey,
         maxLines: 1,
-        style: textStyle ?? context.textBody(),
+        style: textStyle ??
+            context.textBody(bold: true, fontWeight: FontWeight.normal),
         overflow: TextOverflow.ellipsis,
       );
     }
@@ -48,7 +49,7 @@ class TextAdapt extends HookWidget {
       children: [
         if (!useExpand.value) _textWidget(),
         if (useExpand.value) Expanded(child: _textWidget()),
-        if (cmpRight != null) cmpRight
+        if (cmpRight != null) cmpRight!
       ],
     );
   }

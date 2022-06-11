@@ -2,9 +2,9 @@ part of asset_ui_module;
 
 //
 class AssetWithdrawPage extends HookWidget {
-  AssetWithdrawPage({Key key, this.coinInfo}) : super(key: key);
+  AssetWithdrawPage({Key? key, this.coinInfo}) : super(key: key);
 
-  final AssetCoin coinInfo;
+  final AssetCoin? coinInfo;
 
   static const routeName = '/asset/withdraw';
 
@@ -12,7 +12,7 @@ class AssetWithdrawPage extends HookWidget {
     AppNavigator.push(routeName, params: coinInfo);
   }
 
-  static Route<dynamic> route(RouteSettings settings, [AssetCoin coinInfo]) {
+  static Route<dynamic> route(RouteSettings settings, [AssetCoin? coinInfo]) {
     return DefaultTransition(
       settings,
       AssetWithdrawPage(coinInfo: coinInfo ?? settings.arguments as AssetCoin),
@@ -23,9 +23,7 @@ class AssetWithdrawPage extends HookWidget {
 
   //  组装交易函数
   void assemblyTransaction() {
-    final params = {
-      'key': 'value'
-    };
+    final params = {'key': 'value'};
 
     final ret = getTx(params);
   }
@@ -33,22 +31,22 @@ class AssetWithdrawPage extends HookWidget {
   void doSubmit(
     BuildContext context,
     AssetWithdrawVM viewModel, {
-    @required WalletWithdrawData withdrawInfo,
-    @required String address,
-    @required String amount,
+    required WalletWithdrawData withdrawInfo,
+    required String address,
+    required String amount,
   }) {
-    final isValid = formKey.currentState.validate();
+    final isValid = formKey.currentState?.validate();
 
-    if (!isValid) {
+    if (!(isValid ?? false)) {
       return;
     }
 
     AnalyticsReport().reportLog('Asset_Withdraw_Submit', {
-      'chain': coinInfo.chain,
-      'symbol': coinInfo.symbol,
+      'chain': coinInfo?.chain ?? '',
+      'symbol': coinInfo?.symbol ?? '',
       'amount': amount,
     });
-    formKey.currentState.save();
+    formKey.currentState?.save();
 
     AssetWithdrawProcess.doSubmitWithdraw(
       context,
@@ -56,7 +54,7 @@ class AssetWithdrawPage extends HookWidget {
       amount: NumberUtil.getDouble(amount),
       toAddress: address,
       withdrawData: withdrawInfo,
-      chainPrecision: coinInfo.chainPrecision,
+      chainPrecision: coinInfo?.chainPrecision ?? 0,
       onWithdrawSuccess: (txId) {
         LoadingDialog.dismiss(context);
         Toast.show(tr('asset:withdraw_msg_success'));
@@ -65,12 +63,9 @@ class AssetWithdrawPage extends HookWidget {
     );
   }
 
-
-
   @override
-
   Widget build(BuildContext context) {
-    final withdrawInfo = useState<WalletWithdrawData>(null);
+    final withdrawInfo = useState<WalletWithdrawData?>(null);
     final address = useTextEditingController(text: '');
     final amount = useTextEditingController(text: '');
     final autovalidate = useState(false);
@@ -92,7 +87,7 @@ class AssetWithdrawPage extends HookWidget {
       doSubmit(
         context,
         viewModel,
-        withdrawInfo: withdrawInfo.value,
+        withdrawInfo: withdrawInfo.value!,
         address: address.text,
         amount: amount.text,
       );
@@ -100,14 +95,15 @@ class AssetWithdrawPage extends HookWidget {
 
     void handleChangeAddress(AssetWithdrawVM viewModel) {
       if (address.text.isNotEmpty &&
-          AssetWithdrawProcess.getFeeOnChangeAddress.contains(coinInfo.chain) &&
+          AssetWithdrawProcess.getFeeOnChangeAddress
+              .contains(coinInfo?.chain ?? '') &&
           feeIsRefreshing.value == false &&
           withdrawInfo.value?.toAddress != address.text) {
         feeIsRefreshing.value = true;
         AssetWithdrawProcess.getWithdrawFee(
-          coinInfo: coinInfo,
+          coinInfo: coinInfo!,
           viewModel: viewModel,
-          previousWithdrawData: withdrawInfo.value,
+          previousWithdrawData: withdrawInfo.value!,
           toAddress: address.text,
           amount: amount.text,
         ).then((value) {
@@ -120,13 +116,13 @@ class AssetWithdrawPage extends HookWidget {
 
     void handleChangeAmount(AssetWithdrawVM viewModel) {
       if (amount.text.isNotEmpty &&
-          AssetWithdrawProcess.getFeeOnChangeAmount.contains(coinInfo.chain) &&
+          AssetWithdrawProcess.getFeeOnChangeAmount.contains(coinInfo?.chain) &&
           feeIsRefreshing.value == false) {
         feeIsRefreshing.value = true;
         AssetWithdrawProcess.getWithdrawFee(
-          coinInfo: coinInfo,
+          coinInfo: coinInfo!,
           viewModel: viewModel,
-          previousWithdrawData: withdrawInfo.value,
+          previousWithdrawData: withdrawInfo.value!,
           toAddress: address.text,
           amount: amount.text,
         ).then((value) {
@@ -141,12 +137,12 @@ class AssetWithdrawPage extends HookWidget {
       if (feeIsRefreshing.value == false) {
         feeIsRefreshing.value = true;
         final data = withdrawInfo.value;
-        data.fee = await WalletFeeUtils.getFeeData(
-          coinInfo: coinInfo,
+        data?.fee = (await WalletFeeUtils.getFeeData(
+          coinInfo: coinInfo!,
           defaultFee: data.feeDefault,
           level: type,
-          fromAddress: data?.fromAddress,
-        );
+          fromAddress: data.fromAddress,
+        ))!;
 
         withdrawInfo.value = data;
         feeIsRefreshing.value = false;
@@ -155,15 +151,16 @@ class AssetWithdrawPage extends HookWidget {
 
     void onGetFee(AssetWithdrawVM viewModel) {
       if (address.text.isEmpty &&
-          AssetWithdrawProcess.getFeeOnChangeAddress.contains(coinInfo.chain)) {
+          AssetWithdrawProcess.getFeeOnChangeAddress
+              .contains(coinInfo?.chain ?? '')) {
         return Toast.show(tr('asset:withdraw_req_address'));
       }
       if (feeIsRefreshing.value == false) {
         feeIsRefreshing.value = true;
         AssetWithdrawProcess.getWithdrawFee(
-          coinInfo: coinInfo,
+          coinInfo: coinInfo!,
           viewModel: viewModel,
-          previousWithdrawData: withdrawInfo.value,
+          previousWithdrawData: withdrawInfo.value!,
           toAddress: address.text,
           amount: amount.text,
         ).then((value) {
@@ -175,7 +172,7 @@ class AssetWithdrawPage extends HookWidget {
     }
 
     void handleOpenAddressScan(AssetWithdrawVM viewModel) {
-      QRScannerPage.open().then((toAddress) {
+      QRScannerPage.open()?.then((toAddress) {
         if (toAddress != null && toAddress.isNotEmpty) {
           address.text = toAddress;
           handleChangeAddress(viewModel);
@@ -185,22 +182,23 @@ class AssetWithdrawPage extends HookWidget {
 
     void handleWithdrawAll(AssetWithdrawVM viewModel) {
       final balance = viewModel.getCoinBalance(
-        chain: coinInfo.chain,
-        symbol: coinInfo.symbol,
+        chain: coinInfo?.chain ?? '',
+        symbol: coinInfo?.symbol ?? '',
       );
-      if (withdrawInfo.value?.fee?.feeSymbol == coinInfo.symbol) {
-        if (withdrawInfo.value.fee.feeValue > balance) {
+      if (withdrawInfo.value?.fee.feeSymbol == (coinInfo?.symbol ?? '')) {
+        if ((withdrawInfo.value?.fee.feeValue ?? 0) > balance) {
           amount.text = '0';
         } else {
           amount.text = NumberUtil.minus<String>(
             balance,
-            withdrawInfo.value.fee.feeValue,
-          );
+            withdrawInfo.value?.fee.feeValue,
+          )!;
         }
       } else {
         // 矿工费 扣的不是当前币 那可以把余额全转出去
-        amount.text =
-            NumberUtil.truncateDecimal(balance, coinInfo.chainPrecision) ?? '0';
+        amount.text = NumberUtil.truncateDecimal(
+                balance, coinInfo?.chainPrecision ?? 0) ??
+            '0';
       }
     }
 
@@ -212,13 +210,14 @@ class AssetWithdrawPage extends HookWidget {
       child: StoreConnector<AppState, AssetWithdrawVM>(
         distinct: true,
         converter: AssetWithdrawVM.fromStore,
-        onInitialBuild: (viewModel) {
-          if (AssetWithdrawProcess.getFeeOnInit.contains(coinInfo.chain)) {
+        onInitialBuild: (_, __, viewModel) {
+          if (AssetWithdrawProcess.getFeeOnInit
+              .contains(coinInfo?.chain ?? '')) {
             LoadingDialog.show(context);
             AssetWithdrawProcess.getWithdrawFee(
               viewModel: viewModel,
-              coinInfo: coinInfo,
-              previousWithdrawData: withdrawInfo.value,
+              coinInfo: coinInfo!,
+              previousWithdrawData: withdrawInfo.value!,
               toAddress: '',
               amount: '0',
             ).then((value) {
@@ -240,7 +239,7 @@ class AssetWithdrawPage extends HookWidget {
                 children: [
                   AssetCoinBox(
                     title: tr('asset:withdraw_lbl_coin'),
-                    coinInfo: coinInfo,
+                    coinInfo: coinInfo!,
                   ),
                   FormBox(
                     type: FormBoxType.inputText,
@@ -268,17 +267,17 @@ class AssetWithdrawPage extends HookWidget {
                         autoWidth: true,
                         backgroundColor: Colors.transparent,
                         onPressed: () {
-                          AssetAddressListPage.open(coinInfo, address.text)
-                              .then((value) {
+                          AssetAddressListPage.open(coinInfo!, address.text)
+                              ?.then((value) {
                             if (value != address.text) {
-                              address.text = value;
+                              address.text = value!;
                               handleChangeAddress(viewModel);
                             }
                           });
                         },
                       ),
                     ),
-                    maxLines: null,
+                    //maxLines: null,
                     onFocusChanged: (hasFocus) {
                       if (!hasFocus) {
                         handleChangeAddress(viewModel);
@@ -295,7 +294,7 @@ class AssetWithdrawPage extends HookWidget {
                     ),
                     inputFormatters: [
                       DecimalTextInputFormatter(
-                        decimalRange: coinInfo.chainPrecision,
+                        decimalRange: coinInfo?.chainPrecision ?? 0,
                       ),
                     ],
                     iconName: CSIcons.All,
@@ -313,13 +312,15 @@ class AssetWithdrawPage extends HookWidget {
                   Padding(
                     padding: context.edgeAll.copyWith(top: 0),
                     child: AssetBalanceListener(
-                      item: coinInfo,
-                      builder: (context, {balance, unconfirmed, data}) => Text(
+                      item: coinInfo!,
+                      builder: (context,
+                              {required balance, required unconfirmed, data}) =>
+                          Text(
                         tr(
                           'asset:lbl_balance',
                           namedArgs: {
                             'balance': balance,
-                            'symbol': coinInfo.name,
+                            'symbol': coinInfo?.name ?? '',
                           },
                         ),
                         style: context.textSecondary(),
@@ -327,7 +328,7 @@ class AssetWithdrawPage extends HookWidget {
                     ),
                   ),
                   AssetWithdrawFee(
-                    withdrawInfo: withdrawInfo.value,
+                    withdrawInfo: withdrawInfo.value!,
                     isRefreshing: feeIsRefreshing.value,
                     onPress: (type) {
                       handleChangeGas(type);

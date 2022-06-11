@@ -12,14 +12,14 @@ class TextTradePair extends StatelessWidget {
     this.isBuy = false,
     this.sameStyle = false,
     this.mainAxisAlignment = MainAxisAlignment.start,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String from;
   final String to;
   final TextSize size;
-  final Color color;
-  final Color toColor;
+  final Color? color;
+  final Color? toColor;
   final bool bold;
   final bool direction;
   final bool isBuy;
@@ -29,34 +29,39 @@ class TextTradePair extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textColor = color ?? context.bodyColor;
-    TextStyle fromStyle;
+    late TextStyle fromStyle;
     switch (size) {
       case TextSize.big:
         fromStyle = context.textBig(
           bold: bold,
+          fontWeight: FontWeight.normal,
           color: textColor,
         );
         break;
       case TextSize.medium:
         fromStyle = context.textMedium(
+          fontWeight: FontWeight.normal,
           bold: bold,
           color: textColor,
         );
         break;
       case TextSize.body:
         fromStyle = context.textBody(
+          fontWeight: FontWeight.normal,
           bold: bold,
           color: textColor,
         );
         break;
       case TextSize.secondary:
         fromStyle = context.textSecondary(
+          fontWeight: FontWeight.normal,
           bold: bold,
           color: textColor,
         );
         break;
       case TextSize.small:
         fromStyle = context.textSmall(
+          fontWeight: FontWeight.normal,
           bold: bold,
           color: textColor,
         );
@@ -66,7 +71,7 @@ class TextTradePair extends StatelessWidget {
     }
 
     final toStyle = fromStyle.copyWith(
-      fontSize: fromStyle.fontSize * 0.7,
+      fontSize: fromStyle.fontSize! * 0.7,
       color: toColor ?? context.labelColor,
     );
 

@@ -3,7 +3,7 @@ part of common_ui_module;
 class QRScannerPage extends StatefulWidget {
   static const routeName = '/common/scan';
 
-  static Future<String> open() {
+  static Future<String?>? open() {
     return AppNavigator.push<String>(routeName);
   }
 
@@ -18,10 +18,10 @@ class QRScannerPage extends StatefulWidget {
 class _QRScannerPage extends State<QRScannerPage>
     with TickerProviderStateMixin {
   final qrKey = GlobalKey(debugLabel: 'QR');
-  QRViewController qrController;
-  StreamSubscription<String> qrSubscription;
-  AnimationController animationController;
-  Animation<Offset> animation;
+  QRViewController? qrController;
+  StreamSubscription<String>? qrSubscription;
+  AnimationController? animationController;
+  Animation<Offset>? animation;
   final borderWidth = 6.0;
   bool hasPermission = false;
 
@@ -60,14 +60,14 @@ class _QRScannerPage extends State<QRScannerPage>
         vsync: this,
       );
 
-      animationController.addStatusListener((status) {
+      animationController?.addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           //动画在结束时停止的状态
           // animationController.reverse(); // 反向开始执行动画
-          animationController.reset();
+          animationController?.reset();
         } else if (status == AnimationStatus.dismissed) {
           // 动画从 controller.reverse() 反向执行 结束时会回调此方法
-          animationController.forward(); // 正向开始执行动画
+          animationController?.forward(); // 正向开始执行动画
         }
       });
 
@@ -75,9 +75,9 @@ class _QRScannerPage extends State<QRScannerPage>
         begin: Offset.zero,
         // 1- 中间线的高度
         end: Offset(0.0, context.mediaWidth * 0.65 - borderWidth / 2) / 3,
-      ).animate(animationController);
+      ).animate(animationController!);
       //开始执行动画
-      animationController.forward();
+      animationController?.forward();
       setState(() {});
     });
   }
@@ -133,7 +133,7 @@ class _QRScannerPage extends State<QRScannerPage>
               child: Container(
                 margin: EdgeInsets.only(bottom: context.mediaWidth * 0.65),
                 child: SlideTransition(
-                  position: animation,
+                  position: animation!,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: context.radiusAll,
@@ -177,38 +177,38 @@ class _QRScannerPage extends State<QRScannerPage>
 
   void onQRViewCreated(QRViewController ctrl) {
     qrController = ctrl;
-    qrController.startScan();
-    qrSubscription = qrController.scannedDataStream.listen((scanData) {
-      if (scanData != null && scanData != '') {
-        qrController.pauseCamera();
+    qrController?.startScan();
+    qrSubscription = qrController?.scannedDataStream.listen((scanData) {
+      if (scanData != '') {
+        qrController?.pauseCamera();
         AppNavigator.popWithResult(scanData);
       }
     });
   }
 
   void scanFromLocalImage() {
-    qrController.pauseCamera();
+    qrController?.pauseCamera();
     // 选择图片
     CameraUtils.openGallery().then((imgResult) {
       if (imgResult == null || imgResult.file == null) {
-        qrController.resumeCamera();
+        qrController?.resumeCamera();
       } else {
         // 识别图片
         QrCodeToolsPlugin.decodeFrom(imgResult.file.path).then((scanData) {
           if (scanData != null && scanData != '') {
             AppNavigator.popWithResult(scanData);
           } else {
-            qrController.resumeCamera();
+            qrController?.resumeCamera();
             Toast.show(tr('global:msg_scan_invalid'));
           }
         }).catchError((_) {
-          qrController.resumeCamera();
+          qrController?.resumeCamera();
           Toast.show(tr('global:msg_scan_invalid'));
         });
       }
     }).catchError((error) {
       Toast.showError(error);
-      qrController.resumeCamera();
+      qrController?.resumeCamera();
     });
   }
 

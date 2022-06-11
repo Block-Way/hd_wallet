@@ -3,12 +3,13 @@ part of wallet_domain_module;
 class VMWithAssetGetCoinBalanceImplement {
   static double getCoinBalance(
     Store<AppState> store, {
-    String chain,
-    String symbol,
+    required String chain,
+    required String symbol,
   }) {
-    return store.state.walletState.activeWallet.getCoinBalance(
-      chain: chain,
-      symbol: symbol,
-    );
+    return store.state.walletState.activeWallet?.getCoinBalance(
+          chain: chain,
+          symbol: symbol,
+        ) ??
+        0;
   }
 }

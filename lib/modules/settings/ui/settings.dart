@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:network_flutter/network_flutter.dart';
 
 // Project imports:
 import 'package:sugar/dialogs/dialogs.dart';
@@ -28,7 +27,7 @@ import 'package:sugar/widgets/widgets.dart';
 part 'screens/settings_dev.dart';
 part 'screens/settings_testnet.dart';
 
-Route<dynamic> moduleSettingsInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleSettingsInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case SettingsDevPage.routeName:
       return SettingsDevPage.route(settings);

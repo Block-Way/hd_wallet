@@ -2,7 +2,7 @@ part of widgets;
 
 class DecimalTextInputFormatter extends TextInputFormatter {
   DecimalTextInputFormatter({
-    int decimalRange,
+    int? decimalRange,
     bool activatedNegativeValues = false,
   }) : assert(decimalRange == null || decimalRange >= 0,
             'DecimalTextInputFormatter declaretion error') {
@@ -18,14 +18,14 @@ class DecimalTextInputFormatter extends TextInputFormatter {
     }
   }
 
-  RegExp _exp;
+  RegExp? _exp;
 
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    if (_exp.hasMatch(newValue.text)) {
+    if (_exp?.hasMatch(newValue.text) ?? false) {
       return newValue;
     }
     return oldValue;
@@ -34,8 +34,8 @@ class DecimalTextInputFormatter extends TextInputFormatter {
 
 class NumberTextInputFormatter extends TextInputFormatter {
   NumberTextInputFormatter({
-    @required int maxInteger,
-    @required int maxDecimal,
+    required int maxInteger,
+    required int maxDecimal,
   }) {
     final integerRegEx = '([0-9]{0,$maxInteger}){0,1}';
     final decimalRegEx = '([.][0-9]{0,$maxDecimal}){0,1}';
@@ -43,14 +43,14 @@ class NumberTextInputFormatter extends TextInputFormatter {
     _exp = RegExp('^(($integerRegEx)($decimalRegEx){0,1})\$');
   }
 
-  RegExp _exp;
+  RegExp? _exp;
 
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    if (_exp.hasMatch(newValue.text)) {
+    if (_exp?.hasMatch(newValue.text) ?? false) {
       return newValue;
     }
     return oldValue;

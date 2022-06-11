@@ -1,7 +1,7 @@
 part of themes;
 
 extension ColorStyles on BuildContext {
-  Color dynamicColor({Color light, Color dark}) {
+  Color dynamicColor({required Color light, required Color dark}) {
     return Theme.of(this).brightness == Brightness.light ? light : dark;
   }
 
@@ -35,16 +35,16 @@ extension ColorStyles on BuildContext {
   }
 
   ///#1F2229
-  Color get mainColor{
+  Color get mainColor {
     return const Color(0xFF1F2229);
   }
 
-  Color get helpColor{
+  Color get helpColor {
     return const Color(0xFF303644);
   }
 
   ///#2B2E37
-  Color get cardColor{
+  Color get cardColor {
     return const Color(0xFF2B2E37);
   }
 
@@ -84,7 +84,7 @@ extension ColorStyles on BuildContext {
 
   ///#ECC586
   Color get confirmTopColor {
-    return const Color(0xFFECC586 );
+    return const Color(0xFFECC586);
   }
 
   ///#DCAA65

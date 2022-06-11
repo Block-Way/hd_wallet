@@ -1,7 +1,7 @@
 part of invest_ui_module;
 
 class AirdropHeader extends StatelessWidget {
-  const AirdropHeader({Key key}) : super(key: key);
+  const AirdropHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

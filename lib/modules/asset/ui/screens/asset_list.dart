@@ -64,15 +64,12 @@ class AssetListPage extends StatelessWidget {
               children: [
                 Text(
                   tr('asset:list_lbl_valuation'),
-                  style: context.textBody(bold: true, color: context.placeholderColor),
+                  style: context.textBody(
+                      bold: true, color: context.placeholderColor),
                 ),
                 SizedBox(height: context.edgeSize),
-                PriceText(
-                  '0',
-                  viewModel.fiatCurrency,
-                  TextSize.huge,
-                  color: context.placeholderColor
-                ),
+                PriceText('0', viewModel.fiatCurrency, TextSize.huge,
+                    color: context.placeholderColor),
               ],
             ),
           ),
@@ -94,7 +91,7 @@ class AssetListPage extends StatelessWidget {
       padding: EdgeInsets.zero,
       child: AssetWalletCard(
         fiatCurrency: viewModel.fiatCurrency,
-        wallet: viewModel.activeWallet,
+        wallet: viewModel.activeWallet!,
         walletStatus: viewModel.activeWalletStatus,
         walletCoins: viewModel.coins,
         onSync: (wallet) {
@@ -106,9 +103,9 @@ class AssetListPage extends StatelessWidget {
           });
         },
         onPressed: () {
-          AssetWalletSelectPage.open().then((wallet) {
+          AssetWalletSelectPage.open()?.then((wallet) {
             if (wallet != null) {
-              viewModel.doSwitchWallet(wallet);
+              viewModel.doSwitchWallet(wallet as Wallet);
               // _ignoreIndexChange = true;
               // final index = viewModel.wallets.indexOf(wallet);
               // swiperController.move(index, animation: false).
@@ -144,9 +141,9 @@ class AssetListPage extends StatelessWidget {
       child: Container(
         // decoration: context.boxDecorationOnlyTop(radius: 30),
         decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.vertical(top: Radius.elliptical(30, 30)),
-          color: context.cardColor
-        ),
+            borderRadius:
+                new BorderRadius.vertical(top: Radius.elliptical(30, 30)),
+            color: context.cardColor),
         padding: context.edgeAll,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +153,6 @@ class AssetListPage extends StatelessWidget {
               width: 250,
               height: 127,
               imageUrl: 'assets/images/empty_wallet.png',
-
             ),
             WalletCreateButtons(
               isEmptyPage: true,
@@ -203,7 +199,7 @@ class AssetListPage extends StatelessWidget {
                       (coin) => AssetListItem(
                         item: coin,
                         onPressed: () {
-                          if (viewModel.hasWallet) {
+                          if (viewModel.hasWallet!) {
                             AssetDetailPage.open(coin);
                           } else {
                             Toast.show(tr('wallet:msg_create_wallet_tips'));
@@ -228,11 +224,12 @@ class AssetListPage extends StatelessWidget {
       title: tr('asset:list_title'),
       headerBgColor: context.mainColor,
       backgroundColor: context.mainColor,
-      titleStyle: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
+      titleStyle: context.textHuge(
+          fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
       child: StoreConnector<AppState, AssetListVM>(
         distinct: true,
         converter: AssetListVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           // _ignoreIndexChange = true;
           // swiperController
           //     .move(viewModel.wallets.indexOf(viewModel.activeWallet),

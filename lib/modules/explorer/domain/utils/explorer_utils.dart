@@ -45,7 +45,6 @@ class ExplorerUtils {
   static String getChainExplorerTxUrl(String chain, String txid) {
     final list = explorerConfigs.firstWhere(
       (item) => item.chain == chain,
-      orElse: () => null,
     );
     return list != null
         ? sprintf(list.txUrl, [txid])
@@ -55,7 +54,6 @@ class ExplorerUtils {
   static String getChainExplorerSearchUrl(String chain, String term) {
     final list = explorerConfigs.firstWhere(
       (item) => item.chain == chain,
-      orElse: () => null,
     );
 
     if (onlySearchAddress.contains(chain)) {

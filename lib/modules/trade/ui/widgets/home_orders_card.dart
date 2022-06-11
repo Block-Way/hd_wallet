@@ -2,11 +2,11 @@ part of trade_ui_module;
 
 class HomeOrdersCard extends StatelessWidget {
   const HomeOrdersCard({
-    @required this.hasWallet,
-    @required this.tradePair,
-    @required this.tradeSide,
-    @required this.onCancelOrder,
-    Key key,
+    required this.hasWallet,
+    required this.tradePair,
+    required this.tradeSide,
+    required this.onCancelOrder,
+    Key? key,
   }) : super(key: key);
 
   final bool hasWallet;
@@ -28,7 +28,10 @@ class HomeOrdersCard extends StatelessWidget {
                 padding: context.edgeAll,
                 child: Text(
                   tr('trade:order_lbl_orders'),
-                  style: context.textMedium(bold: true),
+                  style: context.textMedium(
+                    bold: true,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
               Spacer(),
@@ -40,6 +43,7 @@ class HomeOrdersCard extends StatelessWidget {
                   textStyle: context.textSecondary(
                     color: context.labelColor,
                     bold: true,
+                    fontWeight: FontWeight.normal,
                   ),
                   cmpRight: Padding(
                     padding: context.edgeLeft5,
@@ -57,7 +61,7 @@ class HomeOrdersCard extends StatelessWidget {
           ),
           Divider(height: 0.5, color: context.greyColor),
           StreamBuilder<List<TradeOrder>>(
-            stream: GetIt.I<TradeOrdersPendingCubit>(),
+            //stream: GetIt.I<TradeOrdersPendingCubit>(),
             builder: (context, snapshot) {
               final data = snapshot.data;
               if (data == null) {
@@ -87,11 +91,9 @@ class HomeOrdersCard extends StatelessWidget {
                   key: ValueKey(data[index].txId),
                   order: data[index],
                   margin: EdgeInsets.zero,
-                  onPress: kDebugMode
-                      ? () {
-                          TradeOrderDetailPage.open(data[index]);
-                        }
-                      : null,
+                  onPress: () {
+                    TradeOrderDetailPage.open(data[index]);
+                  },
                   onCancelOrder: (item) {
                     onCancelOrder(item);
                   },

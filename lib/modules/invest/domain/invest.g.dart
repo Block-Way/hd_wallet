@@ -23,20 +23,23 @@ class _$InvestConfigSerializer implements StructuredSerializer<InvestConfig> {
   final String wireName = 'InvestConfig';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, InvestConfig object,
+  Iterable<Object?> serialize(Serializers serializers, InvestConfig object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.mints != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.mints;
+    if (value != null) {
       result
         ..add('mints')
-        ..add(serializers.serialize(object.mints,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(MintItem)])));
     }
-    if (object.airdrops != null) {
+    value = object.airdrops;
+    if (value != null) {
       result
         ..add('airdrops')
-        ..add(serializers.serialize(object.airdrops,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(MintItem)])));
     }
@@ -44,27 +47,28 @@ class _$InvestConfigSerializer implements StructuredSerializer<InvestConfig> {
   }
 
   @override
-  InvestConfig deserialize(Serializers serializers, Iterable<Object> serialized,
+  InvestConfig deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new InvestConfigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'mints':
           result.mints.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(MintItem)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(MintItem)]))!
+              as BuiltList<Object?>);
           break;
         case 'airdrops':
           result.airdrops.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(MintItem)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(MintItem)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -80,52 +84,56 @@ class _$MintChartSerializer implements StructuredSerializer<MintChart> {
   final String wireName = 'MintChart';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, MintChart object,
+  Iterable<Object?> serialize(Serializers serializers, MintChart object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.balance != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.balance;
+    if (value != null) {
       result
         ..add('balance')
-        ..add(serializers.serialize(object.balance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.reward != null) {
+    value = object.reward;
+    if (value != null) {
       result
         ..add('reward')
-        ..add(serializers.serialize(object.reward,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.isBalance != null) {
+    value = object.isBalance;
+    if (value != null) {
       result
         ..add('user_balance')
-        ..add(serializers.serialize(object.isBalance,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  MintChart deserialize(Serializers serializers, Iterable<Object> serialized,
+  MintChart deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MintChartBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'balance':
           result.balance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'reward':
           result.reward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'user_balance':
           result.isBalance = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -141,9 +149,9 @@ class _$MintInfoSerializer implements StructuredSerializer<MintInfo> {
   final String wireName = 'MintInfo';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, MintInfo object,
+  Iterable<Object?> serialize(Serializers serializers, MintInfo object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'min_balance',
       serializers.serialize(object.minBalance,
           specifiedType: const FullType(String)),
@@ -157,75 +165,80 @@ class _$MintInfoSerializer implements StructuredSerializer<MintInfo> {
       serializers.serialize(object.minBalanceReward,
           specifiedType: const FullType(String)),
     ];
-    if (object.promotionReward != null) {
+    Object? value;
+    value = object.promotionReward;
+    if (value != null) {
       result
         ..add('promotion_reward')
-        ..add(serializers.serialize(object.promotionReward,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.stakeReward != null) {
+    value = object.stakeReward;
+    if (value != null) {
       result
         ..add('stake_reward')
-        ..add(serializers.serialize(object.stakeReward,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.thisStakeReward != null) {
+    value = object.thisStakeReward;
+    if (value != null) {
       result
         ..add('this_stake_reward')
-        ..add(serializers.serialize(object.thisStakeReward,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.thisBalance != null) {
+    value = object.thisBalance;
+    if (value != null) {
       result
         ..add('this_balance')
-        ..add(serializers.serialize(object.thisBalance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  MintInfo deserialize(Serializers serializers, Iterable<Object> serialized,
+  MintInfo deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MintInfoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'promotion_reward':
           result.promotionReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'stake_reward':
           result.stakeReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'this_stake_reward':
           result.thisStakeReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'this_balance':
           result.thisBalance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'min_balance':
           result.minBalance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'best_balance':
           result.bestBalance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'best_balance_reward':
           result.bestBalanceReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'min_balance_reward':
           result.minBalanceReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -241,9 +254,9 @@ class _$MintItemSerializer implements StructuredSerializer<MintItem> {
   final String wireName = 'MintItem';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, MintItem object,
+  Iterable<Object?> serialize(Serializers serializers, MintItem object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(int)),
       'name',
@@ -257,66 +270,69 @@ class _$MintItemSerializer implements StructuredSerializer<MintItem> {
       serializers.serialize(object.chain,
           specifiedType: const FullType(String)),
     ];
-    if (object.forkId != null) {
+    Object? value;
+    value = object.forkId;
+    if (value != null) {
       result
         ..add('fork')
-        ..add(serializers.serialize(object.forkId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.mintEnable != null) {
+    value = object.mintEnable;
+    if (value != null) {
       result
         ..add('mint_enable')
-        ..add(serializers.serialize(object.mintEnable,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.minBalance != null) {
+    value = object.minBalance;
+    if (value != null) {
       result
         ..add('min_balance')
-        ..add(serializers.serialize(object.minBalance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
     return result;
   }
 
   @override
-  MintItem deserialize(Serializers serializers, Iterable<Object> serialized,
+  MintItem deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MintItemBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'fork':
           result.forkId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'name':
           result.name.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)])));
+                  const [const FullType(String), const FullType(String)]))!);
           break;
         case 'symbol':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'chain':
           result.chain = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'mint_enable':
           result.mintEnable = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'min_balance':
           result.minBalance = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
       }
     }
@@ -336,10 +352,10 @@ class _$ProfitInvitationItemSerializer
   final String wireName = 'ProfitInvitationItem';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, ProfitInvitationItem object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       '_id',
       serializers.serialize(object.address,
           specifiedType: const FullType(String)),
@@ -347,16 +363,19 @@ class _$ProfitInvitationItemSerializer
       serializers.serialize(object.amount,
           specifiedType: const FullType(String)),
     ];
-    if (object.height != null) {
+    Object? value;
+    value = object.height;
+    if (value != null) {
       result
         ..add('height')
-        ..add(serializers.serialize(object.height,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.time != null) {
+    value = object.time;
+    if (value != null) {
       result
         ..add('time')
-        ..add(serializers.serialize(object.time,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -364,31 +383,31 @@ class _$ProfitInvitationItemSerializer
 
   @override
   ProfitInvitationItem deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProfitInvitationItemBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case '_id':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'amount':
           result.amount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'height':
           result.height = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'time':
           result.time = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -405,9 +424,9 @@ class _$ProfitRecordItemSerializer
   final String wireName = 'ProfitRecordItem';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ProfitRecordItem object,
+  Iterable<Object?> serialize(Serializers serializers, ProfitRecordItem object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'height',
       serializers.serialize(object.height, specifiedType: const FullType(int)),
       'balance',
@@ -426,31 +445,31 @@ class _$ProfitRecordItemSerializer
 
   @override
   ProfitRecordItem deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProfitRecordItemBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'height':
           result.height = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'balance':
           result.balance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'stake_reward':
           result.stakeReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'promotion_reward':
           result.promotionReward = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -465,76 +484,66 @@ class _$InvestHomeVM extends InvestHomeVM {
   @override
   final String fiatCurrency;
   @override
-  final MintItem activeMint;
+  final MintItem? activeMint;
   @override
   final BuiltList<MintItem> mints;
   @override
-  final MintInfo mintInfo;
+  final MintInfo? mintInfo;
   @override
   final BuiltList<MintChart> chartList;
   @override
   final BuiltList<ProfitInvitationItem> profitInvitationList;
   @override
-  final AssetCoin Function({String chain, String symbol}) getCoinInfo;
+  final AssetCoin Function({required String chain, required String symbol})
+      getCoinInfo;
   @override
   final Future<void> Function(MintItem mint) doSwitchMint;
   @override
   final Future<void> Function() refreshMintReward;
   @override
-  final Future<int> Function({bool isRefresh, int skip, int take})
-      getProfitInvitationList;
+  final Future<int> Function(
+      {required bool isRefresh,
+      required int skip,
+      required int take}) getProfitInvitationList;
   @override
-  final MintItem Function() getDefaultMint;
+  final MintItem? Function() getDefaultMint;
 
-  factory _$InvestHomeVM([void Function(InvestHomeVMBuilder) updates]) =>
-      (new InvestHomeVMBuilder()..update(updates)).build();
+  factory _$InvestHomeVM([void Function(InvestHomeVMBuilder)? updates]) =>
+      (new InvestHomeVMBuilder()..update(updates))._build();
 
   _$InvestHomeVM._(
-      {this.hasWallet,
-      this.fiatCurrency,
+      {required this.hasWallet,
+      required this.fiatCurrency,
       this.activeMint,
-      this.mints,
+      required this.mints,
       this.mintInfo,
-      this.chartList,
-      this.profitInvitationList,
-      this.getCoinInfo,
-      this.doSwitchMint,
-      this.refreshMintReward,
-      this.getProfitInvitationList,
-      this.getDefaultMint})
+      required this.chartList,
+      required this.profitInvitationList,
+      required this.getCoinInfo,
+      required this.doSwitchMint,
+      required this.refreshMintReward,
+      required this.getProfitInvitationList,
+      required this.getDefaultMint})
       : super._() {
-    if (hasWallet == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'hasWallet');
-    }
-    if (fiatCurrency == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'fiatCurrency');
-    }
-    if (mints == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'mints');
-    }
-    if (chartList == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'chartList');
-    }
-    if (profitInvitationList == null) {
-      throw new BuiltValueNullFieldError(
-          'InvestHomeVM', 'profitInvitationList');
-    }
-    if (getCoinInfo == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'getCoinInfo');
-    }
-    if (doSwitchMint == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'doSwitchMint');
-    }
-    if (refreshMintReward == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'refreshMintReward');
-    }
-    if (getProfitInvitationList == null) {
-      throw new BuiltValueNullFieldError(
-          'InvestHomeVM', 'getProfitInvitationList');
-    }
-    if (getDefaultMint == null) {
-      throw new BuiltValueNullFieldError('InvestHomeVM', 'getDefaultMint');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        hasWallet, r'InvestHomeVM', 'hasWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        fiatCurrency, r'InvestHomeVM', 'fiatCurrency');
+    BuiltValueNullFieldError.checkNotNull(mints, r'InvestHomeVM', 'mints');
+    BuiltValueNullFieldError.checkNotNull(
+        chartList, r'InvestHomeVM', 'chartList');
+    BuiltValueNullFieldError.checkNotNull(
+        profitInvitationList, r'InvestHomeVM', 'profitInvitationList');
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinInfo, r'InvestHomeVM', 'getCoinInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        doSwitchMint, r'InvestHomeVM', 'doSwitchMint');
+    BuiltValueNullFieldError.checkNotNull(
+        refreshMintReward, r'InvestHomeVM', 'refreshMintReward');
+    BuiltValueNullFieldError.checkNotNull(
+        getProfitInvitationList, r'InvestHomeVM', 'getProfitInvitationList');
+    BuiltValueNullFieldError.checkNotNull(
+        getDefaultMint, r'InvestHomeVM', 'getDefaultMint');
   }
 
   @override
@@ -573,7 +582,7 @@ class _$InvestHomeVM extends InvestHomeVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('InvestHomeVM')
+    return (newBuiltValueToStringHelper(r'InvestHomeVM')
           ..add('hasWallet', hasWallet)
           ..add('fiatCurrency', fiatCurrency)
           ..add('activeMint', activeMint)
@@ -592,90 +601,101 @@ class _$InvestHomeVM extends InvestHomeVM {
 
 class InvestHomeVMBuilder
     implements Builder<InvestHomeVM, InvestHomeVMBuilder> {
-  _$InvestHomeVM _$v;
+  _$InvestHomeVM? _$v;
 
-  bool _hasWallet;
-  bool get hasWallet => _$this._hasWallet;
-  set hasWallet(bool hasWallet) => _$this._hasWallet = hasWallet;
+  bool? _hasWallet;
+  bool? get hasWallet => _$this._hasWallet;
+  set hasWallet(bool? hasWallet) => _$this._hasWallet = hasWallet;
 
-  String _fiatCurrency;
-  String get fiatCurrency => _$this._fiatCurrency;
-  set fiatCurrency(String fiatCurrency) => _$this._fiatCurrency = fiatCurrency;
+  String? _fiatCurrency;
+  String? get fiatCurrency => _$this._fiatCurrency;
+  set fiatCurrency(String? fiatCurrency) => _$this._fiatCurrency = fiatCurrency;
 
-  MintItemBuilder _activeMint;
+  MintItemBuilder? _activeMint;
   MintItemBuilder get activeMint =>
       _$this._activeMint ??= new MintItemBuilder();
-  set activeMint(MintItemBuilder activeMint) => _$this._activeMint = activeMint;
+  set activeMint(MintItemBuilder? activeMint) =>
+      _$this._activeMint = activeMint;
 
-  ListBuilder<MintItem> _mints;
+  ListBuilder<MintItem>? _mints;
   ListBuilder<MintItem> get mints =>
       _$this._mints ??= new ListBuilder<MintItem>();
-  set mints(ListBuilder<MintItem> mints) => _$this._mints = mints;
+  set mints(ListBuilder<MintItem>? mints) => _$this._mints = mints;
 
-  MintInfoBuilder _mintInfo;
+  MintInfoBuilder? _mintInfo;
   MintInfoBuilder get mintInfo => _$this._mintInfo ??= new MintInfoBuilder();
-  set mintInfo(MintInfoBuilder mintInfo) => _$this._mintInfo = mintInfo;
+  set mintInfo(MintInfoBuilder? mintInfo) => _$this._mintInfo = mintInfo;
 
-  ListBuilder<MintChart> _chartList;
+  ListBuilder<MintChart>? _chartList;
   ListBuilder<MintChart> get chartList =>
       _$this._chartList ??= new ListBuilder<MintChart>();
-  set chartList(ListBuilder<MintChart> chartList) =>
+  set chartList(ListBuilder<MintChart>? chartList) =>
       _$this._chartList = chartList;
 
-  ListBuilder<ProfitInvitationItem> _profitInvitationList;
+  ListBuilder<ProfitInvitationItem>? _profitInvitationList;
   ListBuilder<ProfitInvitationItem> get profitInvitationList =>
       _$this._profitInvitationList ??= new ListBuilder<ProfitInvitationItem>();
   set profitInvitationList(
-          ListBuilder<ProfitInvitationItem> profitInvitationList) =>
+          ListBuilder<ProfitInvitationItem>? profitInvitationList) =>
       _$this._profitInvitationList = profitInvitationList;
 
-  AssetCoin Function({String chain, String symbol}) _getCoinInfo;
-  AssetCoin Function({String chain, String symbol}) get getCoinInfo =>
-      _$this._getCoinInfo;
+  AssetCoin Function({required String chain, required String symbol})?
+      _getCoinInfo;
+  AssetCoin Function({required String chain, required String symbol})?
+      get getCoinInfo => _$this._getCoinInfo;
   set getCoinInfo(
-          AssetCoin Function({String chain, String symbol}) getCoinInfo) =>
+          AssetCoin Function({required String chain, required String symbol})?
+              getCoinInfo) =>
       _$this._getCoinInfo = getCoinInfo;
 
-  Future<void> Function(MintItem mint) _doSwitchMint;
-  Future<void> Function(MintItem mint) get doSwitchMint => _$this._doSwitchMint;
-  set doSwitchMint(Future<void> Function(MintItem mint) doSwitchMint) =>
+  Future<void> Function(MintItem mint)? _doSwitchMint;
+  Future<void> Function(MintItem mint)? get doSwitchMint =>
+      _$this._doSwitchMint;
+  set doSwitchMint(Future<void> Function(MintItem mint)? doSwitchMint) =>
       _$this._doSwitchMint = doSwitchMint;
 
-  Future<void> Function() _refreshMintReward;
-  Future<void> Function() get refreshMintReward => _$this._refreshMintReward;
-  set refreshMintReward(Future<void> Function() refreshMintReward) =>
+  Future<void> Function()? _refreshMintReward;
+  Future<void> Function()? get refreshMintReward => _$this._refreshMintReward;
+  set refreshMintReward(Future<void> Function()? refreshMintReward) =>
       _$this._refreshMintReward = refreshMintReward;
 
-  Future<int> Function({bool isRefresh, int skip, int take})
-      _getProfitInvitationList;
-  Future<int> Function({bool isRefresh, int skip, int take})
+  Future<int> Function(
+      {required bool isRefresh,
+      required int skip,
+      required int take})? _getProfitInvitationList;
+  Future<int> Function(
+          {required bool isRefresh, required int skip, required int take})?
       get getProfitInvitationList => _$this._getProfitInvitationList;
   set getProfitInvitationList(
-          Future<int> Function({bool isRefresh, int skip, int take})
+          Future<int> Function(
+                  {required bool isRefresh,
+                  required int skip,
+                  required int take})?
               getProfitInvitationList) =>
       _$this._getProfitInvitationList = getProfitInvitationList;
 
-  MintItem Function() _getDefaultMint;
-  MintItem Function() get getDefaultMint => _$this._getDefaultMint;
-  set getDefaultMint(MintItem Function() getDefaultMint) =>
+  MintItem? Function()? _getDefaultMint;
+  MintItem? Function()? get getDefaultMint => _$this._getDefaultMint;
+  set getDefaultMint(MintItem? Function()? getDefaultMint) =>
       _$this._getDefaultMint = getDefaultMint;
 
   InvestHomeVMBuilder();
 
   InvestHomeVMBuilder get _$this {
-    if (_$v != null) {
-      _hasWallet = _$v.hasWallet;
-      _fiatCurrency = _$v.fiatCurrency;
-      _activeMint = _$v.activeMint?.toBuilder();
-      _mints = _$v.mints?.toBuilder();
-      _mintInfo = _$v.mintInfo?.toBuilder();
-      _chartList = _$v.chartList?.toBuilder();
-      _profitInvitationList = _$v.profitInvitationList?.toBuilder();
-      _getCoinInfo = _$v.getCoinInfo;
-      _doSwitchMint = _$v.doSwitchMint;
-      _refreshMintReward = _$v.refreshMintReward;
-      _getProfitInvitationList = _$v.getProfitInvitationList;
-      _getDefaultMint = _$v.getDefaultMint;
+    final $v = _$v;
+    if ($v != null) {
+      _hasWallet = $v.hasWallet;
+      _fiatCurrency = $v.fiatCurrency;
+      _activeMint = $v.activeMint?.toBuilder();
+      _mints = $v.mints.toBuilder();
+      _mintInfo = $v.mintInfo?.toBuilder();
+      _chartList = $v.chartList.toBuilder();
+      _profitInvitationList = $v.profitInvitationList.toBuilder();
+      _getCoinInfo = $v.getCoinInfo;
+      _doSwitchMint = $v.doSwitchMint;
+      _refreshMintReward = $v.refreshMintReward;
+      _getProfitInvitationList = $v.getProfitInvitationList;
+      _getDefaultMint = $v.getDefaultMint;
       _$v = null;
     }
     return this;
@@ -683,37 +703,46 @@ class InvestHomeVMBuilder
 
   @override
   void replace(InvestHomeVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvestHomeVM;
   }
 
   @override
-  void update(void Function(InvestHomeVMBuilder) updates) {
+  void update(void Function(InvestHomeVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$InvestHomeVM build() {
+  InvestHomeVM build() => _build();
+
+  _$InvestHomeVM _build() {
     _$InvestHomeVM _$result;
     try {
       _$result = _$v ??
           new _$InvestHomeVM._(
-              hasWallet: hasWallet,
-              fiatCurrency: fiatCurrency,
+              hasWallet: BuiltValueNullFieldError.checkNotNull(
+                  hasWallet, r'InvestHomeVM', 'hasWallet'),
+              fiatCurrency: BuiltValueNullFieldError.checkNotNull(
+                  fiatCurrency, r'InvestHomeVM', 'fiatCurrency'),
               activeMint: _activeMint?.build(),
               mints: mints.build(),
               mintInfo: _mintInfo?.build(),
               chartList: chartList.build(),
               profitInvitationList: profitInvitationList.build(),
-              getCoinInfo: getCoinInfo,
-              doSwitchMint: doSwitchMint,
-              refreshMintReward: refreshMintReward,
-              getProfitInvitationList: getProfitInvitationList,
-              getDefaultMint: getDefaultMint);
+              getCoinInfo: BuiltValueNullFieldError.checkNotNull(
+                  getCoinInfo, r'InvestHomeVM', 'getCoinInfo'),
+              doSwitchMint: BuiltValueNullFieldError.checkNotNull(
+                  doSwitchMint, r'InvestHomeVM', 'doSwitchMint'),
+              refreshMintReward: BuiltValueNullFieldError.checkNotNull(
+                  refreshMintReward, r'InvestHomeVM', 'refreshMintReward'),
+              getProfitInvitationList: BuiltValueNullFieldError.checkNotNull(
+                  getProfitInvitationList,
+                  r'InvestHomeVM',
+                  'getProfitInvitationList'),
+              getDefaultMint: BuiltValueNullFieldError.checkNotNull(
+                  getDefaultMint, r'InvestHomeVM', 'getDefaultMint'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'activeMint';
         _activeMint?.build();
@@ -727,7 +756,7 @@ class InvestHomeVMBuilder
         profitInvitationList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'InvestHomeVM', _$failedField, e.toString());
+            r'InvestHomeVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -740,38 +769,36 @@ class _$InvestProfitVM extends InvestProfitVM {
   @override
   final bool hasWallet;
   @override
-  final MintItem activeMint;
+  final MintItem? activeMint;
   @override
   final BuiltList<ProfitRecordItem> profitRecordList;
   @override
-  final AssetCoin Function({String chain, String symbol}) getCoinInfo;
+  final AssetCoin Function({required String chain, required String symbol})
+      getCoinInfo;
   @override
-  final Future<int> Function({bool isRefresh, int skip, int take})
-      getProfitRecordList;
+  final Future<int> Function(
+      {required bool isRefresh,
+      required int skip,
+      required int take}) getProfitRecordList;
 
-  factory _$InvestProfitVM([void Function(InvestProfitVMBuilder) updates]) =>
-      (new InvestProfitVMBuilder()..update(updates)).build();
+  factory _$InvestProfitVM([void Function(InvestProfitVMBuilder)? updates]) =>
+      (new InvestProfitVMBuilder()..update(updates))._build();
 
   _$InvestProfitVM._(
-      {this.hasWallet,
+      {required this.hasWallet,
       this.activeMint,
-      this.profitRecordList,
-      this.getCoinInfo,
-      this.getProfitRecordList})
+      required this.profitRecordList,
+      required this.getCoinInfo,
+      required this.getProfitRecordList})
       : super._() {
-    if (hasWallet == null) {
-      throw new BuiltValueNullFieldError('InvestProfitVM', 'hasWallet');
-    }
-    if (profitRecordList == null) {
-      throw new BuiltValueNullFieldError('InvestProfitVM', 'profitRecordList');
-    }
-    if (getCoinInfo == null) {
-      throw new BuiltValueNullFieldError('InvestProfitVM', 'getCoinInfo');
-    }
-    if (getProfitRecordList == null) {
-      throw new BuiltValueNullFieldError(
-          'InvestProfitVM', 'getProfitRecordList');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        hasWallet, r'InvestProfitVM', 'hasWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        profitRecordList, r'InvestProfitVM', 'profitRecordList');
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinInfo, r'InvestProfitVM', 'getCoinInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        getProfitRecordList, r'InvestProfitVM', 'getProfitRecordList');
   }
 
   @override
@@ -799,7 +826,7 @@ class _$InvestProfitVM extends InvestProfitVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('InvestProfitVM')
+    return (newBuiltValueToStringHelper(r'InvestProfitVM')
           ..add('hasWallet', hasWallet)
           ..add('activeMint', activeMint)
           ..add('profitRecordList', profitRecordList)
@@ -811,48 +838,58 @@ class _$InvestProfitVM extends InvestProfitVM {
 
 class InvestProfitVMBuilder
     implements Builder<InvestProfitVM, InvestProfitVMBuilder> {
-  _$InvestProfitVM _$v;
+  _$InvestProfitVM? _$v;
 
-  bool _hasWallet;
-  bool get hasWallet => _$this._hasWallet;
-  set hasWallet(bool hasWallet) => _$this._hasWallet = hasWallet;
+  bool? _hasWallet;
+  bool? get hasWallet => _$this._hasWallet;
+  set hasWallet(bool? hasWallet) => _$this._hasWallet = hasWallet;
 
-  MintItemBuilder _activeMint;
+  MintItemBuilder? _activeMint;
   MintItemBuilder get activeMint =>
       _$this._activeMint ??= new MintItemBuilder();
-  set activeMint(MintItemBuilder activeMint) => _$this._activeMint = activeMint;
+  set activeMint(MintItemBuilder? activeMint) =>
+      _$this._activeMint = activeMint;
 
-  ListBuilder<ProfitRecordItem> _profitRecordList;
+  ListBuilder<ProfitRecordItem>? _profitRecordList;
   ListBuilder<ProfitRecordItem> get profitRecordList =>
       _$this._profitRecordList ??= new ListBuilder<ProfitRecordItem>();
-  set profitRecordList(ListBuilder<ProfitRecordItem> profitRecordList) =>
+  set profitRecordList(ListBuilder<ProfitRecordItem>? profitRecordList) =>
       _$this._profitRecordList = profitRecordList;
 
-  AssetCoin Function({String chain, String symbol}) _getCoinInfo;
-  AssetCoin Function({String chain, String symbol}) get getCoinInfo =>
-      _$this._getCoinInfo;
+  AssetCoin Function({required String chain, required String symbol})?
+      _getCoinInfo;
+  AssetCoin Function({required String chain, required String symbol})?
+      get getCoinInfo => _$this._getCoinInfo;
   set getCoinInfo(
-          AssetCoin Function({String chain, String symbol}) getCoinInfo) =>
+          AssetCoin Function({required String chain, required String symbol})?
+              getCoinInfo) =>
       _$this._getCoinInfo = getCoinInfo;
 
-  Future<int> Function({bool isRefresh, int skip, int take})
-      _getProfitRecordList;
-  Future<int> Function({bool isRefresh, int skip, int take})
+  Future<int> Function(
+      {required bool isRefresh,
+      required int skip,
+      required int take})? _getProfitRecordList;
+  Future<int> Function(
+          {required bool isRefresh, required int skip, required int take})?
       get getProfitRecordList => _$this._getProfitRecordList;
   set getProfitRecordList(
-          Future<int> Function({bool isRefresh, int skip, int take})
+          Future<int> Function(
+                  {required bool isRefresh,
+                  required int skip,
+                  required int take})?
               getProfitRecordList) =>
       _$this._getProfitRecordList = getProfitRecordList;
 
   InvestProfitVMBuilder();
 
   InvestProfitVMBuilder get _$this {
-    if (_$v != null) {
-      _hasWallet = _$v.hasWallet;
-      _activeMint = _$v.activeMint?.toBuilder();
-      _profitRecordList = _$v.profitRecordList?.toBuilder();
-      _getCoinInfo = _$v.getCoinInfo;
-      _getProfitRecordList = _$v.getProfitRecordList;
+    final $v = _$v;
+    if ($v != null) {
+      _hasWallet = $v.hasWallet;
+      _activeMint = $v.activeMint?.toBuilder();
+      _profitRecordList = $v.profitRecordList.toBuilder();
+      _getCoinInfo = $v.getCoinInfo;
+      _getProfitRecordList = $v.getProfitRecordList;
       _$v = null;
     }
     return this;
@@ -860,30 +897,35 @@ class InvestProfitVMBuilder
 
   @override
   void replace(InvestProfitVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvestProfitVM;
   }
 
   @override
-  void update(void Function(InvestProfitVMBuilder) updates) {
+  void update(void Function(InvestProfitVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$InvestProfitVM build() {
+  InvestProfitVM build() => _build();
+
+  _$InvestProfitVM _build() {
     _$InvestProfitVM _$result;
     try {
       _$result = _$v ??
           new _$InvestProfitVM._(
-              hasWallet: hasWallet,
+              hasWallet: BuiltValueNullFieldError.checkNotNull(
+                  hasWallet, r'InvestProfitVM', 'hasWallet'),
               activeMint: _activeMint?.build(),
               profitRecordList: profitRecordList.build(),
-              getCoinInfo: getCoinInfo,
-              getProfitRecordList: getProfitRecordList);
+              getCoinInfo: BuiltValueNullFieldError.checkNotNull(
+                  getCoinInfo, r'InvestProfitVM', 'getCoinInfo'),
+              getProfitRecordList: BuiltValueNullFieldError.checkNotNull(
+                  getProfitRecordList,
+                  r'InvestProfitVM',
+                  'getProfitRecordList'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'activeMint';
         _activeMint?.build();
@@ -891,7 +933,7 @@ class InvestProfitVMBuilder
         profitRecordList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'InvestProfitVM', _$failedField, e.toString());
+            r'InvestProfitVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -902,12 +944,12 @@ class InvestProfitVMBuilder
 
 class _$InvestConfig extends InvestConfig {
   @override
-  final BuiltList<MintItem> mints;
+  final BuiltList<MintItem>? mints;
   @override
-  final BuiltList<MintItem> airdrops;
+  final BuiltList<MintItem>? airdrops;
 
-  factory _$InvestConfig([void Function(InvestConfigBuilder) updates]) =>
-      (new InvestConfigBuilder()..update(updates)).build();
+  factory _$InvestConfig([void Function(InvestConfigBuilder)? updates]) =>
+      (new InvestConfigBuilder()..update(updates))._build();
 
   _$InvestConfig._({this.mints, this.airdrops}) : super._();
 
@@ -933,7 +975,7 @@ class _$InvestConfig extends InvestConfig {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('InvestConfig')
+    return (newBuiltValueToStringHelper(r'InvestConfig')
           ..add('mints', mints)
           ..add('airdrops', airdrops))
         .toString();
@@ -942,24 +984,25 @@ class _$InvestConfig extends InvestConfig {
 
 class InvestConfigBuilder
     implements Builder<InvestConfig, InvestConfigBuilder> {
-  _$InvestConfig _$v;
+  _$InvestConfig? _$v;
 
-  ListBuilder<MintItem> _mints;
+  ListBuilder<MintItem>? _mints;
   ListBuilder<MintItem> get mints =>
       _$this._mints ??= new ListBuilder<MintItem>();
-  set mints(ListBuilder<MintItem> mints) => _$this._mints = mints;
+  set mints(ListBuilder<MintItem>? mints) => _$this._mints = mints;
 
-  ListBuilder<MintItem> _airdrops;
+  ListBuilder<MintItem>? _airdrops;
   ListBuilder<MintItem> get airdrops =>
       _$this._airdrops ??= new ListBuilder<MintItem>();
-  set airdrops(ListBuilder<MintItem> airdrops) => _$this._airdrops = airdrops;
+  set airdrops(ListBuilder<MintItem>? airdrops) => _$this._airdrops = airdrops;
 
   InvestConfigBuilder();
 
   InvestConfigBuilder get _$this {
-    if (_$v != null) {
-      _mints = _$v.mints?.toBuilder();
-      _airdrops = _$v.airdrops?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _mints = $v.mints?.toBuilder();
+      _airdrops = $v.airdrops?.toBuilder();
       _$v = null;
     }
     return this;
@@ -967,26 +1010,26 @@ class InvestConfigBuilder
 
   @override
   void replace(InvestConfig other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvestConfig;
   }
 
   @override
-  void update(void Function(InvestConfigBuilder) updates) {
+  void update(void Function(InvestConfigBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$InvestConfig build() {
+  InvestConfig build() => _build();
+
+  _$InvestConfig _build() {
     _$InvestConfig _$result;
     try {
       _$result = _$v ??
           new _$InvestConfig._(
               mints: _mints?.build(), airdrops: _airdrops?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'mints';
         _mints?.build();
@@ -994,7 +1037,7 @@ class InvestConfigBuilder
         _airdrops?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'InvestConfig', _$failedField, e.toString());
+            r'InvestConfig', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1005,14 +1048,14 @@ class InvestConfigBuilder
 
 class _$MintChart extends MintChart {
   @override
-  final String balance;
+  final String? balance;
   @override
-  final String reward;
+  final String? reward;
   @override
-  final bool isBalance;
+  final bool? isBalance;
 
-  factory _$MintChart([void Function(MintChartBuilder) updates]) =>
-      (new MintChartBuilder()..update(updates)).build();
+  factory _$MintChart([void Function(MintChartBuilder)? updates]) =>
+      (new MintChartBuilder()..update(updates))._build();
 
   _$MintChart._({this.balance, this.reward, this.isBalance}) : super._();
 
@@ -1040,7 +1083,7 @@ class _$MintChart extends MintChart {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('MintChart')
+    return (newBuiltValueToStringHelper(r'MintChart')
           ..add('balance', balance)
           ..add('reward', reward)
           ..add('isBalance', isBalance))
@@ -1049,27 +1092,28 @@ class _$MintChart extends MintChart {
 }
 
 class MintChartBuilder implements Builder<MintChart, MintChartBuilder> {
-  _$MintChart _$v;
+  _$MintChart? _$v;
 
-  String _balance;
-  String get balance => _$this._balance;
-  set balance(String balance) => _$this._balance = balance;
+  String? _balance;
+  String? get balance => _$this._balance;
+  set balance(String? balance) => _$this._balance = balance;
 
-  String _reward;
-  String get reward => _$this._reward;
-  set reward(String reward) => _$this._reward = reward;
+  String? _reward;
+  String? get reward => _$this._reward;
+  set reward(String? reward) => _$this._reward = reward;
 
-  bool _isBalance;
-  bool get isBalance => _$this._isBalance;
-  set isBalance(bool isBalance) => _$this._isBalance = isBalance;
+  bool? _isBalance;
+  bool? get isBalance => _$this._isBalance;
+  set isBalance(bool? isBalance) => _$this._isBalance = isBalance;
 
   MintChartBuilder();
 
   MintChartBuilder get _$this {
-    if (_$v != null) {
-      _balance = _$v.balance;
-      _reward = _$v.reward;
-      _isBalance = _$v.isBalance;
+    final $v = _$v;
+    if ($v != null) {
+      _balance = $v.balance;
+      _reward = $v.reward;
+      _isBalance = $v.isBalance;
       _$v = null;
     }
     return this;
@@ -1077,19 +1121,19 @@ class MintChartBuilder implements Builder<MintChart, MintChartBuilder> {
 
   @override
   void replace(MintChart other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MintChart;
   }
 
   @override
-  void update(void Function(MintChartBuilder) updates) {
+  void update(void Function(MintChartBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$MintChart build() {
+  MintChart build() => _build();
+
+  _$MintChart _build() {
     final _$result = _$v ??
         new _$MintChart._(
             balance: balance, reward: reward, isBalance: isBalance);
@@ -1100,13 +1144,13 @@ class MintChartBuilder implements Builder<MintChart, MintChartBuilder> {
 
 class _$MintInfo extends MintInfo {
   @override
-  final String promotionReward;
+  final String? promotionReward;
   @override
-  final String stakeReward;
+  final String? stakeReward;
   @override
-  final String thisStakeReward;
+  final String? thisStakeReward;
   @override
-  final String thisBalance;
+  final String? thisBalance;
   @override
   final String minBalance;
   @override
@@ -1116,31 +1160,27 @@ class _$MintInfo extends MintInfo {
   @override
   final String minBalanceReward;
 
-  factory _$MintInfo([void Function(MintInfoBuilder) updates]) =>
-      (new MintInfoBuilder()..update(updates)).build();
+  factory _$MintInfo([void Function(MintInfoBuilder)? updates]) =>
+      (new MintInfoBuilder()..update(updates))._build();
 
   _$MintInfo._(
       {this.promotionReward,
       this.stakeReward,
       this.thisStakeReward,
       this.thisBalance,
-      this.minBalance,
-      this.bestBalance,
-      this.bestBalanceReward,
-      this.minBalanceReward})
+      required this.minBalance,
+      required this.bestBalance,
+      required this.bestBalanceReward,
+      required this.minBalanceReward})
       : super._() {
-    if (minBalance == null) {
-      throw new BuiltValueNullFieldError('MintInfo', 'minBalance');
-    }
-    if (bestBalance == null) {
-      throw new BuiltValueNullFieldError('MintInfo', 'bestBalance');
-    }
-    if (bestBalanceReward == null) {
-      throw new BuiltValueNullFieldError('MintInfo', 'bestBalanceReward');
-    }
-    if (minBalanceReward == null) {
-      throw new BuiltValueNullFieldError('MintInfo', 'minBalanceReward');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        minBalance, r'MintInfo', 'minBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        bestBalance, r'MintInfo', 'bestBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        bestBalanceReward, r'MintInfo', 'bestBalanceReward');
+    BuiltValueNullFieldError.checkNotNull(
+        minBalanceReward, r'MintInfo', 'minBalanceReward');
   }
 
   @override
@@ -1184,7 +1224,7 @@ class _$MintInfo extends MintInfo {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('MintInfo')
+    return (newBuiltValueToStringHelper(r'MintInfo')
           ..add('promotionReward', promotionReward)
           ..add('stakeReward', stakeReward)
           ..add('thisStakeReward', thisStakeReward)
@@ -1198,56 +1238,57 @@ class _$MintInfo extends MintInfo {
 }
 
 class MintInfoBuilder implements Builder<MintInfo, MintInfoBuilder> {
-  _$MintInfo _$v;
+  _$MintInfo? _$v;
 
-  String _promotionReward;
-  String get promotionReward => _$this._promotionReward;
-  set promotionReward(String promotionReward) =>
+  String? _promotionReward;
+  String? get promotionReward => _$this._promotionReward;
+  set promotionReward(String? promotionReward) =>
       _$this._promotionReward = promotionReward;
 
-  String _stakeReward;
-  String get stakeReward => _$this._stakeReward;
-  set stakeReward(String stakeReward) => _$this._stakeReward = stakeReward;
+  String? _stakeReward;
+  String? get stakeReward => _$this._stakeReward;
+  set stakeReward(String? stakeReward) => _$this._stakeReward = stakeReward;
 
-  String _thisStakeReward;
-  String get thisStakeReward => _$this._thisStakeReward;
-  set thisStakeReward(String thisStakeReward) =>
+  String? _thisStakeReward;
+  String? get thisStakeReward => _$this._thisStakeReward;
+  set thisStakeReward(String? thisStakeReward) =>
       _$this._thisStakeReward = thisStakeReward;
 
-  String _thisBalance;
-  String get thisBalance => _$this._thisBalance;
-  set thisBalance(String thisBalance) => _$this._thisBalance = thisBalance;
+  String? _thisBalance;
+  String? get thisBalance => _$this._thisBalance;
+  set thisBalance(String? thisBalance) => _$this._thisBalance = thisBalance;
 
-  String _minBalance;
-  String get minBalance => _$this._minBalance;
-  set minBalance(String minBalance) => _$this._minBalance = minBalance;
+  String? _minBalance;
+  String? get minBalance => _$this._minBalance;
+  set minBalance(String? minBalance) => _$this._minBalance = minBalance;
 
-  String _bestBalance;
-  String get bestBalance => _$this._bestBalance;
-  set bestBalance(String bestBalance) => _$this._bestBalance = bestBalance;
+  String? _bestBalance;
+  String? get bestBalance => _$this._bestBalance;
+  set bestBalance(String? bestBalance) => _$this._bestBalance = bestBalance;
 
-  String _bestBalanceReward;
-  String get bestBalanceReward => _$this._bestBalanceReward;
-  set bestBalanceReward(String bestBalanceReward) =>
+  String? _bestBalanceReward;
+  String? get bestBalanceReward => _$this._bestBalanceReward;
+  set bestBalanceReward(String? bestBalanceReward) =>
       _$this._bestBalanceReward = bestBalanceReward;
 
-  String _minBalanceReward;
-  String get minBalanceReward => _$this._minBalanceReward;
-  set minBalanceReward(String minBalanceReward) =>
+  String? _minBalanceReward;
+  String? get minBalanceReward => _$this._minBalanceReward;
+  set minBalanceReward(String? minBalanceReward) =>
       _$this._minBalanceReward = minBalanceReward;
 
   MintInfoBuilder();
 
   MintInfoBuilder get _$this {
-    if (_$v != null) {
-      _promotionReward = _$v.promotionReward;
-      _stakeReward = _$v.stakeReward;
-      _thisStakeReward = _$v.thisStakeReward;
-      _thisBalance = _$v.thisBalance;
-      _minBalance = _$v.minBalance;
-      _bestBalance = _$v.bestBalance;
-      _bestBalanceReward = _$v.bestBalanceReward;
-      _minBalanceReward = _$v.minBalanceReward;
+    final $v = _$v;
+    if ($v != null) {
+      _promotionReward = $v.promotionReward;
+      _stakeReward = $v.stakeReward;
+      _thisStakeReward = $v.thisStakeReward;
+      _thisBalance = $v.thisBalance;
+      _minBalance = $v.minBalance;
+      _bestBalance = $v.bestBalance;
+      _bestBalanceReward = $v.bestBalanceReward;
+      _minBalanceReward = $v.minBalanceReward;
       _$v = null;
     }
     return this;
@@ -1255,29 +1296,33 @@ class MintInfoBuilder implements Builder<MintInfo, MintInfoBuilder> {
 
   @override
   void replace(MintInfo other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MintInfo;
   }
 
   @override
-  void update(void Function(MintInfoBuilder) updates) {
+  void update(void Function(MintInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$MintInfo build() {
+  MintInfo build() => _build();
+
+  _$MintInfo _build() {
     final _$result = _$v ??
         new _$MintInfo._(
             promotionReward: promotionReward,
             stakeReward: stakeReward,
             thisStakeReward: thisStakeReward,
             thisBalance: thisBalance,
-            minBalance: minBalance,
-            bestBalance: bestBalance,
-            bestBalanceReward: bestBalanceReward,
-            minBalanceReward: minBalanceReward);
+            minBalance: BuiltValueNullFieldError.checkNotNull(
+                minBalance, r'MintInfo', 'minBalance'),
+            bestBalance: BuiltValueNullFieldError.checkNotNull(
+                bestBalance, r'MintInfo', 'bestBalance'),
+            bestBalanceReward: BuiltValueNullFieldError.checkNotNull(
+                bestBalanceReward, r'MintInfo', 'bestBalanceReward'),
+            minBalanceReward: BuiltValueNullFieldError.checkNotNull(
+                minBalanceReward, r'MintInfo', 'minBalanceReward'));
     replace(_$result);
     return _$result;
   }
@@ -1287,7 +1332,7 @@ class _$MintItem extends MintItem {
   @override
   final int id;
   @override
-  final String forkId;
+  final String? forkId;
   @override
   final BuiltMap<String, String> name;
   @override
@@ -1295,34 +1340,26 @@ class _$MintItem extends MintItem {
   @override
   final String chain;
   @override
-  final int mintEnable;
+  final int? mintEnable;
   @override
-  final double minBalance;
+  final double? minBalance;
 
-  factory _$MintItem([void Function(MintItemBuilder) updates]) =>
-      (new MintItemBuilder()..update(updates)).build();
+  factory _$MintItem([void Function(MintItemBuilder)? updates]) =>
+      (new MintItemBuilder()..update(updates))._build();
 
   _$MintItem._(
-      {this.id,
+      {required this.id,
       this.forkId,
-      this.name,
-      this.symbol,
-      this.chain,
+      required this.name,
+      required this.symbol,
+      required this.chain,
       this.mintEnable,
       this.minBalance})
       : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('MintItem', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('MintItem', 'name');
-    }
-    if (symbol == null) {
-      throw new BuiltValueNullFieldError('MintItem', 'symbol');
-    }
-    if (chain == null) {
-      throw new BuiltValueNullFieldError('MintItem', 'chain');
-    }
+    BuiltValueNullFieldError.checkNotNull(id, r'MintItem', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, r'MintItem', 'name');
+    BuiltValueNullFieldError.checkNotNull(symbol, r'MintItem', 'symbol');
+    BuiltValueNullFieldError.checkNotNull(chain, r'MintItem', 'chain');
   }
 
   @override
@@ -1361,7 +1398,7 @@ class _$MintItem extends MintItem {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('MintItem')
+    return (newBuiltValueToStringHelper(r'MintItem')
           ..add('id', id)
           ..add('forkId', forkId)
           ..add('name', name)
@@ -1374,48 +1411,49 @@ class _$MintItem extends MintItem {
 }
 
 class MintItemBuilder implements Builder<MintItem, MintItemBuilder> {
-  _$MintItem _$v;
+  _$MintItem? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _forkId;
-  String get forkId => _$this._forkId;
-  set forkId(String forkId) => _$this._forkId = forkId;
+  String? _forkId;
+  String? get forkId => _$this._forkId;
+  set forkId(String? forkId) => _$this._forkId = forkId;
 
-  MapBuilder<String, String> _name;
+  MapBuilder<String, String>? _name;
   MapBuilder<String, String> get name =>
       _$this._name ??= new MapBuilder<String, String>();
-  set name(MapBuilder<String, String> name) => _$this._name = name;
+  set name(MapBuilder<String, String>? name) => _$this._name = name;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  String _chain;
-  String get chain => _$this._chain;
-  set chain(String chain) => _$this._chain = chain;
+  String? _chain;
+  String? get chain => _$this._chain;
+  set chain(String? chain) => _$this._chain = chain;
 
-  int _mintEnable;
-  int get mintEnable => _$this._mintEnable;
-  set mintEnable(int mintEnable) => _$this._mintEnable = mintEnable;
+  int? _mintEnable;
+  int? get mintEnable => _$this._mintEnable;
+  set mintEnable(int? mintEnable) => _$this._mintEnable = mintEnable;
 
-  double _minBalance;
-  double get minBalance => _$this._minBalance;
-  set minBalance(double minBalance) => _$this._minBalance = minBalance;
+  double? _minBalance;
+  double? get minBalance => _$this._minBalance;
+  set minBalance(double? minBalance) => _$this._minBalance = minBalance;
 
   MintItemBuilder();
 
   MintItemBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _forkId = _$v.forkId;
-      _name = _$v.name?.toBuilder();
-      _symbol = _$v.symbol;
-      _chain = _$v.chain;
-      _mintEnable = _$v.mintEnable;
-      _minBalance = _$v.minBalance;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _forkId = $v.forkId;
+      _name = $v.name.toBuilder();
+      _symbol = $v.symbol;
+      _chain = $v.chain;
+      _mintEnable = $v.mintEnable;
+      _minBalance = $v.minBalance;
       _$v = null;
     }
     return this;
@@ -1423,38 +1461,40 @@ class MintItemBuilder implements Builder<MintItem, MintItemBuilder> {
 
   @override
   void replace(MintItem other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MintItem;
   }
 
   @override
-  void update(void Function(MintItemBuilder) updates) {
+  void update(void Function(MintItemBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$MintItem build() {
+  MintItem build() => _build();
+
+  _$MintItem _build() {
     _$MintItem _$result;
     try {
       _$result = _$v ??
           new _$MintItem._(
-              id: id,
+              id: BuiltValueNullFieldError.checkNotNull(id, r'MintItem', 'id'),
               forkId: forkId,
               name: name.build(),
-              symbol: symbol,
-              chain: chain,
+              symbol: BuiltValueNullFieldError.checkNotNull(
+                  symbol, r'MintItem', 'symbol'),
+              chain: BuiltValueNullFieldError.checkNotNull(
+                  chain, r'MintItem', 'chain'),
               mintEnable: mintEnable,
               minBalance: minBalance);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'name';
         name.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'MintItem', _$failedField, e.toString());
+            r'MintItem', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1469,22 +1509,21 @@ class _$ProfitInvitationItem extends ProfitInvitationItem {
   @override
   final String amount;
   @override
-  final String height;
+  final String? height;
   @override
-  final String time;
+  final String? time;
 
   factory _$ProfitInvitationItem(
-          [void Function(ProfitInvitationItemBuilder) updates]) =>
-      (new ProfitInvitationItemBuilder()..update(updates)).build();
+          [void Function(ProfitInvitationItemBuilder)? updates]) =>
+      (new ProfitInvitationItemBuilder()..update(updates))._build();
 
-  _$ProfitInvitationItem._({this.address, this.amount, this.height, this.time})
+  _$ProfitInvitationItem._(
+      {required this.address, required this.amount, this.height, this.time})
       : super._() {
-    if (address == null) {
-      throw new BuiltValueNullFieldError('ProfitInvitationItem', 'address');
-    }
-    if (amount == null) {
-      throw new BuiltValueNullFieldError('ProfitInvitationItem', 'amount');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        address, r'ProfitInvitationItem', 'address');
+    BuiltValueNullFieldError.checkNotNull(
+        amount, r'ProfitInvitationItem', 'amount');
   }
 
   @override
@@ -1515,7 +1554,7 @@ class _$ProfitInvitationItem extends ProfitInvitationItem {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProfitInvitationItem')
+    return (newBuiltValueToStringHelper(r'ProfitInvitationItem')
           ..add('address', address)
           ..add('amount', amount)
           ..add('height', height)
@@ -1526,32 +1565,33 @@ class _$ProfitInvitationItem extends ProfitInvitationItem {
 
 class ProfitInvitationItemBuilder
     implements Builder<ProfitInvitationItem, ProfitInvitationItemBuilder> {
-  _$ProfitInvitationItem _$v;
+  _$ProfitInvitationItem? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _amount;
-  String get amount => _$this._amount;
-  set amount(String amount) => _$this._amount = amount;
+  String? _amount;
+  String? get amount => _$this._amount;
+  set amount(String? amount) => _$this._amount = amount;
 
-  String _height;
-  String get height => _$this._height;
-  set height(String height) => _$this._height = height;
+  String? _height;
+  String? get height => _$this._height;
+  set height(String? height) => _$this._height = height;
 
-  String _time;
-  String get time => _$this._time;
-  set time(String time) => _$this._time = time;
+  String? _time;
+  String? get time => _$this._time;
+  set time(String? time) => _$this._time = time;
 
   ProfitInvitationItemBuilder();
 
   ProfitInvitationItemBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _amount = _$v.amount;
-      _height = _$v.height;
-      _time = _$v.time;
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _amount = $v.amount;
+      _height = $v.height;
+      _time = $v.time;
       _$v = null;
     }
     return this;
@@ -1559,22 +1599,27 @@ class ProfitInvitationItemBuilder
 
   @override
   void replace(ProfitInvitationItem other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProfitInvitationItem;
   }
 
   @override
-  void update(void Function(ProfitInvitationItemBuilder) updates) {
+  void update(void Function(ProfitInvitationItemBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProfitInvitationItem build() {
+  ProfitInvitationItem build() => _build();
+
+  _$ProfitInvitationItem _build() {
     final _$result = _$v ??
         new _$ProfitInvitationItem._(
-            address: address, amount: amount, height: height, time: time);
+            address: BuiltValueNullFieldError.checkNotNull(
+                address, r'ProfitInvitationItem', 'address'),
+            amount: BuiltValueNullFieldError.checkNotNull(
+                amount, r'ProfitInvitationItem', 'amount'),
+            height: height,
+            time: time);
     replace(_$result);
     return _$result;
   }
@@ -1591,24 +1636,23 @@ class _$ProfitRecordItem extends ProfitRecordItem {
   final String promotionReward;
 
   factory _$ProfitRecordItem(
-          [void Function(ProfitRecordItemBuilder) updates]) =>
-      (new ProfitRecordItemBuilder()..update(updates)).build();
+          [void Function(ProfitRecordItemBuilder)? updates]) =>
+      (new ProfitRecordItemBuilder()..update(updates))._build();
 
   _$ProfitRecordItem._(
-      {this.height, this.balance, this.stakeReward, this.promotionReward})
+      {required this.height,
+      required this.balance,
+      required this.stakeReward,
+      required this.promotionReward})
       : super._() {
-    if (height == null) {
-      throw new BuiltValueNullFieldError('ProfitRecordItem', 'height');
-    }
-    if (balance == null) {
-      throw new BuiltValueNullFieldError('ProfitRecordItem', 'balance');
-    }
-    if (stakeReward == null) {
-      throw new BuiltValueNullFieldError('ProfitRecordItem', 'stakeReward');
-    }
-    if (promotionReward == null) {
-      throw new BuiltValueNullFieldError('ProfitRecordItem', 'promotionReward');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        height, r'ProfitRecordItem', 'height');
+    BuiltValueNullFieldError.checkNotNull(
+        balance, r'ProfitRecordItem', 'balance');
+    BuiltValueNullFieldError.checkNotNull(
+        stakeReward, r'ProfitRecordItem', 'stakeReward');
+    BuiltValueNullFieldError.checkNotNull(
+        promotionReward, r'ProfitRecordItem', 'promotionReward');
   }
 
   @override
@@ -1639,7 +1683,7 @@ class _$ProfitRecordItem extends ProfitRecordItem {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProfitRecordItem')
+    return (newBuiltValueToStringHelper(r'ProfitRecordItem')
           ..add('height', height)
           ..add('balance', balance)
           ..add('stakeReward', stakeReward)
@@ -1650,33 +1694,34 @@ class _$ProfitRecordItem extends ProfitRecordItem {
 
 class ProfitRecordItemBuilder
     implements Builder<ProfitRecordItem, ProfitRecordItemBuilder> {
-  _$ProfitRecordItem _$v;
+  _$ProfitRecordItem? _$v;
 
-  int _height;
-  int get height => _$this._height;
-  set height(int height) => _$this._height = height;
+  int? _height;
+  int? get height => _$this._height;
+  set height(int? height) => _$this._height = height;
 
-  String _balance;
-  String get balance => _$this._balance;
-  set balance(String balance) => _$this._balance = balance;
+  String? _balance;
+  String? get balance => _$this._balance;
+  set balance(String? balance) => _$this._balance = balance;
 
-  String _stakeReward;
-  String get stakeReward => _$this._stakeReward;
-  set stakeReward(String stakeReward) => _$this._stakeReward = stakeReward;
+  String? _stakeReward;
+  String? get stakeReward => _$this._stakeReward;
+  set stakeReward(String? stakeReward) => _$this._stakeReward = stakeReward;
 
-  String _promotionReward;
-  String get promotionReward => _$this._promotionReward;
-  set promotionReward(String promotionReward) =>
+  String? _promotionReward;
+  String? get promotionReward => _$this._promotionReward;
+  set promotionReward(String? promotionReward) =>
       _$this._promotionReward = promotionReward;
 
   ProfitRecordItemBuilder();
 
   ProfitRecordItemBuilder get _$this {
-    if (_$v != null) {
-      _height = _$v.height;
-      _balance = _$v.balance;
-      _stakeReward = _$v.stakeReward;
-      _promotionReward = _$v.promotionReward;
+    final $v = _$v;
+    if ($v != null) {
+      _height = $v.height;
+      _balance = $v.balance;
+      _stakeReward = $v.stakeReward;
+      _promotionReward = $v.promotionReward;
       _$v = null;
     }
     return this;
@@ -1684,25 +1729,29 @@ class ProfitRecordItemBuilder
 
   @override
   void replace(ProfitRecordItem other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProfitRecordItem;
   }
 
   @override
-  void update(void Function(ProfitRecordItemBuilder) updates) {
+  void update(void Function(ProfitRecordItemBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProfitRecordItem build() {
+  ProfitRecordItem build() => _build();
+
+  _$ProfitRecordItem _build() {
     final _$result = _$v ??
         new _$ProfitRecordItem._(
-            height: height,
-            balance: balance,
-            stakeReward: stakeReward,
-            promotionReward: promotionReward);
+            height: BuiltValueNullFieldError.checkNotNull(
+                height, r'ProfitRecordItem', 'height'),
+            balance: BuiltValueNullFieldError.checkNotNull(
+                balance, r'ProfitRecordItem', 'balance'),
+            stakeReward: BuiltValueNullFieldError.checkNotNull(
+                stakeReward, r'ProfitRecordItem', 'stakeReward'),
+            promotionReward: BuiltValueNullFieldError.checkNotNull(
+                promotionReward, r'ProfitRecordItem', 'promotionReward'));
     replace(_$result);
     return _$result;
   }
@@ -1710,13 +1759,13 @@ class ProfitRecordItemBuilder
 
 class _$InvestState extends InvestState {
   @override
-  final InvestConfig config;
+  final InvestConfig? config;
   @override
-  final int configState;
+  final int? configState;
   @override
-  final MintItem activeMint;
+  final MintItem? activeMint;
   @override
-  final MintInfo mintInfo;
+  final MintInfo? mintInfo;
   @override
   final BuiltList<MintChart> chartList;
   @override
@@ -1724,27 +1773,24 @@ class _$InvestState extends InvestState {
   @override
   final BuiltList<ProfitInvitationItem> profitInvitationList;
 
-  factory _$InvestState([void Function(InvestStateBuilder) updates]) =>
-      (new InvestStateBuilder()..update(updates)).build();
+  factory _$InvestState([void Function(InvestStateBuilder)? updates]) =>
+      (new InvestStateBuilder()..update(updates))._build();
 
   _$InvestState._(
       {this.config,
       this.configState,
       this.activeMint,
       this.mintInfo,
-      this.chartList,
-      this.profitRecordList,
-      this.profitInvitationList})
+      required this.chartList,
+      required this.profitRecordList,
+      required this.profitInvitationList})
       : super._() {
-    if (chartList == null) {
-      throw new BuiltValueNullFieldError('InvestState', 'chartList');
-    }
-    if (profitRecordList == null) {
-      throw new BuiltValueNullFieldError('InvestState', 'profitRecordList');
-    }
-    if (profitInvitationList == null) {
-      throw new BuiltValueNullFieldError('InvestState', 'profitInvitationList');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        chartList, r'InvestState', 'chartList');
+    BuiltValueNullFieldError.checkNotNull(
+        profitRecordList, r'InvestState', 'profitRecordList');
+    BuiltValueNullFieldError.checkNotNull(
+        profitInvitationList, r'InvestState', 'profitInvitationList');
   }
 
   @override
@@ -1783,7 +1829,7 @@ class _$InvestState extends InvestState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('InvestState')
+    return (newBuiltValueToStringHelper(r'InvestState')
           ..add('config', config)
           ..add('configState', configState)
           ..add('activeMint', activeMint)
@@ -1796,56 +1842,58 @@ class _$InvestState extends InvestState {
 }
 
 class InvestStateBuilder implements Builder<InvestState, InvestStateBuilder> {
-  _$InvestState _$v;
+  _$InvestState? _$v;
 
-  InvestConfigBuilder _config;
+  InvestConfigBuilder? _config;
   InvestConfigBuilder get config =>
       _$this._config ??= new InvestConfigBuilder();
-  set config(InvestConfigBuilder config) => _$this._config = config;
+  set config(InvestConfigBuilder? config) => _$this._config = config;
 
-  int _configState;
-  int get configState => _$this._configState;
-  set configState(int configState) => _$this._configState = configState;
+  int? _configState;
+  int? get configState => _$this._configState;
+  set configState(int? configState) => _$this._configState = configState;
 
-  MintItemBuilder _activeMint;
+  MintItemBuilder? _activeMint;
   MintItemBuilder get activeMint =>
       _$this._activeMint ??= new MintItemBuilder();
-  set activeMint(MintItemBuilder activeMint) => _$this._activeMint = activeMint;
+  set activeMint(MintItemBuilder? activeMint) =>
+      _$this._activeMint = activeMint;
 
-  MintInfoBuilder _mintInfo;
+  MintInfoBuilder? _mintInfo;
   MintInfoBuilder get mintInfo => _$this._mintInfo ??= new MintInfoBuilder();
-  set mintInfo(MintInfoBuilder mintInfo) => _$this._mintInfo = mintInfo;
+  set mintInfo(MintInfoBuilder? mintInfo) => _$this._mintInfo = mintInfo;
 
-  ListBuilder<MintChart> _chartList;
+  ListBuilder<MintChart>? _chartList;
   ListBuilder<MintChart> get chartList =>
       _$this._chartList ??= new ListBuilder<MintChart>();
-  set chartList(ListBuilder<MintChart> chartList) =>
+  set chartList(ListBuilder<MintChart>? chartList) =>
       _$this._chartList = chartList;
 
-  ListBuilder<ProfitRecordItem> _profitRecordList;
+  ListBuilder<ProfitRecordItem>? _profitRecordList;
   ListBuilder<ProfitRecordItem> get profitRecordList =>
       _$this._profitRecordList ??= new ListBuilder<ProfitRecordItem>();
-  set profitRecordList(ListBuilder<ProfitRecordItem> profitRecordList) =>
+  set profitRecordList(ListBuilder<ProfitRecordItem>? profitRecordList) =>
       _$this._profitRecordList = profitRecordList;
 
-  ListBuilder<ProfitInvitationItem> _profitInvitationList;
+  ListBuilder<ProfitInvitationItem>? _profitInvitationList;
   ListBuilder<ProfitInvitationItem> get profitInvitationList =>
       _$this._profitInvitationList ??= new ListBuilder<ProfitInvitationItem>();
   set profitInvitationList(
-          ListBuilder<ProfitInvitationItem> profitInvitationList) =>
+          ListBuilder<ProfitInvitationItem>? profitInvitationList) =>
       _$this._profitInvitationList = profitInvitationList;
 
   InvestStateBuilder();
 
   InvestStateBuilder get _$this {
-    if (_$v != null) {
-      _config = _$v.config?.toBuilder();
-      _configState = _$v.configState;
-      _activeMint = _$v.activeMint?.toBuilder();
-      _mintInfo = _$v.mintInfo?.toBuilder();
-      _chartList = _$v.chartList?.toBuilder();
-      _profitRecordList = _$v.profitRecordList?.toBuilder();
-      _profitInvitationList = _$v.profitInvitationList?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _config = $v.config?.toBuilder();
+      _configState = $v.configState;
+      _activeMint = $v.activeMint?.toBuilder();
+      _mintInfo = $v.mintInfo?.toBuilder();
+      _chartList = $v.chartList.toBuilder();
+      _profitRecordList = $v.profitRecordList.toBuilder();
+      _profitInvitationList = $v.profitInvitationList.toBuilder();
       _$v = null;
     }
     return this;
@@ -1853,19 +1901,19 @@ class InvestStateBuilder implements Builder<InvestState, InvestStateBuilder> {
 
   @override
   void replace(InvestState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$InvestState;
   }
 
   @override
-  void update(void Function(InvestStateBuilder) updates) {
+  void update(void Function(InvestStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$InvestState build() {
+  InvestState build() => _build();
+
+  _$InvestState _build() {
     _$InvestState _$result;
     try {
       _$result = _$v ??
@@ -1878,7 +1926,7 @@ class InvestStateBuilder implements Builder<InvestState, InvestStateBuilder> {
               profitRecordList: profitRecordList.build(),
               profitInvitationList: profitInvitationList.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'config';
         _config?.build();
@@ -1895,7 +1943,7 @@ class InvestStateBuilder implements Builder<InvestState, InvestStateBuilder> {
         profitInvitationList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'InvestState', _$failedField, e.toString());
+            r'InvestState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1904,4 +1952,4 @@ class InvestStateBuilder implements Builder<InvestState, InvestStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

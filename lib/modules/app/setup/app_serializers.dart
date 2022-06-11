@@ -66,7 +66,7 @@ final Serializers standardSerializers = (_$serializers.toBuilder()
 
 // Serializers
 
-Object serialize<T>(T value) {
+Object? serialize<T>(T value) {
   final typeSer = standardSerializers.serializerForType(T) as Serializer<T>;
   if (typeSer == null) {
     throw Exception('Serializer for ${value?.runtimeType} not found');
@@ -81,7 +81,7 @@ Object serializeListOf<T>(dynamic value) {
 
 // Deserializer
 
-T deserialize<T>(dynamic value) {
+T? deserialize<T>(dynamic value) {
   final typeSer = standardSerializers.serializerForType(T) as Serializer<T>;
   if (typeSer == null) {
     throw Exception('Serializer for ${value?.runtimeType} not found');

@@ -4,15 +4,13 @@ class TradeActionLoadMqtt extends _BaseAction {
   TradeActionLoadMqtt();
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    return null;
+    /*
     final mqtt = GetIt.I<TradeMqtt>();
 
-    final mqttHost = store.state.tradeState.config?.randomMqttHost;
+    final mqttHost = store.state.tradeState.config!.randomMqttHost;
     final settings = await SettingsRepository().getSettings();
-
-    if (mqttHost == null) {
-      return null;
-    }
 
     var username = 'dex';
     var password = 'KXe7Br9obJlyuGc2';
@@ -34,7 +32,7 @@ class TradeActionLoadMqtt extends _BaseAction {
     }
 
     await mqtt.initMqtt(
-      clientId: store.state.commonState.deviceId,
+      clientId: store.state.commonState.deviceId ?? '',
       useTls: useTls,
       username: username,
       password: password,
@@ -44,10 +42,11 @@ class TradeActionLoadMqtt extends _BaseAction {
     );
 
     return null;
+    */
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
@@ -57,13 +56,13 @@ class TradeActionSubscribeMqttOrder extends _BaseAction {
   final TradePair tradePair;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final mqtt = GetIt.I<TradeMqtt>();
 
-    mqtt.walletId = state.walletState.activeWalletId;
+    mqtt.walletId = state.walletState.activeWalletId!;
 
     if (!mqtt.isConnected) {
-      await dispatchFuture(TradeActionLoadMqtt());
+      await dispatchAsync(TradeActionLoadMqtt());
     }
 
     // Subscribe to topic for this Trade Pair
@@ -75,7 +74,7 @@ class TradeActionSubscribeMqttOrder extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }

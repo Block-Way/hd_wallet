@@ -54,7 +54,7 @@ part 'widgets/asset_wallet_card.dart';
 part 'widgets/asset_wallet_status.dart';
 part 'process/asset_withdraw_process.dart';
 
-Route<dynamic> moduleAssetInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleAssetInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case AssetWalletSelectPage.routeName:
       return AssetWalletSelectPage.route(settings);

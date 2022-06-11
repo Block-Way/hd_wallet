@@ -3,11 +3,11 @@ part of asset_ui_module;
 class AssetWalletCard extends HookWidget {
   const AssetWalletCard({
     this.walletCoins,
-    @required this.wallet,
-    @required this.walletStatus,
-    @required this.fiatCurrency,
-    @required this.onSync,
-    @required this.onPressed,
+    required this.wallet,
+    required this.walletStatus,
+    required this.fiatCurrency,
+    required this.onSync,
+    required this.onPressed,
   }) : assert(wallet != null);
 
   final Wallet wallet;
@@ -35,7 +35,7 @@ class AssetWalletCard extends HookWidget {
                   margin: context.edgeAll8,
                   padding: context.edgeAll8,
                   decoration: BoxDecoration(color: context.cardColor),
-                  width: null,
+                  //width: null,
                   onTap: onPressed,
                   child: Column(
                     key: Key(wallet.id),
@@ -66,7 +66,7 @@ class AssetWalletCard extends HookWidget {
                       SizedBox(height: 8),
                       Text(
                         tr('asset:lbl_bbc_address', namedArgs: {
-                          'address': wallet.bbcAddress,
+                          'address': wallet.ethAddress,
                         }),
                         maxLines: 2,
                         overflow: TextOverflow.fade,
@@ -83,12 +83,14 @@ class AssetWalletCard extends HookWidget {
                           backgroundColor: Colors.transparent,
                           borderRadius: 40,
                           onPressed: () {
-                            copyTextToClipboard(walletCoins[0].address.toString());
+                            copyTextToClipboard(
+                                walletCoins[0].address.toString());
                             Toast.show(tr('global:msg_copy_success'));
                           },
                           child: Text(
                             tr('global:btn_copy'),
-                            style: TextStyle(fontSize: 12, color: context.copyColor),
+                            style: TextStyle(
+                                fontSize: 12, color: context.copyColor),
                           ),
                           // style: context.textSmall(),
                         ),

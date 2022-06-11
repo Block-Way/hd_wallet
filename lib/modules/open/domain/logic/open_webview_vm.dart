@@ -9,8 +9,8 @@ abstract class OpenWebviewVM
 // Fields
   String get fiatCurrency;
   bool get hasWallet;
-  @nullable
-  Wallet get activeWallet;
+  //@nullable
+  Wallet? get activeWallet;
   String get activeWalletId;
   WalletStatus get activeWalletStatus;
 
@@ -30,14 +30,14 @@ abstract class OpenWebviewVM
 
   @BuiltValueField(compare: false)
   double Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinBalance;
 
   @BuiltValueField(compare: false)
   String Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinAddress;
 
   @BuiltValueField(compare: false)
@@ -49,7 +49,7 @@ abstract class OpenWebviewVM
     return OpenWebviewVM(
       (viewModel) => viewModel
         ..fiatCurrency = store.state.commonState.fiatCurrency ?? ''
-        ..hasWallet = store.state.walletState.hasWallet ?? false
+        ..hasWallet = store.state.walletState.hasWallet
         ..activeWallet = store.state.walletState.activeWallet
         ..activeWalletId = store.state.walletState.activeWalletId ?? ''
         ..activeWalletStatus = store.state.walletState.activeWalletStatus
@@ -67,24 +67,26 @@ abstract class OpenWebviewVM
           store.dispatch(WalletActionWalletUnlock(password, completer));
           return completer.future;
         }
-        ..submit = (params, walletData, [onConfirmSubmit]) {
+        ..submit =
+            (params, walletData, [Future<bool> Function()? onConfirmSubmit]) {
           final completer = Completer<String>();
           store.dispatch(WalletActionWithdrawSubmit(
             params: params,
             walletData: walletData,
             completer: completer,
-            onConfirmSubmit: onConfirmSubmit,
+            onConfirmSubmit: onConfirmSubmit!,
           ));
           return completer.future;
         }
-        ..getCoinAddress = ({chain, symbol}) {
+        ..getCoinAddress = ({required chain, required symbol}) {
           return VMWithWalletGetCoinInfoImplement.getCoinInfo(
-            store,
-            chain: chain,
-            symbol: symbol,
-          ).address;
+                store,
+                chain: chain,
+                symbol: symbol,
+              ).address ??
+              '';
         }
-        ..getCoinBalance = ({chain, symbol}) {
+        ..getCoinBalance = ({required chain, required symbol}) {
           return VMWithAssetGetCoinBalanceImplement.getCoinBalance(
             store,
             chain: chain,

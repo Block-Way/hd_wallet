@@ -2,11 +2,11 @@ part of swap_ui_module;
 
 class SwapCoin extends HookWidget {
   const SwapCoin({
-    @required this.fromCoin,
-    @required this.toCoin,
-    @required this.onChangeCoin,
-    @required this.doChangeDirection,
-    @required this.coinList,
+    required this.fromCoin,
+    required this.toCoin,
+    required this.onChangeCoin,
+    required this.doChangeDirection,
+    required this.coinList,
   });
 
   final SwapConfigCoin fromCoin;
@@ -19,7 +19,7 @@ class SwapCoin extends HookWidget {
     BuildContext context,
     SwapConfigCoin baseCoin,
     SwapConfigCoin selectCoin, {
-    bool isSelectFrom,
+    required bool isSelectFrom,
   }) {
     final List<
             MapEntry<SwapConfigCoin, MapEntry<SwapConfigCoin, SwapConfigCoin>>>
@@ -41,7 +41,7 @@ class SwapCoin extends HookWidget {
 
     final options = configList
         .map((e) => CSOptionsItem(
-              label: e.key.name,
+              label: e.key.name ?? '',
               value: e.value,
               color: e.key.id == selectCoin.id ? context.primaryColor : null,
             ))
@@ -51,9 +51,10 @@ class SwapCoin extends HookWidget {
       context,
       options: options,
       onSelected: (value) {
+        /*
         if (value.key.id != selectCoin.id) {
           onChangeCoin(isSelectFrom ? value : MapEntry(value.value, value.key));
-        }
+        }*/
       },
     );
   }
@@ -62,7 +63,7 @@ class SwapCoin extends HookWidget {
   Widget build(BuildContext context) {
     final needReverse = useState(false);
     final angle = useState<double>(0);
-    final rotateAnimation = useState<Animation<double>>(null);
+    final rotateAnimation = useState<Animation<double>?>(null);
 
     final iconSize = 20 + context.edgeSizeDouble;
     final itemWidth =
@@ -91,16 +92,18 @@ class SwapCoin extends HookWidget {
       ).animate(controller));
 
       // right
-      animations.add(Tween(
-        begin: Offset.zero,
-        end: Offset(-xOffsetSize, 0),
-      ).animate(controller));
+      animations.add(
+        Tween(
+          begin: Offset.zero,
+          end: Offset(-xOffsetSize, 0),
+        ).animate(controller),
+      );
 
       // rotate
       rotateAnimation.value =
           Tween<double>(begin: 0.0, end: math.pi).animate(controller)
             ..addListener(() {
-              angle.value = rotateAnimation.value.value;
+              angle.value = rotateAnimation.value!.value;
             });
 
       controller.addStatusListener(listener);
@@ -183,7 +186,7 @@ class SwapCoin extends HookWidget {
       margin: EdgeInsets.zero,
       width: itemWidth,
       child: Text(
-        coin?.name ?? '',
+        coin.name ?? '',
         style: context.textBody(bold: true),
         textAlign: textAlign,
         maxLines: 1,

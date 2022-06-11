@@ -8,7 +8,7 @@ abstract class TradeConfig implements Built<TradeConfig, TradeConfigBuilder> {
   static Serializer<TradeConfig> get serializer => _$tradeConfigSerializer;
 
 // Serializers
-  static TradeConfig fromJson(Map<String, dynamic> json) {
+  static TradeConfig? fromJson(Map<String, dynamic> json) {
     return deserialize<TradeConfig>(json);
   }
 
@@ -28,20 +28,21 @@ abstract class TradeConfig implements Built<TradeConfig, TradeConfigBuilder> {
     final randomIndex = random.nextInt(mqttHosts.length);
     final hostData = mqttHosts[randomIndex].split(':');
     if (hostData.length != 2) {
-      return null;
+      //return null;
     }
     return MapEntry(hostData.first, NumberUtil.getInt(hostData.last));
   }
 
   List<TradePair> get allTradePairs {
     final allPairs = <TradePair>[];
-    if (tradePairs != null) {
-      for (final market in tradePairs.entries) {
-        for (final pair in market.value.pairs) {
-          final status = TradePair.mapTradePairStatus(pair.status);
-          // 关闭的，不显示了
-          if (status != TradePairStatus.close) {
-            allPairs.add(TradePair.fromConfig(
+
+    for (final market in tradePairs.entries) {
+      for (final pair in market.value.pairs) {
+        final status = TradePair.mapTradePairStatus(pair.status ?? '');
+        // 关闭的，不显示了
+        if (status != TradePairStatus.close) {
+          allPairs.add(
+            TradePair.fromConfig(
               speed: pair.speed,
               spans: pair.spans.toList(),
               pairId: pair.id,
@@ -52,16 +53,16 @@ abstract class TradeConfig implements Built<TradeConfig, TradeConfigBuilder> {
               priceSymbol: pair.price.symbol,
               tradeChain: pair.trade.chain,
               tradeSymbol: pair.trade.symbol,
-              apiStatus: pair.status,
-            ));
-          }
+              apiStatus: pair.status ?? '',
+            ),
+          );
         }
       }
     }
     return allPairs;
   }
 
-  List<TradeMarket> get allTradeMarkets {
+  List<TradeMarket?> get allTradeMarkets {
     final markets = tradePairs.entries
         .map((market) {
           final hasPairs =
@@ -78,10 +79,10 @@ abstract class TradeConfig implements Built<TradeConfig, TradeConfigBuilder> {
         .where((element) => element != null)
         .toList();
 
-    final fixedSort = ['USDT-BBC', 'USDT-ERC20', 'USDT-TRC20'];
+    final fixedSort = ['USDT-HAH', 'USDT-ERC20', 'USDT-TRC20'];
 
     markets.sort((a, b) {
-      if (fixedSort.indexOf(a.id) > fixedSort.indexOf(b.id)) {
+      if (fixedSort.indexOf(a!.id) > fixedSort.indexOf(b!.id)) {
         return 1;
       }
       if (fixedSort.indexOf(a.id) < fixedSort.indexOf(b.id)) {

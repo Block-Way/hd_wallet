@@ -11,9 +11,9 @@ class WalletActionCreateFromMnemonic extends _BaseAction {
 
   final String name;
   final String pwd;
-  final String importMnemonic;
-  final WalletType type;
-  final Completer<String> completer;
+  final String? importMnemonic;
+  final WalletType? type;
+  final Completer<String>? completer;
 
   @override
   Future<AppState> reduce() async {
@@ -22,7 +22,7 @@ class WalletActionCreateFromMnemonic extends _BaseAction {
 
     // Create new Wallet
     if (!isImport) {
-      mnemonic = await WalletRepository().generateMnemonic();
+      mnemonic = (await WalletRepository().generateMnemonic())!;
     }
 
     // Import new wallet Or use created
@@ -67,7 +67,7 @@ class WalletActionCreateFromMnemonic extends _BaseAction {
     final walletModel = existingWallet ??
         Wallet(
           id: walletId,
-          type: type,
+          type: type!,
           name: name,
           coins: AppCoins.defaultCoins,
           addresses: addresses,
@@ -85,7 +85,7 @@ class WalletActionCreateFromMnemonic extends _BaseAction {
 
     dispatch(AppActionLoadWallet(walletModel));
 
-    completer.complete(mnemonic);
+    completer?.complete(mnemonic);
 
     return state.rebuild(
       (b) => b
@@ -96,8 +96,8 @@ class WalletActionCreateFromMnemonic extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer?.completeError(error as Object);
     return error;
   }
 }
@@ -160,16 +160,16 @@ class WalletActionCreateFromPrivateKey extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
 
 class WalletActionUpdateAddress extends _BaseAction {
   WalletActionUpdateAddress({
-    @required this.mnemonic,
-    @required this.completer,
-    @required this.chain,
+    required this.mnemonic,
+    required this.completer,
+    required this.chain,
   });
 
   final String mnemonic;
@@ -188,7 +188,7 @@ class WalletActionUpdateAddress extends _BaseAction {
     final coinList = await WalletRepository().importMnemonic(
       mnemonic: mnemonic,
       options: WalletCoreOptions(
-        useBip44: wallet.type == WalletType.mnemonicBip44,
+        useBip44: wallet!.type == WalletType.mnemonicBip44,
       ),
       symbols: [chain],
     );
@@ -209,11 +209,11 @@ class WalletActionUpdateAddress extends _BaseAction {
     wallet.updateCoinAddress(
       chain: chain,
       address: item.address,
-      publicKey: item.publicKey,
+      publicKey: item.publicKey ?? '',
     );
 
     final allWallets = await WalletRepository().saveWallet(
-      walletId,
+      walletId!,
       wallet,
     );
 
@@ -229,8 +229,8 @@ class WalletActionUpdateAddress extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }

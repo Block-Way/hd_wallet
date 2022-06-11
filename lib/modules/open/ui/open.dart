@@ -27,7 +27,7 @@ import 'package:sugar/widgets/widgets.dart';
 part 'dialogs/trans_dialog.dart';
 part 'screens/open_webview.dart';
 
-Route<dynamic> moduleOpenInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleOpenInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case OpenWebViewPage.routeName:
       return OpenWebViewPage.route(settings);

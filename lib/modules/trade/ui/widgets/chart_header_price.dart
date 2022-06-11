@@ -5,9 +5,9 @@ class ChartHeaderPrice extends StatelessWidget {
     this.value,
     this.fiatPrice,
     this.fiatCurrency, {
-    Key key,
+    Key? key,
     this.isBuy = true,
-    this.change,
+    this.change = 0,
     this.isVertical = true,
     this.color,
     this.isFullScreen = false,
@@ -19,7 +19,7 @@ class ChartHeaderPrice extends StatelessWidget {
   final double change;
   final bool isBuy;
   final bool isVertical;
-  final Color color;
+  final Color? color;
   final bool isFullScreen;
 
   @override
@@ -45,7 +45,7 @@ class ChartHeaderPrice extends StatelessWidget {
             TextChange(
               change,
               isFullScreen == true ? TextSize.body : TextSize.small,
-              height: null,
+              // height: null,
               hideBackground: isFullScreen,
               isKLine: true,
               padding:

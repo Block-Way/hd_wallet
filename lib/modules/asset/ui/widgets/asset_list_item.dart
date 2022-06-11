@@ -2,8 +2,8 @@ part of asset_ui_module;
 
 class AssetListItem extends HookWidget {
   const AssetListItem({
-    @required this.item,
-    @required this.onPressed,
+    required this.item,
+    required this.onPressed,
   }) : assert(item != null);
 
   final AssetCoin item;
@@ -62,7 +62,8 @@ class AssetListItem extends HookWidget {
                   if (item.balanceUpdateFailed == true) SizedBox(width: 5),
                   AssetBalanceListener(
                     item: item,
-                    builder: (context, {balance, unconfirmed, data}) =>
+                    builder: (context,
+                            {required balance, required unconfirmed, data}) =>
                         PriceText(
                       item.balance.toString(),
                       '',
@@ -74,7 +75,8 @@ class AssetListItem extends HookWidget {
               SizedBox(height: 4),
               AssetBalanceListener(
                 item: item,
-                builder: (context, {balance, unconfirmed, data}) =>
+                builder: (context,
+                        {required balance, required unconfirmed, data}) =>
                     AssetPriceListener(
                   symbol: item.symbol,
                   amount: NumberUtil.getDouble(balance),

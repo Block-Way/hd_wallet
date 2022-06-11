@@ -1,13 +1,13 @@
 part of community_domain_module;
 
 class CommunityRepository {
-  factory CommunityRepository([CommunityApi _api]) {
+  factory CommunityRepository([CommunityApi? _api]) {
     _instance._api = _api ?? CommunityApi();
     return _instance;
   }
   CommunityRepository._internal();
 
-  CommunityApi _api;
+  late CommunityApi _api;
 
   static final _instance = CommunityRepository._internal();
 
@@ -19,15 +19,15 @@ class CommunityRepository {
       'type': []
     };
     final c = CommunityConfig.fromJson(json);
-    return c;
+    return c!;
   }
 
   Future<List<CommunityTeam>> getCommunityTeamList({
-    @required int skip,
-    @required int take,
-    @required String type,
-    String searchName,
-    String fork,
+    required int skip,
+    required int take,
+    required String type,
+    String? searchName,
+    String? fork,
   }) async {
     debugPrint('getCommunityTeamList');
     return [];
@@ -44,10 +44,10 @@ class CommunityRepository {
   }
 
   Future<List<CommunityMember>> getCommunityMemberList({
-    @required int skip,
-    @required int take,
-    @required String id,
-    String searchName,
+    required int skip,
+    required int take,
+    required String id,
+    String? searchName,
   }) async {
     debugPrint('getCommunityMemberList');
     return [];
@@ -63,14 +63,14 @@ class CommunityRepository {
   }
 
   Future<void> submitCommunity({
-    @required String walletId,
-    @required int type,
-    @required String name,
-    @required String desc,
-    @required String fork,
-    @required String telegram,
-    @required String logo,
-    @required String extraInfo,
+    required String walletId,
+    required int type,
+    required String name,
+    required String desc,
+    required String fork,
+    required String telegram,
+    required String logo,
+    required String extraInfo,
   }) async {
     debugPrint('submitCommunity');
     /*
@@ -87,15 +87,15 @@ class CommunityRepository {
   }
 
   Future<void> joinCommunity({
-    @required String walletId,
-    @required int type,
-    @required String teamId,
-    @required String name,
-    @required String desc,
-    @required String logo,
-    @required String telegram,
-    @required String github,
-    String extraInfo,
+    required String walletId,
+    required int type,
+    required String teamId,
+    required String name,
+    required String desc,
+    required String logo,
+    required String telegram,
+    required String github,
+    String? extraInfo,
   }) async {
     debugPrint('joinCommunity');
     /*
@@ -112,9 +112,9 @@ class CommunityRepository {
     );*/
   }
 
-  Future<CommunityTeam> getOwnCommunity({
-    String walletId,
-    String type,
+  Future<CommunityTeam?> getOwnCommunity({
+    String? walletId,
+    String? type,
   }) async {
     debugPrint('getOwnCommunity');
     return null;
@@ -131,9 +131,9 @@ class CommunityRepository {
     */
   }
 
-  Future<CommunityMember> getOwnMember({
-    String walletId,
-    String type,
+  Future<CommunityMember?> getOwnMember({
+    String? walletId,
+    String? type,
   }) async {
     debugPrint('getOwnMember');
     return null;
@@ -153,11 +153,11 @@ class CommunityRepository {
   }
 
   Future<List<CommunityTeam>> getCommunityBlacklist({
-    @required int skip,
-    @required int take,
-    @required String type,
-    String searchName,
-    String fork,
+    required int skip,
+    required int take,
+    required String type,
+    String? searchName,
+    String? fork,
   }) async {
     debugPrint('getCommunityBlacklist');
     return [];
@@ -173,8 +173,8 @@ class CommunityRepository {
     */
   }
 
-  Future<CommunityTeam> getTeamInfo({
-    String teamId,
+  Future<CommunityTeam?> getTeamInfo({
+    String? teamId,
   }) async {
     debugPrint('getTeamInfo');
     return null;

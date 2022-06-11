@@ -7,8 +7,8 @@ abstract class WalletManagementVM
   WalletManagementVM._();
 
 // UI Fields
-  @nullable
-  Wallet get activeWallet;
+  //@nullable
+  Wallet? get activeWallet;
 
 // Actions
   @BuiltValueField(compare: false)
@@ -39,33 +39,36 @@ abstract class WalletManagementVM
           store.dispatch(WalletActionWalletUnlock(password, completer));
           return completer.future;
         }
-        ..createWallet = (name, password, [importMnemonic, type]) async {
+        ..createWallet =
+            (name, password, [String? importMnemonic, WalletType? type]) async {
           final completer = Completer<String>();
           store.dispatch(
             WalletActionCreateFromMnemonic(
               name,
               password,
-              importMnemonic,
-              type,
+              importMnemonic ?? '',
+              type ?? WalletType.mnemonicBip39,
               completer,
             ),
           );
           return completer.future;
         }
         ..validateMnemonic = (mnemonic) {
-          return store.dispatchFuture(WalletActionValidateMnemonic(mnemonic));
+          return store.dispatchAsync(WalletActionValidateMnemonic(mnemonic));
         }
         ..changeName = (name) {
-          return store.dispatchFuture(WalletActionChangeName(name));
+          return store.dispatchAsync(WalletActionChangeName(name));
         }
         ..changePassword = (pwdOld, pwdNew) {
-          return store.dispatchFuture(WalletActionChangePassword(
-            pwdOld,
-            pwdNew,
-          ));
+          return store.dispatchAsync(
+            WalletActionChangePassword(
+              pwdOld,
+              pwdNew,
+            ),
+          );
         }
         ..deleteWallet = () {
-          return store.dispatchFuture(WalletActionDeleteWallet());
+          return store.dispatchAsync(WalletActionDeleteWallet());
         }
         ..activeWallet = store.state.walletState.activeWallet,
     );

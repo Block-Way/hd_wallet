@@ -2,8 +2,8 @@ part of trade_ui_module;
 
 class ChartFooter extends HookWidget {
   const ChartFooter({
-    @required this.tradePair,
-    Key key,
+    required this.tradePair,
+    Key? key,
   }) : super(key: key);
 
   final TradePair tradePair;

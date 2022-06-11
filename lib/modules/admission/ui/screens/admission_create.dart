@@ -12,25 +12,25 @@ class AdmissionCreatePage extends HookWidget {
   static Route<dynamic> route(RouteSettings settings) {
     return DefaultTransition(
       settings,
-      AdmissionCreatePage(settings.arguments as AdmissionInfo),
+      AdmissionCreatePage(settings.arguments! as AdmissionInfo),
     );
   }
 
   Future<void> doSubmit(
     BuildContext context, {
-    @required AssetCoin coinInfo,
-    @required AdmissionCreateVM viewModel,
+    required AssetCoin coinInfo,
+    required AdmissionCreateVM viewModel,
   }) async {
-    final address = info.transferCondition.address;
-    final amount = info.transferCondition.transferAmount;
-    final txData = info.transferCondition.transferData;
+    final address = info.transferCondition?.address;
+    final amount = info.transferCondition?.transferAmount;
+    final txData = info.transferCondition?.transferData;
 
     AdmissionSubmitProcess.doSubmit(
       context: context,
       viewModel: viewModel,
-      amount: amount,
-      toAddress: address,
-      txData: txData,
+      amount: amount ?? '0',
+      toAddress: address ?? '',
+      txData: txData ?? '',
       coinInfo: coinInfo,
       getCoinInfo: viewModel.getCoinInfo,
       onSuccessTransaction: (txId) {
@@ -49,12 +49,12 @@ class AdmissionCreatePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coinInfo = useState<AssetCoin>(null);
-    final condition = useState<AdmissionCondition>(null);
+    final coinInfo = useState<AssetCoin?>(null);
+    final condition = useState<AdmissionCondition?>(null);
 
     void initData(
       AdmissionCreateVM viewModel,
-      ValueNotifier<AssetCoin> coinInfo,
+      ValueNotifier<AssetCoin?> coinInfo,
     ) {
       final mCondition = info.transferCondition;
       if (mCondition == null || mCondition.transferFork.isEmpty) {
@@ -72,7 +72,7 @@ class AdmissionCreatePage extends HookWidget {
       child: StoreConnector<AppState, AdmissionCreateVM>(
         distinct: true,
         converter: AdmissionCreateVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           initData(viewModel, coinInfo);
         },
         builder: (context, viewModel) => ModelPermissionView(
@@ -98,6 +98,8 @@ class AdmissionCreatePage extends HookWidget {
                             style: context.textSecondary(
                               color: context.bodyColor,
                               lineHeight: 1.61,
+                              bold: true,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ),
@@ -105,7 +107,7 @@ class AdmissionCreatePage extends HookWidget {
                     ),
                     AssetCoinBox(
                       title: tr('admission:create_lbl_coin'),
-                      coinInfo: coinInfo.value,
+                      coinInfo: coinInfo.value!,
                     ),
                     FormBox(
                       type: FormBoxType.child,
@@ -117,7 +119,10 @@ class AdmissionCreatePage extends HookWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             condition.value?.transferAmount ?? '',
-                            style: context.textBody(),
+                            style: context.textBody(
+                              bold: true,
+                              fontWeight: FontWeight.normal,
+                            ),
                             maxLines: 5,
                           ),
                         ),
@@ -127,8 +132,13 @@ class AdmissionCreatePage extends HookWidget {
                       Padding(
                         padding: context.edgeAll.copyWith(top: 0),
                         child: AssetBalanceListener(
-                          item: coinInfo.value,
-                          builder: (context, {balance, unconfirmed, data}) =>
+                          item: coinInfo.value!,
+                          builder: (
+                            context, {
+                            required balance,
+                            required unconfirmed,
+                            data,
+                          }) =>
                               Text(
                             tr(
                               'asset:lbl_balance',
@@ -137,7 +147,10 @@ class AdmissionCreatePage extends HookWidget {
                                 'symbol': coinInfo.value?.name ?? '',
                               },
                             ),
-                            style: context.textSmall(),
+                            style: context.textSmall(
+                              bold: true,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
                       ),
@@ -151,7 +164,10 @@ class AdmissionCreatePage extends HookWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             condition.value?.address ?? '',
-                            style: context.textBody(),
+                            style: context.textBody(
+                              bold: true,
+                              fontWeight: FontWeight.normal,
+                            ),
                             maxLines: 5,
                           ),
                         ),
@@ -166,7 +182,7 @@ class AdmissionCreatePage extends HookWidget {
                     doSubmit(
                       context,
                       viewModel: viewModel,
-                      coinInfo: coinInfo.value,
+                      coinInfo: coinInfo.value!,
                     );
                   },
                 ),

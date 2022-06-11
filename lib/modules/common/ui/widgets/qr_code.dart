@@ -2,7 +2,7 @@ part of common_ui_module;
 
 class QrCodeView extends StatelessWidget {
   const QrCodeView(this.text,
-      {Key key,
+      {Key? key,
       this.size,
       this.embeddedImage,
       this.embeddedSize,
@@ -14,7 +14,7 @@ class QrCodeView extends StatelessWidget {
       : super(key: key);
 
   final String text;
-  final double size;
+  final double? size;
   final bool gapless; // default true
   final Color backgroundColor; // default 0x00FFFFFF
   final Color foregroundColor; // default 0xFF000000
@@ -24,8 +24,9 @@ class QrCodeView extends StatelessWidget {
   final int errorCorrectionLevel; //  QrErrorCorrectLevel.L,
 
   // center image
-  final AssetImage embeddedImage; //AssetImage('assets/images/user_avatar.png'),
-  final double embeddedSize;
+  final AssetImage?
+      embeddedImage; //AssetImage('assets/images/user_avatar.png'),
+  final double? embeddedSize;
 
   @override
   Widget build(BuildContext context) {

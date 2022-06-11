@@ -2,11 +2,13 @@ part of admission_domain_module;
 
 class AdmissionActionLoadConfig extends _BaseAction {
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final config = await AdmissionRepository().getConfig();
     return state.rebuild(
       (a) => a.admissionState.config.replace(config),
-    );
+    );*/
+    return null;
   }
 
   @override
@@ -16,7 +18,7 @@ class AdmissionActionLoadConfig extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
@@ -24,11 +26,10 @@ class AdmissionActionLoadConfig extends _BaseAction {
 class AdmissionActionLoadConfigAfter extends _BaseAction {
   @override
   AppState reduce() {
-    final isError = admissionConfig == null;
+    //final isError = admissionConfig == null;
 
     return store.state.rebuild(
-      (a) => a.admissionState.configState =
-          isError ? ConfigState.error.index : ConfigState.success.index,
+      (a) => a.admissionState.configState = ConfigState.success.index,
     );
   }
 }

@@ -3,7 +3,7 @@ part of asset_ui_module;
 class AssetDposList extends StatefulWidget {
   const AssetDposList(
     this.coinInfo, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final AssetCoin coinInfo;
@@ -14,7 +14,7 @@ class AssetDposList extends StatefulWidget {
     AppNavigator.push(routeName, params: item);
   }
 
-  static Route<dynamic> route(RouteSettings settings, [AssetCoin item]) {
+  static Route<dynamic> route(RouteSettings settings, [AssetCoin? item]) {
     return DefaultTransition(
       settings,
       AssetDposList(item ?? settings.arguments as AssetCoin),
@@ -30,7 +30,7 @@ class AssetDposList extends StatefulWidget {
 class _AssetDposList extends State<AssetDposList> {
   var voteNodeList = []; // node list
   void checkIfWalletHasBackup(BuildContext context, AssetDetailVM viewModel) {
-    if (!viewModel.activeWallet.hasBackup && !kDebugMode) {
+    if (!viewModel.activeWallet!.hasBackup && !kDebugMode) {
       showConfirmDialog(
         context,
         content: tr('asset:detail_msg_backup'),
@@ -61,15 +61,17 @@ class _AssetDposList extends State<AssetDposList> {
             SizedBox(height: 4),
             Text(
               tr('asset:detail_lbl_total', namedArgs: {
-                'name': widget.coinInfo.name,
-                'fullName': widget.coinInfo.fullName,
+                'name': widget.coinInfo.name ?? '',
+                'fullName': widget.coinInfo.fullName ?? '',
               }),
               style: context.textSecondary(),
             ),
             SizedBox(height: 10),
             AssetBalanceListener(
               item: widget.coinInfo,
-              builder: (context, {balance, unconfirmed, data}) => PriceText(
+              builder: (context,
+                      {required balance, required unconfirmed, data}) =>
+                  PriceText(
                 balance,
                 '',
                 TextSize.big,
@@ -82,8 +84,8 @@ class _AssetDposList extends State<AssetDposList> {
                   item: widget.coinInfo,
                   builder: (
                     context, {
-                    balance,
-                    unconfirmed,
+                    required balance,
+                    required unconfirmed,
                     data,
                   }) =>
                       AssetPriceListener(
@@ -91,23 +93,23 @@ class _AssetDposList extends State<AssetDposList> {
                     amount: double.tryParse(balance) ?? 0,
                     builder: (context, price, fiatCurrency, _) => Expanded(
                       child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        // children: [
-                        //   Text(
-                        //     tr(
-                        //       'asset:detail_lbl_valuation',
-                        //       namedArgs: {'symbol': fiatCurrency},
-                        //     ),
-                        //     style: context.textSecondary(),
-                        //   ),
-                        //   SizedBox(height: 10),
-                        //   PriceText(
-                        //     price,
-                        //     '',
-                        //     TextSize.medium,
-                        //   ),
-                        // ],
-                      ),
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          // children: [
+                          //   Text(
+                          //     tr(
+                          //       'asset:detail_lbl_valuation',
+                          //       namedArgs: {'symbol': fiatCurrency},
+                          //     ),
+                          //     style: context.textSecondary(),
+                          //   ),
+                          //   SizedBox(height: 10),
+                          //   PriceText(
+                          //     price,
+                          //     '',
+                          //     TextSize.medium,
+                          //   ),
+                          // ],
+                          ),
                     ),
                   ),
                 ),
@@ -117,11 +119,11 @@ class _AssetDposList extends State<AssetDposList> {
                     item: widget.coinInfo,
                     builder: (
                       context, {
-                      balance,
-                      unconfirmed,
+                      required balance,
+                      required unconfirmed,
                       data,
                     }) =>
-                        data.unconfirmed > 0
+                        (data?.unconfirmed ?? 0) > 0
                             ? Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,33 +204,34 @@ class _AssetDposList extends State<AssetDposList> {
       child: StoreConnector<AppState, AssetDetailVM>(
         distinct: true,
         converter: AssetDetailVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           checkIfWalletHasBackup(context, viewModel);
 //          request.add(CSListViewParams.withParams(_GetAssetListParams()));
         },
-        builder: (context, viewModel) => Column(children: [
-          Expanded(
+        builder: (context, viewModel) => Column(
+          children: [
+            Expanded(
               child: CSListViewStream<_GetAssetListParams>(
-            margin: context.edgeHorizontal,
-            padding: context.edgeAll,
-            // decoration: context.boxDecorationOnlyTop(),
-                decoration: new BoxDecoration(
-                  color: context.cardColor,
-                  borderRadius: BorderRadius.all(Radius.circular(context.edgeSize)),
-                ),
-            slivers: [
-              SliverToBoxAdapter(child: buildHeader(context)),
-            ],
-            itemHeader: buildTransactionTitle(context),
-            itemCount: voteNodeList.length,
-            itemBuilder: (context, index) => TransDropItem(
-                item: voteNodeList[index],
-                coinInfo: widget.coinInfo,
-                onChanged: onChanged),
-            emptyLabel: tr('asset:detail_msg_empty'),
-            emptyImageUrl: 'assets/images/empty_record.png',
-          ))
-        ]),
+                margin: context.edgeHorizontal,
+                padding: context.edgeAll,
+                decoration: context.boxDecorationOnlyTop(),
+                slivers: [
+                  SliverToBoxAdapter(child: buildHeader(context)),
+                ],
+                itemHeader: buildTransactionTitle(context),
+                itemCount: voteNodeList.length,
+                itemBuilder: (context, index) => TransDropItem(
+                    item: voteNodeList[index],
+                    coinInfo: widget.coinInfo,
+                    onChanged: onChanged),
+                emptyLabel: tr('asset:detail_msg_empty'),
+                emptyImageUrl: 'assets/images/empty_record.png',
+                requestStream: null,
+                onLoadData: (_) => Future<int>.value(0),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

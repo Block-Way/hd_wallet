@@ -2,11 +2,11 @@ part of app_module;
 
 class AppDrawerMenuVersion extends StatelessWidget {
   const AppDrawerMenuVersion({
-    @required this.label,
-    @required this.version,
-    @required this.hasNew,
-    @required this.onPressed,
-    Key key,
+    required this.label,
+    required this.version,
+    required this.hasNew,
+    required this.onPressed,
+    Key? key,
   }) : super(key: key);
 
   final String label;

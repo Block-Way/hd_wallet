@@ -18,13 +18,15 @@ class _$SwapConfigSerializer implements StructuredSerializer<SwapConfig> {
   final String wireName = 'SwapConfig';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, SwapConfig object,
+  Iterable<Object?> serialize(Serializers serializers, SwapConfig object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.tradePairs != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.tradePairs;
+    if (value != null) {
       result
         ..add('tradePairs')
-        ..add(serializers.serialize(object.tradePairs,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, const [
               const FullType(BuiltList, const [const FullType(SwapConfigCoin)])
             ])));
@@ -33,22 +35,22 @@ class _$SwapConfigSerializer implements StructuredSerializer<SwapConfig> {
   }
 
   @override
-  SwapConfig deserialize(Serializers serializers, Iterable<Object> serialized,
+  SwapConfig deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SwapConfigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'tradePairs':
           result.tradePairs.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(
                     BuiltList, const [const FullType(SwapConfigCoin)])
-              ])) as BuiltList<Object>);
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -65,9 +67,9 @@ class _$SwapConfigCoinSerializer
   final String wireName = 'SwapConfigCoin';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, SwapConfigCoin object,
+  Iterable<Object?> serialize(Serializers serializers, SwapConfigCoin object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'transfer_min',
       serializers.serialize(object.transferMin,
           specifiedType: const FullType(double)),
@@ -75,40 +77,47 @@ class _$SwapConfigCoinSerializer
       serializers.serialize(object.transferMax,
           specifiedType: const FullType(double)),
     ];
-    if (object.address != null) {
+    Object? value;
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.chain != null) {
+    value = object.chain;
+    if (value != null) {
       result
         ..add('chain')
-        ..add(serializers.serialize(object.chain,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.symbol != null) {
+    value = object.symbol;
+    if (value != null) {
       result
         ..add('symbol')
-        ..add(serializers.serialize(object.symbol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.transferFee != null) {
+    value = object.transferFee;
+    if (value != null) {
       result
         ..add('transfer_fee')
-        ..add(serializers.serialize(object.transferFee,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.enabled != null) {
+    value = object.enabled;
+    if (value != null) {
       result
         ..add('enabled')
-        ..add(serializers.serialize(object.enabled,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.name != null) {
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -116,47 +125,47 @@ class _$SwapConfigCoinSerializer
 
   @override
   SwapConfigCoin deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SwapConfigCoinBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'chain':
           result.chain = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'symbol':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'transfer_min':
           result.transferMin = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'transfer_max':
           result.transferMax = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'transfer_fee':
           result.transferFee = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'enabled':
           result.enabled = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -172,25 +181,28 @@ class _$SwapStateSerializer implements StructuredSerializer<SwapState> {
   final String wireName = 'SwapState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, SwapState object,
+  Iterable<Object?> serialize(Serializers serializers, SwapState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.config != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.config;
+    if (value != null) {
       result
         ..add('config')
-        ..add(serializers.serialize(object.config,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(SwapConfig)));
     }
-    if (object.configState != null) {
+    value = object.configState;
+    if (value != null) {
       result
         ..add('configState')
-        ..add(serializers.serialize(object.configState,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.swaps != null) {
+    value = object.swaps;
+    if (value != null) {
       result
         ..add('swaps')
-        ..add(serializers.serialize(object.swaps,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Swap)])));
     }
@@ -198,29 +210,29 @@ class _$SwapStateSerializer implements StructuredSerializer<SwapState> {
   }
 
   @override
-  SwapState deserialize(Serializers serializers, Iterable<Object> serialized,
+  SwapState deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new SwapStateBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'config':
           result.config.replace(serializers.deserialize(value,
-              specifiedType: const FullType(SwapConfig)) as SwapConfig);
+              specifiedType: const FullType(SwapConfig))! as SwapConfig);
           break;
         case 'configState':
           result.configState = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'swaps':
           result.swaps.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(Swap)]))
-              as BuiltList<Object>);
+                      const FullType(BuiltList, const [const FullType(Swap)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -231,10 +243,10 @@ class _$SwapStateSerializer implements StructuredSerializer<SwapState> {
 
 class _$SwapCreateVM extends SwapCreateVM {
   @override
-  final double Function({@required String chain, @required String symbol})
+  final double Function({required String chain, required String symbol})
       getCoinBalance;
   @override
-  final AssetCoin Function({@required String chain, @required String symbol})
+  final AssetCoin Function({required String chain, required String symbol})
       getCoinInfo;
   @override
   final Future<WalletPrivateData> Function(String password) doUnlockWallet;
@@ -242,77 +254,68 @@ class _$SwapCreateVM extends SwapCreateVM {
   final List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()
       getEnabledTradePairs;
   @override
-  final Future<double> Function(
-      {@required String chain, @required String symbol}) getApproveBalance;
+  final Future<double> Function({required String chain, required String symbol})
+      getApproveBalance;
   @override
   final Future<Transaction> Function(
-      {@required String chain,
-      @required String symbol,
-      @required String fromAddress,
-      @required int chainPrecision,
-      @required String txId}) getTransactionInfo;
+      {required String chain,
+      required String symbol,
+      required String fromAddress,
+      required int chainPrecision,
+      required String txId}) getTransactionInfo;
   @override
   final Future<void> Function(
       {AssetCoin outCoinInfo,
       SwapConfigCoin outCoinConfig,
       Future<WalletPrivateData> Function() onUnlockWallet,
       Future<bool> Function(
-              {@required WalletTemplateData approveData,
-              @required double currentBalance,
-              @required double approveAmount,
-              @required bool needReset})
+              {required WalletTemplateData approveData,
+              required double currentBalance,
+              required double approveAmount,
+              required bool needReset})
           onConfirmSubmit,
       void Function(String) onSuccessTransaction}) doApproveSwap;
   @override
   final Future<void> Function(
-      {String amount,
-      AssetCoin inCoinInfo,
-      AssetCoin outCoinInfo,
-      SwapConfigCoin inCoinConfig,
-      SwapConfigCoin outCoinConfig,
-      Future<WalletPrivateData> Function() onUnlockWallet,
-      Future<bool> Function() onNoticeDoubleTransaction,
-      Future<bool> Function(SwapCreateParams) onConfirmSubmit,
-      void Function(String) onSuccessTransaction}) doSubmitSwap;
+      {required String amount,
+      required AssetCoin inCoinInfo,
+      required AssetCoin outCoinInfo,
+      required SwapConfigCoin inCoinConfig,
+      required SwapConfigCoin outCoinConfig,
+      required Future<WalletPrivateData> Function() onUnlockWallet,
+      required Future<bool> Function() onNoticeDoubleTransaction,
+      required Future<bool> Function(SwapCreateParams) onConfirmSubmit,
+      required void Function(String) onSuccessTransaction}) doSubmitSwap;
 
-  factory _$SwapCreateVM([void Function(SwapCreateVMBuilder) updates]) =>
-      (new SwapCreateVMBuilder()..update(updates)).build();
+  factory _$SwapCreateVM([void Function(SwapCreateVMBuilder)? updates]) =>
+      (new SwapCreateVMBuilder()..update(updates))._build();
 
   _$SwapCreateVM._(
-      {this.getCoinBalance,
-      this.getCoinInfo,
-      this.doUnlockWallet,
-      this.getEnabledTradePairs,
-      this.getApproveBalance,
-      this.getTransactionInfo,
-      this.doApproveSwap,
-      this.doSubmitSwap})
+      {required this.getCoinBalance,
+      required this.getCoinInfo,
+      required this.doUnlockWallet,
+      required this.getEnabledTradePairs,
+      required this.getApproveBalance,
+      required this.getTransactionInfo,
+      required this.doApproveSwap,
+      required this.doSubmitSwap})
       : super._() {
-    if (getCoinBalance == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'getCoinBalance');
-    }
-    if (getCoinInfo == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'getCoinInfo');
-    }
-    if (doUnlockWallet == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'doUnlockWallet');
-    }
-    if (getEnabledTradePairs == null) {
-      throw new BuiltValueNullFieldError(
-          'SwapCreateVM', 'getEnabledTradePairs');
-    }
-    if (getApproveBalance == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'getApproveBalance');
-    }
-    if (getTransactionInfo == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'getTransactionInfo');
-    }
-    if (doApproveSwap == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'doApproveSwap');
-    }
-    if (doSubmitSwap == null) {
-      throw new BuiltValueNullFieldError('SwapCreateVM', 'doSubmitSwap');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinBalance, r'SwapCreateVM', 'getCoinBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinInfo, r'SwapCreateVM', 'getCoinInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        doUnlockWallet, r'SwapCreateVM', 'doUnlockWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        getEnabledTradePairs, r'SwapCreateVM', 'getEnabledTradePairs');
+    BuiltValueNullFieldError.checkNotNull(
+        getApproveBalance, r'SwapCreateVM', 'getApproveBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        getTransactionInfo, r'SwapCreateVM', 'getTransactionInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        doApproveSwap, r'SwapCreateVM', 'doApproveSwap');
+    BuiltValueNullFieldError.checkNotNull(
+        doSubmitSwap, r'SwapCreateVM', 'doSubmitSwap');
   }
 
   @override
@@ -335,7 +338,7 @@ class _$SwapCreateVM extends SwapCreateVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('SwapCreateVM')
+    return (newBuiltValueToStringHelper(r'SwapCreateVM')
           ..add('getCoinBalance', getCoinBalance)
           ..add('getCoinInfo', getCoinInfo)
           ..add('doUnlockWallet', doUnlockWallet)
@@ -350,72 +353,73 @@ class _$SwapCreateVM extends SwapCreateVM {
 
 class SwapCreateVMBuilder
     implements Builder<SwapCreateVM, SwapCreateVMBuilder> {
-  _$SwapCreateVM _$v;
+  _$SwapCreateVM? _$v;
 
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})?
       _getCoinBalance;
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})?
       get getCoinBalance => _$this._getCoinBalance;
   set getCoinBalance(
-          double Function({@required String chain, @required String symbol})
+          double Function({required String chain, required String symbol})?
               getCoinBalance) =>
       _$this._getCoinBalance = getCoinBalance;
 
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})?
       _getCoinInfo;
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})?
       get getCoinInfo => _$this._getCoinInfo;
   set getCoinInfo(
-          AssetCoin Function({@required String chain, @required String symbol})
+          AssetCoin Function({required String chain, required String symbol})?
               getCoinInfo) =>
       _$this._getCoinInfo = getCoinInfo;
 
-  Future<WalletPrivateData> Function(String password) _doUnlockWallet;
-  Future<WalletPrivateData> Function(String password) get doUnlockWallet =>
+  Future<WalletPrivateData> Function(String password)? _doUnlockWallet;
+  Future<WalletPrivateData> Function(String password)? get doUnlockWallet =>
       _$this._doUnlockWallet;
   set doUnlockWallet(
-          Future<WalletPrivateData> Function(String password) doUnlockWallet) =>
+          Future<WalletPrivateData> Function(String password)?
+              doUnlockWallet) =>
       _$this._doUnlockWallet = doUnlockWallet;
 
-  List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()
+  List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()?
       _getEnabledTradePairs;
-  List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()
+  List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()?
       get getEnabledTradePairs => _$this._getEnabledTradePairs;
   set getEnabledTradePairs(
-          List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()
+          List<MapEntry<SwapConfigCoin, SwapConfigCoin>> Function()?
               getEnabledTradePairs) =>
       _$this._getEnabledTradePairs = getEnabledTradePairs;
 
-  Future<double> Function({@required String chain, @required String symbol})
+  Future<double> Function({required String chain, required String symbol})?
       _getApproveBalance;
-  Future<double> Function({@required String chain, @required String symbol})
+  Future<double> Function({required String chain, required String symbol})?
       get getApproveBalance => _$this._getApproveBalance;
   set getApproveBalance(
           Future<double> Function(
-                  {@required String chain, @required String symbol})
+                  {required String chain, required String symbol})?
               getApproveBalance) =>
       _$this._getApproveBalance = getApproveBalance;
 
   Future<Transaction> Function(
-      {@required String chain,
-      @required String symbol,
-      @required String fromAddress,
-      @required int chainPrecision,
-      @required String txId}) _getTransactionInfo;
+      {required String chain,
+      required String symbol,
+      required String fromAddress,
+      required int chainPrecision,
+      required String txId})? _getTransactionInfo;
   Future<Transaction> Function(
-          {@required String chain,
-          @required String symbol,
-          @required String fromAddress,
-          @required int chainPrecision,
-          @required String txId})
+          {required String chain,
+          required String symbol,
+          required String fromAddress,
+          required int chainPrecision,
+          required String txId})?
       get getTransactionInfo => _$this._getTransactionInfo;
   set getTransactionInfo(
           Future<Transaction> Function(
-                  {@required String chain,
-                  @required String symbol,
-                  @required String fromAddress,
-                  @required int chainPrecision,
-                  @required String txId})
+                  {required String chain,
+                  required String symbol,
+                  required String fromAddress,
+                  required int chainPrecision,
+                  required String txId})?
               getTransactionInfo) =>
       _$this._getTransactionInfo = getTransactionInfo;
 
@@ -424,23 +428,23 @@ class SwapCreateVMBuilder
       SwapConfigCoin outCoinConfig,
       Future<WalletPrivateData> Function() onUnlockWallet,
       Future<bool> Function(
-              {@required WalletTemplateData approveData,
-              @required double currentBalance,
-              @required double approveAmount,
-              @required bool needReset})
+              {required WalletTemplateData approveData,
+              required double currentBalance,
+              required double approveAmount,
+              required bool needReset})
           onConfirmSubmit,
-      void Function(String) onSuccessTransaction}) _doApproveSwap;
+      void Function(String) onSuccessTransaction})? _doApproveSwap;
   Future<void> Function(
           {AssetCoin outCoinInfo,
           SwapConfigCoin outCoinConfig,
           Future<WalletPrivateData> Function() onUnlockWallet,
           Future<bool> Function(
-                  {@required WalletTemplateData approveData,
-                  @required double currentBalance,
-                  @required double approveAmount,
-                  @required bool needReset})
+                  {required WalletTemplateData approveData,
+                  required double currentBalance,
+                  required double approveAmount,
+                  required bool needReset})
               onConfirmSubmit,
-          void Function(String) onSuccessTransaction})
+          void Function(String) onSuccessTransaction})?
       get doApproveSwap => _$this._doApproveSwap;
   set doApproveSwap(
           Future<void> Function(
@@ -448,62 +452,64 @@ class SwapCreateVMBuilder
                   SwapConfigCoin outCoinConfig,
                   Future<WalletPrivateData> Function() onUnlockWallet,
                   Future<bool> Function(
-                          {@required WalletTemplateData approveData,
-                          @required double currentBalance,
-                          @required double approveAmount,
-                          @required bool needReset})
+                          {required WalletTemplateData approveData,
+                          required double currentBalance,
+                          required double approveAmount,
+                          required bool needReset})
                       onConfirmSubmit,
-                  void Function(String) onSuccessTransaction})
+                  void Function(String) onSuccessTransaction})?
               doApproveSwap) =>
       _$this._doApproveSwap = doApproveSwap;
 
   Future<void> Function(
-      {String amount,
-      AssetCoin inCoinInfo,
-      AssetCoin outCoinInfo,
-      SwapConfigCoin inCoinConfig,
-      SwapConfigCoin outCoinConfig,
-      Future<WalletPrivateData> Function() onUnlockWallet,
-      Future<bool> Function() onNoticeDoubleTransaction,
-      Future<bool> Function(SwapCreateParams) onConfirmSubmit,
-      void Function(String) onSuccessTransaction}) _doSubmitSwap;
+      {required String amount,
+      required AssetCoin inCoinInfo,
+      required AssetCoin outCoinInfo,
+      required SwapConfigCoin inCoinConfig,
+      required SwapConfigCoin outCoinConfig,
+      required Future<WalletPrivateData> Function() onUnlockWallet,
+      required Future<bool> Function() onNoticeDoubleTransaction,
+      required Future<bool> Function(SwapCreateParams) onConfirmSubmit,
+      required void Function(String) onSuccessTransaction})? _doSubmitSwap;
   Future<void> Function(
-          {String amount,
-          AssetCoin inCoinInfo,
-          AssetCoin outCoinInfo,
-          SwapConfigCoin inCoinConfig,
-          SwapConfigCoin outCoinConfig,
-          Future<WalletPrivateData> Function() onUnlockWallet,
-          Future<bool> Function() onNoticeDoubleTransaction,
-          Future<bool> Function(SwapCreateParams) onConfirmSubmit,
-          void Function(String) onSuccessTransaction})
+          {required String amount,
+          required AssetCoin inCoinInfo,
+          required AssetCoin outCoinInfo,
+          required SwapConfigCoin inCoinConfig,
+          required SwapConfigCoin outCoinConfig,
+          required Future<WalletPrivateData> Function() onUnlockWallet,
+          required Future<bool> Function() onNoticeDoubleTransaction,
+          required Future<bool> Function(SwapCreateParams) onConfirmSubmit,
+          required void Function(String) onSuccessTransaction})?
       get doSubmitSwap => _$this._doSubmitSwap;
   set doSubmitSwap(
           Future<void> Function(
-                  {String amount,
-                  AssetCoin inCoinInfo,
-                  AssetCoin outCoinInfo,
-                  SwapConfigCoin inCoinConfig,
-                  SwapConfigCoin outCoinConfig,
-                  Future<WalletPrivateData> Function() onUnlockWallet,
-                  Future<bool> Function() onNoticeDoubleTransaction,
-                  Future<bool> Function(SwapCreateParams) onConfirmSubmit,
-                  void Function(String) onSuccessTransaction})
+                  {required String amount,
+                  required AssetCoin inCoinInfo,
+                  required AssetCoin outCoinInfo,
+                  required SwapConfigCoin inCoinConfig,
+                  required SwapConfigCoin outCoinConfig,
+                  required Future<WalletPrivateData> Function() onUnlockWallet,
+                  required Future<bool> Function() onNoticeDoubleTransaction,
+                  required Future<bool> Function(SwapCreateParams)
+                      onConfirmSubmit,
+                  required void Function(String) onSuccessTransaction})?
               doSubmitSwap) =>
       _$this._doSubmitSwap = doSubmitSwap;
 
   SwapCreateVMBuilder();
 
   SwapCreateVMBuilder get _$this {
-    if (_$v != null) {
-      _getCoinBalance = _$v.getCoinBalance;
-      _getCoinInfo = _$v.getCoinInfo;
-      _doUnlockWallet = _$v.doUnlockWallet;
-      _getEnabledTradePairs = _$v.getEnabledTradePairs;
-      _getApproveBalance = _$v.getApproveBalance;
-      _getTransactionInfo = _$v.getTransactionInfo;
-      _doApproveSwap = _$v.doApproveSwap;
-      _doSubmitSwap = _$v.doSubmitSwap;
+    final $v = _$v;
+    if ($v != null) {
+      _getCoinBalance = $v.getCoinBalance;
+      _getCoinInfo = $v.getCoinInfo;
+      _doUnlockWallet = $v.doUnlockWallet;
+      _getEnabledTradePairs = $v.getEnabledTradePairs;
+      _getApproveBalance = $v.getApproveBalance;
+      _getTransactionInfo = $v.getTransactionInfo;
+      _doApproveSwap = $v.doApproveSwap;
+      _doSubmitSwap = $v.doSubmitSwap;
       _$v = null;
     }
     return this;
@@ -511,29 +517,37 @@ class SwapCreateVMBuilder
 
   @override
   void replace(SwapCreateVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SwapCreateVM;
   }
 
   @override
-  void update(void Function(SwapCreateVMBuilder) updates) {
+  void update(void Function(SwapCreateVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$SwapCreateVM build() {
+  SwapCreateVM build() => _build();
+
+  _$SwapCreateVM _build() {
     final _$result = _$v ??
         new _$SwapCreateVM._(
-            getCoinBalance: getCoinBalance,
-            getCoinInfo: getCoinInfo,
-            doUnlockWallet: doUnlockWallet,
-            getEnabledTradePairs: getEnabledTradePairs,
-            getApproveBalance: getApproveBalance,
-            getTransactionInfo: getTransactionInfo,
-            doApproveSwap: doApproveSwap,
-            doSubmitSwap: doSubmitSwap);
+            getCoinBalance: BuiltValueNullFieldError.checkNotNull(
+                getCoinBalance, r'SwapCreateVM', 'getCoinBalance'),
+            getCoinInfo: BuiltValueNullFieldError.checkNotNull(
+                getCoinInfo, r'SwapCreateVM', 'getCoinInfo'),
+            doUnlockWallet: BuiltValueNullFieldError.checkNotNull(
+                doUnlockWallet, r'SwapCreateVM', 'doUnlockWallet'),
+            getEnabledTradePairs: BuiltValueNullFieldError.checkNotNull(
+                getEnabledTradePairs, r'SwapCreateVM', 'getEnabledTradePairs'),
+            getApproveBalance: BuiltValueNullFieldError.checkNotNull(
+                getApproveBalance, r'SwapCreateVM', 'getApproveBalance'),
+            getTransactionInfo: BuiltValueNullFieldError.checkNotNull(
+                getTransactionInfo, r'SwapCreateVM', 'getTransactionInfo'),
+            doApproveSwap: BuiltValueNullFieldError.checkNotNull(
+                doApproveSwap, r'SwapCreateVM', 'doApproveSwap'),
+            doSubmitSwap: BuiltValueNullFieldError.checkNotNull(
+                doSubmitSwap, r'SwapCreateVM', 'doSubmitSwap'));
     replace(_$result);
     return _$result;
   }
@@ -541,22 +555,21 @@ class SwapCreateVMBuilder
 
 class _$SwapListVM extends SwapListVM {
   @override
-  final BuiltList<Swap> swapList;
+  final BuiltList<Swap>? swapList;
   @override
   final Future<int> Function(int skip, int page) loadData;
   @override
   final Future<void> Function(Swap item) doReSubmit;
 
-  factory _$SwapListVM([void Function(SwapListVMBuilder) updates]) =>
-      (new SwapListVMBuilder()..update(updates)).build();
+  factory _$SwapListVM([void Function(SwapListVMBuilder)? updates]) =>
+      (new SwapListVMBuilder()..update(updates))._build();
 
-  _$SwapListVM._({this.swapList, this.loadData, this.doReSubmit}) : super._() {
-    if (loadData == null) {
-      throw new BuiltValueNullFieldError('SwapListVM', 'loadData');
-    }
-    if (doReSubmit == null) {
-      throw new BuiltValueNullFieldError('SwapListVM', 'doReSubmit');
-    }
+  _$SwapListVM._(
+      {this.swapList, required this.loadData, required this.doReSubmit})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(loadData, r'SwapListVM', 'loadData');
+    BuiltValueNullFieldError.checkNotNull(
+        doReSubmit, r'SwapListVM', 'doReSubmit');
   }
 
   @override
@@ -579,7 +592,7 @@ class _$SwapListVM extends SwapListVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('SwapListVM')
+    return (newBuiltValueToStringHelper(r'SwapListVM')
           ..add('swapList', swapList)
           ..add('loadData', loadData)
           ..add('doReSubmit', doReSubmit))
@@ -588,30 +601,31 @@ class _$SwapListVM extends SwapListVM {
 }
 
 class SwapListVMBuilder implements Builder<SwapListVM, SwapListVMBuilder> {
-  _$SwapListVM _$v;
+  _$SwapListVM? _$v;
 
-  ListBuilder<Swap> _swapList;
+  ListBuilder<Swap>? _swapList;
   ListBuilder<Swap> get swapList =>
       _$this._swapList ??= new ListBuilder<Swap>();
-  set swapList(ListBuilder<Swap> swapList) => _$this._swapList = swapList;
+  set swapList(ListBuilder<Swap>? swapList) => _$this._swapList = swapList;
 
-  Future<int> Function(int skip, int page) _loadData;
-  Future<int> Function(int skip, int page) get loadData => _$this._loadData;
-  set loadData(Future<int> Function(int skip, int page) loadData) =>
+  Future<int> Function(int skip, int page)? _loadData;
+  Future<int> Function(int skip, int page)? get loadData => _$this._loadData;
+  set loadData(Future<int> Function(int skip, int page)? loadData) =>
       _$this._loadData = loadData;
 
-  Future<void> Function(Swap item) _doReSubmit;
-  Future<void> Function(Swap item) get doReSubmit => _$this._doReSubmit;
-  set doReSubmit(Future<void> Function(Swap item) doReSubmit) =>
+  Future<void> Function(Swap item)? _doReSubmit;
+  Future<void> Function(Swap item)? get doReSubmit => _$this._doReSubmit;
+  set doReSubmit(Future<void> Function(Swap item)? doReSubmit) =>
       _$this._doReSubmit = doReSubmit;
 
   SwapListVMBuilder();
 
   SwapListVMBuilder get _$this {
-    if (_$v != null) {
-      _swapList = _$v.swapList?.toBuilder();
-      _loadData = _$v.loadData;
-      _doReSubmit = _$v.doReSubmit;
+    final $v = _$v;
+    if ($v != null) {
+      _swapList = $v.swapList?.toBuilder();
+      _loadData = $v.loadData;
+      _doReSubmit = $v.doReSubmit;
       _$v = null;
     }
     return this;
@@ -619,34 +633,36 @@ class SwapListVMBuilder implements Builder<SwapListVM, SwapListVMBuilder> {
 
   @override
   void replace(SwapListVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SwapListVM;
   }
 
   @override
-  void update(void Function(SwapListVMBuilder) updates) {
+  void update(void Function(SwapListVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$SwapListVM build() {
+  SwapListVM build() => _build();
+
+  _$SwapListVM _build() {
     _$SwapListVM _$result;
     try {
       _$result = _$v ??
           new _$SwapListVM._(
               swapList: _swapList?.build(),
-              loadData: loadData,
-              doReSubmit: doReSubmit);
+              loadData: BuiltValueNullFieldError.checkNotNull(
+                  loadData, r'SwapListVM', 'loadData'),
+              doReSubmit: BuiltValueNullFieldError.checkNotNull(
+                  doReSubmit, r'SwapListVM', 'doReSubmit'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'swapList';
         _swapList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'SwapListVM', _$failedField, e.toString());
+            r'SwapListVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -657,10 +673,10 @@ class SwapListVMBuilder implements Builder<SwapListVM, SwapListVMBuilder> {
 
 class _$SwapConfig extends SwapConfig {
   @override
-  final BuiltList<BuiltList<SwapConfigCoin>> tradePairs;
+  final BuiltList<BuiltList<SwapConfigCoin>>? tradePairs;
 
-  factory _$SwapConfig([void Function(SwapConfigBuilder) updates]) =>
-      (new SwapConfigBuilder()..update(updates)).build();
+  factory _$SwapConfig([void Function(SwapConfigBuilder)? updates]) =>
+      (new SwapConfigBuilder()..update(updates))._build();
 
   _$SwapConfig._({this.tradePairs}) : super._();
 
@@ -684,26 +700,27 @@ class _$SwapConfig extends SwapConfig {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('SwapConfig')
+    return (newBuiltValueToStringHelper(r'SwapConfig')
           ..add('tradePairs', tradePairs))
         .toString();
   }
 }
 
 class SwapConfigBuilder implements Builder<SwapConfig, SwapConfigBuilder> {
-  _$SwapConfig _$v;
+  _$SwapConfig? _$v;
 
-  ListBuilder<BuiltList<SwapConfigCoin>> _tradePairs;
+  ListBuilder<BuiltList<SwapConfigCoin>>? _tradePairs;
   ListBuilder<BuiltList<SwapConfigCoin>> get tradePairs =>
       _$this._tradePairs ??= new ListBuilder<BuiltList<SwapConfigCoin>>();
-  set tradePairs(ListBuilder<BuiltList<SwapConfigCoin>> tradePairs) =>
+  set tradePairs(ListBuilder<BuiltList<SwapConfigCoin>>? tradePairs) =>
       _$this._tradePairs = tradePairs;
 
   SwapConfigBuilder();
 
   SwapConfigBuilder get _$this {
-    if (_$v != null) {
-      _tradePairs = _$v.tradePairs?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _tradePairs = $v.tradePairs?.toBuilder();
       _$v = null;
     }
     return this;
@@ -711,30 +728,30 @@ class SwapConfigBuilder implements Builder<SwapConfig, SwapConfigBuilder> {
 
   @override
   void replace(SwapConfig other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SwapConfig;
   }
 
   @override
-  void update(void Function(SwapConfigBuilder) updates) {
+  void update(void Function(SwapConfigBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$SwapConfig build() {
+  SwapConfig build() => _build();
+
+  _$SwapConfig _build() {
     _$SwapConfig _$result;
     try {
       _$result = _$v ?? new _$SwapConfig._(tradePairs: _tradePairs?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'tradePairs';
         _tradePairs?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'SwapConfig', _$failedField, e.toString());
+            r'SwapConfig', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -745,41 +762,39 @@ class SwapConfigBuilder implements Builder<SwapConfig, SwapConfigBuilder> {
 
 class _$SwapConfigCoin extends SwapConfigCoin {
   @override
-  final String address;
+  final String? address;
   @override
-  final String chain;
+  final String? chain;
   @override
-  final String symbol;
+  final String? symbol;
   @override
   final double transferMin;
   @override
   final double transferMax;
   @override
-  final double transferFee;
+  final double? transferFee;
   @override
-  final bool enabled;
+  final bool? enabled;
   @override
-  final String name;
+  final String? name;
 
-  factory _$SwapConfigCoin([void Function(SwapConfigCoinBuilder) updates]) =>
-      (new SwapConfigCoinBuilder()..update(updates)).build();
+  factory _$SwapConfigCoin([void Function(SwapConfigCoinBuilder)? updates]) =>
+      (new SwapConfigCoinBuilder()..update(updates))._build();
 
   _$SwapConfigCoin._(
       {this.address,
       this.chain,
       this.symbol,
-      this.transferMin,
-      this.transferMax,
+      required this.transferMin,
+      required this.transferMax,
       this.transferFee,
       this.enabled,
       this.name})
       : super._() {
-    if (transferMin == null) {
-      throw new BuiltValueNullFieldError('SwapConfigCoin', 'transferMin');
-    }
-    if (transferMax == null) {
-      throw new BuiltValueNullFieldError('SwapConfigCoin', 'transferMax');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        transferMin, r'SwapConfigCoin', 'transferMin');
+    BuiltValueNullFieldError.checkNotNull(
+        transferMax, r'SwapConfigCoin', 'transferMax');
   }
 
   @override
@@ -822,7 +837,7 @@ class _$SwapConfigCoin extends SwapConfigCoin {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('SwapConfigCoin')
+    return (newBuiltValueToStringHelper(r'SwapConfigCoin')
           ..add('address', address)
           ..add('chain', chain)
           ..add('symbol', symbol)
@@ -837,52 +852,53 @@ class _$SwapConfigCoin extends SwapConfigCoin {
 
 class SwapConfigCoinBuilder
     implements Builder<SwapConfigCoin, SwapConfigCoinBuilder> {
-  _$SwapConfigCoin _$v;
+  _$SwapConfigCoin? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _chain;
-  String get chain => _$this._chain;
-  set chain(String chain) => _$this._chain = chain;
+  String? _chain;
+  String? get chain => _$this._chain;
+  set chain(String? chain) => _$this._chain = chain;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  double _transferMin;
-  double get transferMin => _$this._transferMin;
-  set transferMin(double transferMin) => _$this._transferMin = transferMin;
+  double? _transferMin;
+  double? get transferMin => _$this._transferMin;
+  set transferMin(double? transferMin) => _$this._transferMin = transferMin;
 
-  double _transferMax;
-  double get transferMax => _$this._transferMax;
-  set transferMax(double transferMax) => _$this._transferMax = transferMax;
+  double? _transferMax;
+  double? get transferMax => _$this._transferMax;
+  set transferMax(double? transferMax) => _$this._transferMax = transferMax;
 
-  double _transferFee;
-  double get transferFee => _$this._transferFee;
-  set transferFee(double transferFee) => _$this._transferFee = transferFee;
+  double? _transferFee;
+  double? get transferFee => _$this._transferFee;
+  set transferFee(double? transferFee) => _$this._transferFee = transferFee;
 
-  bool _enabled;
-  bool get enabled => _$this._enabled;
-  set enabled(bool enabled) => _$this._enabled = enabled;
+  bool? _enabled;
+  bool? get enabled => _$this._enabled;
+  set enabled(bool? enabled) => _$this._enabled = enabled;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
   SwapConfigCoinBuilder();
 
   SwapConfigCoinBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _chain = _$v.chain;
-      _symbol = _$v.symbol;
-      _transferMin = _$v.transferMin;
-      _transferMax = _$v.transferMax;
-      _transferFee = _$v.transferFee;
-      _enabled = _$v.enabled;
-      _name = _$v.name;
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _chain = $v.chain;
+      _symbol = $v.symbol;
+      _transferMin = $v.transferMin;
+      _transferMax = $v.transferMax;
+      _transferFee = $v.transferFee;
+      _enabled = $v.enabled;
+      _name = $v.name;
       _$v = null;
     }
     return this;
@@ -890,26 +906,28 @@ class SwapConfigCoinBuilder
 
   @override
   void replace(SwapConfigCoin other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SwapConfigCoin;
   }
 
   @override
-  void update(void Function(SwapConfigCoinBuilder) updates) {
+  void update(void Function(SwapConfigCoinBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$SwapConfigCoin build() {
+  SwapConfigCoin build() => _build();
+
+  _$SwapConfigCoin _build() {
     final _$result = _$v ??
         new _$SwapConfigCoin._(
             address: address,
             chain: chain,
             symbol: symbol,
-            transferMin: transferMin,
-            transferMax: transferMax,
+            transferMin: BuiltValueNullFieldError.checkNotNull(
+                transferMin, r'SwapConfigCoin', 'transferMin'),
+            transferMax: BuiltValueNullFieldError.checkNotNull(
+                transferMax, r'SwapConfigCoin', 'transferMax'),
             transferFee: transferFee,
             enabled: enabled,
             name: name);
@@ -920,14 +938,14 @@ class SwapConfigCoinBuilder
 
 class _$SwapState extends SwapState {
   @override
-  final SwapConfig config;
+  final SwapConfig? config;
   @override
-  final int configState;
+  final int? configState;
   @override
-  final BuiltList<Swap> swaps;
+  final BuiltList<Swap>? swaps;
 
-  factory _$SwapState([void Function(SwapStateBuilder) updates]) =>
-      (new SwapStateBuilder()..update(updates)).build();
+  factory _$SwapState([void Function(SwapStateBuilder)? updates]) =>
+      (new SwapStateBuilder()..update(updates))._build();
 
   _$SwapState._({this.config, this.configState, this.swaps}) : super._();
 
@@ -955,7 +973,7 @@ class _$SwapState extends SwapState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('SwapState')
+    return (newBuiltValueToStringHelper(r'SwapState')
           ..add('config', config)
           ..add('configState', configState)
           ..add('swaps', swaps))
@@ -964,27 +982,28 @@ class _$SwapState extends SwapState {
 }
 
 class SwapStateBuilder implements Builder<SwapState, SwapStateBuilder> {
-  _$SwapState _$v;
+  _$SwapState? _$v;
 
-  SwapConfigBuilder _config;
+  SwapConfigBuilder? _config;
   SwapConfigBuilder get config => _$this._config ??= new SwapConfigBuilder();
-  set config(SwapConfigBuilder config) => _$this._config = config;
+  set config(SwapConfigBuilder? config) => _$this._config = config;
 
-  int _configState;
-  int get configState => _$this._configState;
-  set configState(int configState) => _$this._configState = configState;
+  int? _configState;
+  int? get configState => _$this._configState;
+  set configState(int? configState) => _$this._configState = configState;
 
-  ListBuilder<Swap> _swaps;
+  ListBuilder<Swap>? _swaps;
   ListBuilder<Swap> get swaps => _$this._swaps ??= new ListBuilder<Swap>();
-  set swaps(ListBuilder<Swap> swaps) => _$this._swaps = swaps;
+  set swaps(ListBuilder<Swap>? swaps) => _$this._swaps = swaps;
 
   SwapStateBuilder();
 
   SwapStateBuilder get _$this {
-    if (_$v != null) {
-      _config = _$v.config?.toBuilder();
-      _configState = _$v.configState;
-      _swaps = _$v.swaps?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _config = $v.config?.toBuilder();
+      _configState = $v.configState;
+      _swaps = $v.swaps?.toBuilder();
       _$v = null;
     }
     return this;
@@ -992,19 +1011,19 @@ class SwapStateBuilder implements Builder<SwapState, SwapStateBuilder> {
 
   @override
   void replace(SwapState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SwapState;
   }
 
   @override
-  void update(void Function(SwapStateBuilder) updates) {
+  void update(void Function(SwapStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$SwapState build() {
+  SwapState build() => _build();
+
+  _$SwapState _build() {
     _$SwapState _$result;
     try {
       _$result = _$v ??
@@ -1013,7 +1032,7 @@ class SwapStateBuilder implements Builder<SwapState, SwapStateBuilder> {
               configState: configState,
               swaps: _swaps?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'config';
         _config?.build();
@@ -1022,7 +1041,7 @@ class SwapStateBuilder implements Builder<SwapState, SwapStateBuilder> {
         _swaps?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'SwapState', _$failedField, e.toString());
+            r'SwapState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1031,70 +1050,11 @@ class SwapStateBuilder implements Builder<SwapState, SwapStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
-
-class SwapStatusAdapter extends TypeAdapter<SwapStatus> {
-  @override
-  final int typeId = 40;
-
-  @override
-  SwapStatus read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return SwapStatus.pending;
-      case 1:
-        return SwapStatus.confirming;
-      case 2:
-        return SwapStatus.success;
-      case 3:
-        return SwapStatus.abnormalData;
-      case 4:
-        return SwapStatus.failed;
-      case 5:
-        return SwapStatus.noTxid;
-      default:
-        return null;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, SwapStatus obj) {
-    switch (obj) {
-      case SwapStatus.pending:
-        writer.writeByte(0);
-        break;
-      case SwapStatus.confirming:
-        writer.writeByte(1);
-        break;
-      case SwapStatus.success:
-        writer.writeByte(2);
-        break;
-      case SwapStatus.abnormalData:
-        writer.writeByte(3);
-        break;
-      case SwapStatus.failed:
-        writer.writeByte(4);
-        break;
-      case SwapStatus.noTxid:
-        writer.writeByte(5);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is SwapStatusAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
 
 class SwapAdapter extends TypeAdapter<Swap> {
   @override
@@ -1161,6 +1121,65 @@ class SwapAdapter extends TypeAdapter<Swap> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SwapAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class SwapStatusAdapter extends TypeAdapter<SwapStatus> {
+  @override
+  final int typeId = 40;
+
+  @override
+  SwapStatus read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return SwapStatus.pending;
+      case 1:
+        return SwapStatus.confirming;
+      case 2:
+        return SwapStatus.success;
+      case 3:
+        return SwapStatus.abnormalData;
+      case 4:
+        return SwapStatus.failed;
+      case 5:
+        return SwapStatus.noTxid;
+      default:
+        return SwapStatus.pending;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, SwapStatus obj) {
+    switch (obj) {
+      case SwapStatus.pending:
+        writer.writeByte(0);
+        break;
+      case SwapStatus.confirming:
+        writer.writeByte(1);
+        break;
+      case SwapStatus.success:
+        writer.writeByte(2);
+        break;
+      case SwapStatus.abnormalData:
+        writer.writeByte(3);
+        break;
+      case SwapStatus.failed:
+        writer.writeByte(4);
+        break;
+      case SwapStatus.noTxid:
+        writer.writeByte(5);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SwapStatusAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

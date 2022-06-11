@@ -24,33 +24,39 @@ class AppSplashPage extends HookWidget {
       ),
     );
 
-    useEffect(() {
-      controller.initialize();
-      controller.setVolume(0);
-      controller.play();
-      controller.addListener(() {
-        if (!controller.value.isPlaying) {
+    useEffect(
+      () {
+        controller.initialize();
+        controller.setVolume(0);
+        controller.play();
+        controller.addListener(() {
+          if (!controller.value.isPlaying) {
+            loadEnd.add(true);
+          }
+        });
+
+        Future.wait([
+          //store.dispatch(AppActionInitApp(progress), notify: false),
+          //loadEnd.stream.firstWhere((end) => end, orElse: () => false),
+        ]).catchError((error) {
+          Toast.showError(
+            error,
+            defaultMessage: tr('global:msg_app_init_error'),
+          );
+        }).whenComplete(() {
+          AppMainPage.open();
+        });
+
+        if (kDebugMode) {
           loadEnd.add(true);
         }
-      });
 
-      Future.wait([
-        store.dispatchFuture(AppActionInitApp(progress), notify: false),
-        loadEnd.stream.firstWhere((end) => end, orElse: () => false),
-      ]).catchError((error) {
-        Toast.showError(error, defaultMessage: tr('global:msg_app_init_error'));
-      }).whenComplete(() {
-        AppMainPage.open();
-      });
-
-      if (kDebugMode) {
-        loadEnd.add(true);
-      }
-
-      return () {
-        controller.dispose();
-      };
-    }, []);
+        return () {
+          controller.dispose();
+        };
+      },
+      [],
+    );
 
     return Scaffold(
       backgroundColor: context.primaryColor,

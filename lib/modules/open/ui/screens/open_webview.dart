@@ -5,7 +5,7 @@ class OpenWebViewPage extends HookWidget {
 
   static const routeName = '/open/webview';
 
-  static void open(String url, [String title]) {
+  static void open(String url, [String? title]) {
     AppNavigator.push(routeName, params: {'url': url, 'title': title});
   }
 
@@ -15,20 +15,12 @@ class OpenWebViewPage extends HookWidget {
     final title = params['title'];
     return DefaultTransition(
       settings,
-      OpenWebViewPage(url, title),
+      OpenWebViewPage(url!, title!),
     );
   }
 
   final String appUrl;
   final String appTitle;
-
-  // JavascriptChannel getJsBridge(BuildContext context) => JavascriptChannel(
-  //       name: 'SugarApp',
-  //       onMessageReceived: (JavascriptMessage msg) async {
-  //         final jsonStr = msg.message;
-  //         JsCall.executeMethod(context, JsCall.parseJson(jsonStr));
-  //       },
-  //     );
 
   dynamic onCallJsMethod(
     String methodName,
@@ -73,6 +65,7 @@ class OpenWebViewPage extends HookWidget {
   ) async {
     // Load Debug Demo App
     if (AppConstants.isBeta) {
+      /*
       final fileText = await rootBundle.loadString('assets/files/dapp.html');
       controller.loadUrl(
         url: Uri.dataFromString(
@@ -80,7 +73,7 @@ class OpenWebViewPage extends HookWidget {
           mimeType: 'text/html',
           encoding: Encoding.getByName('utf-8'),
         ).toString(),
-      );
+      );*/
     }
 
     for (final methodName in JsMethods.allMethods) {
@@ -93,24 +86,26 @@ class OpenWebViewPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = useState(appTitle ?? tr('global:webview_title'));
-    final webViewCtrl = useValueNotifier<InAppWebViewController>();
+    final title = useState(appTitle);
+    //final webViewCtrl = useValueNotifier<InAppWebViewController>();
 
     final canGoBack = useState(false);
     final canGoForward = useState(false);
 
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () async {
+        /*
         return webViewCtrl.value
             .evaluateJavascript(
-          source: 'window.SugarSDK.canExit()',
+          source: '',
         )
             .then((value) {
           if (value == false) {
             Toast.show('Wait for DApp');
           }
           return value != false;
-        });
+        });*/
+        return true;
       },
       child: CSScaffold(
         title: title.value,
@@ -123,25 +118,25 @@ class OpenWebViewPage extends HookWidget {
             children: [
               Expanded(
                 child: InAppWebView(
-                  initialUrl: appUrl,
+                  //initialUrl: appUrl,
                   initialOptions: InAppWebViewGroupOptions(
                     crossPlatform: InAppWebViewOptions(
-                      debuggingEnabled: true,
+                      //debuggingEnabled: true,
                       transparentBackground: true,
                       useShouldOverrideUrlLoading: true,
-                      userAgent: 'Mozilla/5.0 SugarApp',
+                      userAgent: 'Mozilla/5.0 MarsApp',
                     ),
                   ),
                   onConsoleMessage: (ctrl, message) {
                     debugPrint('message ${message.message}');
                   },
                   onWebViewCreated: (controller) {
-                    webViewCtrl.value = controller;
+                    //webViewCtrl.value = controller;
                     onBindJsMethods(controller, viewModel);
                   },
-                  shouldOverrideUrlLoading: (controller, request) async {
-                    return ShouldOverrideUrlLoadingAction.ALLOW;
-                  },
+                  //shouldOverrideUrlLoading: (controller, request) async {
+                  //  return ShouldOverrideUrlLoadingAction.ALLOW;
+                  //},
                   onLoadStart: (controller, url) {
                     //
                   },

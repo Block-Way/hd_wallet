@@ -5,8 +5,8 @@ class ProjectDetailParams {
     this.id,
     this.iconUrl,
   });
-  final int id;
-  final String iconUrl;
+  final int? id;
+  final String? iconUrl;
 }
 
 class ProjectListPage extends HookWidget {
@@ -43,7 +43,7 @@ class ProjectListPage extends HookWidget {
               skip: params.skip,
             );
           },
-          itemCount: viewModel.listCount ?? 0,
+          itemCount: viewModel.listCount,
           itemBuilder: (context, index) {
             return ProjectItem(
               item: viewModel.projectsList[index],

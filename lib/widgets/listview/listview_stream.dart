@@ -26,7 +26,7 @@ class CSListViewParams<T> {
     requestId = requestId ?? generateUuidV4();
   }
 
-  factory CSListViewParams.withParams(T params, {int delay}) {
+  factory CSListViewParams.withParams(T params, {int? delay}) {
     return CSListViewParams<T>(
       params: params,
       delay: delay ?? 0,
@@ -34,7 +34,7 @@ class CSListViewParams<T> {
   }
 
   /// Unique identifier for this request
-  String requestId;
+  String? requestId;
   final int skip;
   final int take;
   final int delay;
@@ -42,7 +42,7 @@ class CSListViewParams<T> {
   final bool isRefresh;
   final CSListViewState state;
   final CSListViewState cacheState;
-  final T params;
+  final T? params;
 
   /// Current page, calculated from skip and take
   int get page => skip ~/ take;
@@ -80,15 +80,15 @@ class CSListViewParams<T> {
   bool get isError => itemCount == 0 && state == CSListViewState.error;
 
   CSListViewParams<T> copyWith({
-    String requestId,
-    int skip,
-    int take,
-    int delay,
-    int itemCount,
-    bool isRefresh,
-    CSListViewState state,
-    CSListViewState cacheState,
-    T params,
+    String? requestId,
+    int? skip,
+    int? take,
+    int? delay,
+    int? itemCount,
+    bool? isRefresh,
+    CSListViewState? state,
+    CSListViewState? cacheState,
+    T? params,
   }) {
     return CSListViewParams<T>(
       requestId: requestId ?? this.requestId,
@@ -142,11 +142,11 @@ class CSListViewParams<T> {
 
 class CSListViewStream<T> extends HookWidget {
   const CSListViewStream({
-    @required this.itemCount,
-    @required this.itemBuilder,
-    @required this.requestStream,
-    @required this.onLoadData,
-    Key key,
+    required this.itemCount,
+    required this.itemBuilder,
+    required this.requestStream,
+    required this.onLoadData,
+    Key? key,
     this.enablePullUp = true,
     this.enablePullDown = true,
     this.itemExtent,
@@ -166,25 +166,25 @@ class CSListViewStream<T> extends HookWidget {
   }) : super(key: key);
 
   final int itemCount;
-  final double itemExtent;
+  final double? itemExtent;
   final bool enablePullUp;
   final bool enablePullDown;
-  final String emptyLabel;
-  final Widget itemHeader;
-  final Widget emptyWidget;
-  final String emptyImageUrl;
-  final String errorEmptyUrl;
-  final Color headerBgColor;
-  final List<Widget> slivers;
-  final EdgeInsetsGeometry margin;
-  final EdgeInsetsGeometry padding;
-  final BoxDecoration decoration;
-  final ScrollController scrollController;
-  final RefreshController refreshController;
-  final StreamController<CSListViewParams<T>> requestStream;
+  final String? emptyLabel;
+  final Widget? itemHeader;
+  final Widget? emptyWidget;
+  final String? emptyImageUrl;
+  final String? errorEmptyUrl;
+  final Color? headerBgColor;
+  final List<Widget>? slivers;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final BoxDecoration? decoration;
+  final ScrollController? scrollController;
+  final RefreshController? refreshController;
+  final StreamController<CSListViewParams<T>>? requestStream;
   final Widget Function(BuildContext context, int index) itemBuilder;
   final Future<int> Function(CSListViewParams<T> params) onLoadData;
-  final Future<int> Function(CSListViewParams<T> params) onLoadCachedData;
+  final Future<int> Function(CSListViewParams<T> params)? onLoadCachedData;
 
   @override
   Widget build(BuildContext context) {
@@ -237,13 +237,13 @@ class CSListViewStream<T> extends HookWidget {
                   cacheState: params.state,
                 ),
               );
-              return onLoadCachedData(params).asStream().map((count) {
+              return onLoadCachedData!(params).asStream().map((count) {
                 return params.copyWith(
                   itemCount: count,
                   cacheState: CSListViewState.loaded,
                 );
               }).onErrorReturnWith(
-                (error) => params.copyWith(
+                (error, st) => params.copyWith(
                   cacheState: CSListViewState.error,
                 ),
               );
@@ -269,9 +269,8 @@ class CSListViewStream<T> extends HookWidget {
                       itemCount: count,
                       state: CSListViewState.loaded,
                     ))
-                .onErrorReturnWith((error) => params.copyWith(
-                      state: CSListViewState.error,
-                    ));
+                .onErrorReturnWith((error, st) =>
+                    params.copyWith(cacheState: CSListViewState.error));
           })
           .doOnData((params) {
             dev.log('Load Finish: $params');
@@ -319,8 +318,8 @@ class CSListViewStream<T> extends HookWidget {
         primary: true,
         controller: _refreshController,
         scrollController: scrollController,
-        enablePullUp: !snapshot.data.isLoading && enablePullUp,
-        enablePullDown: !snapshot.data.isLoading && enablePullDown,
+        enablePullUp: !snapshot.data!.isLoading && enablePullUp,
+        enablePullDown: !snapshot.data!.isLoading && enablePullDown,
         onRefresh: () {
           request.add(paramsChanges.value.copyWith(isRefresh: true));
         },
@@ -337,31 +336,31 @@ class CSListViewStream<T> extends HookWidget {
         child: CustomScrollView(
           physics: ClampingScrollPhysics(),
           slivers: [
-            if (slivers != null) ...slivers,
+            if (slivers != null) ...slivers!,
             if (itemCount == 0 &&
-                (snapshot.data.isLoading ||
-                    snapshot.data.isEmpty ||
-                    snapshot.data.isError))
+                (snapshot.data!.isLoading ||
+                    snapshot.data!.isEmpty ||
+                    snapshot.data!.isError))
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Container(
                   margin: margin,
                   padding: padding ?? EdgeInsets.zero,
                   decoration: decoration,
-                  child: snapshot.data.isEmpty && emptyWidget != null
+                  child: snapshot.data!.isEmpty && emptyWidget != null
                       ? emptyWidget
                       : CSEmpty(
-                          label: snapshot.data.isEmpty
+                          label: snapshot.data!.isEmpty
                               ? emptyLabel
                               : tr('global:list_load_failed'),
                           header: itemHeader,
-                          imageUrl: snapshot.data.isEmpty
+                          imageUrl: snapshot.data!.isEmpty
                               ? emptyImageUrl
                               : errorEmptyUrl ??
                                   'assets/images/error_record.png',
-                          isLoading: snapshot.data.isLoading,
-                          showButton: snapshot.data.isError,
-                          width: snapshot.data.isError ? 121 : 133,
+                          isLoading: snapshot.data!.isLoading,
+                          showButton: snapshot.data!.isError,
+                          width: snapshot.data!.isError ? 121 : 133,
                           height: 120,
                           btnText: tr('global:btn_refresh'),
                           onPressed: () {
@@ -372,7 +371,7 @@ class CSListViewStream<T> extends HookWidget {
                         ),
                 ),
               )
-            else
+            /* else
               SliverGroupBuilder(
                 margin: margin,
                 padding: padding ?? EdgeInsets.zero,
@@ -431,6 +430,7 @@ class CSListViewStream<T> extends HookWidget {
                   ),
                 ),
               ),
+         */
           ],
         ),
       ),

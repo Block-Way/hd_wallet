@@ -2,30 +2,30 @@ part of widgets;
 
 class CSButtonMenuItem<T> {
   CSButtonMenuItem({
-    @required this.id,
-    @required this.label,
+    required this.id,
+    required this.label,
     this.value,
   });
 
   final String id;
   final String label;
-  final T value;
+  final T? value;
 }
 
 class CSButtonMenu<T> extends HookWidget {
   const CSButtonMenu({
-    @required this.items,
-    @required this.selectedId,
+    required this.items,
+    required this.selectedId,
     this.textColor,
     this.selectedColor,
     this.onSelectedId,
   }) : assert(items != null);
 
   final String selectedId;
-  final Color textColor;
-  final Color selectedColor;
+  final Color? textColor;
+  final Color? selectedColor;
   final List<CSButtonMenuItem<T>> items;
-  final Function(String id) onSelectedId;
+  final Function(String id)? onSelectedId;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class CSButtonMenu<T> extends HookWidget {
                     return;
                   }
                   if (onSelectedId != null) {
-                    onSelectedId(item.value.id);
+                    onSelectedId?.call(item.value.id);
                   }
                 },
                 child: Container(

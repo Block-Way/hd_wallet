@@ -8,27 +8,27 @@ class WalletPrivateData {
     this.privateKey,
   });
 
-  String walletId;
-  WalletType walletType;
-  String mnemonic;
-  String privateKey;
+  String? walletId;
+  WalletType? walletType;
+  String? mnemonic;
+  String? privateKey;
 
   bool get useBip44 => walletType == WalletType.mnemonicBip44;
-  bool get hasMnemonic => mnemonic.isNotEmpty;
-  bool get hasPrivateKey => privateKey.isNotEmpty;
+  bool get hasMnemonic => mnemonic?.isNotEmpty ?? false;
+  bool get hasPrivateKey => privateKey?.isNotEmpty ?? false;
 }
 
 Future<String> generateWalletId(String mnemonicOrPrivateKey) async {
   // final str = md5.convert(utf8.encode(mnemonicOrPrivateKey)).toString();
   // return str.substring(0, 20);
   final words = mnemonicOrPrivateKey.split(' ').reversed.join('-');
-  final signature = await sha256.hash(utf8.encode(words));
+  final signature = await Sha256().hash(utf8.encode(words));
   final signatureString = hex.encode(signature.bytes);
   return signatureString.substring(0, 50);
 }
 
 Future<WalletPrivateData> getWalletDevicePrivateData({
-  @required String walletId,
+  required String walletId,
 }) async {
   return WalletPrivateData(
     walletId: walletId,
@@ -39,9 +39,9 @@ Future<WalletPrivateData> getWalletDevicePrivateData({
 }
 
 Future<WalletPrivateData> getWalletPrivateData({
-  @required String walletId,
-  @required WalletType walletType,
-  @required String password,
+  required String walletId,
+  required WalletType walletType,
+  required String password,
 }) async {
   final encryptMnemonic = await WalletRepository().getWalletMnemonic(
     walletId,
@@ -50,11 +50,11 @@ Future<WalletPrivateData> getWalletPrivateData({
     walletId,
   );
   final mnemonic = await CryptographyUtils.decrypt(
-    encryptMnemonic,
+    encryptMnemonic ?? '',
     password,
   );
   final privateKey = await CryptographyUtils.decrypt(
-    encryptPrivateKey,
+    encryptPrivateKey ?? '',
     password,
   );
   if (mnemonic.isEmpty && privateKey.isEmpty) {
@@ -69,10 +69,10 @@ Future<WalletPrivateData> getWalletPrivateData({
 }
 
 Future<void> saveWalletPrivateData({
-  @required String walletId,
-  @required String password,
-  @required String mnemonic,
-  @required String privateKey,
+  required String walletId,
+  required String password,
+  required String mnemonic,
+  required String privateKey,
 }) async {
   final encryptMnemonic = await CryptographyUtils.encrypt(
     mnemonic,

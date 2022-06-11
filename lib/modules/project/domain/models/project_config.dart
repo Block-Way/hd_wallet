@@ -8,13 +8,13 @@ abstract class ProjectConfig
 
   static Serializer<ProjectConfig> get serializer => _$projectConfigSerializer;
 
-  static ProjectConfig fromJson(Map<String, dynamic> json) {
+  static ProjectConfig? fromJson(Map<String, dynamic> json) {
     return deserialize<ProjectConfig>(json);
   }
 
-  @nullable
-  String get instructions;
+  //@nullable
+  String? get instructions;
 
-  @nullable
-  double get id;
+  //@nullable
+  double? get id;
 }

@@ -1,7 +1,7 @@
 part of widgets;
 
 class CSRefresherController extends RefreshController {
-  Function _listener;
+  late Function _listener;
   // ignore: use_setters_to_change_properties
   void addListener(Function listener) {
     _listener = listener;
@@ -21,7 +21,7 @@ class CSRefresherController extends RefreshController {
 
 class CSRefresher extends HookWidget {
   const CSRefresher({
-    @required this.child,
+    required this.child,
     this.onRefresh,
     this.controller,
     this.scrollController,
@@ -29,12 +29,12 @@ class CSRefresher extends HookWidget {
     this.header,
   });
 
-  final CSRefresherController controller;
-  final ScrollController scrollController;
+  final CSRefresherController? controller;
+  final ScrollController? scrollController;
   final Widget child;
-  final Widget header;
-  final Function onRefresh;
-  final Duration refreshDelay;
+  final Widget? header;
+  final Function? onRefresh;
+  final Duration? refreshDelay;
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +60,11 @@ class CSRefresher extends HookWidget {
     Future<void> handleRefresh() async {
       final nowTime = DateTime.now().millisecondsSinceEpoch;
       final subDate = nowTime - lastCompletedTime.value;
-      if (refreshDelay != null && subDate < refreshDelay.inMilliseconds) {
+      if (refreshDelay != null && subDate < refreshDelay!.inMilliseconds) {
         await Future.delayed(Duration(seconds: 2));
         refreshController.refreshCompleted(noticeListener: false);
       } else if (onRefresh != null) {
-        onRefresh();
+        onRefresh!();
       }
     }
 

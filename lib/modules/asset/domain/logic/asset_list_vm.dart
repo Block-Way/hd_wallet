@@ -11,10 +11,10 @@ abstract class AssetListVM implements Built<AssetListVM, AssetListVMBuilder> {
   bool get isBalanceUpdating;
 
   List<Wallet> get wallets;
-  @nullable
-  bool get hasWallet;
-  @nullable
-  Wallet get activeWallet;
+  //@nullable
+  bool? get hasWallet;
+  //@nullable
+  Wallet? get activeWallet;
   String get activeWalletId;
   WalletStatus get activeWalletStatus;
 
@@ -38,7 +38,9 @@ abstract class AssetListVM implements Built<AssetListVM, AssetListVMBuilder> {
     final assetState = store.state.assetState;
 
     final coins = sortCoins(
-      assetState.coins.where((item) => item.isEnabled || item.isFixed).toList(),
+      assetState.coins
+          .where((item) => (item.isEnabled ?? false) || (item.isFixed ?? false))
+          .toList(),
     );
 
     // coins.retainWhere(
@@ -55,27 +57,27 @@ abstract class AssetListVM implements Built<AssetListVM, AssetListVMBuilder> {
         ..activeWalletStatus =
             store.state.walletState.activeWalletStatus ?? WalletStatus.loading
         ..coins = ListBuilder(coins)
-        ..isBalanceUpdating = store.state.assetState.isBalanceUpdating ?? false
+        ..isBalanceUpdating = store.state.assetState.isBalanceUpdating
         ..doRefreshList = () {
           return Future.wait([
-            store.dispatchFuture(AssetActionUpdatePrices(
-              store.state.commonState.fiatCurrency,
+            store.dispatchAsync(AssetActionUpdatePrices(
+              store.state.commonState.fiatCurrency ?? '',
             )),
             if (store.state.assetState.isBalanceUpdating != true)
               Future.value(
                 () => store.dispatch(
                   AssetActionUpdateWalletBalances(
-                    wallet: store.state.walletState.activeWallet,
+                    wallet: store.state.walletState.activeWallet!,
                   ),
                 ),
               ),
           ]);
         }
         ..doSwitchWallet = (wallet) {
-          return store.dispatchFuture(AppActionLoadWallet(wallet));
+          return store.dispatchAsync(AppActionLoadWallet(wallet));
         }
         ..doSyncWallet = (wallet) {
-          return store.dispatchFuture(WalletActionWalletRegister(
+          return store.dispatchAsync(WalletActionWalletRegister(
             wallet,
             withOptions: false,
           ));

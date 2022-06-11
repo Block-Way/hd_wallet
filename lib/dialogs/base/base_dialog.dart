@@ -2,7 +2,7 @@ part of dialogs;
 
 class CSBaseDialog extends StatelessWidget {
   const CSBaseDialog({
-    Key key,
+    Key? key,
     this.contentWidget,
     this.cancelBtnText = 'cancel',
     this.confirmBtnText = 'confirm',
@@ -19,55 +19,49 @@ class CSBaseDialog extends StatelessWidget {
   }) : super(key: key);
 
   /// dialog content
-  final Widget contentWidget;
+  final Widget? contentWidget;
 
   /// cancel button
   final String cancelBtnText;
 
   /// confirm button
   final String confirmBtnText;
-  final TextStyle cancelBtnStyle;
-  final TextStyle confirmBtnStyle;
+  final TextStyle? cancelBtnStyle;
+  final TextStyle? confirmBtnStyle;
 
   /// click background and back button to close dialog
   final bool dismissOnBgClick;
   final bool dismissOnConfirm;
 
   /// dialog close call back
-  final void Function() onDismiss;
+  final void Function()? onDismiss;
 
   /// dialog close call back
-  final void Function() onCancel;
+  final void Function()? onCancel;
 
   /// dialog close call back
-  final void Function() onConfirm;
+  final void Function()? onConfirm;
 
   final bool hideCancel;
   final bool hideConfirm;
 
-  final int confirmTimeout;
+  final int? confirmTimeout;
 
   void handleConfirm() {
     if (dismissOnConfirm) {
       dismiss();
     }
-    if (onConfirm != null) {
-      onConfirm();
-    }
+    onConfirm?.call();
   }
 
   void handleCancel() {
-    if (onCancel != null) {
-      onCancel();
-    }
+    onCancel?.call();
     dismiss();
   }
 
   void dismiss() {
     AppNavigator.goBack();
-    if (onDismiss != null) {
-      onDismiss();
-    }
+    onDismiss?.call();
   }
 
   @override
@@ -89,7 +83,7 @@ class CSBaseDialog extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                contentWidget,
+                contentWidget!,
                 Padding(
                   padding: context.edgeAll,
                   child: Row(
@@ -110,11 +104,10 @@ class CSBaseDialog extends StatelessWidget {
                           child: confirmTimeout != null
                               ? CSButtonTimeout(
                                   onPressed: handleConfirm,
-                                  countdown: confirmTimeout,
+                                  countdown: confirmTimeout ?? 0,
                                   btnText: confirmBtnText,
-                                  btnColor: confirmBtnStyle != null
-                                      ? confirmBtnStyle.color
-                                      : context.bodyColor,
+                                  btnColor: confirmBtnStyle?.color ??
+                                      context.bodyColor,
                                 )
                               : CSButton(
                                   onPressed: handleConfirm,

@@ -2,7 +2,7 @@ part of widgets;
 
 class BorderDecorator extends Decoration {
   const BorderDecorator({
-    @required this.color,
+    required this.color,
     this.width,
     this.hasTop,
     this.hasBottom,
@@ -11,19 +11,19 @@ class BorderDecorator extends Decoration {
   });
 
   final Color color;
-  final double width;
-  final bool hasTop;
-  final bool hasBottom;
-  final double leftInset;
-  final double rightInset;
+  final double? width;
+  final bool? hasTop;
+  final bool? hasBottom;
+  final double? leftInset;
+  final double? rightInset;
 
   @override
-  BoxPainter createBoxPainter([_]) {
+  BoxPainter createBoxPainter([void Function()? f]) {
     return BorderPainter(
       color: color,
       width: width ?? 1,
-      hasTop: hasTop,
-      hasBottom: hasBottom,
+      hasTop: hasTop!,
+      hasBottom: hasBottom!,
       leftInset: leftInset ?? 0,
       rightInset: rightInset ?? 0,
     );
@@ -32,7 +32,7 @@ class BorderDecorator extends Decoration {
 
 class BorderPainter extends BoxPainter {
   const BorderPainter({
-    @required this.color,
+    required this.color,
     this.width,
     this.hasTop,
     this.hasBottom,
@@ -41,24 +41,24 @@ class BorderPainter extends BoxPainter {
   });
 
   final Color color;
-  final double width;
-  final bool hasTop;
-  final bool hasBottom;
-  final double leftInset;
-  final double rightInset;
+  final double? width;
+  final bool? hasTop;
+  final bool? hasBottom;
+  final double? leftInset;
+  final double? rightInset;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final bounds = offset & configuration.size;
+    final bounds = offset & configuration.size!;
 
-    final lineWidth = offset.dx + bounds.width - rightInset;
+    final lineWidth = offset.dx + bounds.width - rightInset!;
 
     if (hasTop == true) {
       canvas.drawLine(
-        Offset(offset.dx + leftInset, offset.dy),
+        Offset(offset.dx + leftInset!, offset.dy),
         Offset(lineWidth, offset.dy),
         Paint()
-          ..strokeWidth = width
+          ..strokeWidth = width!
           ..color = color
           ..style = PaintingStyle.fill,
       );
@@ -66,10 +66,10 @@ class BorderPainter extends BoxPainter {
 
     if (hasBottom == true) {
       canvas.drawLine(
-        Offset(offset.dx + leftInset, offset.dy + bounds.height),
+        Offset(offset.dx + leftInset!, offset.dy + bounds.height),
         Offset(lineWidth, offset.dy + bounds.height),
         Paint()
-          ..strokeWidth = width
+          ..strokeWidth = width!
           ..color = color
           ..style = PaintingStyle.fill,
       );

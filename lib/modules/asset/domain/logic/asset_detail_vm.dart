@@ -7,8 +7,8 @@ abstract class AssetDetailVM
   AssetDetailVM._();
 
 // Fields
-  @nullable
-  Wallet get activeWallet;
+  //@nullable
+  Wallet? get activeWallet;
 
 // Methods
   @BuiltValueField(compare: false)
@@ -18,21 +18,25 @@ abstract class AssetDetailVM
   Future<WalletPrivateData> Function(String password) get doUnlockWallet;
 
   static AssetDetailVM fromStore(Store<AppState> store) {
-    return AssetDetailVM((viewModel) => viewModel
-      ..activeWallet = store.state.walletState.activeWallet
-      ..doLoadDetail = (coin, isRefresh) {
-        return store.dispatchFuture(AssetActionGetCoinBalance(
-          wallet: store.state.walletState.activeWallet,
-          chain: coin.chain,
-          symbol: coin.symbol,
-          address: coin.address,
-          ignoreBalanceLock: isRefresh,
-        ));
-      }
-      ..doUnlockWallet = (password) {
-        final completer = Completer<WalletPrivateData>();
-        store.dispatch(WalletActionWalletUnlock(password, completer));
-        return completer.future;
-      });
+    return AssetDetailVM(
+      (viewModel) => viewModel
+        ..activeWallet = store.state.walletState.activeWallet
+        ..doLoadDetail = (coin, isRefresh) {
+          return store.dispatchAsync(
+            AssetActionGetCoinBalance(
+              wallet: store.state.walletState.activeWallet!,
+              chain: coin.chain ?? '',
+              symbol: coin.symbol ?? '',
+              address: coin.address ?? '',
+              ignoreBalanceLock: isRefresh,
+            ),
+          );
+        }
+        ..doUnlockWallet = (password) {
+          final completer = Completer<WalletPrivateData>();
+          store.dispatch(WalletActionWalletUnlock(password, completer));
+          return completer.future;
+        },
+    );
   }
 }

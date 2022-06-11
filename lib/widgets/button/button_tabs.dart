@@ -2,30 +2,30 @@ part of widgets;
 
 class CSButtonTabsItem<T> {
   CSButtonTabsItem({
-    @required this.id,
-    @required this.label,
+    required this.id,
+    required this.label,
     this.value,
   });
 
   final String id;
   final String label;
-  final T value;
+  final T? value;
 }
 
 class CSButtonTabs<T> extends HookWidget {
   const CSButtonTabs({
-    @required this.items,
-    @required this.selectedId,
+    required this.items,
+    required this.selectedId,
     this.margin,
     this.onSelectedId,
     this.onSelectedValue,
   }) : assert(items != null);
 
-  final EdgeInsets margin;
-  final String selectedId;
+  final EdgeInsets? margin;
+  final String? selectedId;
   final List<CSButtonTabsItem<T>> items;
-  final Function(String id) onSelectedId;
-  final Function(T value) onSelectedValue;
+  final Function(String id)? onSelectedId;
+  final Function(T value)? onSelectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +67,10 @@ class CSButtonTabs<T> extends HookWidget {
                         preferPosition: AutoScrollPosition.begin,
                       );
                       if (onSelectedId != null) {
-                        onSelectedId(item.value.id);
+                        onSelectedId?.call(item.value.id);
                       }
                       if (onSelectedValue != null) {
-                        onSelectedValue(item.value.value);
+                        onSelectedValue?.call(item.value.value!);
                       }
                     },
                     child: Container(

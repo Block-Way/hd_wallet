@@ -2,10 +2,10 @@ part of widgets;
 
 class CSAmountSlider extends HookWidget {
   const CSAmountSlider({
-    @required this.maxChanges,
-    @required this.valueChanges,
-    @required this.onChanged,
-    Key key,
+    required this.maxChanges,
+    required this.valueChanges,
+    required this.onChanged,
+    Key? key,
     this.color,
     this.handlerSize = 16,
   }) : super(key: key);
@@ -14,7 +14,7 @@ class CSAmountSlider extends HookWidget {
   final Stream<double> valueChanges;
   final Function(double) onChanged;
   final double handlerSize;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,11 @@ class CSAmountSlider extends HookWidget {
     final maxSteps = NumberUtil.truncateDecimal<double>(safeMaxValue / 100);
     final safeCurrentValue = isZero
         ? 0.0
-        : (currentValue.data > safeMaxValue ? safeMaxValue : currentValue.data);
-
+        : (currentValue.data! > safeMaxValue
+            ? safeMaxValue
+            : currentValue.data);
+    return Text('development...');
+    /*
     final trackLinesStyle = FlutterSliderSizedBox(
       width: 8,
       height: 14,
@@ -122,6 +125,6 @@ class CSAmountSlider extends HookWidget {
           }
         },
       ),
-    );
+    );*/
   }
 }

@@ -29,7 +29,7 @@ abstract class AssetTransactionVM
               store,
               chain: chain,
               symbol: symbol,
-            )?.name ??
+            ).name ??
             symbol;
       }
       ..getSingleTransaction = (transaction) {
@@ -37,17 +37,17 @@ abstract class AssetTransactionVM
 
         final coinInfo = VMWithWalletGetCoinInfoImplement.getCoinInfo(
           store,
-          chain: transaction.chain,
-          symbol: transaction.symbol,
+          chain: transaction.chain ?? '',
+          symbol: transaction.symbol ?? '',
         );
 
-        store.dispatchFuture(
+        store.dispatchAsync(
           AssetActionGetSingleTransaction(
-            txId: transaction.txId,
-            chain: transaction.chain,
-            symbol: transaction.symbol,
-            fromAddress: transaction.fromAddress,
-            chainPrecision: coinInfo.chainPrecision,
+            txId: transaction.txId ?? '',
+            chain: transaction.chain ?? '',
+            symbol: transaction.symbol ?? '',
+            fromAddress: transaction.fromAddress ?? '',
+            chainPrecision: coinInfo.chainPrecision ?? 0,
             completer: completer,
           ),
         );

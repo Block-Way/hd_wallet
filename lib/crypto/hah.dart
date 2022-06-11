@@ -27,24 +27,24 @@ Map<String, String> getVote(String delegate, String owner, int rewardmode) {
 }
 
 Uint8List float2hex(String str) {
-  final ret = List<int>(32);
+  final ret = List<int>.filled(32, 0);
   var value = Decimal.parse(str);
   value = value * Decimal.parse('1000000000000000000');
   final mod = Decimal.parse('256');
   for (var i = 0; i < 32; i++) {
-    ret[31 - i] = (value % mod).toInt();
-    value = value / mod;
+    ret[31 - i] = (value % mod).toBigInt().toInt();
+    value = (value / mod).toDecimal();
   }
   return Uint8List.fromList(ret);
 }
 
 Uint8List int2hex(String str) {
-  final ret = List<int>(32);
+  final ret = List<int>.filled(32, 0);
   var value = Decimal.parse(str);
   final mod = Decimal.parse('256');
   for (var i = 0; i < 32; i++) {
-    ret[31 - i] = (value % mod).toInt();
-    value = value / mod;
+    ret[31 - i] = (value % mod).toBigInt().toInt();
+    value = (value / mod).toDecimal();
   }
   return Uint8List.fromList(ret);
 }
@@ -63,7 +63,7 @@ Map<String, String> getTx(Map<String, Object> tx) {
   for (var i = 0; i < 32; i++) {
     final hex = (tx['fork'] as String).substring(i * 2, i * 2 + 2);
     final v = int.tryParse('0x$hex');
-    hashFork.setInt8(i, v);
+    hashFork.setInt8(i, v!);
   }
 
   final nTxNonce = ByteData(8);
@@ -85,7 +85,7 @@ Map<String, String> getTx(Map<String, Object> tx) {
   for (var i = 0; i < len; i++) {
     final hex = dataHex.substring(i * 2, i * 2 + 2);
     final v = int.tryParse('0x$hex');
-    data.setInt8(i, v);
+    data.setInt8(i, v!);
   }
 
   final ret = nVersion.buffer.asInt8List() +

@@ -8,8 +8,8 @@ part of widgets;
 class CSScaffold extends StatelessWidget {
   /// Creates a layout for pages with a navigation bar at the top.
   const CSScaffold({
-    @required this.child,
-    Key key,
+    required this.child,
+    Key? key,
     this.title,
     this.titleStyle,
     this.titleWidget,
@@ -42,23 +42,23 @@ class CSScaffold extends StatelessWidget {
   final bool scrollable;
   final Brightness brightness;
 
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
-  final String title;
-  final TextStyle titleStyle;
-  final Widget titleWidget;
+  final String? title;
+  final TextStyle? titleStyle;
+  final Widget? titleWidget;
   final bool titleCenter;
   final bool hideLeading;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
-  final Widget outerChild;
-  final Widget bottomChild;
+  final Widget? outerChild;
+  final Widget? bottomChild;
 
   final double toolbarHeight;
-  final PreferredSizeWidget toolbarBottom;
-  final Color headerBgColor;
-  final Color headerTextColor;
+  final PreferredSizeWidget? toolbarBottom;
+  final Color? headerBgColor;
+  final Color? headerTextColor;
 
   final bool resizeToAvoidBottomInset;
   final bool extendBodyBehindAppBar;
@@ -69,12 +69,12 @@ class CSScaffold extends StatelessWidget {
   /// Use True when need a fullScreen page
   final bool addBottomInset;
 
-  final Widget drawer;
-  final PreferredSizeWidget appBar;
+  final Widget? drawer;
+  final PreferredSizeWidget? appBar;
 
-  final Color outerBackground;
+  final Color? outerBackground;
 
-  final IconData leadingIcon;
+  final IconData? leadingIcon;
 
   // final ScrollController _primaryScrollController = ScrollController();
   // void _handleStatusBarTap() {
@@ -98,7 +98,7 @@ class CSScaffold extends StatelessWidget {
       color: outerBackground ?? context.bgScaffoldColor,
       child: Stack(
         children: [
-          if (outerChild != null) outerChild,
+          if (outerChild != null) outerChild!,
           Scaffold(
             drawer: drawer,
             drawerEnableOpenDragGesture: false,
@@ -137,13 +137,15 @@ class CSScaffold extends StatelessWidget {
                           },
                         ),
                   iconTheme: IconThemeData(
-                    color: isDark ? context.whiteColor : context.placeholderColor,
+                    color:
+                        isDark ? context.whiteColor : context.placeholderColor,
                   ),
                   actionsIconTheme: IconThemeData(
-                    color: isDark ? context.whiteColor : context.placeholderColor,
+                    color:
+                        isDark ? context.whiteColor : context.placeholderColor,
                   ),
                   backgroundColor: headerBgColor ?? context.bgScaffoldColor,
-                  brightness: brightness,
+                  //brightness: brightness,
                 ),
             body: SafeArea(
               top: addTopInset,
@@ -152,7 +154,7 @@ class CSScaffold extends StatelessWidget {
             ),
             extendBodyBehindAppBar: extendBodyBehindAppBar,
           ),
-          if (bottomChild != null) bottomChild,
+          if (bottomChild != null) bottomChild!,
         ],
       ),
     );

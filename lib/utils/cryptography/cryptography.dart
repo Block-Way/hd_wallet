@@ -8,22 +8,32 @@ class CryptographyUtils {
     String password, [
     bool isEncrypt = true,
   ]) async {
-    assert(value != null);
-    assert(password != null);
-
-    final cipher = chacha20Poly1305Aead;
+    //assert(value != null);
+    //assert(password != null);
+    final cipher = Chacha20.poly1305Aead();
     final listIntPwd = utf8.encode('$password$uniqueChars'.substring(0, 32));
     final secretKey = SecretKey(listIntPwd);
-    final nonce = Nonce(utf8.encode(uniqueChars.substring(0, 12)));
-    final message =
-        isEncrypt ? utf8.encode(value) : Uint8List.fromList(value.codeUnits);
-    final action = isEncrypt ? cipher.encrypt : cipher.decrypt;
-    final encrypted = await action(
-      message,
-      secretKey: secretKey,
-      nonce: nonce,
-    );
-    return String.fromCharCodes(encrypted) ?? '';
+    final nonce = utf8.encode(uniqueChars.substring(0, 12));
+    if (isEncrypt) {
+      final ret = await cipher.encrypt(
+        utf8.encode(value),
+        secretKey: secretKey,
+        nonce: nonce,
+      );
+      final ret_ = List.filled(0, 0, growable: true);
+      ret_.addAll(ret.mac.bytes);
+      ret_.addAll(ret.cipherText);
+      return String.fromCharCodes(ret_);
+    } else {
+      final ret_ = Uint8List.fromList(value.codeUnits);
+      final sb = SecretBox(
+        ret_.sublist(16),
+        nonce: nonce,
+        mac: Mac(ret_.sublist(0, 16)),
+      );
+      final ret = await cipher.decrypt(sb, secretKey: secretKey);
+      return String.fromCharCodes(ret);
+    }
   }
 
   static Future<String> encrypt(String value, String pwd) async {

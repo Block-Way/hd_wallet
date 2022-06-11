@@ -8,8 +8,8 @@ void showCSBottomSheet(
   bool scrollable = false,
   bool enableDrag = true,
   bool isDismissible = true,
-  double maxHeight,
-  double minHeight,
+  double? maxHeight,
+  double? minHeight,
 }) {
   final height = context.mediaHeight;
   final dragHeight = enableDrag ? 40.0 : 10.0;

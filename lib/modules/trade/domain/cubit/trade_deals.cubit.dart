@@ -2,8 +2,8 @@ part of trade_domain_module;
 
 class TradeDealsState {
   TradeDealsState({
-    @required this.tradePair,
-    @required this.data,
+    required this.tradePair,
+    required this.data,
   });
 
   final TradePair tradePair;
@@ -25,19 +25,19 @@ class TradeDealsState {
 }
 
 class TradeDealsCubit extends Cubit<TradeDealsState> {
-  TradeDealsCubit([TradeRepository tradeRepository])
+  TradeDealsCubit([TradeRepository? tradeRepository])
       : super(TradeDealsState(
-          tradePair: null,
+          tradePair: TradePair(),
           data: [],
         )) {
     _tradeRepository = tradeRepository ?? TradeRepository();
   }
 
-  TradeRepository _tradeRepository;
+  late TradeRepository _tradeRepository;
 
   List<TradeDeal> byTradePair({
-    @required List<TradeDeal> data,
-    @required String tradePairId,
+    required List<TradeDeal> data,
+    required String tradePairId,
   }) =>
       data.where((element) => element.tradePairId == tradePairId).toList();
 
@@ -45,11 +45,13 @@ class TradeDealsCubit extends Cubit<TradeDealsState> {
 
   /// Update all newest from api
   Future<void> loadData(TradePair tradePair) async {
-    if (state.tradePair?.id != tradePair?.id) {
-      emit(TradeDealsState(
-        tradePair: tradePair,
-        data: [],
-      ));
+    if (state.tradePair.id != tradePair.id) {
+      emit(
+        TradeDealsState(
+          tradePair: tradePair,
+          data: [],
+        ),
+      );
     }
 
     final deals = await _tradeRepository.getTradePairDeals(
@@ -64,7 +66,7 @@ class TradeDealsCubit extends Cubit<TradeDealsState> {
 
   void clearData() {
     emit(TradeDealsState(
-      tradePair: null,
+      tradePair: TradePair(),
       data: [],
     ));
   }
@@ -76,7 +78,7 @@ class TradeDealsCubit extends Cubit<TradeDealsState> {
 
   /// Add/Update a ticker from mqtt
   Future<void> updateFromMqtt({
-    @required Map<String, dynamic> json,
+    required Map<String, dynamic> json,
   }) async {
     // TODO: wait api
   }

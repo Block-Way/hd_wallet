@@ -8,8 +8,8 @@ abstract class InvitationSelectVM
   InvitationSelectVM._();
 
 // Fields
-  @nullable
-  String get walletId;
+  //@nullable
+  String? get walletId;
 
   BuiltList<InvitationCode> get invitationCodes;
 
@@ -24,8 +24,8 @@ abstract class InvitationSelectVM
 
   @BuiltValueField(compare: false)
   Future<InvitationCode> Function({
-    String mnemonic,
-    AssetCoin coinInfo,
+    required String mnemonic,
+    required AssetCoin coinInfo,
   }) get createInvitationCode;
 
   static InvitationSelectVM fromStore(Store<AppState> store) {
@@ -39,7 +39,7 @@ abstract class InvitationSelectVM
       ..loadInvitationCode = () {
         store.dispatch(InvitationActionLoadCode());
       }
-      ..createInvitationCode = ({mnemonic, coinInfo}) {
+      ..createInvitationCode = ({required mnemonic, required coinInfo}) {
         final completer = Completer<InvitationCode>();
         store.dispatch(InvitationActionCreateCode(
           mnemonic: mnemonic,

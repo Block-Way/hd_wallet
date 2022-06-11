@@ -2,9 +2,9 @@ part of widgets;
 
 class ButtonDisableListener extends HookWidget {
   const ButtonDisableListener({
-    @required this.listenValues,
-    @required this.builder,
-    Key key,
+    required this.listenValues,
+    required this.builder,
+    Key? key,
   }) : super(key: key);
 
   final List<TextEditingController> listenValues;

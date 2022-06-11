@@ -11,30 +11,30 @@ abstract class SettingsConfig
       _$settingsConfigSerializer;
 
 // Serializers
-  static SettingsConfig fromJson(dynamic json) {
+  static SettingsConfig? fromJson(dynamic json) {
     return deserialize<SettingsConfig>(json);
   }
 
-  Object toJson() {
+  Object? toJson() {
     return serialize<SettingsConfig>(this);
   }
 
 // Fields
 
-  @nullable
-  String get apiBaseUrl;
+  //@nullable
+  String? get apiBaseUrl;
 
-  @nullable
-  String get apiAppVersion;
+  //@nullable
+  String? get apiAppVersion;
 
-  @nullable
-  String get mqttUseTls;
+  //@nullable
+  String? get mqttUseTls;
 
-  @nullable
-  String get mqttDisabled;
+  //@nullable
+  String? get mqttDisabled;
 
-  @nullable
-  String get proxyUrl;
+  //@nullable
+  String? get proxyUrl;
 
   bool get isMqttUseTls => mqttUseTls == 'true';
 

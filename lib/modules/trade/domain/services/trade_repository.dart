@@ -1,7 +1,7 @@
 part of trade_domain_module;
 
 class TradeRepository {
-  factory TradeRepository([TradeApi _api]) {
+  factory TradeRepository([TradeApi? _api]) {
     _instance._api = _api ?? TradeApi();
     return _instance;
   }
@@ -9,10 +9,10 @@ class TradeRepository {
 
   static final _instance = TradeRepository._internal();
 
-  TradeApi _api;
-  Map<String, int> kLineLimit;
-  LazyBox<List<dynamic>> _tradeOrders;
-  Box<TradePreference> _tradePreference;
+  late TradeApi _api;
+  late Map<String, int> kLineLimit;
+  late LazyBox<List<dynamic>> _tradeOrders;
+  late Box<TradePreference> _tradePreference;
 
   static const _tradeOrdersCacheKey = 'trade_orders_v1';
   static const _tradePreferenceCacheKey = 'trade_preference_v2';
@@ -34,12 +34,12 @@ class TradeRepository {
 
   TradePreference getPreference() {
     final preferences = _tradePreference.get(_tradePreferenceCacheKey);
-    preferences.tradePairSpan = preferences.tradePairSpan ?? {};
-    preferences.tradePairResolution = preferences.tradePairResolution ?? {};
+    preferences!.tradePairSpan = preferences.tradePairSpan;
+    preferences.tradePairResolution = preferences.tradePairResolution;
     return preferences;
   }
 
-  Future<TradeConfig> getConfig() async {
+  Future<TradeConfig?> getConfig() async {
     //final json = await _api.getConfig();
     final json = {'currency': [], 'coin_pair': {}, 'mqtt': []};
     return TradeConfig.fromJson(json);
@@ -48,11 +48,10 @@ class TradeRepository {
   /// ***  Info *** ///
 
   Future<List<TradeTicker>> getTradePairTickers({
-    @required String tradePairId,
-    @required String span,
+    required String tradePairId,
+    required String span,
     int count = 10,
   }) async {
-    debugPrint('getTradePairTickers');
     return [];
     /* 没有人买卖
     final json = await _api.getTradePairTickers(
@@ -86,10 +85,9 @@ class TradeRepository {
   }
 
   Future<List<TradeDeal>> getTradePairDeals({
-    @required String tradePairId,
+    required String tradePairId,
     int count = 10,
   }) async {
-    debugPrint('getTradePairDeals');
     return [];
     /* 没有人买卖
     final json = await _api.getTradePairDeals(
@@ -105,26 +103,21 @@ class TradeRepository {
   }
 
   Future<TradeInfo24h> getTradePairInfo24H({
-    @required String tradePairId,
+    required String tradePairId,
   }) async {
     /* final json = await _api.getTradePairInfo24H(
       tradePairId: tradePairId,
     );*/
-    debugPrint('getTradePairInfo24H');
-    final json = {'high': '100', 'low': '90', 'vol': '1000'};
-    return TradeInfo24h.fromJson(
-      json,
-    );
+    return TradeInfo24h();
   }
 
   /// ***  Orders *** ///
 
   Future<List<TradeOrder>> getTradeOrdersFromCache({
-    @required String walletId,
-    String tradePairId,
+    required String walletId,
+    String? tradePairId,
     String tradeSide = 'all',
   }) async {
-    debugPrint('getTradeOrdersFromCache');
     return [];
     /*
     try {
@@ -162,28 +155,21 @@ class TradeRepository {
   Future<void> clearTradeOrdersCache(
     String walletId,
   ) async {
-    debugPrint('clearTradeOrdersCache');
-    /*
-    await _tradeOrders.put(
-      walletId,
-      [],
-    );
-    */
+    return;
   }
 
   Future<List<TradeOrder>> getOrdersAll({
-    @required String tradePairId,
-    @required String recordType,
-    @required String type,
-    @required String tradeSide,
-    @required String tradeAddress,
-    @required String priceAddress,
-    @required String walletId,
+    required String tradePairId,
+    required String recordType,
+    required String type,
+    required String tradeSide,
+    required String tradeAddress,
+    required String priceAddress,
+    required String walletId,
     int skip = 0,
     int take = 10,
-    String orderBy,
+    String? orderBy,
   }) async {
-    debugPrint('getOrdersAll');
     return [];
     /*
     // failed order 不从接口请求，只从cache
@@ -254,10 +240,9 @@ class TradeRepository {
   }
 
   Future<List<TradeOrder>> getOrdersDealFail({
-    @required String tradePairId,
-    @required String walletId,
+    required String tradePairId,
+    required String walletId,
   }) async {
-    debugPrint('getOrdersDealFail');
     return [];
     /*
     final json = await _api.getOrdersDealFail(
@@ -273,7 +258,7 @@ class TradeRepository {
     String walletId,
     List<TradeOrder> tradeOrders,
   ) async {
-    debugPrint('saveTradeOrdersToCache');
+    return;
     /*
     await _tradeOrders.put(
       walletId,
@@ -282,26 +267,23 @@ class TradeRepository {
   }
 
   Future<TradeOrderDetail> getOrderDetail({
-    @required String txId,
-    @required String walletId,
+    required String txId,
+    required String walletId,
   }) async {
     /*
     final json = await _api.getOrderDetail(
       walletId: walletId,
       txId: txId,
     );*/
-    debugPrint('getOrderDetail');
-    final json = {'min_amount': '100', 'match_list': [], 'exchange_list': []};
-    return deserialize<TradeOrderDetail>(json);
+    return TradeOrderDetail();
   }
 
   /// Return order info (like status, new data) from TxId
   Future<TradeOrder> getTradeOrderInfo({
-    @required String txId,
-    @required String walletId,
+    required String txId,
+    required String walletId,
   }) async {
-    debugPrint('getTradeOrderInfo');
-    return null;
+    return TradeOrder();
     /*
     final json = await _api.getOrderDetail(
       walletId: walletId,
@@ -321,13 +303,12 @@ class TradeRepository {
     );*/
   }
 
-  Future<WalletTemplateData> getOrderTemplateInfo({
-    @required String chain,
-    @required int chainPrecision,
-    @required String templateAddress,
-    @required String walletId,
+  Future<WalletTemplateData?> getOrderTemplateInfo({
+    required String chain,
+    required int chainPrecision,
+    required String templateAddress,
+    required String walletId,
   }) async {
-    debugPrint('getOrderTemplateInfo');
     return null;
     /*
     final json = await _api.getOrderTemplateInfo(
@@ -346,7 +327,6 @@ class TradeRepository {
   Future<List<BroadcastTxInfo>> getTradeFaiOrderBroadcasts(
     String walletId,
   ) async {
-    debugPrint('getTradeFaiOrderBroadcasts');
     return [];
     /*
     final allBroadcasts = await WalletRepository().getBroadcastsFromCache(
@@ -362,10 +342,9 @@ class TradeRepository {
   }
 
   Future<List<String>> getOrderCancelledIds({
-    String txId,
-    String walletId,
+    String? txId,
+    String? walletId,
   }) async {
-    debugPrint('getOrderCancelledIds');
     return [];
     /*
     return _api.getOrderCancelledIds(
@@ -375,11 +354,10 @@ class TradeRepository {
   }
 
   Future<void> postOrderDealFail({
-    @required String txId,
-    @required String template,
-    @required String walletId,
+    required String txId,
+    required String template,
+    required String walletId,
   }) async {
-    debugPrint('postOrderDealFail');
     /*
     return _api.postOrderDealFail(
       txId: txId,
@@ -391,11 +369,10 @@ class TradeRepository {
   /// ***  Chart *** ///
 
   Future<List<KLineEntity>> getChartKLine(
-    ResolutionItem resolution,
-    String tradePairId,
-    int precision,
+    ResolutionItem? resolution,
+    String? tradePairId,
+    int? precision,
   ) async {
-    debugPrint('getChartKLine');
     return [];
     /*
     if (kLineLimit == null || kLineLimit.isEmpty) {
@@ -434,9 +411,8 @@ class TradeRepository {
   }
 
   Future<Map<String, List<DepthEntity>>> getChartDepths({
-    @required String tradePairId,
+    required String tradePairId,
   }) async {
-    debugPrint('getChartDepths');
     return {};
     /*
     final result = await _api.getTradePairTickers(

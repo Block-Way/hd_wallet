@@ -3,16 +3,16 @@ part of project_ui_module;
 class ProjectApplyCreatePage extends HookWidget {
   ProjectApplyCreatePage(
     this.defaultCreateParams, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   static const routeName = '/project/apply/create';
 
-  static void open(ProjectCreateParams createParams, {bool replace}) {
+  static void open(ProjectCreateParams createParams, {bool? replace}) {
     AppNavigator.push(
       routeName,
       params: createParams,
-      replace: replace,
+      replace: replace ?? false,
     );
   }
 
@@ -73,19 +73,19 @@ class ProjectApplyCreatePage extends HookWidget {
     }
 
     void doNext() {
-      final isValid = formKey.currentState.validate();
+      final isValid = formKey.currentState?.validate();
 
       if (!autovalidate.value) {
         autovalidate.value = true;
       }
 
-      if (!isValid) {
-        return;
-      }
+      //if (!isValid) {
+      //  return;
+      //}
 
-      formKey.currentState.save();
+      formKey.currentState?.save();
 
-      ProjectApplySubmitPage.open(getUpdatedProjectParams()).then((newParams) {
+      ProjectApplySubmitPage.open(getUpdatedProjectParams())?.then((newParams) {
         createParamsState.value = newParams as ProjectCreateParams;
       });
     }

@@ -2,7 +2,7 @@ part of utils;
 
 class VersionUtils {
   // 优先认为 本地的版本是更高的
-  static bool netIsNew({@required String local, @required String net}) {
+  static bool netIsNew({required String local, required String net}) {
     if (local == null || net == null) {
       return false;
     }
@@ -21,7 +21,6 @@ class VersionUtils {
         return true;
       }
     }
-
     return false;
   }
 }

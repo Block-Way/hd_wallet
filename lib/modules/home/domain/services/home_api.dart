@@ -5,32 +5,33 @@ class HomeApi {
     final dio = Dio();
 
     final response = await dio.get('${AppConstants.randomApiUrl}/banners');
-
-    debugPrint("========================> test ");
     debugPrint(response.toString());
-    debugPrint("========================> test");
     final data = response.data;
+    return data as List<dynamic>;
+    /*
     return List<Map<String, dynamic>>.from(
       data.map(
         (e) => Map<String, dynamic>.from(e as Map<String, dynamic>),
       ),
-    );
+    );*/
   }
 //  => Request().getListOfObjects(
 //        '/v1/banner/banners/home',
 //      );
 
   Future<List<Map<String, dynamic>>> getQuotations({
-    @required String marketId,
-    int timestamp,
+    required String marketId,
+    int? timestamp,
   }) async {
     final dio = Dio();
     final response = await dio.get('${AppConstants.randomApiUrl}/quotations');
     final data = response.data;
+    return data as List<Map<String, dynamic>>;
+    /*
     return List<Map<String, dynamic>>.from(
       data.map(
         (e) => Map<String, dynamic>.from(e as Map<String, dynamic>),
       ),
-    );
+    );*/
   }
 }

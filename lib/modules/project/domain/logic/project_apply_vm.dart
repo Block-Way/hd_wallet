@@ -7,24 +7,24 @@ abstract class ProjectApplyVM
   ProjectApplyVM._();
 
 // Fields
-  @nullable
-  ProjectCreateParams get lastProjectCreateParams;
+  //@nullable
+  ProjectCreateParams? get lastProjectCreateParams;
 
-  @nullable
-  String get projectRules;
+  //@nullable
+  String? get projectRules;
 
   //  Methods
 
   @BuiltValueField(compare: false)
   double Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinBalance;
 
   @BuiltValueField(compare: false)
   AssetCoin Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinInfo;
 
   @BuiltValueField(compare: false)
@@ -32,10 +32,10 @@ abstract class ProjectApplyVM
 
   @BuiltValueField(compare: false)
   Future<void> Function({
-    @required ProjectCreateParams params,
-    @required Future<WalletPrivateData> Function() onUnlockWallet,
-    @required Future<bool> Function(ProjectCreateParams) onConfirmData,
-    @required void Function(String txId) onSuccessTransaction,
+    required ProjectCreateParams params,
+    required Future<WalletPrivateData> Function() onUnlockWallet,
+    required Future<bool> Function(ProjectCreateParams) onConfirmData,
+    required void Function(String txId) onSuccessTransaction,
   }) get doSubmitProject;
 
   @BuiltValueField()
@@ -51,7 +51,7 @@ abstract class ProjectApplyVM
     return ProjectApplyVM(
       (viewModel) => viewModel
         ..projectRules =
-            store.state.projectState?.projectConfig?.instructions ?? ''
+            store.state.projectState.projectConfig?.instructions ?? ''
         ..lastProjectCreateParams =
             store.state.projectState.lastProjectCreateParams?.toBuilder()
         ..doUnlockHDWallet = (password) {
@@ -60,12 +60,12 @@ abstract class ProjectApplyVM
           return completer.future;
         }
         ..doSubmitProject = ({
-          params,
-          onUnlockWallet,
-          onConfirmData,
-          onSuccessTransaction,
+          required params,
+          required onUnlockWallet,
+          required onConfirmData,
+          required onSuccessTransaction,
         }) {
-          return store.dispatchFuture(ProjectActionCreateSubmit(
+          return store.dispatchAsync(ProjectActionCreateSubmit(
             params: params,
             onUnlockWallet: onUnlockWallet,
             onConfirmData: onConfirmData,
@@ -73,21 +73,21 @@ abstract class ProjectApplyVM
           ));
         }
         ..doSubmitCreateProject = (params) {
-          return store.dispatchFuture(ProjectActionCreateSuccess(params));
+          return store.dispatchAsync(ProjectActionCreateSuccess(params));
         }
         ..doSaveToCache = (params) {
-          return store.dispatchFuture(ProjectActionCreateSaveToCache(
+          return store.dispatchAsync(ProjectActionCreateSaveToCache(
             params,
           ));
         }
-        ..getCoinInfo = ({chain, symbol}) {
+        ..getCoinInfo = ({required chain, required symbol}) {
           return VMWithWalletGetCoinInfoImplement.getCoinInfo(
             store,
             chain: chain,
             symbol: symbol,
           );
         }
-        ..getCoinBalance = ({chain, symbol}) {
+        ..getCoinBalance = ({required chain, required symbol}) {
           return VMWithAssetGetCoinBalanceImplement.getCoinBalance(
             store,
             chain: chain,
@@ -95,7 +95,7 @@ abstract class ProjectApplyVM
           );
         }
         ..getProjectConfig = () {
-          return store.dispatchFuture(ProjectActionGetConfig());
+          return store.dispatchAsync(ProjectActionGetConfig());
         },
     );
   }

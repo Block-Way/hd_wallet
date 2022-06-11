@@ -8,17 +8,17 @@ abstract class ConfigUpdate
 
   static Serializer<ConfigUpdate> get serializer => _$configUpdateSerializer;
 
-  static ConfigUpdate fromJson(Map<String, dynamic> json) {
+  static ConfigUpdate? fromJson(Map<String, dynamic> json) {
     return deserialize<ConfigUpdate>(json);
   }
 
 // Fields
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'update')
-  bool get needUpdate;
+  bool? get needUpdate;
 
-  @nullable
-  ConfigUpdateData get data;
+  //@nullable
+  ConfigUpdateData? get data;
 
-  bool get hasNewVersion => needUpdate == true && data.downloadUrl != null;
+  bool get hasNewVersion => needUpdate == true && data?.downloadUrl != null;
 }

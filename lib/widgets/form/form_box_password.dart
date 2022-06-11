@@ -2,8 +2,8 @@ part of widgets;
 
 class FormBoxPassword extends HookWidget {
   const FormBoxPassword({
-    @required this.controller,
-    Key key,
+    required this.controller,
+    Key? key,
     this.maxLength = WalletPasswordValidator.walletPasswordMaxLength,
     this.hintText,
     this.autoFocus = false,
@@ -19,16 +19,16 @@ class FormBoxPassword extends HookWidget {
 
   final TextEditingController controller;
   final int maxLength;
-  final String hintText;
-  final String title;
-  final TextStyle titleStyle;
+  final String? hintText;
+  final String? title;
+  final TextStyle? titleStyle;
   final bool autoFocus;
-  final bool bordered;
-  final FieldValidator validator;
-  final EdgeInsetsGeometry margin;
-  final ValueChanged<String> onChanged;
-  final Function(bool hasFocus) onFocusChanged;
-  final Widget titleAction;
+  final bool? bordered;
+  final FieldValidator? validator;
+  final EdgeInsetsGeometry? margin;
+  final ValueChanged<String>? onChanged;
+  final Function(bool hasFocus)? onFocusChanged;
+  final Widget? titleAction;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class FormBoxPassword extends HookWidget {
       titleStyle: titleStyle,
       titleAction: titleAction,
       autoFocus: autoFocus,
-      bordered: bordered,
+      bordered: bordered ?? false,
       validator: validator,
       controller: controller,
       hintText: hintText,

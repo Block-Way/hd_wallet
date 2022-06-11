@@ -2,9 +2,9 @@ part of common_ui_module;
 
 class HelpCenterGroup {
   HelpCenterGroup({
-    @required this.icon,
-    @required this.title,
-    @required this.links,
+    required this.icon,
+    required this.title,
+    required this.links,
   });
 
   final String title;
@@ -14,8 +14,8 @@ class HelpCenterGroup {
 
 class HelpCenterLink {
   HelpCenterLink({
-    @required this.title,
-    @required this.url,
+    required this.title,
+    required this.url,
   });
   final String title;
   final String url;
@@ -38,8 +38,8 @@ class HelpCenterPage extends HookWidget {
 
   Widget buildGroup(
     BuildContext context, {
-    @required IconData icon,
-    @required String title,
+    required IconData icon,
+    required String title,
   }) {
     return Container(
       width: context.mediaWidth * 0.32,
@@ -65,9 +65,9 @@ class HelpCenterPage extends HookWidget {
 
   Widget buildQuestion(
     BuildContext context, {
-    @required String question,
-    @required String url,
-    @required bool hideBorder,
+    required String question,
+    required String url,
+    required bool hideBorder,
   }) {
     return CSContainer(
       padding: context.edgeAll.copyWith(top: 20, bottom: 20),
@@ -110,7 +110,6 @@ class HelpCenterPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final links = [
       HelpCenterGroup(
         icon: CSIcons.Help,
@@ -204,9 +203,8 @@ class HelpCenterPage extends HookWidget {
     void handleSearch() {
       print('sjisoifjas');
     }
-    return Container(
-        child: CSTabBar()
-    );
+
+    return Container(child: CSTabBar());
     // return CSScaffold(
     //   hideLeading: true,
     //   titleCenter: false,

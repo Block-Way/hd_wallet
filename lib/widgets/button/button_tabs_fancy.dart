@@ -127,13 +127,13 @@ class _TabFancySelectedPainter extends CustomPainter {
 
 class CSButtonTabsFancy extends StatelessWidget {
   const CSButtonTabsFancy({
-    @required this.selected,
-    @required this.onSelected,
-    @required this.holdLbl,
-    @required this.holdValue,
-    @required this.invitationLbl,
-    @required this.invitationValue,
-    Key key,
+    required this.selected,
+    required this.onSelected,
+    required this.holdLbl,
+    required this.holdValue,
+    required this.invitationLbl,
+    required this.invitationValue,
+    Key? key,
   }) : super(key: key);
 
   final int selected;

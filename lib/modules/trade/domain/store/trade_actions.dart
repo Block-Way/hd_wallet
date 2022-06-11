@@ -1,10 +1,10 @@
 part of trade_domain_module;
 
 abstract class _BaseAction extends ReduxAction<AppState> {
-  String get walletId => store.state.walletState.activeWalletId;
-  TradeConfig get tradeConfig => store.state.tradeState.config;
+  String get walletId => store.state.walletState.activeWalletId!;
+  //TradeConfig get tradeConfig => store.state.tradeState.config!;
 
-  /// We need to fix the symbol for ERC20, TRC20 and BBC, use only USDT
+  /// We need to fix the symbol for ERC20, TRC20, use only USDT
   /// The chain can only have one USDT
   String fixUSDTSymbol(String symbol) => symbol
       .replaceAll('-ERC20', '')
@@ -17,10 +17,12 @@ class TradeActionOrderChangePair extends _BaseAction {
   final TradePair tradePair;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
+    /*
     return store.state.rebuild(
       (a) => a.tradeState.tradePair = tradePair.toBuilder(),
-    );
+    );*/
+    return null;
   }
 }
 
@@ -29,10 +31,12 @@ class TradeActionOrderChangeSide extends _BaseAction {
   final TradeSide tradeSide;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
+    /*
     return store.state.rebuild(
       (a) => a.tradeState.tradeSide = tradeSide,
-    );
+    );*/
+    return null;
   }
 }
 
@@ -41,9 +45,11 @@ class TradeActionTipHideSlowTradePair extends _BaseAction {
   final TradePair tradePair;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
+    /*
     return state.rebuild(
       (a) => a..tradeState.hideSlowTradePairTip.add(tradePair.id),
-    );
+    );*/
+    return null;
   }
 }

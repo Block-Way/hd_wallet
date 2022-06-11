@@ -23,31 +23,31 @@ abstract class ConfigCoin implements Built<ConfigCoin, ConfigCoinBuilder> {
   @BuiltValueField(wireName: 'icon_url')
   String get icon;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'anchor')
-  String get contract;
+  String? get contract;
 
   @BuiltValueField(wireName: 'transfer_fee')
   double get transferFee;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'chain_precision')
-  int get chainPrecision;
+  int? get chainPrecision;
 
   @BuiltValueField(wireName: 'display_precision')
   int get displayPrecision;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'transfer_min_quota')
-  double get transferMinQuota;
+  double? get transferMinQuota;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'defi_reward')
-  bool get defiReward;
+  bool? get defiReward;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'hd_wallet_fee_level')
-  ConfigCoinFee get hdWalletFeeLevel;
+  ConfigCoinFee? get hdWalletFeeLevel;
 
   bool get canInvitation => defiReward == true;
 

@@ -2,9 +2,9 @@ part of invest_ui_module;
 
 class MiningRewardItem extends StatelessWidget {
   const MiningRewardItem({
-    @required this.item,
-    @required this.mintItem,
-    Key key,
+    required this.item,
+    required this.mintItem,
+    Key? key,
   }) : super(key: key);
   final ProfitRecordItem item;
   final MintItem mintItem;
@@ -23,13 +23,18 @@ class MiningRewardItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      tr('invest:mining_record_lbl_reward',
-                          namedArgs: {'symbol': symbol}),
-                      style: context.textBody()),
+                    tr(
+                      'invest:mining_record_lbl_reward',
+                      namedArgs: {
+                        'symbol': symbol,
+                      },
+                    ),
+                    style: context.textBody(),
+                  ),
                   SizedBox(height: context.edgeSizeHalf),
                   Text(
                     tr('invest:mining_record_lbl_block_height', namedArgs: {
-                      'height': item.height?.toString() ?? '-',
+                      'height': item.height.toString(),
                     }),
                     style: context.textSmall(),
                   )
@@ -56,11 +61,12 @@ class MiningRewardItem extends StatelessWidget {
                   children: [
                     Text(
                       tr('invest:mining_record_lbl_holding'),
-                      style: context.textSecondary(color: context.cardSecondColor),
+                      style:
+                          context.textSecondary(color: context.cardSecondColor),
                     ),
                     SizedBox(height: context.edgeSizeHalf),
                     Text(
-                      item.stakeReward ?? '0',
+                      item.stakeReward,
                       style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ],
@@ -70,11 +76,12 @@ class MiningRewardItem extends StatelessWidget {
                   children: [
                     Text(
                       tr('invest:mining_record_lbl_invitation'),
-                      style: context.textSecondary(color: context.cardSecondColor),
+                      style:
+                          context.textSecondary(color: context.cardSecondColor),
                     ),
                     SizedBox(height: context.edgeSizeHalf),
                     Text(
-                      item.promotionReward ?? '0',
+                      item.promotionReward,
                       style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ],

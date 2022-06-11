@@ -9,15 +9,15 @@ class AssetBalanceState {
 
   final Map<String, AssetBalanceInfo> balances;
 
-  AssetBalanceInfo getBalanceInfo(String uniqueId) {
+  AssetBalanceInfo? getBalanceInfo(String uniqueId) {
     return balances.containsKey(uniqueId) ? balances[uniqueId] : null;
   }
 
   void updateBalance({
-    @required String symbol,
-    @required String address,
-    @required double balance,
-    @required double unconfirmed,
+    required String symbol,
+    required String address,
+    required double balance,
+    required double unconfirmed,
   }) {
     final uniqueId = '$symbol:$address';
     final item = AssetBalanceInfo(
@@ -46,10 +46,10 @@ class AssetBalanceCubit extends Cubit<AssetBalanceState> {
   AssetBalanceCubit() : super(AssetBalanceState({}));
 
   Future<void> updateBalance({
-    @required String symbol,
-    @required String address,
-    @required double balance,
-    @required double unconfirmed,
+    required String symbol,
+    required String address,
+    required double balance,
+    required double unconfirmed,
   }) async {
     final newState = AssetBalanceState.fromState(state);
     newState.updateBalance(

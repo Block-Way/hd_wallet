@@ -15,7 +15,7 @@ import 'themes/themes.dart';
 import 'utils/utils.dart';
 
 // 设置生命周期更长的存储对象，放这里的原因是main函数会退出
-Store<AppState> store;
+late Store<AppState> store;
 
 void main() {
   // 确保与本地代码通信正常

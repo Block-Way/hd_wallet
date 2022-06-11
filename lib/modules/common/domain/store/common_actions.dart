@@ -10,7 +10,7 @@ class CommonActionCheckDefaultLanguage extends _BaseAction {
   final Completer<AppLanguage> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final settings = CommonRepository().getSettings();
     final deviceLanguageCode = Platform.localeName.split('_').first;
 
@@ -20,7 +20,6 @@ class CommonActionCheckDefaultLanguage extends _BaseAction {
     } else {
       final suggestedLang = AppLanguages.languages.firstWhere(
         (lang) => lang.locale.languageCode == deviceLanguageCode,
-        orElse: () => null,
       );
 
       completer.complete(suggestedLang);
@@ -29,8 +28,8 @@ class CommonActionCheckDefaultLanguage extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }
@@ -43,9 +42,9 @@ class CommonActionChangeLanguage extends _BaseAction {
   @override
   AppState reduce() {
     final settings = CommonRepository().getSettings();
-    settings.language = language;
-    settings.languageIsSet = true;
-    settings.save();
+    settings?.language = language;
+    settings?.languageIsSet = true;
+    settings?.save();
     return state.rebuild(
       (b) => b.commonState.language = language,
     );
@@ -53,8 +52,7 @@ class CommonActionChangeLanguage extends _BaseAction {
 
   @override
   void after() {
-    Request().updateLanguage(store.state.commonState.languageForApi);
-
+    //Request().updateLanguage(store.state.commonState.languageForApi);
     dispatch(AppActionAfterChangeLanguage(language));
   }
 }
@@ -67,8 +65,8 @@ class CommonActionChangeFiatCurrency extends _BaseAction {
   @override
   AppState reduce() {
     final settings = CommonRepository().getSettings();
-    settings.fiatCurrency = fiatCurrency;
-    settings.save();
+    settings?.fiatCurrency = fiatCurrency;
+    settings?.save();
     return state.rebuild(
       (b) => b.commonState.fiatCurrency = fiatCurrency,
     );
@@ -87,20 +85,22 @@ class CommonActionCheckVersion extends _BaseAction {
   });
 
   final Completer<ConfigUpdateData> completer;
-  final bool checkBeta;
+  final bool? checkBeta;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     if (AppConstants.isBeta && checkBeta == true) {
       final data = await CommonRepository().getLastVersionBeta();
       completer.complete(data);
       if (data != null) {
         return state.rebuild(
-          (b) => b.commonState.newVersion.replace(ConfigUpdate(
-            (a) => a
-              ..needUpdate = true
-              ..data = data?.toBuilder(),
-          )),
+          (b) => b.commonState.newVersion.replace(
+            ConfigUpdate(
+              (a) => a
+                ..needUpdate = true
+                ..data = data.toBuilder(),
+            ),
+          ),
         );
       }
       return null;
@@ -126,8 +126,8 @@ class CommonActionCheckVersion extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }

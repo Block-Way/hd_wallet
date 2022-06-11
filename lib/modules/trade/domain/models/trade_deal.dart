@@ -6,7 +6,7 @@ abstract class TradeDeal implements Built<TradeDeal, TradeDealBuilder> {
   TradeDeal._();
 
   factory TradeDeal.fromPlaceholder({
-    @required String tradePairId,
+    required String tradePairId,
   }) =>
       TradeDeal(
         (b) => b
@@ -19,7 +19,7 @@ abstract class TradeDeal implements Built<TradeDeal, TradeDealBuilder> {
 
   factory TradeDeal.fromApi(
     String tradePairId, {
-    @required Map<String, dynamic> json,
+    required Map<String, dynamic> json,
   }) =>
       TradeDeal(
         (b) => b
@@ -34,7 +34,7 @@ abstract class TradeDeal implements Built<TradeDeal, TradeDealBuilder> {
   static Serializer<TradeDeal> get serializer => _$tradeDealSerializer;
 
   // Serializers
-  static TradeDeal fromJson(Map<String, dynamic> json) {
+  static TradeDeal? fromJson(Map<String, dynamic> json) {
     return deserialize<TradeDeal>(json);
   }
 

@@ -2,14 +2,14 @@ part of admission_domain_module;
 
 class AdmissionActionCreateSubmit extends _BaseAction {
   AdmissionActionCreateSubmit({
-    @required this.coinInfo,
-    @required this.toAddress,
-    @required this.txData,
-    @required this.amount,
-    @required this.onUnlockWallet,
-    @required this.onSuccessTransaction,
-    @required this.onConfirmParams,
-    @required this.onConfirmSubmit,
+    required this.coinInfo,
+    required this.toAddress,
+    required this.txData,
+    required this.amount,
+    required this.onUnlockWallet,
+    required this.onSuccessTransaction,
+    required this.onConfirmParams,
+    required this.onConfirmSubmit,
   });
 
   final AssetCoin coinInfo;
@@ -22,21 +22,18 @@ class AdmissionActionCreateSubmit extends _BaseAction {
   final Future<bool> Function() onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final walletData = await onUnlockWallet();
-    if (walletData == null) {
-      return null;
-    }
 
     final withdrawDataRequest = Completer<WalletWithdrawData>();
     dispatch(WalletActionWithdrawBefore(
       params: WithdrawBeforeParams(
-        chain: coinInfo.chain,
-        symbol: coinInfo.symbol,
-        fromAddress: coinInfo.address,
+        chain: coinInfo.chain ?? '',
+        symbol: coinInfo.symbol ?? '',
+        fromAddress: coinInfo.address ?? '',
         amount: NumberUtil.getDouble(amount),
-        chainPrecision: coinInfo.chainPrecision,
-        contractOrForkId: coinInfo.contract,
+        chainPrecision: coinInfo.chainPrecision ?? 0,
+        contractOrForkId: coinInfo.contract ?? '',
         toAddress: toAddress,
         txData: AppConstants.admissionUUID +
             ByteUtils.strToHex('1608191160$txData'),
@@ -55,7 +52,7 @@ class AdmissionActionCreateSubmit extends _BaseAction {
       params: WithdrawSubmitParams(
         withdrawData: withdrawData,
         amount: NumberUtil.getDouble(amount),
-        chainPrecision: coinInfo.chainPrecision,
+        chainPrecision: coinInfo.chainPrecision ?? 0,
         toAddress: toAddress,
         txData: txData,
         txDataUUID: AppConstants.admissionUUID,
@@ -72,7 +69,7 @@ class AdmissionActionCreateSubmit extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     final newError = parseWalletError(error);
     return newError;
   }

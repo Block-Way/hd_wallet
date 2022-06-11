@@ -2,11 +2,11 @@ part of invest_ui_module;
 
 class LoadingHeader extends StatelessWidget {
   const LoadingHeader({
-    Key key,
+    Key? key,
     this.hasWallet,
   }) : super(key: key);
 
-  final bool hasWallet;
+  final bool? hasWallet;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class LoadingHeader extends StatelessWidget {
       height: 80,
       alignment: Alignment.center,
       child: Text(
-        hasWallet ? tr('global:lbl_loading') : '',
+        (hasWallet ?? false) ? tr('global:lbl_loading') : '',
         style: context.textSmall(color: context.iconColor),
       ),
     );

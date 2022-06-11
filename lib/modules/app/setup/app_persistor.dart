@@ -4,10 +4,10 @@ class AppStatePersistor extends Persistor<AppState> {
   AppStatePersistor(String dbName) {
     persist = LocalPersist(dbName);
   }
-  LocalPersist persist;
+  late LocalPersist persist;
 
   @override
-  Future<AppState> readState() async {
+  Future<AppState?> readState() async {
     // final dbFile = await persist.file();
     final state = await persist.load();
     if (state == null || state.isEmpty) {
@@ -24,11 +24,11 @@ class AppStatePersistor extends Persistor<AppState> {
         noticeState: NoticeState.fromCache(
           state[2] as List<dynamic>,
         ),
-        tradeState: TradeState.fromCache(
-          state[3] as List<dynamic>,
-        ),
+        //tradeState: TradeState.fromCache(
+        //  state[3] as List<dynamic>,
+        //),
         communityState: CommunityState.fromCache(
-          state[4] as List<dynamic>,
+          state[3] as List<dynamic>,
         ),
       );
       return initialState;
@@ -38,32 +38,32 @@ class AppStatePersistor extends Persistor<AppState> {
   }
 
   @override
-  Future<void> deleteState() async {
+  Future<bool> deleteState() async {
     return persist.delete();
   }
 
   @override
   Future<void> persistDifference({
-    AppState lastPersistedState,
-    AppState newState,
+    AppState? lastPersistedState,
+    AppState? newState,
   }) async {
     if (lastPersistedState == null || newState == null) {
       return;
     }
     try {
-      return saveInitialState(newState);
+      saveInitialState(newState);
     } catch (error) {
       return;
     }
   }
 
   @override
-  Future<void> saveInitialState(AppState state) async {
+  Future<File> saveInitialState(AppState state) async {
     return persist.save([
       state.homeState.toCache(),
       state.assetState.toCache(),
       state.noticeState.toCache(),
-      state.tradeState.toCache(),
+      //state.tradeState.toCache(),
       state.communityState.toCache(),
     ]);
   }

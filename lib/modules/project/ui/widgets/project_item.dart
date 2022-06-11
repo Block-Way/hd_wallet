@@ -2,8 +2,8 @@ part of project_ui_module;
 
 class ProjectItem extends HookWidget {
   const ProjectItem({
-    @required this.onPress,
-    @required this.item,
+    required this.onPress,
+    required this.item,
   });
 
   final Function onPress;
@@ -37,7 +37,7 @@ class ProjectItem extends HookWidget {
                   width: context.mediaWidth * 0.8,
                   padding: context.edgeLeft10,
                   child: Text(
-                    item.projectName,
+                    item.projectName ?? '',
                     style: context.textBody(bold: true),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -48,6 +48,7 @@ class ProjectItem extends HookWidget {
               context,
               name: tr('project:list_lbl_price'),
               label: '${item.displayPrice} USDT',
+              child: null,
             ),
             projectLabel(
               context,
@@ -57,10 +58,10 @@ class ProjectItem extends HookWidget {
             projectLabel(
               context,
               name: tr('project:list_lbl_progress'),
-              label: item.displayProgressPair,
+              label: item.displayProgressPair ?? '',
               child: projectProgress(
                 context,
-                item.displayProgress,
+                item.displayProgress ?? 0,
               ),
             ),
           ],
@@ -98,9 +99,9 @@ Widget projectProgress(BuildContext context, double width) {
 
 Widget projectLabel(
   BuildContext context, {
-  String name,
-  String label,
-  Widget child,
+  required String name,
+  required String label,
+  Widget? child,
 }) {
   return Padding(
     padding: context.edgeTop10,

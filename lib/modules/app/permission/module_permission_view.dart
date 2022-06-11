@@ -2,14 +2,14 @@ part of app_module;
 
 class ModelPermissionView extends StatelessWidget {
   const ModelPermissionView({
-    @required this.moduleName,
-    @required this.child,
+    required this.moduleName,
+    required this.child,
     this.onRefreshSuccess,
   });
 
   final Widget child;
   final String moduleName;
-  final void Function() onRefreshSuccess;
+  final void Function()? onRefreshSuccess;
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +112,9 @@ class ModelPermissionView extends StatelessWidget {
                 if (permission == ModulePermissionState.needUpdate) {
                   showUpdateAppDialog(
                     context,
-                    downloadUrl: viewModel.newVersionData.downloadUrl,
-                    description: viewModel.newVersionData.description,
-                    version: viewModel.newVersionData.version,
+                    downloadUrl: viewModel.newVersionData?.downloadUrl ?? '',
+                    description: viewModel.newVersionData?.description ?? '',
+                    version: viewModel.newVersionData?.version ?? '',
                   );
                   return;
                 }
@@ -124,9 +124,7 @@ class ModelPermissionView extends StatelessWidget {
                 viewModel
                     .doRefreshModulePermission(moduleName, permission)
                     .then((value) {
-                  if (onRefreshSuccess != null && value == true) {
-                    onRefreshSuccess();
-                  }
+                  onRefreshSuccess?.call();
                 }).catchError((error) {
                   Toast.showError(error);
                 }).whenComplete(() {

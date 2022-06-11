@@ -2,14 +2,14 @@ part of hdkey_ui_module;
 
 class HDKeyMnemonicItem extends HookWidget {
   const HDKeyMnemonicItem({
-    @required this.item,
+    required this.item,
     this.onDelete,
     this.isRecoverDisable,
   });
 
   final Wallet item;
-  final Function onDelete;
-  final bool isRecoverDisable;
+  final Function? onDelete;
+  final bool? isRecoverDisable;
 
   void showMoreDialog(BuildContext context) {
     showCSBottomSheet(
@@ -33,7 +33,7 @@ class HDKeyMnemonicItem extends HookWidget {
             label: '删除助记词',
             onPress: () {
               AppNavigator.goBack();
-              onDelete();
+              onDelete?.call();
             },
           ),
         ],
@@ -43,8 +43,8 @@ class HDKeyMnemonicItem extends HookWidget {
 
   Widget renderButton(
     BuildContext context, {
-    String btnText,
-    Function() onPress,
+    String? btnText,
+    Function()? onPress,
   }) {
     final color = onPress != null
         ? context.whiteColor
@@ -62,7 +62,7 @@ class HDKeyMnemonicItem extends HookWidget {
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                btnText,
+                btnText ?? '',
                 maxLines: 1,
                 style: context.textSecondary(
                   color: color,
@@ -145,7 +145,7 @@ class HDKeyMnemonicItem extends HookWidget {
             renderButton(
               context,
               btnText: '恢复钱包',
-              onPress: item.isDevice || isRecoverDisable
+              onPress: item.isDevice || (isRecoverDisable ?? false)
                   ? null
                   : () {
                       //

@@ -8,29 +8,29 @@ abstract class HomeBanner implements Built<HomeBanner, HomeBannerBuilder> {
 
   static Serializer<HomeBanner> get serializer => _$homeBannerSerializer;
 
-  static HomeBanner fromJson(Map<String, dynamic> json) {
+  static HomeBanner? fromJson(Map<String, dynamic> json) {
     return deserialize<HomeBanner>(json);
   }
 
-  @nullable
-  int get id;
+  //@nullable
+  int? get id;
 
-  @nullable
-  String get type;
+  //@nullable
+  String? get type;
 
-  @nullable
-  String get title;
+  //@nullable
+  String? get title;
 
-  @nullable
-  String get content;
+  //@nullable
+  String? get content;
 
-  @nullable
-  String get img;
+  //@nullable
+  String? get img;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'bg_img')
-  String get bgImg;
+  String? get bgImg;
 
   @memoized
-  String get imageUrl => AppConfig().getImageUrlFor(img);
+  String get imageUrl => AppConfig().getImageUrlFor(img ?? '');
 }

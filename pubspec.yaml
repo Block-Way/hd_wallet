@@ -69,8 +69,7 @@ dependencies:
   ## dio_flutter_transformer: ^3.0.2
   ## connectivity: ^2.0.2
   connectivity: ^3.0.6
-  #network_flutter:
-  #  git: https://github.com/metabasenetwork/network_flutter2
+  
 
   # UI
   ## oktoast: ^2.3.2
@@ -170,7 +169,6 @@ dependencies:
   cryptography: ^2.0.5
   wallet_sdk_flutter:
     path: ./third_party/wallet_sdk_flutter
-  #https://github.com/metabasenetwork/wallet_sdk_flutter2
   flutter_hdkey:
     path: ./third_party/flutter_hdkey
   flutter_dabank:

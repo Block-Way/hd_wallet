@@ -4,31 +4,31 @@ class TeamCreateParams {
   TeamCreateParams();
 
   factory TeamCreateParams.toApiParams({
-    CommunityInfo type,
-    String name,
-    String desc,
-    String fork,
-    String telegram,
-    String logo,
-    List<String> images,
+    CommunityInfo? type,
+    String? name,
+    String? desc,
+    String? fork,
+    String? telegram,
+    String? logo,
+    List<String>? images,
   }) {
     return TeamCreateParams()
-      ..type = type
-      ..name = name
-      ..desc = desc
-      ..fork = fork
-      ..telegram = telegram
-      ..logo = logo
-      ..images = images;
+      ..type = type!
+      ..name = name!
+      ..desc = desc!
+      ..fork = fork!
+      ..telegram = telegram!
+      ..logo = logo!
+      ..images = images!;
   }
 
-  CommunityInfo type;
-  String name;
-  String desc;
-  String fork;
-  String telegram;
-  String logo;
-  List<String> images;
+  late CommunityInfo type;
+  late String name;
+  late String desc;
+  late String fork;
+  late String telegram;
+  late String logo;
+  late List<String> images;
 
   /// 只有判断 详情图片
   static List<String> getVisible(CommunityTypes type) {
@@ -41,7 +41,7 @@ class TeamCreateParams {
     return baseItem;
   }
 
-  String isValid() {
+  String? isValid() {
     if (logo == null || logo.isEmpty) {
       return 'upload_logo';
     }

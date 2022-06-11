@@ -14,19 +14,25 @@ abstract class ProjectDetailVM
   Future<void> Function(int id) get setActivePool;
 
   static ProjectDetailVM fromStore(Store<AppState> store) {
-    return ProjectDetailVM((viewModel) => viewModel
-      ..getProjectDetail = (projectId) {
-        final completer = Completer<ProjectInfo>();
-        store.dispatch(ProjectActionGetInfo(
-          id: projectId,
-          completer: completer,
-        ));
-        return completer.future;
-      }
-      ..setActivePool = (id) async {
-        return store.dispatchFuture(ProjectActionSetActivePool(
-          id: id,
-        ));
-      });
+    return ProjectDetailVM(
+      (viewModel) => viewModel
+        ..getProjectDetail = (projectId) {
+          final completer = Completer<ProjectInfo>();
+          store.dispatch(
+            ProjectActionGetInfo(
+              id: projectId,
+              completer: completer,
+            ),
+          );
+          return completer.future;
+        }
+        ..setActivePool = (id) {
+          return store.dispatchAsync(
+            ProjectActionSetActivePool(
+              id: id,
+            ),
+          );
+        },
+    );
   }
 }

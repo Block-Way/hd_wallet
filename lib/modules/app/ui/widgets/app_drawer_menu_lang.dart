@@ -2,8 +2,8 @@ part of app_module;
 
 class AppDrawerMenuLanguage extends HookWidget {
   const AppDrawerMenuLanguage({
-    @required this.onSelected,
-    Key key,
+    required this.onSelected,
+    Key? key,
   }) : super(key: key);
 
   final void Function(String) onSelected;

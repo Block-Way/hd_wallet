@@ -24,7 +24,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:mime_type/mime_type.dart';
-import 'package:network_flutter/network_flutter.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path/path.dart' as path;

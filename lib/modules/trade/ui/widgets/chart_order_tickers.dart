@@ -2,8 +2,8 @@ part of trade_ui_module;
 
 class ChartOrderTickers extends StatelessWidget {
   const ChartOrderTickers({
-    @required this.tradePair,
-    Key key,
+    required this.tradePair,
+    Key? key,
   }) : super(key: key);
 
   final TradePair tradePair;
@@ -23,21 +23,33 @@ class ChartOrderTickers extends StatelessWidget {
                   'trade:chart_lbl_amount_buy',
                   namedArgs: {'symbol': tradePair.tradeSymbol},
                 ),
-                style: context.textTiny(color: textColor),
+                style: context.textTiny(
+                  color: textColor,
+                  bold: true,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               Text(
                 tr(
                   'trade:chart_lbl_price',
                   namedArgs: {'symbol': tradePair.priceSymbol},
                 ),
-                style: context.textTiny(color: textColor),
+                style: context.textTiny(
+                  color: textColor,
+                  bold: true,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               Text(
                 tr(
                   'trade:chart_lbl_amount_sell',
                   namedArgs: {'symbol': tradePair.tradeSymbol},
                 ),
-                style: context.textTiny(color: textColor),
+                style: context.textTiny(
+                  color: textColor,
+                  bold: true,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ],
           ),

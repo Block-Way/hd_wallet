@@ -3,13 +3,13 @@ part of app_module;
 // Global cache
 class AppHiveCache {
   static const encryptionKeyLocation = 'Sugar@PublicKey';
-  static Directory storageLocation;
+  static Directory? storageLocation;
 
   static Future<void> initHive() async {
     storageLocation = await getApplicationDocumentsDirectory();
 
     // Init configuration
-    Hive.init(storageLocation.path);
+    Hive.init(storageLocation?.path);
 
     // Init Project Modules
     await moduleCommonInitHive();

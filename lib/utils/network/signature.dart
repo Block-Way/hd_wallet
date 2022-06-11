@@ -14,6 +14,7 @@ Future<String> getAuthSignature(
   String walletId,
   Map<String, dynamic> data,
 ) async {
+  /*
   final timestamp = SystemDate.getTime();
   final paths = [2, 4, 8, 7, 3, 1, 6, 2, 0];
   final walletSign = paths.map((e) => walletId[e]).join();
@@ -40,4 +41,6 @@ Future<String> getAuthSignature(
     utf8.encode('$walletId::$timestamp::$signatureString'),
   );
   return auth;
+  */
+  return '';
 }

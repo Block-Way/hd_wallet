@@ -16,21 +16,23 @@ class CommunityActionLoadConfig extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
 
 class CommunityActionLoadConfigAfter extends _BaseAction {
   @override
-  AppState reduce() {
+  AppState? reduce() {
+    /*
     final isError = communityConfig == null ||
         communityConfig.ecological == null ||
-        communityConfig.ecological.isEmpty;
+        (communityConfig.ecological?.isEmpty ?? true);
 
     return store.state.rebuild(
       (a) => a.communityState.configState =
           isError ? ConfigState.error.index : ConfigState.success.index,
-    );
+    );*/
+    return null;
   }
 }

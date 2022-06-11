@@ -3,7 +3,7 @@ part of themes;
 extension DecorationStyles on BuildContext {
   /// - Radius 12px
   /// - Color  #FFFFFF
-  BoxDecoration boxDecoration({Color color, double radius}) {
+  BoxDecoration boxDecoration({Color? color, double? radius}) {
     return BoxDecoration(
       borderRadius: BorderRadius.all(
         Radius.circular(radius ?? edgeSize),
@@ -12,7 +12,7 @@ extension DecorationStyles on BuildContext {
     );
   }
 
-  BoxDecoration boxDecorationOnlyTop({Color color, double radius}) {
+  BoxDecoration boxDecorationOnlyTop({Color? color, double? radius}) {
     return BoxDecoration(
       borderRadius: BorderRadius.vertical(
         top: Radius.circular(radius ?? edgeSize),
@@ -21,7 +21,7 @@ extension DecorationStyles on BuildContext {
     );
   }
 
-  BoxDecoration boxDecorationOnlyBottom({Color color, double radius}) {
+  BoxDecoration boxDecorationOnlyBottom({Color? color, double? radius}) {
     return BoxDecoration(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(radius ?? edgeSize),
@@ -30,7 +30,7 @@ extension DecorationStyles on BuildContext {
     );
   }
 
-  BoxDecoration boxDecorationOnlyLeft({Color color, double radius}) {
+  BoxDecoration boxDecorationOnlyLeft({Color? color, double? radius}) {
     return BoxDecoration(
       borderRadius: BorderRadius.horizontal(
         left: Radius.circular(radius ?? edgeSize),
@@ -40,10 +40,10 @@ extension DecorationStyles on BuildContext {
   }
 
   BoxDecoration boxDecorationWithBorder({
-    Color color,
-    double radius,
-    Color borderColor,
-    double borderWidth,
+    Color? color,
+    double? radius,
+    Color? borderColor,
+    double? borderWidth,
     bool radiusTopLeft = true,
     bool radiusTopRight = true,
     bool radiusBottomLeft = true,
@@ -52,7 +52,7 @@ extension DecorationStyles on BuildContext {
     final radiusStyle = Radius.circular(radius ?? edgeSize);
     return BoxDecoration(
       border: Border.all(
-        color: borderColor ?? borderColor,
+        color: borderColor ?? borderColor ?? Colors.white,
         width: borderWidth ?? 1,
       ),
       borderRadius: BorderRadius.only(
@@ -65,7 +65,7 @@ extension DecorationStyles on BuildContext {
     );
   }
 
-  BoxDecoration boxCardShadow({Color color, double radius}) {
+  BoxDecoration boxCardShadow({Color? color, double? radius}) {
     return BoxDecoration(
       color: color ?? mainColor,
       borderRadius: BorderRadius.all(
@@ -83,16 +83,16 @@ extension DecorationStyles on BuildContext {
   }
 
   BoxDecoration boxCardBorder({
-    Color color,
-    Color borderColor,
-    double borderWidth,
+    Color? color,
+    Color? borderColor,
+    double? borderWidth,
     bool top = true,
     bool bottom = true,
     bool left = true,
     bool right = true,
   }) {
     final borderStyle = BorderSide(
-      color: borderColor ?? borderColor,
+      color: borderColor ?? borderColor ?? Colors.white,
       width: borderWidth ?? 1,
     );
     return BoxDecoration(

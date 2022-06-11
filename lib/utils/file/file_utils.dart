@@ -17,7 +17,7 @@ class FileUtils {
   static Future<dynamic> saveImage(
     Uint8List imageBytes, {
     int quality = 80,
-    String name,
+    String? name,
   }) async {
     assert(imageBytes != null);
 
@@ -43,7 +43,7 @@ class FileUtils {
   /// Save image to private cache path
   static Future<String> saveImageToCache(
     Uint8List imageBytes, {
-    String name,
+    String? name,
   }) async {
     assert(imageBytes != null);
 

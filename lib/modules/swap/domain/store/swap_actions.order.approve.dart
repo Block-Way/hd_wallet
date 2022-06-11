@@ -2,33 +2,34 @@ part of swap_domain_module;
 
 class SwapActionSwapApprove extends _BaseAction {
   SwapActionSwapApprove({
-    @required this.outCoinInfo,
-    @required this.outCoinConfig,
-    @required this.onConfirmSubmit,
-    @required this.onUnlockWallet,
-    @required this.onSuccessTransaction,
+    required this.outCoinInfo,
+    required this.outCoinConfig,
+    required this.onConfirmSubmit,
+    required this.onUnlockWallet,
+    required this.onSuccessTransaction,
   });
 
   final AssetCoin outCoinInfo;
   final SwapConfigCoin outCoinConfig;
   final Future<WalletPrivateData> Function() onUnlockWallet;
   final Future<bool> Function({
-    @required WalletTemplateData approveData,
-    @required double currentBalance,
-    @required double approveAmount,
-    @required bool needReset,
+    required WalletTemplateData approveData,
+    required double currentBalance,
+    required double approveAmount,
+    required bool needReset,
   }) onConfirmSubmit;
   final void Function(String txId) onSuccessTransaction;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     // Get balance again to double check
     final currentBalance = await SwapRepository().getApproveBalance(
-      chain: outCoinInfo.chain,
-      symbol: outCoinInfo.symbol,
-      address: outCoinInfo.address,
-      contract: outCoinInfo.contract,
-      chainPrecision: outCoinInfo.chainPrecision,
+      chain: outCoinInfo.chain ?? '',
+      symbol: outCoinInfo.symbol ?? '',
+      address: outCoinInfo.address ?? '',
+      contract: outCoinInfo.contract ?? '',
+      chainPrecision: outCoinInfo.chainPrecision ?? 0,
     );
 
     // If I call this function and I have approve balance,
@@ -105,12 +106,13 @@ class SwapActionSwapApprove extends _BaseAction {
     )));
 
     onSuccessTransaction(txId);
-
+    */
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    return parseWalletError(error);
+  Object? wrapError(dynamic error) {
+    //return parseWalletError(error);
+    return error;
   }
 }

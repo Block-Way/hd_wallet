@@ -2,10 +2,10 @@ part of trade_ui_module;
 
 class HomeTickersCard extends HookWidget {
   const HomeTickersCard({
-    @required this.tradePair,
-    @required this.onPressed,
-    @required this.onChangeSpan,
-    Key key,
+    required this.tradePair,
+    required this.onPressed,
+    required this.onChangeSpan,
+    Key? key,
   }) : super(key: key);
 
   final TradePair tradePair;
@@ -43,8 +43,14 @@ class HomeTickersCard extends HookWidget {
             child: RowItemBar(
               tr('trade:order_book_lbl_price'),
               tr('trade:order_book_lbl_amount'),
-              textStyle: context.textSmall(),
-              valueStyle: context.textSmall(),
+              textStyle: context.textSmall(
+                bold: true,
+                fontWeight: FontWeight.normal,
+              ),
+              valueStyle: context.textSmall(
+                bold: true,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ),
           SizedBox(height: 9),
@@ -125,7 +131,10 @@ class HomeTickersCard extends HookWidget {
                     currentSpan == '0'
                         ? tr('trade:order_ticker_lbl_default')
                         : currentSpan,
-                    style: context.textTinyPrice(),
+                    style: context.textTinyPrice(
+                      bold: true,
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
                 ),
               ),
@@ -185,11 +194,12 @@ void showTickerSideMenuDialog(
       color: selected == 2 ? context.primaryColor : null,
     ),
   ];
+  /*
   showOptionsDialog<int>(
     context,
     options: options,
     onSelected: onSelected,
-  );
+  );*/
 }
 
 void showTickerSpanMenuDialog(
@@ -207,10 +217,10 @@ void showTickerSpanMenuDialog(
         ),
       )
       .toList();
-
+  /*
   showOptionsDialog<String>(
     context,
     options: options,
     onSelected: onSelected,
-  );
+  );*/
 }

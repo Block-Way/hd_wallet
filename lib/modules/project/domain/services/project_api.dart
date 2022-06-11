@@ -1,6 +1,7 @@
 part of project_domain_module;
 
 class ProjectApi {
+  /*
   Future<Map<String, dynamic>> getProjectInfo({
     @required int id,
   }) {
@@ -37,4 +38,5 @@ class ProjectApi {
       '/v1/config/creation',
     );
   }
+  */
 }

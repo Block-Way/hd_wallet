@@ -1,7 +1,7 @@
 part of common_domain_module;
 
 class CommonRepository {
-  factory CommonRepository([CommonApi _api]) {
+  factory CommonRepository([CommonApi? _api]) {
     _instance._api = _api ?? CommonApi();
     return _instance;
   }
@@ -9,8 +9,8 @@ class CommonRepository {
 
   static final _instance = CommonRepository._internal();
 
-  CommonApi _api;
-  Box<Settings> _settings;
+  late CommonApi _api;
+  late Box<Settings> _settings;
 
   static const _settingsCacheKey = 'settings_v1';
 // Methods
@@ -28,7 +28,7 @@ class CommonRepository {
     }
   }
 
-  Settings getSettings() {
+  Settings? getSettings() {
     if (_settings.get(_settingsCacheKey) == null) {
       final settings = Settings(
         fiatCurrency: AppConstants.defaultCurrency,
@@ -65,7 +65,7 @@ class CommonRepository {
         }
       }
     };
-    return Config.fromJson(json);
+    return Config.fromJson(json)!;
   }
 
   Future<String> getApiDns() async {
@@ -104,10 +104,10 @@ class CommonRepository {
         'disable_functions': {}
       }
     };
-    return ConfigUpdate.fromJson(json);
+    return ConfigUpdate.fromJson(json)!;
   }
 
-  Future<ConfigUpdateData> getLastVersionBeta() async {
+  Future<ConfigUpdateData?> getLastVersionBeta() async {
     debugPrint('getLastVersionBeta');
     return null;
     /* 没有可以下载的版本

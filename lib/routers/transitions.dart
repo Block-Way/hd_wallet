@@ -14,7 +14,7 @@ class DefaultTransition<T> extends MaterialPageRoute<T> {
 }
 
 class FadeRoute extends PageRouteBuilder {
-  FadeRoute({this.page, this.settings})
+  FadeRoute({required this.page, required this.settings})
       : super(
           pageBuilder: (
             context,
@@ -39,7 +39,7 @@ class FadeRoute extends PageRouteBuilder {
 }
 
 class EnterExitRoute extends PageRouteBuilder {
-  EnterExitRoute({this.exitPage, this.enterPage})
+  EnterExitRoute({required this.exitPage, required this.enterPage})
       : super(
           pageBuilder: (
             context,
@@ -86,13 +86,13 @@ class RevealRoute extends PageRouteBuilder {
   /// The transition doesn't affect the entry screen so we will only touch
   /// the target screen.
   RevealRoute({
-    @required this.page,
-    @required this.maxRadius,
+    required this.page,
+    required this.maxRadius,
+    required this.settings,
+    this.centerOffset,
     this.minRadius = 100,
     this.duration = 1000,
     this.centerAlignment = Alignment.center,
-    this.centerOffset,
-    this.settings,
   }) : super(
           transitionDuration: Duration(milliseconds: duration),
           pageBuilder: (
@@ -126,7 +126,7 @@ class RevealRoute extends PageRouteBuilder {
 
   final Widget page;
   final Alignment centerAlignment;
-  final Offset centerOffset;
+  final Offset? centerOffset;
   final int duration;
   final double minRadius;
   final double maxRadius;
@@ -136,8 +136,8 @@ class RevealRoute extends PageRouteBuilder {
 
 class CircularRevealClipper extends CustomClipper<Path> {
   const CircularRevealClipper({
-    @required this.fraction,
-    this.centerAlignment,
+    required this.fraction,
+    required this.centerAlignment,
     this.centerOffset,
     this.minRadius,
     this.maxRadius,
@@ -145,15 +145,13 @@ class CircularRevealClipper extends CustomClipper<Path> {
 
   final double fraction;
   final Alignment centerAlignment;
-  final Offset centerOffset;
-  final double minRadius;
-  final double maxRadius;
+  final Offset? centerOffset;
+  final double? minRadius;
+  final double? maxRadius;
 
   @override
   Path getClip(Size size) {
-    final center = centerAlignment?.alongSize(size) ??
-        centerOffset ??
-        Offset(size.width / 2, size.height / 2);
+    final center = centerAlignment.alongSize(size);
     final minRadius = this.minRadius ?? 0;
     final maxRadius = this.maxRadius ?? calcMaxRadius(size, center);
 
@@ -161,7 +159,7 @@ class CircularRevealClipper extends CustomClipper<Path> {
       ..addOval(
         Rect.fromCircle(
           center: center,
-          radius: lerpDouble(minRadius, maxRadius, fraction),
+          radius: lerpDouble(minRadius, maxRadius, fraction) ?? 0,
         ),
       );
   }

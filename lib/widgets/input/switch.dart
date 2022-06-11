@@ -2,14 +2,14 @@ part of widgets;
 
 class CSSwitch extends HookWidget {
   const CSSwitch({
-    @required this.value,
-    Key key,
+    required this.value,
+    Key? key,
     this.onChanged,
     this.onChangedBack,
   }) : super(key: key);
 
-  final bool Function(bool value) onChangedBack;
-  final ValueChanged<bool> onChanged;
+  final bool Function(bool value)? onChangedBack;
+  final ValueChanged<bool>? onChanged;
   final bool value;
 
   @override
@@ -24,11 +24,11 @@ class CSSwitch extends HookWidget {
           value: isActive.value, // 设置值，true开，false关
           onChanged: (value) {
             if (onChangedBack != null) {
-              if (onChangedBack(value)) {
+              if (onChangedBack?.call(value) ?? false) {
                 isActive.value = value;
               }
             } else {
-              onChanged(value);
+              onChanged?.call(value);
               isActive.value = value;
             }
           }, // 值变化时调用

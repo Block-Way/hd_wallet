@@ -2,8 +2,8 @@ part of asset_domain_module;
 
 class AssetBalanceInfo {
   AssetBalanceInfo({
-    @required this.symbol,
-    @required this.address,
+    required this.symbol,
+    required this.address,
     this.balance = 0,
     this.unconfirmed = 0,
   });

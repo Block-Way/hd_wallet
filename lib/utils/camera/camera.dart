@@ -18,9 +18,9 @@ class ImageResult {
 class CameraUtils {
   static Uint8List base64ToFile(String image) => base64.decode(image);
 
-  static Future<ImageResult> openCamera({
+  static Future<ImageResult?> openCamera({
     bool getBase64 = false,
-    double maxWidth,
+    double? maxWidth,
   }) async {
     final permission = await Permission.camera.request();
     if (permission != PermissionStatus.granted) {
@@ -34,7 +34,7 @@ class CameraUtils {
       maxWidth: maxWidth,
     );
 
-    if (pickedFile == null || pickedFile.path?.isEmpty == true) {
+    if (pickedFile == null || pickedFile.path.isEmpty == true) {
       return null;
     }
 
@@ -49,9 +49,9 @@ class CameraUtils {
     return result;
   }
 
-  static Future<ImageResult> openGallery({
+  static Future<ImageResult?> openGallery({
     bool getBase64 = false,
-    double maxWidth,
+    double? maxWidth,
   }) async {
     final func = Platform.isIOS ? Permission.photos : Permission.storage;
     final permission = await func.request();
@@ -65,7 +65,7 @@ class CameraUtils {
       maxWidth: maxWidth,
     );
 
-    if (pickedFile == null || pickedFile.path?.isEmpty == true) {
+    if (pickedFile == null || pickedFile.path.isEmpty == true) {
       return null;
     }
 

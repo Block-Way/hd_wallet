@@ -12,8 +12,8 @@ class CoinConfig {
       symbols.add(symbol);
       displayPrecisions[symbol] = value.displayPrecision;
       transferMinQuotas['${value.chain}_${value.symbol}'] =
-          value.transferMinQuota;
-      feeLevels['${value.chain}_${value.symbol}'] = value.hdWalletFeeLevel;
+          value.transferMinQuota ?? 0;
+      feeLevels['${value.chain}_${value.symbol}'] = value.hdWalletFeeLevel!;
     });
   }
 
@@ -33,11 +33,11 @@ class CoinConfig {
     return displayPrecisions[symbol] ?? 8;
   }
 
-  double getTransferMinQuota({String chain, String symbol}) {
+  double getTransferMinQuota({required String chain, required String symbol}) {
     return transferMinQuotas['${chain}_$symbol'] ?? 0;
   }
 
-  ConfigCoinFee getFeeLevel({String chain, String symbol}) {
+  ConfigCoinFee? getFeeLevel({required String chain, required String symbol}) {
     return feeLevels['${chain}_$symbol'];
   }
 }

@@ -2,12 +2,12 @@ part of trade_ui_module;
 
 class ChartKLine extends HookWidget {
   const ChartKLine({
-    @required this.chartDataStream,
-    @required this.chartDepthStream,
-    @required this.chartIsLoading,
-    @required this.selectedResolution,
-    @required this.onChangeResolution,
-    Key key,
+    required this.chartDataStream,
+    required this.chartDepthStream,
+    required this.chartIsLoading,
+    required this.selectedResolution,
+    required this.onChangeResolution,
+    Key? key,
     this.isFullScreen = false,
   }) : super(key: key);
 
@@ -70,8 +70,8 @@ class ChartKLine extends HookWidget {
                   height: isFullScreen ? chartHeight : 450,
                   width: double.infinity,
                   child: DepthChart(
-                    depthData.data != null ? depthData.data['bids'] : [],
-                    depthData.data != null ? depthData.data['asks'] : [],
+                    [],
+                    [],
                   ),
                 ),
               if (selectedResolution.id != 'depth')
@@ -79,19 +79,19 @@ class ChartKLine extends HookWidget {
                   height: isFullScreen ? chartHeight : 450,
                   width: double.infinity,
                   child: KChartWidget(
-                    chartData.data,
+                    chartData.data!,
                     isLine: isLine.value,
                     mainState: mainState.value,
                     secondaryState: secondaryState.value,
                     fractionDigits: 4,
-                    infoNames: infoNames,
-                    key: kChartWidgetKey,
+                    //infoNames: infoNames,
+                    //key: kChartWidgetKey,
                   ),
                 ),
               StreamBuilder<bool>(
                 stream: chartIsLoading,
                 initialData: true,
-                builder: (context, snapshot) => snapshot.data
+                builder: (context, snapshot) => snapshot.data ?? false
                     ? AnimatedContainer(
                         duration: Duration(milliseconds: 500),
                         width: double.infinity,

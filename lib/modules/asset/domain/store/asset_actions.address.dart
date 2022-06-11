@@ -35,18 +35,20 @@ class AssetActionAddressList extends _BaseAction {
 
   @override
   Future<void> before() async {
-    await store.dispatchFuture(AssetActionAddressListSaveRequestId(requestId));
+    await store.dispatchAsync(AssetActionAddressListSaveRequestId(requestId));
   }
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    return null;
+    /*
     var result = <AssetAddress>[];
     if (isLocal) {
       final wallets = store.state.walletState.wallets
           .where((e) => e.id != store.state.walletState.activeWalletId);
       if (wallets != null && wallets.isNotEmpty) {
         for (final wallet in wallets) {
-          final address = wallet.getCoinAddressByChain(coinInfo.chain);
+          final address = wallet.getCoinAddressByChain(coinInfo.chain ?? '');
           if (address != null && address.isNotEmpty) {
             result.add(AssetAddress.fromLocal(
               walletName: wallet.name,
@@ -72,7 +74,7 @@ class AssetActionAddressList extends _BaseAction {
 
     return state.rebuild(
       (a) => a..assetState.addressList.replace(result),
-    );
+    );*/
   }
 }
 
@@ -87,7 +89,8 @@ class AssetActionAddressEdit extends _BaseAction {
   final bool isDelete;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = store.state.walletState.activeWalletId;
     // delete
     if (isDelete == true) {
@@ -122,6 +125,7 @@ class AssetActionAddressEdit extends _BaseAction {
     try {
       await store.dispatchFuture(AssetActionAddressList(coinInfo, ''));
     } catch (_) {}
+    */
     return null;
   }
 }

@@ -2,7 +2,7 @@ part of dialogs;
 
 Future<void> showSelectCameraImageDialog(
   BuildContext context, {
-  void Function(ImageResult) onSelectedFile,
+  void Function(ImageResult)? onSelectedFile,
 }) async {
   final options = [
     CSOptionsItem(
@@ -20,9 +20,9 @@ Future<void> showSelectCameraImageDialog(
     onSelected: (type) {
       if (type == 'camera') {
         CameraUtils.openCamera().then((value) {
-          if (value != null) {
-            onSelectedFile(value);
-          }
+          //if (value != null) {
+          onSelectedFile?.call(value!);
+          //}
         }).catchError((error) {
           if (error is ImagePermissionCameraError) {
             showConfirmDialog(
@@ -44,9 +44,9 @@ Future<void> showSelectCameraImageDialog(
         });
       } else if (type == 'gallery') {
         CameraUtils.openGallery().then((value) {
-          if (value != null) {
-            onSelectedFile(value);
-          }
+          //if (value != null) {
+          onSelectedFile?.call(value!);
+          //}
         }).catchError((error) {
           if (error is ImagePermissionGalleryError) {
             showConfirmDialog(

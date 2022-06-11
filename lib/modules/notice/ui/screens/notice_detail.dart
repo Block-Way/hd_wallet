@@ -5,12 +5,12 @@ class NoticeDetailPage extends StatelessWidget {
     this.item,
     this.itemId,
   );
-  final NoticeInfo item;
-  final int itemId;
+  final NoticeInfo? item;
+  final int? itemId;
 
   static const routeName = '/notice/detail';
 
-  static void open(NoticeInfo item, [int itemId]) {
+  static void open(NoticeInfo item, [int? itemId]) {
     AppNavigator.push(routeName, params: MapEntry(itemId ?? item.id, item));
   }
 
@@ -34,18 +34,20 @@ class NoticeDetailPage extends StatelessWidget {
         padding: context.edgeBottom,
         child: StoreConnector<AppState, NoticeDetailVM>(
           onInit: (store) {
-            store.dispatch(NoticeActionGetDetail(itemId ?? item.id));
+            store.dispatch(NoticeActionGetDetail(itemId ?? 0));
           },
           distinct: true,
           converter: NoticeDetailVM.fromStore,
           builder: (context, viewModel) => viewModel.noticeDetail != null &&
-                  viewModel.noticeDetail.id == itemId
+                  viewModel.noticeDetail?.id == itemId
               ? Column(
-                  children: viewModel.noticeDetail.shareImgWithUrl
-                      .map((imgUrl) => CSImage(
-                            imgUrl,
-                            width: width,
-                          ))
+                  children: viewModel.noticeDetail!.shareImgWithUrl
+                      .map(
+                        (imgUrl) => CSImage(
+                          imgUrl,
+                          width: width,
+                        ),
+                      )
                       .toList(),
                 )
               : Container(),

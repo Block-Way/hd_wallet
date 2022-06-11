@@ -3,7 +3,7 @@ part of widgets;
 class CSImage extends StatelessWidget {
   const CSImage(
     this.imageUrl, {
-    Key key,
+    Key? key,
     this.height,
     this.width,
     this.radius = 0,
@@ -18,14 +18,14 @@ class CSImage extends StatelessWidget {
 
   final bool showLoading;
   final String imageUrl;
-  final String fallbackUrl;
-  final double height;
-  final double width;
+  final String? fallbackUrl;
+  final double? height;
+  final double? width;
   final double radius;
   final BoxFit fit;
-  final Color backgroundColor;
-  final Color borderColor;
-  final bool bordered;
+  final Color? backgroundColor;
+  final Color? borderColor;
+  final bool? bordered;
   final bool placeholderUseLoading;
 
   @override
@@ -50,7 +50,7 @@ class CSImage extends StatelessWidget {
             if (showLoading)
               Center(
                 child: CSProgressIndicator(
-                  size: height / 3,
+                  size: (height ?? 0) / 3,
                   strokeWidth: 1.5,
                   color: context.primaryColor,
                 ),
@@ -64,14 +64,14 @@ class CSImage extends StatelessWidget {
                       placeholder: (context, _) =>
                           fallbackUrl != null && placeholderUseLoading == true
                               ? Image.asset(
-                                  fallbackUrl,
+                                  fallbackUrl ?? '',
                                   fit: fit,
                                   height: height,
                                   width: width,
                                 )
                               : Center(
                                   child: CSProgressIndicator(
-                                    size: height / 3,
+                                    size: (height ?? 0) / 3,
                                     color: context.primaryColor,
                                   ),
                                 ),
@@ -86,7 +86,7 @@ class CSImage extends StatelessWidget {
                       ),
                     )
                   : Image.asset(
-                      imageUrl ?? fallbackUrl,
+                      imageUrl,
                       fit: fit,
                       height: height,
                       width: width,

@@ -10,7 +10,7 @@ class _ErrorTip {
 }
 
 class PasswordCheckTip extends StatefulWidget {
-  const PasswordCheckTip({Key key}) : super(key: key);
+  const PasswordCheckTip({Key? key}) : super(key: key);
 
   @override
   PasswordCheckTipState createState() => PasswordCheckTipState();
