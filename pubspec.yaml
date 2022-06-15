@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  
   # Internationalization
   flutter_localizations:
     sdk: flutter
@@ -69,7 +69,7 @@ dependencies:
   ## dio_flutter_transformer: ^3.0.2
   ## connectivity: ^2.0.2
   connectivity: ^3.0.6
-
+  
 
   # UI
   ## oktoast: ^2.3.2
@@ -276,13 +276,6 @@ flutter:
     - assets/images/app_default_logo.png
     - assets/images/2.0x/app_default_logo.png
     - assets/images/2.0x/app_default_logo.png
-    - assets/images/wallet_active.png
-    - assets/images/invest_active.png
-    - assets/images/home_active.png
-    - assets/images/wallet_unselected.png
-    - assets/images/invest_unselected.png
-    - assets/images/home_unselected.png
-    - assets/images/start_page.jpg
     # Images - 第三方市场
     - assets/images/wallet_binance.png
     - assets/images/wallet_bitfinex.png

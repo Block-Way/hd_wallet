@@ -2,16 +2,16 @@ part of app_module;
 
 class TabBarItem {
   TabBarItem(
-      this.screen,
-      this.label,
-      this.iconDefault,
-      this.iconSelect,
-      this.iconRive,
-      this.animationName, {
-        this.isVisible = true,
-      });
+    this.screen,
+    this.label,
+    this.iconDefault,
+    this.iconSelect,
+    this.iconRive,
+    this.animationName, {
+    this.isVisible = true,
+  });
 
-  int index;
+  int? index;
   final Widget screen;
   final String label;
   final String iconDefault;
@@ -33,7 +33,7 @@ class AppMainPage extends HookWidget {
   }
 
   static void openDrawer() {
-    _scaffoldKey.currentState.openDrawer();
+    _scaffoldKey.currentState?.openDrawer();
   }
 
   static void open() {
@@ -92,11 +92,11 @@ class AppMainPage extends HookWidget {
   final pageBucket = PageStorageBucket();
 
   Widget renderImageTabItem(
-      BuildContext context,
-      TabBarItem item,
-      int currentTab,
-      Function(int) onSelected,
-      ) {
+    BuildContext context,
+    TabBarItem item,
+    int currentTab,
+    Function(int) onSelected,
+  ) {
     final isSelect = currentTab == item.index;
     final color = isSelect ? context.bodyColor : context.secondaryColor;
     final iconPath = isSelect ? item.iconSelect : item.iconDefault;
@@ -109,8 +109,8 @@ class AppMainPage extends HookWidget {
       child: InkWell(
         onTap: isVisible
             ? () {
-          onSelected(item.index);
-        }
+                onSelected(item.index ?? 0);
+              }
             : null,
         child: AnimatedContainer(
           duration: Duration(milliseconds: 200),
@@ -142,11 +142,11 @@ class AppMainPage extends HookWidget {
   }
 
   Widget renderAnimatedTabItem(
-      BuildContext context,
-      TabBarItem item,
-      int currentTab,
-      Function(int) onSelected,
-      ) {
+    BuildContext context,
+    TabBarItem item,
+    int currentTab,
+    Function(int) onSelected,
+  ) {
     final isSelected = currentTab == item.index;
     // final color = isSelected ? context.bodyColor : context.secondaryColor;
     final color = Color(0xFFE2ECF7);
@@ -156,7 +156,7 @@ class AppMainPage extends HookWidget {
       key: ValueKey(item.iconRive),
       onTap: () {
         Toast.hide();
-        onSelected(item.index);
+        onSelected(item.index ?? 0);
       },
       child: SizedBox(
         width: menuTabItemWidth,
@@ -197,7 +197,7 @@ class AppMainPage extends HookWidget {
       });
       final subTab = _tabChanger.stream.listen((tabIndex) {
         currentTab.value =
-        tabIndex > tabBarItems.length ? tabBarItems.length : tabIndex;
+            tabIndex > tabBarItems.length ? tabBarItems.length : tabIndex;
       });
       return () {
         subTab.cancel();
@@ -239,23 +239,23 @@ class AppMainPage extends HookWidget {
                 bottom: 40,
                 child: AnimatedSwitcher(
                   duration: Duration(milliseconds: 350),
-                  child: status.data // true if is offline
+                  child: (status.data ?? false) // true if is offline
                       ? Container(
-                    height: 40,
-                    width: 220,
-                    padding: context.edgeHorizontal,
-                    alignment: Alignment.center,
-                    decoration: context.boxDecoration(
-                      color: context.redColor.withOpacity(0.8),
-                      radius: 20,
-                    ),
-                    child: Text(
-                      tr('global:msg_app_offline'),
-                      style: context.textSecondary(
-                        color: context.whiteColor,
-                      ),
-                    ),
-                  )
+                          height: 40,
+                          width: 220,
+                          padding: context.edgeHorizontal,
+                          alignment: Alignment.center,
+                          decoration: context.boxDecoration(
+                            color: context.redColor.withOpacity(0.8),
+                            radius: 20,
+                          ),
+                          child: Text(
+                            tr('global:msg_app_offline'),
+                            style: context.textSecondary(
+                              color: context.whiteColor,
+                            ),
+                          ),
+                        )
                       : SizedBox(),
                 ),
               ),
@@ -263,118 +263,37 @@ class AppMainPage extends HookWidget {
           ],
         ),
         bottomNavigationBar: BottomAppBar(
-          color: context.cardColor,
+          color: context.bgPrimaryColor,
           shape: CircularNotchedRectangle(),
           elevation: 0.0,
-          child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    currentTab.value = 0;
-                    print('${currentTab.value}');
-                  },
-                  child: Container(
-                      padding: EdgeInsets.only(top: 8.0),
-                      height: 50,
-                      child: Column(
-                          children: [
-                            Image(
-                                image: currentTab.value == 0 ? AssetImage("assets/images/wallet_active.png") : AssetImage("assets/images/wallet_unselected.png"),
-                                width: 20.0
-                            ),
-                            Text(
-                              tr('global:main_tab_wallet'),
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: currentTab.value == 0 ? context.bottomTabCheckedColor : Colors.grey[600]
-                              ),
-                            )
-                          ]
-                      )
-                  ),
+          child: Container(
+            decoration: BoxDecoration(
+              // color: context.bgPrimaryColor,
+              color: Color(0xFF24282D),
+              boxShadow: [
+                BoxShadow(
+                  color: context.blackColor.withOpacity(0.1),
+                  blurRadius: 0.5,
+                  offset: Offset(0, -1),
                 ),
-                InkWell(
-                  onTap: () {
-                    currentTab.value = 1;
-                    print('${currentTab.value}');
-                  },
-                  child: Container(
-                      padding: EdgeInsets.only(top: 8.0),
-                      height: 50,
-                      child: Column(
-                          children: [
-                            Image(
-                                image: currentTab.value == 1 ? AssetImage("assets/images/home_active.png") : AssetImage("assets/images/home_unselected.png"),
-                                width: 20.0
-                            ),
-                            Text(
-                              tr('global:main_tab_home'),
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: currentTab.value == 1 ? context.bottomTabCheckedColor : Colors.grey[600]
-                              ),
-                            )
-                          ]
-                      )
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    currentTab.value = 2;
-                    print('${currentTab.value}');
-                  },
-                  child: Container(
-                      padding: EdgeInsets.only(top: 8.0),
-                      height: 50,
-                      child: Column(
-                          children: [
-                            Image(
-                                image: currentTab.value == 2 ? AssetImage("assets/images/invest_active.png") : AssetImage("assets/images/invest_unselected.png"),
-                                width: 20.0
-                            ),
-                            Text(
-                              tr('global:main_tab_invest'),
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: currentTab.value == 2 ?  context.bottomTabCheckedColor : Colors.grey[600]
-                              ),
-                            )
-                          ]
-                      )
-                  ),
-                ),
-              ]
+              ],
+            ),
+            height: 52,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: tabBarItems
+                  .map((item) => renderAnimatedTabItem(
+                        context,
+                        item,
+                        currentTab.value,
+                        (index) {
+                          currentTab.value = index;
+                        },
+                      ))
+                  .toList(),
+            ),
           ),
-          // child: Container(
-          //   decoration: BoxDecoration(
-          //     // color: context.bgPrimaryColor,
-          //     color: Color(0xFF24282D),
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: context.blackColor.withOpacity(0.1),
-          //         blurRadius: 0.5,
-          //         offset: Offset(0, -1),
-          //       ),
-          //     ],
-          //   ),
-          //   height: 52,
-          //   width: double.infinity,
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: tabBarItems
-          //         .map((item) => renderAnimatedTabItem(
-          //               context,
-          //               item,
-          //               currentTab.value,
-          //               (index) {
-          //                 currentTab.value = index;
-          //               },
-          //             ))
-          //         .toList(),
-          //   ),
-          // ),
         ),
       ),
     );
