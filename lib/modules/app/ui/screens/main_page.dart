@@ -263,37 +263,118 @@ class AppMainPage extends HookWidget {
           ],
         ),
         bottomNavigationBar: BottomAppBar(
-          color: context.bgPrimaryColor,
+          color: context.cardColor,
           shape: CircularNotchedRectangle(),
           elevation: 0.0,
-          child: Container(
-            decoration: BoxDecoration(
-              // color: context.bgPrimaryColor,
-              color: Color(0xFF24282D),
-              boxShadow: [
-                BoxShadow(
-                  color: context.blackColor.withOpacity(0.1),
-                  blurRadius: 0.5,
-                  offset: Offset(0, -1),
+          child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () {
+                    currentTab.value = 0;
+                    print('${currentTab.value}');
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(top: 8.0),
+                      height: 50,
+                      child: Column(
+                          children: [
+                            Image(
+                                image: currentTab.value == 0 ? AssetImage("assets/images/wallet_active.png") : AssetImage("assets/images/wallet_unselected.png"),
+                                width: 20.0
+                            ),
+                            Text(
+                              tr('global:main_tab_wallet'),
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: currentTab.value == 0 ? context.bottomTabCheckedColor : Colors.grey[600]
+                              ),
+                            )
+                          ]
+                      )
+                  ),
                 ),
-              ],
-            ),
-            height: 52,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: tabBarItems
-                  .map((item) => renderAnimatedTabItem(
-                        context,
-                        item,
-                        currentTab.value,
-                        (index) {
-                          currentTab.value = index;
-                        },
-                      ))
-                  .toList(),
-            ),
+                InkWell(
+                  onTap: () {
+                    currentTab.value = 1;
+                    print('${currentTab.value}');
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(top: 8.0),
+                      height: 50,
+                      child: Column(
+                          children: [
+                            Image(
+                                image: currentTab.value == 1 ? AssetImage("assets/images/home_active.png") : AssetImage("assets/images/home_unselected.png"),
+                                width: 20.0
+                            ),
+                            Text(
+                              tr('global:main_tab_home'),
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: currentTab.value == 1 ? context.bottomTabCheckedColor : Colors.grey[600]
+                              ),
+                            )
+                          ]
+                      )
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    currentTab.value = 2;
+                    print('${currentTab.value}');
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(top: 8.0),
+                      height: 50,
+                      child: Column(
+                          children: [
+                            Image(
+                                image: currentTab.value == 2 ? AssetImage("assets/images/invest_active.png") : AssetImage("assets/images/invest_unselected.png"),
+                                width: 20.0
+                            ),
+                            Text(
+                              tr('global:main_tab_invest'),
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: currentTab.value == 2 ?  context.bottomTabCheckedColor : Colors.grey[600]
+                              ),
+                            )
+                          ]
+                      )
+                  ),
+                ),
+              ]
           ),
+          // child: Container(
+          //   decoration: BoxDecoration(
+          //     // color: context.bgPrimaryColor,
+          //     color: Color(0xFF24282D),
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: context.blackColor.withOpacity(0.1),
+          //         blurRadius: 0.5,
+          //         offset: Offset(0, -1),
+          //       ),
+          //     ],
+          //   ),
+          //   height: 52,
+          //   width: double.infinity,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: tabBarItems
+          //         .map((item) => renderAnimatedTabItem(
+          //               context,
+          //               item,
+          //               currentTab.value,
+          //               (index) {
+          //                 currentTab.value = index;
+          //               },
+          //             ))
+          //         .toList(),
+          //   ),
+          // ),
         ),
       ),
     );
