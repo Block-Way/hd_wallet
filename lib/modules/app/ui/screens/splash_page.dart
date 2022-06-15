@@ -64,13 +64,17 @@ class AppSplashPage extends HookWidget {
         fit: StackFit.expand,
         children: [
           Container(
-            color: context.primaryColor,
-            height: double.infinity,
-            width: double.infinity,
-            child: AspectRatio(
-              aspectRatio: controller.value.aspectRatio,
-              child: VideoPlayer(controller),
-            ),
+              color: context.primaryColor,
+              height: double.infinity,
+              width: double.infinity,
+              child: Image.asset(
+                  'assets/images/start_page.jpg',
+                  fit:BoxFit.cover
+              )
+            // child: AspectRatio(
+            //   aspectRatio: controller.value.aspectRatio,
+            //   child: VideoPlayer(controller),
+            // ),
           ),
           Positioned(
             top: MediaQuery.of(context).viewPadding.top + 20,
