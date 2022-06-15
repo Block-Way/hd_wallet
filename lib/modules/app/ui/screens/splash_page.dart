@@ -16,7 +16,7 @@ class AppSplashPage extends HookWidget {
     final progress = useStreamController<double>();
     final loadEnd = useStreamController<bool>();
     final controller = useMemoized(
-      () => VideoPlayerController.asset(
+          () => VideoPlayerController.asset(
         'assets/video/splash.mp4',
         videoPlayerOptions: VideoPlayerOptions(
           mixWithOthers: true,
@@ -24,39 +24,33 @@ class AppSplashPage extends HookWidget {
       ),
     );
 
-    useEffect(
-      () {
-        controller.initialize();
-        controller.setVolume(0);
-        controller.play();
-        controller.addListener(() {
-          if (!controller.value.isPlaying) {
-            loadEnd.add(true);
-          }
-        });
-
-        Future.wait([
-          //store.dispatch(AppActionInitApp(progress), notify: false),
-          //loadEnd.stream.firstWhere((end) => end, orElse: () => false),
-        ]).catchError((error) {
-          Toast.showError(
-            error,
-            defaultMessage: tr('global:msg_app_init_error'),
-          );
-        }).whenComplete(() {
-          AppMainPage.open();
-        });
-
-        if (kDebugMode) {
+    useEffect(() {
+      controller.initialize();
+      controller.setVolume(0);
+      controller.play();
+      controller.addListener(() {
+        if (!controller.value.isPlaying) {
           loadEnd.add(true);
         }
+      });
 
-        return () {
-          controller.dispose();
-        };
-      },
-      [],
-    );
+      Future.wait([
+        store.dispatchFuture(AppActionInitApp(progress), notify: false),
+        loadEnd.stream.firstWhere((end) => end, orElse: () => false),
+      ]).catchError((error) {
+        Toast.showError(error, defaultMessage: tr('global:msg_app_init_error'));
+      }).whenComplete(() {
+        AppMainPage.open();
+      });
+
+      if (kDebugMode) {
+        loadEnd.add(true);
+      }
+
+      return () {
+        controller.dispose();
+      };
+    }, []);
 
     return Scaffold(
       backgroundColor: context.primaryColor,
@@ -64,13 +58,17 @@ class AppSplashPage extends HookWidget {
         fit: StackFit.expand,
         children: [
           Container(
-            color: context.primaryColor,
-            height: double.infinity,
-            width: double.infinity,
-            child: AspectRatio(
-              aspectRatio: controller.value.aspectRatio,
-              child: VideoPlayer(controller),
-            ),
+              color: context.primaryColor,
+              height: double.infinity,
+              width: double.infinity,
+              child: Image.asset(
+                  'assets/images/start_page.jpg',
+                  fit:BoxFit.cover
+              )
+            // child: AspectRatio(
+            //   aspectRatio: controller.value.aspectRatio,
+            //   child: VideoPlayer(controller),
+            // ),
           ),
           Positioned(
             top: MediaQuery.of(context).viewPadding.top + 20,
