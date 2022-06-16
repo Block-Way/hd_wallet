@@ -69,7 +69,39 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      child: Text('莫忘少年凌云志，曾许人间第一流')
+      child: ListView(
+        children: [
+          Padding(
+            padding: context.edgeAll.copyWith(top: 8),
+            child: Row(
+              children: [
+                CSButton(
+                  flat: true,
+                  onPressed: () {
+                    AppMainPage.openDrawer();
+                  },
+                  customBorder: CircleBorder(),
+                  child: CSImage(
+                    'assets/images/hamburger_tab.png',
+                    width: 25,
+                    height: 25,
+                    backgroundColor: context.mainColor,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+          SizedBox(height: 8),
+          HomePricesCard(
+            // prices: viewModel.homePrices?.toList() ?? [],
+            // allTradePairs: viewModel.allTradePairs.toList(),
+            prices: [],
+            allTradePairs: [],
+          ),
+        ],
+      ),
       // child: StoreConnector<AppState, HomePageVM>(
       //   distinct: true,
       //   converter: HomePageVM.fromStore,
