@@ -97,7 +97,7 @@ class _CSTabBarState extends State<CSTabBar>
         body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
+            return [
               SliverAppBar(
                 pinned: true,
                 floating: true,
