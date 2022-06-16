@@ -284,6 +284,7 @@ class AppMainPage extends HookWidget {
                                 image: currentTab.value == 0 ? AssetImage("assets/images/wallet_active.png") : AssetImage("assets/images/wallet_unselected.png"),
                                 width: 20.0
                             ),
+                            SizedBox(height: 4),
                             Text(
                               tr('global:main_tab_wallet'),
                               style: TextStyle(
@@ -309,6 +310,7 @@ class AppMainPage extends HookWidget {
                                 image: currentTab.value == 1 ? AssetImage("assets/images/home_active.png") : AssetImage("assets/images/home_unselected.png"),
                                 width: 20.0
                             ),
+                            SizedBox(height: 4),
                             Text(
                               tr('global:main_tab_home'),
                               style: TextStyle(
@@ -334,6 +336,7 @@ class AppMainPage extends HookWidget {
                                 image: currentTab.value == 2 ? AssetImage("assets/images/invest_active.png") : AssetImage("assets/images/invest_unselected.png"),
                                 width: 20.0
                             ),
+                            SizedBox(height: 4),
                             Text(
                               tr('global:main_tab_invest'),
                               style: TextStyle(
