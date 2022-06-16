@@ -3,13 +3,13 @@ part of home_ui_module;
 class HomePricesCard extends StatelessWidget {
   const HomePricesCard({
     required this.prices,
-    // required this.doChangeTradePair,
+    required this.doChangeTradePair,
     required this.allTradePairs,
   }) : assert(prices != null);
 
   final List<AssetPrice> prices;
   final List<TradePair> allTradePairs;
-  // final Future<void> Function(TradePair tradePair) doChangeTradePair;
+  final Future<void> Function(TradePair tradePair) doChangeTradePair;
   @override
   Widget build(BuildContext context) {
     if (prices.isEmpty) {
@@ -77,9 +77,9 @@ class HomePricesCard extends StatelessWidget {
                 margin: EdgeInsets.zero,
                 onTap: tradePair != null
                     ? () {
-                        // doChangeTradePair(tradePair).then((_) {
-                        //   AppNavigator.gotoTabBarPage(AppTabBarPages.trade);
-                        // });
+                        doChangeTradePair(tradePair).then((_) {
+                          AppNavigator.gotoTabBarPage(AppTabBarPages.trade);
+                        });
                       }
                     : null,
                 key: Key(item.tradePairId),

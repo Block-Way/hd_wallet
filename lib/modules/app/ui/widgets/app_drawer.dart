@@ -75,37 +75,37 @@ class AppDrawer extends StatelessWidget {
               //   //   });
               //   // },
               // ),
-              AppDrawerMenuLanguage(
-                onSelected: (language) {
-                  // ignore: deprecated_member_use
-                  context.locale = Locale(language);
-                  viewModel.doChangeLanguage(language);
-                },
-              ),
-              AppDrawerMenuVersion(
-                label: tr('user:menu_version'),
-                hasNew: viewModel.hasNewVersion,
-                version: viewModel.appVersion, onPressed: () {},
-                // onPressed: () {
-                //   LoadingDialog.show(context);
-                //   viewModel.doCheckForUpdates(false).then((data) {
-                //     LoadingDialog.dismiss(context);
-                //     if (data != null) {
-                //       showUpdateAppDialog(
-                //         context,
-                //         downloadUrl: data.downloadUrl,
-                //         description: data.description,
-                //         version: data.version,
-                //       );
-                //     } else {
-                //       Toast.show(tr('global:update_dialog_msg_last'));
-                //     }
-                //   }).catchError((error) {
-                //     LoadingDialog.dismiss(context);
-                //     Toast.showError(error);
-                //   });
-                // },
-              ),
+              // AppDrawerMenuLanguage(
+              //   onSelected: (language) {
+              //     // ignore: deprecated_member_use
+              //     context.locale = Locale(language);
+              //     viewModel.doChangeLanguage(language);
+              //   },
+              // ),
+              // AppDrawerMenuVersion(
+              //   label: tr('user:menu_version'),
+              //   hasNew: viewModel.hasNewVersion,
+              //   version: viewModel.appVersion, onPressed: () {},
+              //   // onPressed: () {
+              //   //   LoadingDialog.show(context);
+              //   //   viewModel.doCheckForUpdates(false).then((data) {
+              //   //     LoadingDialog.dismiss(context);
+              //   //     if (data != null) {
+              //   //       showUpdateAppDialog(
+              //   //         context,
+              //   //         downloadUrl: data.downloadUrl,
+              //   //         description: data.description,
+              //   //         version: data.version,
+              //   //       );
+              //   //     } else {
+              //   //       Toast.show(tr('global:update_dialog_msg_last'));
+              //   //     }
+              //   //   }).catchError((error) {
+              //   //     LoadingDialog.dismiss(context);
+              //   //     Toast.showError(error);
+              //   //   });
+              //   // },
+              // ),
               // if (AppConstants.isBeta)
               //   AppDrawerMenuVersion(
               //     label: 'D- 测试版本',

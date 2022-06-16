@@ -83,21 +83,12 @@ class HomePage extends StatelessWidget {
                   customBorder: CircleBorder(),
                   child: CSImage(
                     'assets/images/hamburger_tab.png',
-                    // width: 25,
                     height: 25,
                     backgroundColor: context.mainColor,
                   ),
                 ),
               ],
             ),
-          ),
-
-          SizedBox(height: 8),
-          HomePricesCard(
-            // prices: viewModel.homePrices?.toList() ?? [],
-            // allTradePairs: viewModel.allTradePairs.toList(),
-            prices: [],
-            allTradePairs: [],
           ),
         ],
       ),
@@ -178,9 +169,8 @@ class HomePage extends StatelessWidget {
       //                 customBorder: CircleBorder(),
       //                 child: CSImage(
       //                   'assets/images/hamburger_tab.png',
-      //                   width: 25,
       //                   height: 25,
-      //                   backgroundColor: Colors.transparent,
+      //                   backgroundColor: context.mainColor,
       //                 ),
       //               ),
       //               // Expanded(
