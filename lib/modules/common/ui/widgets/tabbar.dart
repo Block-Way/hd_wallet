@@ -8,8 +8,8 @@ class CSTabBar extends StatefulWidget {
 class _CSTabBarState extends State<CSTabBar>
     with SingleTickerProviderStateMixin {
   // final searchController = useTextEditingController(text: '');
-  ScrollController _scrollController;
-  TabController _tabController;
+  late ScrollController _scrollController;
+  late TabController _tabController;
 
   @override
   void initState() {

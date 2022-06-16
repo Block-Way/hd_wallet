@@ -35,16 +35,16 @@ extension ColorStyles on BuildContext {
   }
 
   ///#1F2229
-  Color get mainColor {
+  Color get mainColor{
     return const Color(0xFF1F2229);
   }
 
-  Color get helpColor {
+  Color get helpColor{
     return const Color(0xFF303644);
   }
 
   ///#2B2E37
-  Color get cardColor {
+  Color get cardColor{
     return const Color(0xFF2B2E37);
   }
 
@@ -60,6 +60,21 @@ extension ColorStyles on BuildContext {
   ///#EAEAEB
   Color get cardTitleColor {
     return const Color(0xFFEAEAEB);
+  }
+
+  ///#2e3343
+  Color get searchBgColor {
+    return const Color(0xFF2E3343);
+  }
+
+  ///#8C8E91
+  Color get tabContentColor {
+    return const Color(0xfF8C8E91);
+  }
+
+  ///#202328
+  Color get searchTextColor {
+    return const Color(0xFF202328);
   }
 
   ///#7F8187#
@@ -117,6 +132,21 @@ extension ColorStyles on BuildContext {
     return const Color(0xFF999999);
   }
 
+  ///#C87C53
+  Color get bottomTabCheckedColor {
+    return const Color(0xFFC87C53);
+  }
+
+  ///#3A3D48
+  Color get dividingLineaColor {
+    return const Color(0xFF3A3D48);
+  }
+
+  ///#7C7D82
+  Color get bottomTabUnselecteColor{
+    return const Color(0xFFC87C53);
+  }
+
   /// #40CD6A
   Color get greenColor {
     return const Color(0xFF2CBC85);
@@ -130,11 +160,6 @@ extension ColorStyles on BuildContext {
   /// #FF9300
   Color get orangeColor {
     return const Color(0xFFFF9300);
-  }
-
-  ///#C87C53
-  Color get bottomTabCheckedColor {
-    return const Color(0xFFC87C53);
   }
 
   /// #EDEBE8
@@ -212,7 +237,7 @@ extension ColorStyles on BuildContext {
     return Colors.black.withOpacity(0.3);
   }
 
-  //  Color get bgPrimaryColor => dynamicColor(light: Color(0xFFffffff),
-  // dark: Color(0xFF333333)); }
+//  Color get bgPrimaryColor => dynamicColor(light: Color(0xFFffffff),
+// dark: Color(0xFF333333)); }
 
 }
