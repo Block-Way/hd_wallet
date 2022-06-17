@@ -78,7 +78,7 @@ abstract class HomePageVM implements Built<HomePageVM, HomePageVMBuilder> {
         ..communityConfig = store.state.communityState.config?.toBuilder()
         ..communityConfigState = store.state.communityState.configState
         ..doLoadHomeData = () {
-          // 进入首页应该就要刷新进度
+          // Entering the homepage should refresh the progress
           if (store.state.homeState.isInitialized == false) {
             store.dispatch(HomeActionInit());
           } else {

@@ -173,61 +173,12 @@ class HomePage extends StatelessWidget {
                         backgroundColor: context.mainColor,
                       ),
                     ),
-                    // Expanded(
-                    //   child: CSButton(
-                    //     label: tr('home:search_hint'),
-                    //     borderRadius: 22,
-                    //     height: 44,
-                    //     alignment: MainAxisAlignment.start,
-                    //     margin: context.edgeLeft,
-                    //     backgroundColor: context.whiteColor,
-                    //     textStyle: context.textSmall(bold: true),
-                    //     cmpLeft: Padding(
-                    //       padding: context.edgeRight8,
-                    //       child: Icon(
-                    //         CSIcons.Search,
-                    //         size: 16,
-                    //         color: context.secondaryColor,
-                    //       ),
-                    //     ),
-                    //     onPressed: () {
-                    //       ExplorerHomePage.open();
-                    //     },
-                    //   ),
-                    // ),
+
                   ],
                 ),
               ),
-              // HomeBanners(
-              //   viewModel.homeBanners?.toList(),
-              //   handleOpenBannerPage,
-              // ),
-              /*
-              CommunityTypeCard(
-                config: viewModel.communityConfig,
-                configState: viewModel.communityConfigState,
-                onPressed: (item) {
-                  CommunityDetailPage.open(item);
-                },
-                onRefresh: () {
-                  LoadingDialog.show(context);
-                  viewModel.doRefreshCommunity().catchError((error) {
-                    Toast.showError(error);
-                  }).whenComplete(() {
-                    LoadingDialog.dismiss(context);
-                  });
-                },
-              ),
 
-              CommunityQuickEntry(
-                hasWallet: viewModel.hasWallet,
-                communityConfig: viewModel.communityConfig,
-              ),*/
               SizedBox(height: 8),
-              // AdmissionLatest(
-              //   list: viewModel.admissionList.toList(),
-              //   hasWallet: viewModel.hasWallet,
-              // ),
               HomePricesCard(
                 prices: viewModel.homePrices?.toList() ?? [],
                 doChangeTradePair: (tradePair) {
