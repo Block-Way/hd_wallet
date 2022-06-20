@@ -1,7 +1,7 @@
 part of widgets;
 
 class CSRefresherController extends RefreshController {
-  late Function _listener;
+  Function? _listener;
   // ignore: use_setters_to_change_properties
   void addListener(Function listener) {
     _listener = listener;
@@ -13,7 +13,7 @@ class CSRefresherController extends RefreshController {
     bool noticeListener = true,
   }) {
     if (_listener != null && noticeListener) {
-      _listener();
+      _listener?.call();
     }
     super.refreshCompleted(resetFooterState: resetFooterState);
   }

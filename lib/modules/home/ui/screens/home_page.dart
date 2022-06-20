@@ -69,29 +69,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      // child: ListView(
-      //   children: [
-      //     Padding(
-      //       padding: context.edgeAll.copyWith(top: 8),
-      //       child: Row(
-      //         children: [
-      //           CSButton(
-      //             flat: true,
-      //             onPressed: () {
-      //               AppMainPage.openDrawer();
-      //             },
-      //             customBorder: CircleBorder(),
-      //             child: CSImage(
-      //               'assets/images/hamburger_tab.png',
-      //               height: 25,
-      //               backgroundColor: context.mainColor,
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
       child: StoreConnector<AppState, HomePageVM>(
         distinct: true,
         converter: HomePageVM.fromStore,
@@ -144,51 +121,85 @@ class HomePage extends StatelessWidget {
             handleShowNewVersion(context, viewModel.newVersionData!);
           }
         },
-        builder: (context, viewModel) => CSRefresher(
-          refreshDelay: Duration(seconds: 5),
-          onRefresh: () {
-            viewModel.doRefreshHomeData().then((_) {
-              refreshController.refreshCompleted();
-            }).catchError((_) {
-              refreshController.refreshFailed();
-            });
-          },
-          header: ListViewHeader(background: Colors.transparent),
-          controller: refreshController,
-          child: ListView(
-            children: [
-              Padding(
-                padding: context.edgeAll.copyWith(top: 8),
-                child: Row(
-                  children: [
-                    CSButton(
-                      flat: true,
-                      onPressed: () {
-                        AppMainPage.openDrawer();
-                      },
-                      customBorder: CircleBorder(),
-                      child: CSImage(
-                        'assets/images/hamburger_tab.png',
-                        height: 25,
-                        backgroundColor: context.mainColor,
-                      ),
+        builder: (context, viewModel) => ListView(
+          children: [
+            Padding(
+              padding: context.edgeAll.copyWith(top: 8),
+              child: Row(
+                children: [
+                  CSButton(
+                    flat: true,
+                    onPressed: () {
+                      AppMainPage.openDrawer();
+                    },
+                    customBorder: CircleBorder(),
+                    child: CSImage(
+                      'assets/images/hamburger_tab.png',
+                      height: 25,
+                      backgroundColor: context.mainColor,
                     ),
+                  ),
 
-                  ],
-                ),
+                ],
               ),
+            ),
 
-              SizedBox(height: 8),
-              HomePricesCard(
-                prices: viewModel.homePrices?.toList() ?? [],
-                doChangeTradePair: (tradePair) {
-                  return handleOpenTrade(viewModel, tradePair);
-                },
-                allTradePairs: viewModel.allTradePairs.toList(),
-              ),
-            ],
-          ),
+            SizedBox(height: 8),
+            Text('sfhkjhkajkfj '),
+            HomePricesCard(
+              prices: viewModel.homePrices?.toList() ?? [],
+              doChangeTradePair: (tradePair) {
+                return handleOpenTrade(viewModel, tradePair);
+              },
+              allTradePairs: viewModel.allTradePairs.toList(),
+            ),
+          ],
         ),
+        // builder: (context, viewModel) => CSRefresher(
+        //   refreshDelay: Duration(seconds: 5),
+        //   onRefresh: () {
+        //     viewModel.doRefreshHomeData().then((_) {
+        //       refreshController.refreshCompleted();
+        //     }).catchError((_) {
+        //       refreshController.refreshFailed();
+        //     });
+        //   },
+        //   header: ListViewHeader(background: Colors.transparent),
+        //   controller: refreshController,
+        //   child: ListView(
+        //     children: [
+        //       Padding(
+        //         padding: context.edgeAll.copyWith(top: 8),
+        //         child: Row(
+        //           children: [
+        //             CSButton(
+        //               flat: true,
+        //               onPressed: () {
+        //                 AppMainPage.openDrawer();
+        //               },
+        //               customBorder: CircleBorder(),
+        //               child: CSImage(
+        //                 'assets/images/hamburger_tab.png',
+        //                 height: 25,
+        //                 backgroundColor: context.mainColor,
+        //               ),
+        //             ),
+        //
+        //           ],
+        //         ),
+        //       ),
+        //
+        //       SizedBox(height: 8),
+        //       HomePricesCard(
+        //         prices: viewModel.homePrices?.toList() ?? [],
+        //         doChangeTradePair: (tradePair) {
+        //           return handleOpenTrade(viewModel, tradePair);
+        //         },
+        //         allTradePairs: viewModel.allTradePairs.toList(),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

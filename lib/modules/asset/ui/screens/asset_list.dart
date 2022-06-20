@@ -141,9 +141,9 @@ class AssetListPage extends StatelessWidget {
       child: Container(
         // decoration: context.boxDecorationOnlyTop(radius: 30),
         decoration: new BoxDecoration(
-            borderRadius:
-                new BorderRadius.vertical(top: Radius.elliptical(30, 30)),
-            color: context.cardColor),
+            borderRadius: new BorderRadius.vertical(top: Radius.elliptical(30, 30)),
+            color: context.cardColor
+        ),
         padding: context.edgeAll,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -240,47 +240,74 @@ class AssetListPage extends StatelessWidget {
         },
         builder: (context, viewModel) => Stack(
           children: [
-            CSRefresher(
-              scrollController: scrollController,
-              onRefresh: () {
-                viewModel.doRefreshList().then((_) {
-                  refreshController.refreshCompleted();
-                }).catchError((_) {
-                  refreshController.refreshFailed();
-                });
-              },
-              header: ListViewHeader(
-                background: context.cardColor,
-                useProgressLoading: true,
-              ),
-              controller: refreshController,
-              child: CustomScrollView(
-                controller: scrollController,
-                physics: viewModel.hasWallet == false
-                    ? NeverScrollableScrollPhysics()
-                    : null,
-                slivers: [
-                  SliverAppBar(
-                    leading: SizedBox(),
-                    title: SizedBox(),
-                    elevation: 0,
-                    // backgroundColor: context.bgSecondaryColor,
-                    expandedHeight: 220,
-                    backgroundColor: context.mainColor,
-                    collapsedHeight: 1,
-                    toolbarHeight: 0,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: viewModel.hasWallet == false
-                          ? buildWalletCardEmpty(context, viewModel)
-                          : buildWalletCardInfo(context, viewModel),
-                    ),
+            // CSRefresher(
+            //   scrollController: scrollController,
+            //   onRefresh: () {
+            //     viewModel.doRefreshList().then((_) {
+            //       refreshController.refreshCompleted();
+            //     }).catchError((_) {
+            //       refreshController.refreshFailed();
+            //     });
+            //   },
+            //   header: ListViewHeader(
+            //     background: context.cardColor,
+            //     useProgressLoading: true,
+            //   ),
+            //   controller: refreshController,
+            //   child: CustomScrollView(
+            //     controller: scrollController,
+            //     physics: viewModel.hasWallet == false
+            //         ? NeverScrollableScrollPhysics()
+            //         : null,
+            //     slivers: [
+            //       SliverAppBar(
+            //         leading: SizedBox(),
+            //         title: SizedBox(),
+            //         elevation: 0,
+            //         // backgroundColor: context.bgSecondaryColor,
+            //         expandedHeight: 220,
+            //         backgroundColor: context.mainColor,
+            //         collapsedHeight: 1,
+            //         toolbarHeight: 0,
+            //         flexibleSpace: FlexibleSpaceBar(
+            //           background: viewModel.hasWallet == false
+            //               ? buildWalletCardEmpty(context, viewModel)
+            //               : buildWalletCardInfo(context, viewModel),
+            //         ),
+            //       ),
+            //       if (viewModel.hasWallet == false)
+            //         buildContentEmpty(context, viewModel)
+            //       else
+            //         buildContentList(context, viewModel),
+            //     ],
+            //   ),
+            // ),
+            CustomScrollView(
+              controller: scrollController,
+              physics: viewModel.hasWallet == false
+                  ? NeverScrollableScrollPhysics()
+                  : null,
+              slivers: [
+                SliverAppBar(
+                  leading: SizedBox(),
+                  title: SizedBox(),
+                  elevation: 0,
+                  // backgroundColor: context.bgSecondaryColor,
+                  expandedHeight: 220,
+                  backgroundColor: context.mainColor,
+                  collapsedHeight: 1,
+                  toolbarHeight: 0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: viewModel.hasWallet == false
+                        ? buildWalletCardEmpty(context, viewModel)
+                        : buildWalletCardInfo(context, viewModel),
                   ),
-                  if (viewModel.hasWallet == false)
-                    buildContentEmpty(context, viewModel)
-                  else
-                    buildContentList(context, viewModel),
-                ],
-              ),
+                ),
+                if (viewModel.hasWallet == false)
+                  buildContentEmpty(context, viewModel)
+                else
+                  buildContentList(context, viewModel),
+              ],
             ),
             if (viewModel.isBalanceUpdating == true) buildUpdatePrices(context),
           ],
