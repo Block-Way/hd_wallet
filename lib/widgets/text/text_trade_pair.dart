@@ -77,7 +77,8 @@ class TextTradePair extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: mainAxisAlignment,
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         if (direction)
           Text(
@@ -88,7 +89,8 @@ class TextTradePair extends StatelessWidget {
           ),
         if (direction) Text(' '),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          textBaseline: TextBaseline.alphabetic,
           children: [
             Text(from, style: fromStyle),
             Text('/$to', style: sameStyle ? fromStyle : toStyle),

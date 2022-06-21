@@ -32,11 +32,9 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  Future<void> handleOpenTrade(HomePageVM viewModel, TradePair tradePair) {
-    return viewModel.doChangeTradePair(tradePair).then((value) {
-      AppNavigator.gotoTabBarPage(AppTabBarPages.trade);
-    });
-  }
+  // Future<void> handleOpenTrade() {
+  //   return null;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -145,10 +143,6 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 8),
             HomePricesCard(
               prices: viewModel.homePrices?.toList() ?? [],
-                doChangeTradePair: (tradePair) {
-                return handleOpenTrade(viewModel, tradePair);
-              },
-              allTradePairs: viewModel.allTradePairs.toList(),
             ),
           ],
         ),

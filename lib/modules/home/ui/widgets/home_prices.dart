@@ -3,13 +3,10 @@ part of home_ui_module;
 class HomePricesCard extends StatelessWidget {
   const HomePricesCard({
     required this.prices,
-    required this.doChangeTradePair,
-    required this.allTradePairs,
   }) : assert(prices != null);
 
   final List<AssetPrice> prices;
-  final List<TradePair> allTradePairs;
-  final Future<void> Function(TradePair tradePair) doChangeTradePair;
+
   @override
   Widget build(BuildContext context) {
     // if (prices.isEmpty) {
@@ -63,25 +60,15 @@ class HomePricesCard extends StatelessWidget {
 
           ListView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            // physics: NeverScrollableScrollPhysics(),
             itemCount: prices.length,
             itemBuilder: (context, index) {
               final item = prices[index];
-              final tradePair = allTradePairs.firstWhere(
-                (e) => e.id == item.tradePairId,
-              );
-
               return CSContainer(
                 radius: 0,
                 padding: EdgeInsets.zero,
                 margin: EdgeInsets.zero,
-                onTap: tradePair != null
-                    ? () {
-                        doChangeTradePair(tradePair).then((_) {
-                          AppNavigator.gotoTabBarPage(AppTabBarPages.trade);
-                        });
-                      }
-                    : null,
+
                 key: Key(item.tradePairId),
                 height: 50,
                 child: Row(
@@ -123,22 +110,22 @@ class HomePricesCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: AssetPriceListener(
-                        tradePairId: item.tradePairId,
-                        builder: (
-                          context,
-                          fiatPrice,
-                          fiatCurrency,
-                          data,
-                        ) =>
-                            TextChange(
-                          data.change == 0 ? item.change : data.change,
-                          TextSize.small,
-                        ),
-                      ),
-                    )
+                    // Expanded(
+                    //   flex: 2,
+                    //   child: AssetPriceListener(
+                    //     tradePairId: item.tradePairId,
+                    //     builder: (
+                    //       context,
+                    //       fiatPrice,
+                    //       fiatCurrency,
+                    //       data,
+                    //     ) =>
+                    //         TextChange(
+                    //       data.change == 0 ? item.change : data.change,
+                    //       TextSize.small,
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               );

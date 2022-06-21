@@ -22,10 +22,12 @@ class AssetPriceListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final coinPriceCubit = CoinPriceCubit();
     final _tradePairId = tradePairId ?? '$symbol/USDT';
 
     return BlocBuilder<CoinPriceCubit, CoinPriceState>(
-      //cubit: GetIt.I<CoinPriceCubit>(),
+      // cubit: GetIt.I<CoinPriceCubit>(),
+      bloc: coinPriceCubit,
       buildWhen: (a, b) =>
           a.getCoinPrice(tradePairId: _tradePairId)?.price !=
           b.getCoinPrice(tradePairId: _tradePairId)?.price,
