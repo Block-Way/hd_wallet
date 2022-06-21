@@ -118,7 +118,7 @@ class InvestHomePage extends HookWidget {
                     children: [
                       AppBar(
                         elevation: 0,
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: context.mainColor,
                         automaticallyImplyLeading: false,
                         titleSpacing: 0,
                         toolbarHeight: 46,

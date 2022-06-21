@@ -135,7 +135,7 @@ class HomePage extends StatelessWidget {
                     customBorder: CircleBorder(),
                     child: CSImage(
                       'assets/images/hamburger_tab.png',
-                      height: 25,
+                      height: 18,
                       backgroundColor: context.mainColor,
                     ),
                   ),
