@@ -12,9 +12,9 @@ class HomePricesCard extends StatelessWidget {
   final Future<void> Function(TradePair tradePair) doChangeTradePair;
   @override
   Widget build(BuildContext context) {
-    if (prices.isEmpty) {
-      return SizedBox();
-    }
+    // if (prices.isEmpty) {
+    //   return SizedBox();
+    // }
 
     return CSContainer(
       margin: context.edgeAll.copyWith(top: 0),
@@ -22,10 +22,10 @@ class HomePricesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Text(
-          //   tr('home:price_title'),
-          //   style: context.textMedium(bold: true, color: context.cardTitleColor),
-          // ),
+          Text(
+            tr('home:price_title'),
+            style: context.textMedium(bold: true, color: context.cardTitleColor),
+          ),
           Padding(
             padding: context.edgeTop,
             child: Row(
@@ -112,8 +112,7 @@ class HomePricesCard extends StatelessWidget {
                                 color: context.cardTitleColor),
                             SizedBox(height: 2),
                             PriceText(
-                              // fiatPrice,
-                              '888.99',
+                              fiatPrice,
                               fiatCurrency,
                               TextSize.tiny,
                               color: context.cardSecondWordColor,

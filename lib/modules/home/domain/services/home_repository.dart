@@ -19,6 +19,11 @@ class HomeRepository {
     String? marketId,
     int? timestamp,
   }) async {
-    return _api.getQuotations(marketId: marketId ?? '', timestamp: timestamp);
+    print('stsetas sdfsfasfds one');
+    final a = _api.getQuotations(marketId: marketId ?? '', timestamp: timestamp);
+    print('stsetas sdfsfasfds two');
+    print('$a');
+
+    return a;
   }
 }

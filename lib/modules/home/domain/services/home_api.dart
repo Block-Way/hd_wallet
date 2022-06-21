@@ -26,6 +26,7 @@ class HomeApi {
     final dio = Dio();
     final response = await dio.get('${AppConstants.randomApiUrl}/quotations');
     final data = response.data;
+    print('这是data数据 $data');
     return data as List<Map<String, dynamic>>;
     /*
     return List<Map<String, dynamic>>.from(

@@ -143,14 +143,13 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            Text('sfhkjhkajkfj '),
-            // HomePricesCard(
-            //   prices: viewModel.homePrices?.toList() ?? [],
-            //   doChangeTradePair: (tradePair) {
-            //     return handleOpenTrade(viewModel, tradePair);
-            //   },
-            //   allTradePairs: viewModel.allTradePairs.toList(),
-            // ),
+            HomePricesCard(
+              prices: viewModel.homePrices?.toList() ?? [],
+                doChangeTradePair: (tradePair) {
+                return handleOpenTrade(viewModel, tradePair);
+              },
+              allTradePairs: viewModel.allTradePairs.toList(),
+            ),
           ],
         ),
         // builder: (context, viewModel) => CSRefresher(
