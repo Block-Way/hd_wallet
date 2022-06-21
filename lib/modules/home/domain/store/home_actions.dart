@@ -29,15 +29,15 @@ class HomeActionGetBanners extends _BaseAction {
 class HomeActionGetQuotations extends _BaseAction {
   @override
   Future<AppState> reduce() async {
-    final json = HomeRepository().getQuotations(marketId: 'USDT');
+    final json = await HomeRepository().getQuotations(marketId: 'USDT');
     //final json = [{'tradePairId': 'HAH/USDT', 'price': 13.2, 'precision': 8, 'price24h': 11.5}];
 
-
     print('这是获取到json $json');
-    final list = deserializeListOf<AssetPrice>(await json);
+    final list = deserializeListOf<AssetPrice>(json);
     print('这是获取到list $list');
     return state.rebuild((a) => a..homeState.homePrices.replace(list));
   }
+
   @override
   Object? wrapError(dynamic error) {
     return error;

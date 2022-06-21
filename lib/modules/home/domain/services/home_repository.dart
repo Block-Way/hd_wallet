@@ -15,12 +15,13 @@ class HomeRepository {
     return _api.getBanners();
   }
 
-  Future<List<Map<String, dynamic>>> getQuotations({
+  Future<List<dynamic>> getQuotations({
     String? marketId,
     int? timestamp,
   }) async {
     print('stsetas sdfsfasfds one');
-    final a = _api.getQuotations(marketId: marketId ?? '', timestamp: timestamp);
+    final a =
+        _api.getQuotations(marketId: marketId ?? '', timestamp: timestamp);
     print('stsetas sdfsfasfds two');
     print('$a');
 

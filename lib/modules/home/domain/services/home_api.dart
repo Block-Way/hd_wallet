@@ -19,7 +19,7 @@ class HomeApi {
 //        '/v1/banner/banners/home',
 //      );
 
-  Future<List<Map<String, dynamic>>> getQuotations({
+  Future<List<dynamic>> getQuotations({
     required String marketId,
     int? timestamp,
   }) async {
@@ -27,7 +27,7 @@ class HomeApi {
     final response = await dio.get('${AppConstants.randomApiUrl}/quotations');
     final data = response.data;
     print('这是data数据 $data');
-    return data as List<Map<String, dynamic>>;
+    return data as List<dynamic>;
     /*
     return List<Map<String, dynamic>>.from(
       data.map(
