@@ -36,8 +36,8 @@ class AppSplashPage extends HookWidget {
         });
 
         Future.wait([
-          //store.dispatch(AppActionInitApp(progress), notify: false),
-          //loadEnd.stream.firstWhere((end) => end, orElse: () => false),
+          store.dispatchAsync(AppActionInitApp(progress), notify: false),
+          loadEnd.stream.firstWhere((end) => end, orElse: () => false),
         ]).catchError((error) {
           Toast.showError(
             error,
@@ -67,15 +67,13 @@ class AppSplashPage extends HookWidget {
               color: context.primaryColor,
               height: double.infinity,
               width: double.infinity,
-              child: Image.asset(
-                  'assets/images/start_page.jpg',
-                  fit:BoxFit.cover
-              )
-            // child: AspectRatio(
-            //   aspectRatio: controller.value.aspectRatio,
-            //   child: VideoPlayer(controller),
-            // ),
-          ),
+              child:
+                  Image.asset('assets/images/start_page.jpg', fit: BoxFit.cover)
+              // child: AspectRatio(
+              //   aspectRatio: controller.value.aspectRatio,
+              //   child: VideoPlayer(controller),
+              // ),
+              ),
           Positioned(
             top: MediaQuery.of(context).viewPadding.top + 20,
             right: 20,
