@@ -1,16 +1,16 @@
 part of trade_domain_module;
 
 enum TradePairStatus {
-  /// 0-未开始  NOT_ONLINE
+  /// 0-  NOT_ONLINE
   opening,
 
-  /// 1-正常 ONLINE
+  /// 1- ONLINE
   online,
 
-  /// 2-关闭中 ABOUT_CLOSE
+  /// 2- ABOUT_CLOSE
   closing,
 
-  /// 3-已关闭 CLOSE
+  /// 3- CLOSE
   close,
 }
 
