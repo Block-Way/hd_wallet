@@ -10,15 +10,15 @@ class CommonRepository {
   static final _instance = CommonRepository._internal();
 
   late CommonApi _api;
-  late Box<Settings> _settings;
+  Box<Settings>? _settings;
 
   static const _settingsCacheKey = 'settings_v1';
 // Methods
 
   Future<void> initializeCache() async {
     _settings = await AppHiveCache.openBox<Settings>(_settingsCacheKey);
-    if (_settings.get(_settingsCacheKey) == null) {
-      await _settings.put(
+    if (_settings?.get(_settingsCacheKey) == null) {
+      await _settings?.put(
         _settingsCacheKey,
         Settings(
           fiatCurrency: AppConstants.defaultCurrency,
@@ -29,15 +29,15 @@ class CommonRepository {
   }
 
   Settings? getSettings() {
-    if (_settings.get(_settingsCacheKey) == null) {
+    if (_settings?.get(_settingsCacheKey) == null) {
       final settings = Settings(
         fiatCurrency: AppConstants.defaultCurrency,
         language: AppConstants.defaultLanguage,
       );
-      _settings.put(_settingsCacheKey, settings);
+      _settings?.put(_settingsCacheKey, settings);
       return settings;
     }
-    return _settings.get(_settingsCacheKey);
+    return _settings?.get(_settingsCacheKey);
   }
 
   Future<Config> getConfig() async {
