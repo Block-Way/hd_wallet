@@ -6,10 +6,10 @@ class CommonActionLoadCache extends _BaseAction {
   @override
   Future<AppState> reduce() async {
     // Load Env
-    await DotEnv().load();
-    AppConstants.isBeta = DotEnv().env['IS_BETA'] == 'true';
-    AppConstants.buildId = DotEnv().env['BUILD_ID'] ?? '';
-    AppConstants.commitHash = DotEnv().env['COMMIT_HASH'] ?? '';
+    //await DotEnv().load();
+    //AppConstants.isBeta = DotEnv().env['IS_BETA'] == 'true';
+    //AppConstants.buildId = DotEnv().env['BUILD_ID'] ?? '';
+    //AppConstants.commitHash = DotEnv().env['COMMIT_HASH'] ?? '';
 
     // Check if is a new installation
     if (Platform.isIOS) {
