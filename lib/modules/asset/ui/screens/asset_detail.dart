@@ -303,18 +303,13 @@ class AssetDetailPage extends HookWidget {
           children: [
             Expanded(
               child: BlocBuilder<AssetDetailCubit, List<Transaction>>(
-                //cubit: selectedCubit.value,
+                bloc: selectedCubit.value,
                 builder: (context, data) =>
                     CSListViewStream<_GetAssetListParams>(
                   requestStream: request,
                   margin: context.edgeHorizontal,
-                  decoration: new BoxDecoration(
-                    color: context.cardColor,
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(context.edgeSize)),
-                  ),
                   padding: context.edgeAll,
-                  // decoration: context.boxDecorationOnlyTop(),
+                  decoration: context.boxDecorationOnlyTop(),
                   slivers: [
                     // SliverAppBar(
                     //   leading: SizedBox(),
@@ -328,7 +323,9 @@ class AssetDetailPage extends HookWidget {
                     //     background: buildHeader(context),
                     //   ),
                     // ),
-                    SliverToBoxAdapter(child: buildHeader(context)),
+                    SliverToBoxAdapter(
+                      child: buildHeader(context /*,viewModel*/),
+                    ),
                   ],
                   onLoadCachedData: (params) {
                     return loadData(
@@ -354,7 +351,7 @@ class AssetDetailPage extends HookWidget {
                 ),
               ),
             ),
-            // DividerShadow(),
+            DividerShadow(),
             buildFooter(context),
           ],
         ),

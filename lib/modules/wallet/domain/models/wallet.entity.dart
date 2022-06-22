@@ -113,6 +113,9 @@ class Wallet extends HiveObject {
     if (!isThisWalletAddress(address)) {
       return false;
     }
+    if (balances.length == 0) {
+      return false;
+    }
     final data = balances.firstWhere(
       (e) => e.symbol == symbol && e.chain == chain,
     );
@@ -202,8 +205,13 @@ class Wallet extends HiveObject {
   }) {
     assert(chain != null, symbol != null);
     if (balances.length > 0) {
-      final data =
-          balances.firstWhere((e) => e.symbol == symbol && e.chain == chain);
+      final data = balances.firstWhere(
+        (e) => e.symbol == symbol && e.chain == chain,
+        orElse: () => CoinBalance(
+          chain: '',
+          symbol: '',
+        ),
+      );
       return data == null ? 0 : data.unconfirmed;
     } else {
       return 0.00;
@@ -220,8 +228,13 @@ class Wallet extends HiveObject {
       return null;
     }
     if (balances.length > 0) {
-      final data =
-          balances.firstWhere((e) => e.symbol == symbol && e.chain == chain);
+      final data = balances.firstWhere(
+        (e) => e.symbol == symbol && e.chain == chain,
+        orElse: () => CoinBalance(
+          chain: '',
+          symbol: '',
+        ),
+      );
       return data;
     } else {
       return CoinBalance(chain: '', symbol: '', balance: 0, unconfirmed: 0);
