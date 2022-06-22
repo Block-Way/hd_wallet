@@ -66,7 +66,7 @@ class HDKeyDevice {
           }
 
           HDKeyCore.connectHDKey().then((isConnected) {
-            if (isConnected ?? false) {
+            if (isConnected) {
               HDKeyCore.getDeviceStatus().then((info) {
                 final isInitialized = info['pincode'] == '0';
                 _emitStatus(isInitialized
@@ -157,7 +157,7 @@ class HDKeyDevice {
     final isValid = await HDKeyCore.accessByPinCode(pinCode);
     if (isValid == true) {
       final mnemonic = await HDKeyCore.readSecret(0);
-      final walletId = await generateWalletId(mnemonic!);
+      final walletId = await generateWalletId(mnemonic);
 
       // If we don't have this HDKey wallet, add it
       final wallet = await WalletRepository().getWalletById(walletId);
