@@ -72,126 +72,126 @@ class InvestHomePage extends HookWidget {
           ),
         ),
       ),
-      child: Text('asdfasfasdf')
-      // child: StoreConnector<AppState, InvestHomeVM>(
-      //   distinct: true,
-      //   converter: InvestHomeVM.fromStore,
-      //   onInitialBuild: (_, __, viewModel) {
-      //     // Load first mint
-      //     if (viewModel.mints.isNotEmpty) {
-      //       loadMint(
-      //         viewModel,
-      //         viewModel.activeMint ?? viewModel.mints.first,
-      //         selectedTab,
-      //       );
-      //     }
-      //   },
-      //   builder: (context, viewModel) {
-      //     final activeMint = viewModel.activeMint;
-      //     final symbol = activeMint?.symbol ?? '';
-      //
-      //     return ModelPermissionView(
-      //       moduleName: ModuleName.mint,
-      //       onRefreshSuccess: () {
-      //         if (viewModel.getDefaultMint() != null) {
-      //           loadMint(
-      //             viewModel,
-      //             viewModel.getDefaultMint()!,
-      //             selectedTab,
-      //           );
-      //         }
-      //       },
-      //       child: Column(
-      //         children: [
-      //           Container(
-      //             width: double.infinity,
-      //             decoration: BoxDecoration(
-      //               gradient: LinearGradient(
-      //                 begin: Alignment.topCenter,
-      //                 end: Alignment.bottomCenter,
-      //                 colors: const [
-      //                   Color(0xFF1F2229),
-      //                   Color(0xFF1F2229),
-      //                 ],
-      //               ),
-      //             ),
-      //             child: Column(
-      //               children: [
-      //                 AppBar(
-      //                   elevation: 0,
-      //                   backgroundColor: context.mainColor,
-      //                   automaticallyImplyLeading: false,
-      //                   titleSpacing: 0,
-      //                   toolbarHeight: 46,
-      //                   // title: InvestTitle(
-      //                   //   activeMint: viewModel.activeMint,
-      //                   //   onPressed: () {
-      //                   //     //Scaffold.of(context).openDrawer();
-      //                   //   },
-      //                   // ),
-      //                   // actions: [
-      //                   //   if (viewModel.hasWallet)
-      //                   //     CSButtonIcon(
-      //                   //       icon: CSIcons.Menu,
-      //                   //       size: 20,
-      //                   //       padding: EdgeInsets.zero,
-      //                   //       background: Colors.transparent,
-      //                   //       onPressed: () {
-      //                   //         //if (viewModel.hasWallet) {
-      //                   //         //  MiningRewardRecordPage.open();
-      //                   //         //}
-      //                   //       },
-      //                   //     ),
-      //                   // ],
-      //                 ),
-      //                 CSContainer(
-      //                   decoration: context.boxDecoration(
-      //                       // color: context.whiteColor.withOpacity(0.5),
-      //                       color: context.cardColor),
-      //                   padding: EdgeInsets.zero,
-      //                   margin: context.edgeHorizontal,
-      //                   child: viewModel.activeMint == null ||
-      //                           !isLoaded ||
-      //                           !viewModel.hasWallet
-      //                       ? LoadingHeader(hasWallet: viewModel.hasWallet)
-      //                       : viewModel.activeMint!.isMining
-      //                           ? MiningHeader(
-      //                               symbol: symbol,
-      //                               mintInfo: viewModel.mintInfo!,
-      //                             )
-      //                           : AirdropHeader(),
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //           if (viewModel.activeMint?.isMining == true &&
-      //               isLoaded &&
-      //               viewModel.hasWallet)
-      //             CSButtonTabsFancy(
-      //               selected:
-      //                   selectedTab.value == InvestTabs.invitation ? 1 : 0,
-      //               onSelected: (value) {
-      //                 selectedTab.value = value == 0
-      //                     ? InvestTabs.reward
-      //                     : InvestTabs.invitation;
-      //               },
-      //               holdLbl: tr('invest:mining_record_lbl_holding'),
-      //               //'Holding Reward ($symbol)',
-      //               holdValue: viewModel.mintInfo?.stakeReward ?? '-',
-      //               invitationLbl: tr('invest:mining_record_lbl_invitation'),
-      //               //'Invitation Reward ($symbol)',
-      //               invitationValue: viewModel.mintInfo?.promotionReward ?? '-',
-      //             ),
-      //           buildContent(
-      //             context,
-      //             viewModel,
-      //             selectedTab,
-      //           ),
-      //         ],
-      //       ),
-      //     );
-      //   },
-      // ),
+      // child: Text('asdfasfasdf')
+      child: StoreConnector<AppState, InvestHomeVM>(
+        distinct: true,
+        converter: InvestHomeVM.fromStore,
+        onInitialBuild: (_, __, viewModel) {
+          // Load first mint
+          if (viewModel.mints.isNotEmpty) {
+            loadMint(
+              viewModel,
+              viewModel.activeMint ?? viewModel.mints.first,
+              selectedTab,
+            );
+          }
+        },
+        builder: (context, viewModel) {
+          final activeMint = viewModel.activeMint;
+          final symbol = activeMint?.symbol ?? '';
+
+          return ModelPermissionView(
+            moduleName: ModuleName.mint,
+            onRefreshSuccess: () {
+              if (viewModel.getDefaultMint() != null) {
+                loadMint(
+                  viewModel,
+                  viewModel.getDefaultMint()!,
+                  selectedTab,
+                );
+              }
+            },
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: const [
+                        Color(0xFF1F2229),
+                        Color(0xFF1F2229),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      AppBar(
+                        elevation: 0,
+                        backgroundColor: context.mainColor,
+                        automaticallyImplyLeading: false,
+                        titleSpacing: 0,
+                        toolbarHeight: 46,
+                        // title: InvestTitle(
+                        //   activeMint: viewModel.activeMint,
+                        //   onPressed: () {
+                        //     //Scaffold.of(context).openDrawer();
+                        //   },
+                        // ),
+                        // actions: [
+                        //   if (viewModel.hasWallet)
+                        //     CSButtonIcon(
+                        //       icon: CSIcons.Menu,
+                        //       size: 20,
+                        //       padding: EdgeInsets.zero,
+                        //       background: Colors.transparent,
+                        //       onPressed: () {
+                        //         //if (viewModel.hasWallet) {
+                        //         //  MiningRewardRecordPage.open();
+                        //         //}
+                        //       },
+                        //     ),
+                        // ],
+                      ),
+                      CSContainer(
+                        decoration: context.boxDecoration(
+                            // color: context.whiteColor.withOpacity(0.5),
+                            color: context.cardColor),
+                        padding: EdgeInsets.zero,
+                        margin: context.edgeHorizontal,
+                        child: viewModel.activeMint == null ||
+                                !isLoaded ||
+                                !viewModel.hasWallet
+                            ? LoadingHeader(hasWallet: viewModel.hasWallet)
+                            : viewModel.activeMint!.isMining
+                                ? MiningHeader(
+                                    symbol: symbol,
+                                    mintInfo: viewModel.mintInfo!,
+                                  )
+                                : AirdropHeader(),
+                      ),
+                    ],
+                  ),
+                ),
+                if (viewModel.activeMint?.isMining == true &&
+                    isLoaded &&
+                    viewModel.hasWallet)
+                  CSButtonTabsFancy(
+                    selected:
+                        selectedTab.value == InvestTabs.invitation ? 1 : 0,
+                    onSelected: (value) {
+                      selectedTab.value = value == 0
+                          ? InvestTabs.reward
+                          : InvestTabs.invitation;
+                    },
+                    holdLbl: tr('invest:mining_record_lbl_holding'),
+                    //'Holding Reward ($symbol)',
+                    holdValue: viewModel.mintInfo?.stakeReward ?? '-',
+                    invitationLbl: tr('invest:mining_record_lbl_invitation'),
+                    //'Invitation Reward ($symbol)',
+                    invitationValue: viewModel.mintInfo?.promotionReward ?? '-',
+                  ),
+                buildContent(
+                  context,
+                  viewModel,
+                  selectedTab,
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
