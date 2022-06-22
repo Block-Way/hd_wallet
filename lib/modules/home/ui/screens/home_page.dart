@@ -83,35 +83,35 @@ class HomePage extends StatelessWidget {
               !_hasShownNewVersionDialog) {
             handleShowNewVersion(context, viewModel.newVersionData!);
           } else {
-            viewModel.doCheckLanguage().then(
-              (lang) async {
-                if (lang != null) {
-                  final newLangTr =
-                      await AppLocalizations.getTranslationsByLocale(
-                    lang.locale,
-                  );
+            // viewModel.doCheckLanguage().then(
+            //   (lang) async {
+            //     if (lang != null) {
+            //       final newLangTr =
+            //           await AppLocalizations.getTranslationsByLocale(
+            //         lang.locale,
+            //       );
 
-                  showConfirmDialog(
-                    context,
-                    title: newLangTr.get('global:dialog_alert_title'),
-                    content: newLangTr
-                        .get(
-                          'global:msg_change_language',
-                        )!
-                        .replaceAll(RegExp('{name}'), lang.name),
-                    cancelBtnText: newLangTr.get('global:btn_not_ask'),
-                    confirmBtnText: newLangTr.get('global:btn_confirm'),
-                    onConfirm: () {
-                      context.locale = lang.locale;
-                      viewModel.doChangeLanguage(lang.languageCode);
-                    },
-                    onCancel: () {
-                      viewModel.doChangeLanguage(context.locale.languageCode);
-                    },
-                  );
-                }
-              },
-            );
+            //       showConfirmDialog(
+            //         context,
+            //         title: newLangTr.get('global:dialog_alert_title'),
+            //         content: newLangTr
+            //             .get(
+            //               'global:msg_change_language',
+            //             )!
+            //             .replaceAll(RegExp('{name}'), lang.name),
+            //         cancelBtnText: newLangTr.get('global:btn_not_ask'),
+            //         confirmBtnText: newLangTr.get('global:btn_confirm'),
+            //         onConfirm: () {
+            //           context.locale = lang.locale;
+            //           viewModel.doChangeLanguage(lang.languageCode);
+            //         },
+            //         onCancel: () {
+            //           viewModel.doChangeLanguage(context.locale.languageCode);
+            //         },
+            //       );
+            //     }
+            //   },
+            // );
           }
         },
         onDidChange: (_, __, viewModel) {

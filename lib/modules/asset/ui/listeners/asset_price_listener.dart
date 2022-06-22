@@ -35,7 +35,7 @@ class AssetPriceListener extends StatelessWidget {
       builder: (context, coinPrices) {
         final coinPrice = coinPrices.getCoinPrice(tradePairId: _tradePairId);
         return BlocBuilder<FiatPriceCubit, FiatPriceState>(
-          //cubit: GetIt.I<FiatPriceCubit>(),
+          bloc: GetIt.I<FiatPriceCubit>(),
           builder: (context, fiatPrices) => builder(
             context,
             fiatPrices.getFiatPrice(

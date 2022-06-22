@@ -57,5 +57,5 @@ abstract class AssetPrice implements Built<AssetPrice, AssetPriceBuilder> {
 
   double get change => (price <= 0 || price24h <= 0)
       ? 0
-      : (NumberUtil.divide<double>(price - price24h, price24h) ?? 0) * 100;
+      : NumberUtil.getDoubleByTwo(price - price24h, price24h);
 }

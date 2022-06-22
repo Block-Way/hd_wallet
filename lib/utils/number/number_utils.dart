@@ -46,6 +46,15 @@ class NumberUtil {
     return double.tryParse(raw.toString()) ?? valueIfNull;
   }
 
+  static double getDoubleByTwo(double v1, double v2) {
+    try {
+      final value = v1 / v2;
+      return value;
+    } catch (_) {
+      return 0.00;
+    }
+  }
+
   /// Return a int from any
   ///
   static int getInt(dynamic raw, [int valueIfNull = 0]) {

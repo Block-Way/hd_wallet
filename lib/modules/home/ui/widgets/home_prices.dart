@@ -9,9 +9,9 @@ class HomePricesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (prices.isEmpty) {
-    //   return SizedBox();
-    // }
+    if (prices.isEmpty) {
+      return SizedBox();
+    }
 
     return CSContainer(
       margin: context.edgeAll.copyWith(top: 0),
@@ -21,7 +21,8 @@ class HomePricesCard extends StatelessWidget {
         children: [
           Text(
             tr('home:price_title'),
-            style: context.textMedium(bold: true, color: context.cardTitleColor),
+            style:
+                context.textMedium(bold: true, color: context.cardTitleColor),
           ),
           Padding(
             padding: context.edgeTop,
@@ -57,10 +58,9 @@ class HomePricesCard extends StatelessWidget {
               ],
             ),
           ),
-
           ListView.builder(
             shrinkWrap: true,
-            // physics: NeverScrollableScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             itemCount: prices.length,
             itemBuilder: (context, index) {
               final item = prices[index];
@@ -68,7 +68,6 @@ class HomePricesCard extends StatelessWidget {
                 radius: 0,
                 padding: EdgeInsets.zero,
                 margin: EdgeInsets.zero,
-
                 key: Key(item.tradePairId),
                 height: 50,
                 child: Row(
@@ -110,22 +109,22 @@ class HomePricesCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Expanded(
-                    //   flex: 2,
-                    //   child: AssetPriceListener(
-                    //     tradePairId: item.tradePairId,
-                    //     builder: (
-                    //       context,
-                    //       fiatPrice,
-                    //       fiatCurrency,
-                    //       data,
-                    //     ) =>
-                    //         TextChange(
-                    //       data.change == 0 ? item.change : data.change,
-                    //       TextSize.small,
-                    //     ),
-                    //   ),
-                    // )
+                    Expanded(
+                      flex: 2,
+                      child: AssetPriceListener(
+                        tradePairId: item.tradePairId,
+                        builder: (
+                          context,
+                          fiatPrice,
+                          fiatCurrency,
+                          data,
+                        ) =>
+                            TextChange(
+                          data.change == 0 ? item.change : data.change,
+                          TextSize.small,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               );
