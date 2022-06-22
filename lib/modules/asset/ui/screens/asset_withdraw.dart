@@ -155,7 +155,7 @@ class AssetWithdrawPage extends HookWidget {
               .contains(coinInfo?.chain ?? '')) {
         return Toast.show(tr('asset:withdraw_req_address'));
       }
-      if (feeIsRefreshing.value == false) {
+      if (feeIsRefreshing.value == false && withdrawInfo.value != null) {
         feeIsRefreshing.value = true;
         AssetWithdrawProcess.getWithdrawFee(
           coinInfo: coinInfo!,
@@ -212,7 +212,9 @@ class AssetWithdrawPage extends HookWidget {
         converter: AssetWithdrawVM.fromStore,
         onInitialBuild: (_, __, viewModel) {
           if (AssetWithdrawProcess.getFeeOnInit
-              .contains(coinInfo?.chain ?? '')) {
+                  .contains(coinInfo?.chain ?? '') &&
+              withdrawInfo.value != null &&
+              coinInfo != null) {
             LoadingDialog.show(context);
             AssetWithdrawProcess.getWithdrawFee(
               viewModel: viewModel,
@@ -328,7 +330,7 @@ class AssetWithdrawPage extends HookWidget {
                     ),
                   ),
                   AssetWithdrawFee(
-                    withdrawInfo: withdrawInfo.value!,
+                    withdrawInfo: withdrawInfo.value,
                     isRefreshing: feeIsRefreshing.value,
                     onPress: (type) {
                       handleChangeGas(type);
