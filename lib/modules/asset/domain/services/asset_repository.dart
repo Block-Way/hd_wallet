@@ -298,7 +298,7 @@ class AssetRepository {
     );
   }
   */
-  Future<MapEntry<int, List<Map<String, dynamic>>>> getTransactionsFromApi({
+  Future<MapEntry<int, List<dynamic>>> getTransactionsFromApi({
     required String chain,
     required String symbol,
     required String address,
@@ -307,7 +307,7 @@ class AssetRepository {
     required int skip,
   }) async {
     var count = 0;
-    var transactions = <Map<String, dynamic>>[];
+    //final List<dynamic> transactions; // = List<dynamic>;
     switch (chain) {
       case 'ETH':
         /*
@@ -359,15 +359,15 @@ class AssetRepository {
         break;
       case 'BBC':
       default:
-        transactions = await _api.getCoinTransactions(
-          chain: chain,
-          symbol: symbol,
-          address: address,
-          page: page,
-          take: skip,
-        );
-        count = transactions.length;
     }
+    final transactions = await _api.getCoinTransactions(
+      chain: chain,
+      symbol: symbol,
+      address: address,
+      page: page,
+      take: skip,
+    );
+    count = transactions.length;
     return MapEntry(count, transactions);
   }
 

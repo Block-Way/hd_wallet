@@ -123,7 +123,7 @@ class AssetApi {
 
   /// **** Transactions ****
 
-  Future<List<Map<String, dynamic>>> getCoinTransactions({
+  Future<List<dynamic>> getCoinTransactions({
     required String chain,
     required String symbol,
     required String address,
@@ -134,7 +134,13 @@ class AssetApi {
     final response = await dio.get(
         '${AppConstants.randomApiUrl}/transaction?address=$address&symbol=$symbol&page=$page&take=$take');
     final data = response.data;
-    return data as List<Map<String, dynamic>>;
+    return data as List<dynamic>;
+    /*
+    return List<Map<String, dynamic>>.from(
+      data.map(
+        (e) => Map<String, dynamic>.from(e),
+      ),
+    );*/
     /*
     return List<Map<String, dynamic>>.from(
       // ignore: avoid_dynamic_calls

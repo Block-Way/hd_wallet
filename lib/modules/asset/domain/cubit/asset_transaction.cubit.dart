@@ -56,7 +56,7 @@ class AssetTransactionCubit extends AssetDetailCubit {
                 coin.symbol ?? '',
                 coin.address ?? '',
                 coin.chainPrecision ?? 0,
-                e,
+                e as Map<String, dynamic>,
               ),
             )
             .toList();
@@ -67,7 +67,7 @@ class AssetTransactionCubit extends AssetDetailCubit {
               (e) => Transaction.fromBtcTx(
                 coin.symbol ?? '',
                 coin.address ?? '',
-                e,
+                e as Map<String, dynamic>,
               ),
             )
             .toList();
@@ -78,7 +78,7 @@ class AssetTransactionCubit extends AssetDetailCubit {
               (e) => Transaction.fromBbcTx(
                 coin.symbol ?? '',
                 coin.address ?? '',
-                e,
+                e as Map<String, dynamic>,
               ),
             )
             .toList();
@@ -89,7 +89,7 @@ class AssetTransactionCubit extends AssetDetailCubit {
               (e) => Transaction.fromTrxTx(
                 coin.symbol ?? '',
                 coin.address ?? '',
-                e,
+                e as Map<String, dynamic>,
               ),
             )
             .toList();
