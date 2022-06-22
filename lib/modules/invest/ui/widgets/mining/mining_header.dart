@@ -2,12 +2,12 @@ part of invest_ui_module;
 
 class MiningHeader extends StatelessWidget {
   const MiningHeader({
-    required this.mintInfo,
     required this.symbol,
+    this.mintInfo,
     Key? key,
   }) : super(key: key);
 
-  final MintInfo mintInfo;
+  final MintInfo? mintInfo;
   final String symbol;
 
   @override
@@ -25,7 +25,7 @@ class MiningHeader extends StatelessWidget {
           ),
           SizedBox(height: 6),
           PriceText(
-            mintInfo.totalProfit.toString(),
+            mintInfo?.totalProfit.toString() ?? '',
             symbol,
             TextSize.big,
             color: context.redColor,

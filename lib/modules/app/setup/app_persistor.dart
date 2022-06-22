@@ -27,9 +27,9 @@ class AppStatePersistor extends Persistor<AppState> {
         //tradeState: TradeState.fromCache(
         //  state[3] as List<dynamic>,
         //),
-        communityState: CommunityState.fromCache(
-          state[3] as List<dynamic>,
-        ),
+        //communityState: CommunityState.fromCache(
+        //  state[3] as List<dynamic>,
+        //),
       );
       return initialState;
     } catch (error) {
@@ -64,7 +64,7 @@ class AppStatePersistor extends Persistor<AppState> {
       state.assetState.toCache(),
       state.noticeState.toCache(),
       //state.tradeState.toCache(),
-      state.communityState.toCache(),
+      //state.communityState.toCache(),
     ]);
   }
 

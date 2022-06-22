@@ -5,7 +5,7 @@ class CoinConfig {
   Map<String, int> dealPrecisions = {};
   Map<String, double> transferMinQuotas = {};
   List<String> symbols = [];
-  Map<String, ConfigCoinFee> feeLevels = {};
+  Map<String, ConfigCoinFee?> feeLevels = {};
 
   void updateFromConfig(Config config) {
     config.coins.forEach((symbol, value) {
@@ -13,7 +13,7 @@ class CoinConfig {
       displayPrecisions[symbol] = value.displayPrecision;
       transferMinQuotas['${value.chain}_${value.symbol}'] =
           value.transferMinQuota ?? 0;
-      feeLevels['${value.chain}_${value.symbol}'] = value.hdWalletFeeLevel!;
+      feeLevels['${value.chain}_${value.symbol}'] = value.hdWalletFeeLevel;
     });
   }
 

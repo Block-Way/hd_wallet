@@ -88,6 +88,9 @@ class _ListViewHeaderState extends RefreshIndicatorState<ListViewHeader>
       );
     } else if (mode == RefreshStatus.idle || mode == RefreshStatus.canRefresh) {
       // None
+      child = Icon(
+        Icons.no_cell,
+      );
     }
     return Container(
       height: headerHeight,

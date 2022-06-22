@@ -22,7 +22,7 @@ abstract class CommunityState
         communityTeamList: BuiltList([]),
         communityMemberList: BuiltList([]),
         configState: ConfigState.loading.index,
-        config: deserialize<CommunityConfig>(data[0]),
+        config: deserialize<CommunityConfig>(null),
       );
     } catch (_) {
       return CommunityState();
@@ -32,7 +32,7 @@ abstract class CommunityState
   List<dynamic> toCache() {
     try {
       return [
-        serialize<CommunityConfig>(config!),
+        serialize<CommunityConfig?>(config),
       ];
     } catch (_) {
       return [];

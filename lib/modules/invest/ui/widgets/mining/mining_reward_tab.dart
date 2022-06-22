@@ -2,16 +2,16 @@ part of invest_ui_module;
 
 class MiningRewardTab extends HookWidget {
   const MiningRewardTab({
-    required this.mintInfo,
     required this.symbol,
     required this.mintItem,
     required this.coinInfo,
     required this.chartList,
     required this.doRefresh,
+    this.mintInfo,
     Key? key,
   }) : super(key: key);
 
-  final MintInfo mintInfo;
+  final MintInfo? mintInfo;
   final String symbol;
   final MintItem mintItem;
   final AssetCoin coinInfo;
@@ -22,7 +22,7 @@ class MiningRewardTab extends HookWidget {
   Widget build(BuildContext context) {
     final refreshController = useMemoized(() => CSRefresherController());
 
-    final notStart = NumberUtil.getDouble(mintInfo.bestBalanceReward) <= 0;
+    final notStart = NumberUtil.getDouble(mintInfo?.bestBalanceReward) <= 0;
     const noBalance = false;
     //coinInfo.balance < NumberUtil.getDouble(mintItem.minBalance ?? '0');
     // no start
@@ -76,7 +76,7 @@ class MiningRewardTab extends HookWidget {
                       'symbol': symbol,
                     },
                   ),
-                  mintInfo.bestBalance,
+                  mintInfo?.bestBalance ?? '',
                 ),
                 ...buildItem(
                   context,
@@ -84,7 +84,7 @@ class MiningRewardTab extends HookWidget {
                     'invest:reward_minimum_benefit',
                     namedArgs: {'symbol': symbol},
                   ),
-                  mintInfo.bestBalanceReward,
+                  mintInfo?.bestBalanceReward ?? '',
                 ),
                 Center(
                   child: Text(

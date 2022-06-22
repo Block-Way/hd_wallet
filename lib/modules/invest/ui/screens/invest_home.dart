@@ -157,7 +157,7 @@ class InvestHomePage extends HookWidget {
                             : viewModel.activeMint!.isMining
                                 ? MiningHeader(
                                     symbol: symbol,
-                                    mintInfo: viewModel.mintInfo!,
+                                    mintInfo: viewModel.mintInfo,
                                   )
                                 : AirdropHeader(),
                       ),
@@ -261,7 +261,7 @@ class InvestHomePage extends HookWidget {
     if (select == InvestTabs.reward) {
       return MiningRewardTab(
         chartList: viewModel.chartList.toList(),
-        mintInfo: viewModel.mintInfo!,
+        mintInfo: viewModel.mintInfo,
         coinInfo: coinInfo,
         mintItem: viewModel.activeMint!,
         symbol: symbol,

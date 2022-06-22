@@ -22,8 +22,8 @@ class BorderDecorator extends Decoration {
     return BorderPainter(
       color: color,
       width: width ?? 1,
-      hasTop: hasTop!,
-      hasBottom: hasBottom!,
+      hasTop: hasTop,
+      hasBottom: hasBottom,
       leftInset: leftInset ?? 0,
       rightInset: rightInset ?? 0,
     );
