@@ -327,7 +327,7 @@ class CSListViewStream<T> extends HookWidget {
           request.add(paramsChanges.value.copyWith(isRefresh: false));
         },
         header: ListViewHeader(
-          background: headerBgColor,
+          background: context.cardColor,
         ),
         footer: ListViewFooter(
           data: snapshot.data,
@@ -365,7 +365,10 @@ class CSListViewStream<T> extends HookWidget {
               SliverGroupBuilder(
                 margin: margin,
                 padding: padding ?? EdgeInsets.zero,
-                decoration: decoration,
+                decoration: BoxDecoration(
+                  color: context.cardColor,
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
                 child: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {

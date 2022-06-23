@@ -75,6 +75,7 @@ class _AssetDposList extends State<AssetDposList> {
                 balance,
                 '',
                 TextSize.big,
+                color: Colors.white,
               ),
             ),
             SizedBox(height: 15),
