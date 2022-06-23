@@ -16,7 +16,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-//import 'package:flutter_group_sliver/flutter_group_sliver.dart';
+import 'package:flutter_group_sliver/flutter_group_sliver.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 //import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:intl/intl.dart';

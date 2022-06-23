@@ -361,7 +361,7 @@ class CSListViewStream<T> extends HookWidget {
                         ),
                 ),
               )
-            /* else
+            else
               SliverGroupBuilder(
                 margin: margin,
                 padding: padding ?? EdgeInsets.zero,
@@ -371,7 +371,7 @@ class CSListViewStream<T> extends HookWidget {
                     (context, index) {
                       final data = snapshot.data;
                       final showHeader = index == 0 &&
-                          (data.hasSyncCache || itemHeader != null);
+                          (data!.hasSyncCache || itemHeader != null);
                       if (showHeader) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,7 +383,7 @@ class CSListViewStream<T> extends HookWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  if (itemHeader != null) itemHeader,
+                                  // if (itemHeader != null) itemHeader,
                                   if (itemHeader != null) Spacer(),
                                   if (data.isSyncCacheLoading)
                                     Text(
@@ -420,7 +420,6 @@ class CSListViewStream<T> extends HookWidget {
                   ),
                 ),
               ),
-         */
           ],
         ),
       ),

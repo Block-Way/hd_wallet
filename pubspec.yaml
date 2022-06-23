@@ -88,8 +88,7 @@ dependencies:
   scroll_to_index: ^2.1.1
   ## dotted_border: ^1.0.7
   dotted_border: ^2.0.0+2
-  ## flutter_group_sliver: ^0.0.2
-  #flutter_group_sliver: ^0.0.2
+  flutter_group_sliver: ^0.0.2
   ## flutter_linkify: ^4.0.2
   flutter_linkify: ^5.0.2
 
