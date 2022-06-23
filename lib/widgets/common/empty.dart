@@ -11,8 +11,8 @@ class CSEmpty extends HookWidget {
     this.showButton = false,
     this.heightFromTop = 60,
     this.onPressed,
-    this.width = 156,
-    this.height = 156,
+    this.width = 100,
+    this.height = 100,
   }) : super(key: key);
 
   final Widget? header;

@@ -355,7 +355,7 @@ class CSListViewStream<T> extends HookWidget {
                           imageUrl: snapshot.data!.isEmpty ? emptyImageUrl : errorEmptyUrl ?? 'assets/images/error_record.png',
                           isLoading: snapshot.data!.isLoading,
                           showButton: snapshot.data!.isError,
-                          width: snapshot.data!.isError ? 121 : 133,
+                          width: snapshot.data!.isError ? 90 : 133,
                           height: 120,
                           btnText: tr('global:btn_refresh'),
                           onPressed: () {
