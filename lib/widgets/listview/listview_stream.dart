@@ -337,27 +337,17 @@ class CSListViewStream<T> extends HookWidget {
           physics: ClampingScrollPhysics(),
           slivers: [
             if (slivers != null) ...slivers!,
-            if (itemCount == 0 &&
-                (snapshot.data!.isLoading ||
-                    snapshot.data!.isEmpty ||
-                    snapshot.data!.isError))
+            if (itemCount == 0 && (snapshot.data!.isLoading || snapshot.data!.isEmpty || snapshot.data!.isError))
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Container(
                   margin: margin,
                   padding: padding ?? EdgeInsets.zero,
                   decoration: decoration,
-                  child: snapshot.data!.isEmpty && emptyWidget != null
-                      ? emptyWidget
-                      : CSEmpty(
-                          label: snapshot.data!.isEmpty
-                              ? emptyLabel
-                              : tr('global:list_load_failed'),
+                  child: snapshot.data!.isEmpty && emptyWidget != null ? emptyWidget : CSEmpty(
+                          label: snapshot.data!.isEmpty ? emptyLabel : tr('global:list_load_failed'),
                           header: itemHeader,
-                          imageUrl: snapshot.data!.isEmpty
-                              ? emptyImageUrl
-                              : errorEmptyUrl ??
-                                  'assets/images/error_record.png',
+                          imageUrl: snapshot.data!.isEmpty ? emptyImageUrl : errorEmptyUrl ?? 'assets/images/error_record.png',
                           isLoading: snapshot.data!.isLoading,
                           showButton: snapshot.data!.isError,
                           width: snapshot.data!.isError ? 121 : 133,
