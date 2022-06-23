@@ -377,9 +377,7 @@ class CSListViewStream<T> extends HookWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: itemHeader == null && data.isSyncing
-                                  ? 40
-                                  : null,
+                              height: itemHeader == null && data.isSyncing ? 40 : null,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
