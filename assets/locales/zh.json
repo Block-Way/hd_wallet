@@ -1,9 +1,9 @@
 {
   "global:language_api": "zh-cn",
   "global:language_name": "中文",
-  "global:main_tab_home": "首页",
+  "global:main_tab_home": "市场",
   "global:main_tab_wallet": "钱包",
-  "global:main_tab_invest": "投资",
+  "global:main_tab_invest": "收益",
   "global:main_tab_trade": "交易",
   "global:main_tab_user": "我的",
   "global:lbl_copied": "复制成功",

@@ -343,7 +343,12 @@ class CSListViewStream<T> extends HookWidget {
                 child: Container(
                   margin: margin,
                   padding: padding ?? EdgeInsets.zero,
-                  decoration: decoration,
+                  decoration: BoxDecoration(
+                      color: context.cardColor,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(10),
+                    ),
+                  ),
                   child: snapshot.data!.isEmpty && emptyWidget != null ? emptyWidget : CSEmpty(
                           label: snapshot.data!.isEmpty ? emptyLabel : tr('global:list_load_failed'),
                           header: itemHeader,

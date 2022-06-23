@@ -179,7 +179,7 @@ class FormBox extends HookWidget {
                     style: titleStyle ??
                         context.textBody(
                           bold: true,
-                          color: context.placeholderColor,
+                          color: context.placeholderColor
                         ),
                   ),
                 ),
@@ -207,14 +207,14 @@ class FormBox extends HookWidget {
                   prefix: inputLeftWidget,
                   contentPadding:
                       context.edgeHorizontal.copyWith(top: 24, bottom: 24),
-                  counterText: '', // counter handled by buildSuffixWidget
+                  counterText: '', // counter handled by buildSuffixWidgetr
                   suffixIcon: buildSuffixWidget(context),
                   suffixIconConstraints: BoxConstraints(
                     minHeight: 28,
                     minWidth: 28,
                   ),
                   filled: true,
-                  fillColor: context.languageBgColor,
+                  fillColor: context.cardColor,
 
                   border: OutlineInputBorder(
                     gapPadding: 0,

@@ -356,6 +356,7 @@ class AssetWithdrawPage extends HookWidget {
               builder: (disabled) {
                 return CSButton(
                   label: tr('asset:withdraw_btn_withdraw'),
+                  textColor: context.placeholderColor,
                   disabled: disabled,
                   onPressed: () {
                     handleSubmit(viewModel);
