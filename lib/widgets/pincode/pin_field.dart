@@ -3,10 +3,10 @@ part of widgets;
 /// Pin code text fields which automatically changes focus and validates
 class PinCodeTextField extends StatefulWidget {
   PinCodeTextField({
-    @required this.appContext,
-    @required this.length,
-    @required this.onChanged,
-    Key key,
+    required this.appContext,
+    required this.length,
+    required this.onChanged,
+    Key? key,
     this.controller,
     this.obscureText = false,
     this.obscuringCharacter = '●',
@@ -57,7 +57,7 @@ class PinCodeTextField extends StatefulWidget {
   final BuildContext appContext;
 
   ///Box Shadow for Pincode
-  final List<BoxShadow> boxShadows;
+  final List<BoxShadow>? boxShadows;
 
   /// length of how many cells there should be. 3-8 is recommended by me
   final int length;
@@ -76,10 +76,10 @@ class PinCodeTextField extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
   /// returns the typed text when all pins are set
-  final ValueChanged<String> onCompleted;
+  final ValueChanged<String>? onCompleted;
 
   /// returns the typed text when user presses done/next action on the keyboard
-  final ValueChanged<String> onSubmitted;
+  final ValueChanged<String>? onSubmitted;
 
   /// the style of the text, default is
   ///  [ fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold]
@@ -88,7 +88,7 @@ class PinCodeTextField extends StatefulWidget {
   /// the style of the pasted text, default is
   /// [fontWeight: FontWeight.bold] while
   /// [TextStyle.color] is [ThemeData.accentColor]
-  final TextStyle pastedTextStyle;
+  final TextStyle? pastedTextStyle;
 
   /// background color for the whole row of pin code fields.
   /// Default is [Colors.white]
@@ -116,7 +116,7 @@ class PinCodeTextField extends StatefulWidget {
   final bool autoFocus;
 
   /// Should pass a [FocusNode] to manage it from the parent
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   /// A list of [TextInputFormatter] that goes to the TextField
   final List<TextInputFormatter> inputFormatters;
@@ -126,7 +126,7 @@ class PinCodeTextField extends StatefulWidget {
 
   /// [TextEditingController] to control the text manually.
   /// Sets a default [TextEditingController()] object if none given
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   /// Enabled Color fill for individual pin fields, default is [false]
   final bool enableActiveFill;
@@ -150,16 +150,16 @@ class PinCodeTextField extends StatefulWidget {
   final TextInputAction textInputAction;
 
   /// Triggers the error animation
-  final StreamController<ErrorAnimationType> errorAnimationController;
+  final StreamController<ErrorAnimationType>? errorAnimationController;
 
   /// Callback method to validate if text can be pasted.
   /// This is helpful when we need to validate text before pasting.
   /// e.g. validate if text is number. Default will be pasted as received.
-  final bool Function(String text) beforeTextPaste;
+  final bool Function(String text)? beforeTextPaste;
 
   /// Method for detecting a pin_code form tap
   /// work with all form windows
-  final Function onTap;
+  final Function? onTap;
 
   /// Theme for the pin cells. Read more [PinTheme]
   final PinTheme pinTheme;
@@ -168,11 +168,11 @@ class PinCodeTextField extends StatefulWidget {
   final Brightness keyboardAppearance;
 
   /// Validator for the [TextFormField]
-  final FormFieldValidator<String> validator;
+  final FormFieldValidator<String>? validator;
 
   /// An optional method to call with the final value when the form is saved via
   /// [FormState.save].
-  final FormFieldSetter<String> onSaved;
+  final FormFieldSetter<String>? onSaved;
 
   /// enables auto validation for the [TextFormField]
   /// Default is false
@@ -193,15 +193,15 @@ class PinCodeTextField extends StatefulWidget {
   final bool showCursor;
 
   /// The color of the cursor, default to Theme.of(context).accentColor
-  final Color cursorColor;
+  final Color? cursorColor;
 
   /// width of the cursor, default to 2
   final double cursorWidth;
 
   /// Height of the cursor, default to FontSize + 8;
-  final double cursorHeight;
+  final double? cursorHeight;
 
-  final String entryPincode;
+  final String? entryPincode;
 
   @override
   _PinCodeTextFieldState createState() => _PinCodeTextFieldState();
@@ -209,24 +209,24 @@ class PinCodeTextField extends StatefulWidget {
 
 class _PinCodeTextFieldState extends State<PinCodeTextField>
     with TickerProviderStateMixin {
-  TextEditingController _textEditingController;
-  FocusNode _focusNode;
-  List<String> _inputList;
+  TextEditingController? _textEditingController;
+  FocusNode? _focusNode;
+  List<String>? _inputList;
   int _selectedIndex = 0;
-  BorderRadius borderRadius;
+  BorderRadius? borderRadius;
 
   // AnimationController for the error animation
-  AnimationController _controller;
+  AnimationController? _controller;
 
-  AnimationController _cursorController;
+  AnimationController? _cursorController;
 
-  StreamSubscription<ErrorAnimationType> _errorAnimationSubscription;
+  StreamSubscription<ErrorAnimationType>? _errorAnimationSubscription;
 
   // Animation for the error animation
-  Animation<Offset> _offsetAnimation;
+  Animation<Offset>? _offsetAnimation;
 
-  Animation<double> _cursorAnimation;
-  PinTheme get _pinTheme => widget.pinTheme ?? PinTheme();
+  Animation<double>? _cursorAnimation;
+  PinTheme get _pinTheme => widget.pinTheme;
 
   @override
   void initState() {
@@ -241,10 +241,11 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
 
     _focusNode = widget.focusNode ?? FocusNode();
     _onFocus();
-    _focusNode.addListener(() {
+    _focusNode!.addListener(() {
       setState(() {});
     }); // Rebuilds on every change to reflect the correct color on each field.
-    _inputList = List<String>(widget.length);
+    _inputList = List<String>.filled(widget.length, '', growable: true);
+    // List<String>(widget.length);
     _initializeValues();
 
     _cursorController = AnimationController(
@@ -253,7 +254,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       begin: 1,
       end: 0,
     ).animate(CurvedAnimation(
-      parent: _cursorController,
+      parent: _cursorController!,
       curve: Curves.easeIn,
     ));
     _controller = AnimationController(
@@ -264,24 +265,24 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       begin: Offset.zero,
       end: const Offset(.1, 0.0),
     ).animate(CurvedAnimation(
-      parent: _controller,
+      parent: _controller!,
       curve: Curves.elasticIn,
     ));
     if (widget.showCursor) {
-      _cursorController.repeat();
+      _cursorController!.repeat();
     }
 
-    _controller.addStatusListener((status) {
+    _controller!.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        _controller.reverse();
+        _controller!.reverse();
       }
     });
 
     if (widget.errorAnimationController != null) {
       _errorAnimationSubscription =
-          widget.errorAnimationController.stream.listen((errorAnimation) {
+          widget.errorAnimationController!.stream.listen((errorAnimation) {
         if (errorAnimation == ErrorAnimationType.shake) {
-          _controller.forward();
+          _controller!.forward();
         }
       });
     }
@@ -324,15 +325,15 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
   void _assignController() {
     if (widget.controller == null) {
       _textEditingController =
-          TextEditingController(text: widget?.entryPincode ?? '');
+          TextEditingController(text: widget.entryPincode ?? '');
     } else {
       _textEditingController = widget.controller;
     }
 
-    _textEditingController.addListener(() {
-      var currentText = _textEditingController.text;
+    _textEditingController!.addListener(() {
+      var currentText = _textEditingController!.text;
 
-      if (widget.enabled && _inputList.join('') != currentText) {
+      if (widget.enabled && _inputList?.join('') != currentText) {
         if (currentText.length >= widget.length) {
           if (widget.onCompleted != null) {
             if (currentText.length > widget.length) {
@@ -342,11 +343,11 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
             //  delay the onComplete event handler to give
             // the onChange event handler enough time to complete
             Future.delayed(Duration(milliseconds: 300),
-                () => widget.onCompleted(currentText));
+                () => widget.onCompleted!(currentText));
           }
 
           if (widget.autoDismissKeyboard) {
-            _focusNode.unfocus();
+            _focusNode!.unfocus();
           }
         }
         if (widget.onChanged != null) {
@@ -361,8 +362,8 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
   @override
   void dispose() {
     if (widget.autoDisposeControllers) {
-      _textEditingController.dispose();
-      _focusNode.dispose();
+      _textEditingController!.dispose();
+      _focusNode!.dispose();
       // if (!kReleaseMode) {
       //   print(
       //       "*** Disposing _textEditingController and _focusNode,
@@ -373,15 +374,15 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
 
     _errorAnimationSubscription?.cancel();
 
-    _cursorController.dispose();
+    _cursorController!.dispose();
 
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
   void _initializeValues() {
-    for (int i = 0; i < _inputList.length; i++) {
-      _inputList[i] = '';
+    for (int i = 0; i < _inputList!.length; i++) {
+      _inputList![i] = '';
     }
   }
 
@@ -392,7 +393,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
     }
     if (((_selectedIndex == index) ||
             (_selectedIndex == index + 1 && index + 1 == widget.length)) &&
-        _focusNode.hasFocus) {
+        _focusNode!.hasFocus) {
       return _pinTheme.selectedColor;
     } else if (_selectedIndex > index) {
       return _pinTheme.activeColor;
@@ -407,7 +408,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
     }
     if (((_selectedIndex == index) ||
             (_selectedIndex == index + 1 && index + 1 == widget.length)) &&
-        _focusNode.hasFocus) {
+        _focusNode!.hasFocus) {
       return _pinTheme.selectedFillColor;
     } else if (_selectedIndex > index) {
       return _pinTheme.activeFillColor;
@@ -419,10 +420,11 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
   Widget buildChild(int index) {
     if (((_selectedIndex == index) ||
             (_selectedIndex == index + 1 && index + 1 == widget.length)) &&
-        _focusNode.hasFocus &&
+        _focusNode!.hasFocus &&
         widget.showCursor) {
       final cursorColor = widget.cursorColor ?? context.secondaryColor;
-      final cursorHeight = widget.cursorHeight ?? widget.textStyle.fontSize + 8;
+      final cursorHeight =
+          widget.cursorHeight ?? widget.textStyle.fontSize! + 8;
 
       if (_selectedIndex == index + 1 && index + 1 == widget.length) {
         return Stack(
@@ -430,9 +432,10 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
           children: [
             Center(
               child: Padding(
-                padding: EdgeInsets.only(left: widget.textStyle.fontSize / 1.5),
+                padding:
+                    EdgeInsets.only(left: widget.textStyle.fontSize! / 1.5),
                 child: FadeTransition(
-                  opacity: _cursorAnimation,
+                  opacity: _cursorAnimation!,
                   child: CustomPaint(
                     size: Size(0, cursorHeight),
                     painter: CursorPainter(
@@ -444,10 +447,10 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
               ),
             ),
             Text(
-              widget.obscureText && _inputList[index].isNotEmpty
+              widget.obscureText && _inputList![index].isNotEmpty
                   ? widget.obscuringCharacter
-                  : _inputList[index],
-              key: ValueKey(_inputList[index]),
+                  : _inputList![index],
+              key: ValueKey(_inputList![index]),
               style: widget.textStyle,
             ),
           ],
@@ -455,7 +458,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       } else {
         return Center(
           child: FadeTransition(
-            opacity: _cursorAnimation,
+            opacity: _cursorAnimation!,
             child: CustomPaint(
               size: Size(0, cursorHeight),
               painter: CursorPainter(
@@ -468,10 +471,10 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
       }
     }
     return Text(
-      widget.obscureText && _inputList[index].isNotEmpty
+      widget.obscureText && _inputList![index].isNotEmpty
           ? widget.obscuringCharacter
-          : _inputList[index],
-      key: ValueKey(_inputList[index]),
+          : _inputList![index],
+      key: ValueKey(_inputList![index]),
       style: widget.textStyle,
     );
   }
@@ -479,7 +482,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
-      position: _offsetAnimation,
+      position: _offsetAnimation!,
       child: Container(
         // adding the extra space at the bottom to
         // show the error text from validator
@@ -545,7 +548,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
               child: GestureDetector(
                 onTap: () {
                   if (widget.onTap != null) {
-                    widget.onTap();
+                    widget.onTap!();
                   }
                   _onFocus();
                 },
@@ -644,18 +647,18 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
   }
 
   void _onFocus() {
-    if (_focusNode.hasFocus &&
+    if (_focusNode!.hasFocus &&
         MediaQuery.of(widget.appContext).viewInsets.bottom == 0) {
-      _focusNode.unfocus();
+      _focusNode!.unfocus();
       Future.delayed(
-          const Duration(microseconds: 1), () => _focusNode.requestFocus());
+          const Duration(microseconds: 1), () => _focusNode!.requestFocus());
     } else {
-      _focusNode.requestFocus();
+      _focusNode!.requestFocus();
     }
   }
 
   void _setTextToInput(String data) {
-    final replaceInputList = List<String>(widget.length);
+    final replaceInputList = List<String>.filled(widget.length, '');
 
     for (int i = 0; i < widget.length; i++) {
       replaceInputList[i] = data.length > i ? data[i] : '';

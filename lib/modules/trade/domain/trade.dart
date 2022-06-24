@@ -20,7 +20,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:network_flutter/network_flutter.dart';
 
 // Project imports:
 import '../../../modules/app/app.dart';

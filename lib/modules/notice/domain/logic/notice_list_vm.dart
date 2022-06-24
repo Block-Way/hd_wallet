@@ -7,16 +7,16 @@ abstract class NoticeListVM
   NoticeListVM._();
 
 // UI Fields
-  @nullable
-  BuiltList<NoticeInfo> get noticeList;
+  //@nullable
+  BuiltList<NoticeInfo>? get noticeList;
 
-  @nullable
-  BuiltList<NoticeInfo> get noticeLatest;
+  //@nullable
+  BuiltList<NoticeInfo>? get noticeLatest;
 
   @BuiltValueField(compare: false)
   Future<int> Function(bool isRefresh, int skip) get loadData;
 
-  int get listCount => noticeList != null ? noticeList.length : 0;
+  int get listCount => noticeList?.length ?? 0;
 
   // UI Actions
   static Future<int> _loadData(
@@ -24,7 +24,7 @@ abstract class NoticeListVM
     bool isRefresh,
     int skip,
   ) async {
-    await store.dispatchFuture(NoticeActionGetList(
+    await store.dispatch(NoticeActionGetList(
       isRefresh: isRefresh,
       skip: skip,
     ));

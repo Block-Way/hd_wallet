@@ -2,14 +2,14 @@ part of trade_domain_module;
 
 class TradeActionOrderCreate extends _BaseAction {
   TradeActionOrderCreate({
-    @required this.tradePair,
-    @required this.tradeSide,
-    @required this.price,
-    @required this.amount,
-    @required this.total,
-    @required this.onConfirmSubmit,
-    @required this.onUnlockWallet,
-    @required this.onSuccessTransaction,
+    required this.tradePair,
+    required this.tradeSide,
+    required this.price,
+    required this.amount,
+    required this.total,
+    required this.onConfirmSubmit,
+    required this.onUnlockWallet,
+    required this.onSuccessTransaction,
   });
 
   final TradePair tradePair;
@@ -22,7 +22,8 @@ class TradeActionOrderCreate extends _BaseAction {
   final void Function(String txId) onSuccessTransaction;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     // Coin to use for creating templateData
     final sellCoinInfo = store.state.assetState.getCoinInfo(
       chain: tradePair.sideChain(tradeSide),
@@ -210,12 +211,12 @@ class TradeActionOrderCreate extends _BaseAction {
     )));
 
     onSuccessTransaction(txId);
-
+*/
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return parseWalletError(error);
   }
 }

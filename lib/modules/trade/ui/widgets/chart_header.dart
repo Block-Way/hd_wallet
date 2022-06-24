@@ -2,13 +2,13 @@ part of trade_ui_module;
 
 class ChartHeader extends HookWidget {
   const ChartHeader({
-    Key key,
+    Key? key,
     this.isFullScreen = false,
     this.requestStream,
   }) : super(key: key);
 
   final bool isFullScreen;
-  final Stream<RequestParams> requestStream;
+  final Stream<RequestParams>? requestStream;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,7 @@ class ChartHeader extends HookWidget {
             style: context.textTiny(
               color: labelColor,
               bold: true,
+              fontWeight: FontWeight.normal,
             ),
             children: [
               TextSpan(
@@ -37,6 +38,7 @@ class ChartHeader extends HookWidget {
                 style: context.textTinyPrice(
                   bold: true,
                   color: context.whiteLightColor,
+                  fontWeight: FontWeight.normal,
                 ),
               )
             ],
@@ -82,8 +84,13 @@ class ChartHeader extends HookWidget {
                       child: RowItemBar(
                         e['label'].toString(),
                         e['value'].toString(),
-                        textStyle: context.textTiny(color: labelColor),
+                        textStyle: context.textTiny(
+                          color: labelColor,
+                          fontWeight: FontWeight.normal,
+                          bold: true,
+                        ),
                         valueStyle: context.textSmallPrice(
+                          fontWeight: FontWeight.normal,
                           bold: true,
                           color: context.whiteLightColor,
                         ),

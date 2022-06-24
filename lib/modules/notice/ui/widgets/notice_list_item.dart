@@ -2,8 +2,8 @@ part of notice_ui_module;
 
 class NoticeListItem extends StatelessWidget {
   const NoticeListItem({
-    @required this.item,
-    Key key,
+    required this.item,
+    Key? key,
   }) : super(key: key);
   final NoticeInfo item;
 
@@ -27,7 +27,7 @@ class NoticeListItem extends StatelessWidget {
           Padding(
             padding: context.edgeAll,
             child: Text(
-              item.displayCreatedAt ?? '',
+              item.displayCreatedAt,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: context.textSecondary(),

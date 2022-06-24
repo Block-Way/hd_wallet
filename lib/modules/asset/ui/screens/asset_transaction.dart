@@ -88,12 +88,12 @@ class AssetTransactionPage extends HookWidget {
           SizedBox(height: 20),
           PriceText(
             info.displayAmountWithSign,
-            amountCoinName.value,
+            amountCoinName.value ?? '',
             TextSize.huge,
             color: color,
           ),
           CSContainer(
-            width: null,
+            //width: null,
             radius: 24.5,
             secondary: true,
             margin: context.edgeVertical,
@@ -146,8 +146,8 @@ class AssetTransactionPage extends HookWidget {
                     containerSize: 20,
                     margin: EdgeInsets.symmetric(horizontal: 2),
                     onPressed: () {
-                      copied.value = item['value'];
-                      copyTextToClipboard(item['value']);
+                      copied.value = item['value'].toString();
+                      copyTextToClipboard(item['value'].toString());
                       Toast.show(tr('global:msg_copy_success'));
                     },
                   ),
@@ -158,7 +158,7 @@ class AssetTransactionPage extends HookWidget {
               item['value'] ?? '',
               style: context.textSecondary(
                 bold: true,
-                color: context.bodyColor,
+                color: context.iconColor,
               ),
             ),
           ],
@@ -169,19 +169,23 @@ class AssetTransactionPage extends HookWidget {
     return CSScaffold(
       title: tr('asset:trans_title'),
       scrollable: true,
-      backgroundColor: context.bgSecondaryColor,
-      headerBgColor: context.bgSecondaryColor,
+      // backgroundColor: context.bgSecondaryColor,
+      // headerBgColor: context.bgSecondaryColor,
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       child: StoreConnector<AppState, AssetTransactionVM>(
         distinct: true,
         converter: AssetTransactionVM.fromStore,
-        onInitialBuild: (viewModel) {
-          amountCoinName.value = viewModel.getCoinName(info.chain, info.symbol);
-          feeCoinName.value = viewModel.getCoinName(info.chain, info.feeSymbol);
+        onInitialBuild: (_, __, viewModel) {
+          amountCoinName.value =
+              viewModel.getCoinName(info.chain ?? '', info.symbol ?? '');
+          feeCoinName.value =
+              viewModel.getCoinName(info.chain ?? '', info.feeSymbol ?? '');
           if (info.isConfirming || info.isExpired) {
             LoadingDialog.show(context);
             viewModel.getSingleTransaction(info).then((result) {
               LoadingDialog.dismiss(context);
-              infoState.value = result ?? transactionInfo;
+              infoState.value = result;
             }).catchError((error) {
               LoadingDialog.dismiss(context);
               Toast.showError(error);

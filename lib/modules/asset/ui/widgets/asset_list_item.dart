@@ -2,14 +2,18 @@ part of asset_ui_module;
 
 class AssetListItem extends HookWidget {
   const AssetListItem({
-    @required this.item,
-    @required this.onPressed,
+    required this.item,
+    required this.onPressed,
   }) : assert(item != null);
 
   final AssetCoin item;
   final void Function() onPressed;
 
-  @override
+  // @override
+  // void getWalletBalance() async {
+  //   // var res = await AssetRepository().getCoinBalance(address: address.toString(), symbol: 'HAH');
+  //   print('item $item');
+  // }
   Widget build(BuildContext context) {
     return CSContainer(
       key: Key(item.id),
@@ -20,7 +24,7 @@ class AssetListItem extends HookWidget {
       child: Row(
         children: [
           CSImage(
-            item.iconUrl,
+            'assets/images/logo_hah.png', //item.iconUrl,
             fallbackUrl: item.iconLocal,
             height: 36,
             width: 36,
@@ -58,9 +62,10 @@ class AssetListItem extends HookWidget {
                   if (item.balanceUpdateFailed == true) SizedBox(width: 5),
                   AssetBalanceListener(
                     item: item,
-                    builder: (context, {balance, unconfirmed, data}) =>
+                    builder: (context,
+                            {required balance, required unconfirmed, data}) =>
                         PriceText(
-                      balance,
+                      item.balance.toString(),
                       '',
                       TextSize.body,
                     ),
@@ -70,7 +75,8 @@ class AssetListItem extends HookWidget {
               SizedBox(height: 4),
               AssetBalanceListener(
                 item: item,
-                builder: (context, {balance, unconfirmed, data}) =>
+                builder: (context,
+                        {required balance, required unconfirmed, data}) =>
                     AssetPriceListener(
                   symbol: item.symbol,
                   amount: NumberUtil.getDouble(balance),

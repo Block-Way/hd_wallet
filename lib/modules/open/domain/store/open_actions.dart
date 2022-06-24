@@ -6,7 +6,7 @@ abstract class _BaseAction extends ReduxAction<AppState> {
 
 class OpenActionGetCoinBalance extends _BaseAction {
   @override
-  AppState reduce() {
+  AppState? reduce() {
     return null;
   }
 }

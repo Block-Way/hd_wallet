@@ -10,13 +10,12 @@ class JsBridge {
   );
 
   factory JsBridge.fromMap(Map<String, dynamic> map) {
-    if (map == null) {
-      return null;
-    }
-
+    //if (map == null) {
+    //  return null;
+    //}
     return JsBridge(
-      map['method']?.toString(),
-      Map.from(map['params'] as Map ?? {}),
+      map['method'].toString(),
+      Map.from(map['params'] as Map),
       map['onSuccess'] as Function,
       map['onError'] as Function,
     );

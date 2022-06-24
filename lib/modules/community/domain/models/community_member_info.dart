@@ -10,29 +10,29 @@ abstract class CommunityMemberInfo
   static Serializer<CommunityMemberInfo> get serializer =>
       _$communityMemberInfoSerializer;
 
-  static CommunityMemberInfo fromJson(Map<String, dynamic> json) {
+  static CommunityMemberInfo? fromJson(Map<String, dynamic> json) {
     return deserialize<CommunityMemberInfo>(json);
   }
 
-  @nullable
-  String get name;
+  //@nullable
+  String? get name;
 
-  @nullable
-  String get describe;
+  //@nullable
+  String? get describe;
 
-  @nullable
-  String get github;
+  //@nullable
+  String? get github;
 
-  @nullable
-  String get icon;
+  //@nullable
+  String? get icon;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'telegram_account')
-  String get telegramAccount;
+  String? get telegramAccount;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'admin')
-  BuiltMap<String, String> get admin;
+  BuiltMap<String, String>? get admin;
 
-  String get displayIcon => AppConfig().getImageUrlFor(icon);
+  String get displayIcon => AppConfig().getImageUrlFor(icon ?? '');
 }

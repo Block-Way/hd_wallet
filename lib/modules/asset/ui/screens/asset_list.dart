@@ -56,6 +56,7 @@ class AssetListPage extends StatelessWidget {
           type: MaterialType.transparency,
           child: Container(
             padding: context.edgeAll20,
+            // color: Color(0xFF32383E),
             decoration: AssetBackgroundCircle(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,14 +64,12 @@ class AssetListPage extends StatelessWidget {
               children: [
                 Text(
                   tr('asset:list_lbl_valuation'),
-                  style: context.textBody(bold: true),
+                  style: context.textBody(
+                      bold: true, color: context.placeholderColor),
                 ),
                 SizedBox(height: context.edgeSize),
-                PriceText(
-                  '0',
-                  viewModel.fiatCurrency,
-                  TextSize.huge,
-                ),
+                PriceText('0', viewModel.fiatCurrency, TextSize.huge,
+                    color: context.placeholderColor),
               ],
             ),
           ),
@@ -87,13 +86,14 @@ class AssetListPage extends StatelessWidget {
     //   controller: swiperController,
     //   itemBuilder: (context, index) {
     return CSContainer(
-      decoration: context.boxCardShadow(),
+      decoration: context.boxCardShadow(color: context.mainColor),
       margin: context.edgeAll.copyWith(bottom: 20, top: 8),
       padding: EdgeInsets.zero,
       child: AssetWalletCard(
         fiatCurrency: viewModel.fiatCurrency,
-        wallet: viewModel.activeWallet,
+        wallet: viewModel.activeWallet!,
         walletStatus: viewModel.activeWalletStatus,
+        walletCoins: viewModel.coins,
         onSync: (wallet) {
           LoadingDialog.show(context);
           viewModel.doSyncWallet(wallet).catchError((error) {
@@ -103,9 +103,9 @@ class AssetListPage extends StatelessWidget {
           });
         },
         onPressed: () {
-          AssetWalletSelectPage.open().then((wallet) {
+          AssetWalletSelectPage.open()?.then((wallet) {
             if (wallet != null) {
-              viewModel.doSwitchWallet(wallet);
+              viewModel.doSwitchWallet(wallet as Wallet);
               // _ignoreIndexChange = true;
               // final index = viewModel.wallets.indexOf(wallet);
               // swiperController.move(index, animation: false).
@@ -139,7 +139,11 @@ class AssetListPage extends StatelessWidget {
     return SliverFillRemaining(
       hasScrollBody: false,
       child: Container(
-        decoration: context.boxDecorationOnlyTop(radius: 30),
+        // decoration: context.boxDecorationOnlyTop(radius: 30),
+        decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.vertical(top: Radius.elliptical(30, 30)),
+            color: context.cardColor
+        ),
         padding: context.edgeAll,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -167,7 +171,8 @@ class AssetListPage extends StatelessWidget {
       delegate: SliverChildListDelegate(
         [
           Container(
-            decoration: context.boxDecorationOnlyTop(radius: 30),
+            // decoration: context.boxDecorationOnlyTop(radius: 30),
+            color: context.mainColor,
             padding: context.edgeBottom,
             constraints: BoxConstraints(
               minHeight: context.mediaHeight - 200,
@@ -183,8 +188,8 @@ class AssetListPage extends StatelessWidget {
                       height: 5,
                       margin: EdgeInsets.only(top: 7),
                       decoration: BoxDecoration(
-                        color: context.borderColor,
-                        borderRadius: BorderRadius.circular(3),
+                        color: context.cardColor,
+                        borderRadius: BorderRadius.circular(14),
                       ),
                     ),
                   ),
@@ -194,7 +199,7 @@ class AssetListPage extends StatelessWidget {
                       (coin) => AssetListItem(
                         item: coin,
                         onPressed: () {
-                          if (viewModel.hasWallet) {
+                          if (viewModel.hasWallet!) {
                             AssetDetailPage.open(coin);
                           } else {
                             Toast.show(tr('wallet:msg_create_wallet_tips'));
@@ -217,11 +222,14 @@ class AssetListPage extends StatelessWidget {
       hideLeading: true,
       titleCenter: false,
       title: tr('asset:list_title'),
-      titleStyle: context.textHuge(fontWeight: FontWeight.w700),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
+      titleStyle: context.textHuge(
+          fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
       child: StoreConnector<AppState, AssetListVM>(
         distinct: true,
         converter: AssetListVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           // _ignoreIndexChange = true;
           // swiperController
           //     .move(viewModel.wallets.indexOf(viewModel.activeWallet),
@@ -232,46 +240,74 @@ class AssetListPage extends StatelessWidget {
         },
         builder: (context, viewModel) => Stack(
           children: [
-            CSRefresher(
-              scrollController: scrollController,
-              onRefresh: () {
-                viewModel.doRefreshList().then((_) {
-                  refreshController.refreshCompleted();
-                }).catchError((_) {
-                  refreshController.refreshFailed();
-                });
-              },
-              header: ListViewHeader(
-                background: context.bgSecondaryColor,
-                useProgressLoading: true,
-              ),
-              controller: refreshController,
-              child: CustomScrollView(
-                controller: scrollController,
-                physics: viewModel.hasWallet == false
-                    ? NeverScrollableScrollPhysics()
-                    : null,
-                slivers: [
-                  SliverAppBar(
-                    leading: SizedBox(),
-                    title: SizedBox(),
-                    elevation: 0,
-                    backgroundColor: context.bgSecondaryColor,
-                    expandedHeight: 220,
-                    collapsedHeight: 1,
-                    toolbarHeight: 0,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: viewModel.hasWallet == false
-                          ? buildWalletCardEmpty(context, viewModel)
-                          : buildWalletCardInfo(context, viewModel),
-                    ),
+            // CSRefresher(
+            //   scrollController: scrollController,
+            //   onRefresh: () {
+            //     viewModel.doRefreshList().then((_) {
+            //       refreshController.refreshCompleted();
+            //     }).catchError((_) {
+            //       refreshController.refreshFailed();
+            //     });
+            //   },
+            //   header: ListViewHeader(
+            //     background: context.cardColor,
+            //     useProgressLoading: true,
+            //   ),
+            //   controller: refreshController,
+            //   child: CustomScrollView(
+            //     controller: scrollController,
+            //     physics: viewModel.hasWallet == false
+            //         ? NeverScrollableScrollPhysics()
+            //         : null,
+            //     slivers: [
+            //       SliverAppBar(
+            //         leading: SizedBox(),
+            //         title: SizedBox(),
+            //         elevation: 0,
+            //         // backgroundColor: context.bgSecondaryColor,
+            //         expandedHeight: 220,
+            //         backgroundColor: context.mainColor,
+            //         collapsedHeight: 1,
+            //         toolbarHeight: 0,
+            //         flexibleSpace: FlexibleSpaceBar(
+            //           background: viewModel.hasWallet == false
+            //               ? buildWalletCardEmpty(context, viewModel)
+            //               : buildWalletCardInfo(context, viewModel),
+            //         ),
+            //       ),
+            //       if (viewModel.hasWallet == false)
+            //         buildContentEmpty(context, viewModel)
+            //       else
+            //         buildContentList(context, viewModel),
+            //     ],
+            //   ),
+            // ),
+            CustomScrollView(
+              controller: scrollController,
+              physics: viewModel.hasWallet == false
+                  ? NeverScrollableScrollPhysics()
+                  : null,
+              slivers: [
+                SliverAppBar(
+                  leading: SizedBox(),
+                  title: SizedBox(),
+                  elevation: 0,
+                  // backgroundColor: context.bgSecondaryColor,
+                  expandedHeight: 220,
+                  backgroundColor: context.mainColor,
+                  collapsedHeight: 1,
+                  toolbarHeight: 0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: viewModel.hasWallet == false
+                        ? buildWalletCardEmpty(context, viewModel)
+                        : buildWalletCardInfo(context, viewModel),
                   ),
-                  if (viewModel.hasWallet == false)
-                    buildContentEmpty(context, viewModel)
-                  else
-                    buildContentList(context, viewModel),
-                ],
-              ),
+                ),
+                if (viewModel.hasWallet == false)
+                  buildContentEmpty(context, viewModel)
+                else
+                  buildContentList(context, viewModel),
+              ],
             ),
             if (viewModel.isBalanceUpdating == true) buildUpdatePrices(context),
           ],

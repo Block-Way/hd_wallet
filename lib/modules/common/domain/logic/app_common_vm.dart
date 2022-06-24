@@ -30,8 +30,8 @@ abstract class AppCommonVM implements Built<AppCommonVM, AppCommonVMBuilder> {
     return AppCommonVM(
       (viewModel) => viewModel
         ..doChangeLanguage = (language) async {
-          await store.dispatchFuture(CommonActionChangeLanguage(language));
-          await store.dispatchFuture(CommonActionChangeFiatCurrency(
+          await store.dispatch(CommonActionChangeLanguage(language));
+          await store.dispatch(CommonActionChangeFiatCurrency(
             AppLanguages.getCurrencyByLanguage(language),
           ));
         }
@@ -46,11 +46,11 @@ abstract class AppCommonVM implements Built<AppCommonVM, AppCommonVMBuilder> {
         ..debugStrings = [
           'IsBeta: ${AppConstants.isBeta}',
           'Build Id: ${AppConstants.buildId}',
-          'Build Number: ${store.state.commonState?.appInfo?.buildNumber}',
+          'Build Number: ${store.state.commonState.appInfo?.buildNumber}',
           'Commit Hash: ${AppConstants.commitHash}',
           'Wallet Id: ${store.state.walletState.activeWalletId}',
-          'DB path: ${AppHiveCache.storageLocation.path}',
-          'Device Id: ${store.state.commonState?.deviceId}',
+          'DB path: ${AppHiveCache.storageLocation?.path}',
+          'Device Id: ${store.state.commonState.deviceId}',
         ]
         ..fiatCurrency = store.state.commonState.fiatCurrency ?? ''
         ..activeWalletId = store.state.walletState.activeWalletId ?? ''

@@ -7,13 +7,16 @@ abstract class AssetAddressVM
   AssetAddressVM._();
 
 // Fields
-  @nullable
-  BuiltList<AssetAddress> get addressList;
+  //@nullable
+  BuiltList<AssetAddress>? get addressList;
 // Methods
 
   @BuiltValueField(compare: false)
-  Future<int> Function({AssetCoin coin, String requestId, bool isLocal})
-      get loadAddressList;
+  Future<int> Function({
+    required AssetCoin coin,
+    required String requestId,
+    required bool isLocal,
+  }) get loadAddressList;
 
   @BuiltValueField(compare: false)
   void Function() get clearAddressList;
@@ -27,40 +30,58 @@ abstract class AssetAddressVM
       get submitAddressDelete;
 
   @BuiltValueField(compare: false)
-  Future<bool> Function({String chain, String address}) get validateAddress;
+  Future<bool> Function({
+    required String chain,
+    required String address,
+  }) get validateAddress;
 
   static AssetAddressVM fromStore(Store<AppState> store) {
-    return AssetAddressVM((viewModel) => viewModel
-      ..loadAddressList = ({coin, requestId, isLocal}) async {
-        await store.dispatchFuture(AssetActionAddressList(
-          coin,
-          requestId,
-          isLocal: isLocal,
-        ));
-        return Future.value(store.state.assetState.addressList?.length ?? 0);
-      }
-      ..clearAddressList = () {
-        store.dispatch(AssetActionAddressListClear());
-      }
-      ..validateAddress = ({chain, address}) {
-        final completer = Completer<bool>();
-        store.dispatch(WalletActionValidateAddress(
-          chain: chain,
-          address: address,
-          completer: completer,
-        ));
-        return completer.future;
-      }
-      ..submitAddressAdd = (coin, address) {
-        return store.dispatchFuture(AssetActionAddressEdit(coin, address));
-      }
-      ..submitAddressDelete = (coin, address) {
-        return store.dispatchFuture(AssetActionAddressEdit(
-          coin,
-          address,
-          isDelete: true,
-        ));
-      }
-      ..addressList = store.state.assetState.addressList.toBuilder());
+    return AssetAddressVM(
+      (viewModel) => viewModel
+        ..loadAddressList = ({
+          required coin,
+          required requestId,
+          required isLocal,
+        }) async {
+          await store.dispatch(
+            AssetActionAddressList(
+              coin,
+              requestId,
+              isLocal: isLocal,
+            ),
+          );
+          return store.state.assetState.addressList?.length ?? 0;
+        }
+        ..clearAddressList = () {
+          store.dispatch(AssetActionAddressListClear());
+        }
+        ..validateAddress = ({
+          required chain,
+          required address,
+        }) {
+          final completer = Completer<bool>();
+          store.dispatch(
+            WalletActionValidateAddress(
+              chain: chain,
+              address: address,
+              completer: completer,
+            ),
+          );
+          return completer.future;
+        }
+        ..submitAddressAdd = (coin, address) {
+          return store.dispatchAsync(AssetActionAddressEdit(coin, address));
+        }
+        ..submitAddressDelete = (coin, address) {
+          return store.dispatchAsync(
+            AssetActionAddressEdit(
+              coin,
+              address,
+              isDelete: true,
+            ),
+          );
+        }
+        ..addressList = store.state.assetState.addressList?.toBuilder(),
+    );
   }
 }

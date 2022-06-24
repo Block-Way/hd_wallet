@@ -1,20 +1,20 @@
 part of widgets;
 
-Timer timer;
+Timer? timer;
 
 class CSButtonTimeout extends HookWidget {
   const CSButtonTimeout({
-    Key key,
+    Key? key,
     this.onPressed,
     this.countdown,
     this.btnText,
     this.btnColor,
   }) : super(key: key);
 
-  final Function onPressed;
-  final int countdown;
-  final String btnText;
-  final Color btnColor;
+  final Function? onPressed;
+  final int? countdown;
+  final String? btnText;
+  final Color? btnColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +28,14 @@ class CSButtonTimeout extends HookWidget {
       if (countTime.value != 0) {
         isCounting.value = true;
         timer = Timer.periodic(Duration(seconds: 1), (timer) {
-          countTime.value = countTime.value - 1;
+          countTime.value = (countTime.value ?? 0) - 1;
           if (countTime.value == 0) {
             isCounting.value = false;
             timer.cancel();
           }
         });
       } else {
-        onPressed();
+        onPressed?.call();
       }
     }
 
@@ -46,7 +46,7 @@ class CSButtonTimeout extends HookWidget {
               'global:btn_timeout',
               namedArgs: {'time': '${countTime.value}'},
             )
-          : btnText,
+          : (btnText ?? ''),
     );
 
     // return FlatButton(

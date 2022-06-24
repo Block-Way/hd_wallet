@@ -2,9 +2,9 @@ part of invest_ui_module;
 
 class MiningRewardItem extends StatelessWidget {
   const MiningRewardItem({
-    @required this.item,
-    @required this.mintItem,
-    Key key,
+    required this.item,
+    required this.mintItem,
+    Key? key,
   }) : super(key: key);
   final ProfitRecordItem item;
   final MintItem mintItem;
@@ -14,6 +14,7 @@ class MiningRewardItem extends StatelessWidget {
     final symbol = mintItem.symbol;
     return CSContainer(
       margin: context.edgeAll.copyWith(top: 0),
+      decoration: BoxDecoration(color: context.cardColor),
       child: Column(
         children: [
           Row(
@@ -22,13 +23,18 @@ class MiningRewardItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      tr('invest:mining_record_lbl_reward',
-                          namedArgs: {'symbol': symbol}),
-                      style: context.textBody()),
+                    tr(
+                      'invest:mining_record_lbl_reward',
+                      namedArgs: {
+                        'symbol': symbol,
+                      },
+                    ),
+                    style: context.textBody(),
+                  ),
                   SizedBox(height: context.edgeSizeHalf),
                   Text(
                     tr('invest:mining_record_lbl_block_height', namedArgs: {
-                      'height': item.height?.toString() ?? '-',
+                      'height': item.height.toString(),
                     }),
                     style: context.textSmall(),
                   )
@@ -46,6 +52,7 @@ class MiningRewardItem extends StatelessWidget {
           ),
           CSContainer(
             margin: context.edgeTop,
+            decoration: BoxDecoration(color: context.cardColor),
             secondary: true,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,12 +61,13 @@ class MiningRewardItem extends StatelessWidget {
                   children: [
                     Text(
                       tr('invest:mining_record_lbl_holding'),
-                      style: context.textSecondary(color: context.bodyColor),
+                      style:
+                          context.textSecondary(color: context.cardSecondColor),
                     ),
                     SizedBox(height: context.edgeSizeHalf),
                     Text(
-                      item.stakeReward ?? '0',
-                      style: context.textSmall(color: context.bodyColor),
+                      item.stakeReward,
+                      style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ],
                 ),
@@ -67,13 +75,14 @@ class MiningRewardItem extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      tr('invest:mining_record_lbl_holding'),
-                      style: context.textSecondary(color: context.bodyColor),
+                      tr('invest:mining_record_lbl_invitation'),
+                      style:
+                          context.textSecondary(color: context.cardSecondColor),
                     ),
                     SizedBox(height: context.edgeSizeHalf),
                     Text(
-                      item.promotionReward ?? '0',
-                      style: context.textSmall(color: context.bodyColor),
+                      item.promotionReward,
+                      style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ],
                 )

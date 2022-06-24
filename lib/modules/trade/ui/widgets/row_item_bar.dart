@@ -14,21 +14,21 @@ class RowItemBar extends StatelessWidget {
     this.valueFlex = 1,
     this.labelAlignment = Alignment.centerLeft,
     this.child,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String label;
   final String value;
-  final Color color;
+  final Color? color;
   final bool bold;
-  final Color valueColor;
+  final Color? valueColor;
   final bool valueBold;
-  final TextStyle textStyle;
-  final TextStyle valueStyle;
+  final TextStyle? textStyle;
+  final TextStyle? valueStyle;
   final int valueFlex;
-  final Widget valueWidget;
+  final Widget? valueWidget;
   final Alignment labelAlignment;
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +45,7 @@ class RowItemBar extends StatelessWidget {
                   context.textSecondary(
                     bold: bold,
                     color: color,
+                    fontWeight: FontWeight.normal,
                   ),
             ),
           ),
@@ -59,10 +60,11 @@ class RowItemBar extends StatelessWidget {
                     context.textSecondary(
                       bold: valueBold,
                       color: valueColor,
+                      fontWeight: FontWeight.normal,
                     ),
               ),
         ),
-        if (child != null) child,
+        if (child != null) child!,
       ],
     );
   }

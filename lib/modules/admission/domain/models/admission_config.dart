@@ -10,19 +10,19 @@ abstract class AdmissionConfig
   static Serializer<AdmissionConfig> get serializer =>
       _$admissionConfigSerializer;
 
-  static AdmissionConfig fromJson(Map<String, dynamic> json) {
+  static AdmissionConfig? fromJson(Map<String, dynamic> json) {
     return deserialize<AdmissionConfig>(json);
   }
 
 // Fields
-  @nullable
-  String get fork;
+  //@nullable
+  String? get fork;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'home_list')
-  BuiltList<int> get homeList;
+  BuiltList<int>? get homeList;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'ecological')
-  BuiltList<AdmissionInfo> get projects;
+  BuiltList<AdmissionInfo>? get projects;
 }

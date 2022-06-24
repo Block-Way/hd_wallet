@@ -2,7 +2,7 @@ part of widgets;
 
 class CSProgressIndicator extends StatelessWidget {
   const CSProgressIndicator({
-    Key key,
+    Key? key,
     this.color,
     this.backgroundColor,
     this.strokeWidth = 2.0,
@@ -13,14 +13,14 @@ class CSProgressIndicator extends StatelessWidget {
   }) : super(key: key);
 
   /// Default primaryColor
-  final Color color;
-  final Color backgroundColor;
+  final Color? color;
+  final Color? backgroundColor;
 
   final double strokeWidth;
-  final double width;
-  final double height;
-  final double size;
-  final double value;
+  final double? width;
+  final double? height;
+  final double? size;
+  final double? value;
 
   @override
   Widget build(BuildContext context) {

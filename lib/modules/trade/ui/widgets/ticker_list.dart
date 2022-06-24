@@ -2,9 +2,9 @@ part of trade_ui_module;
 
 class TickerList extends StatelessWidget {
   const TickerList({
-    @required this.tradePair,
-    @required this.tradeSide,
-    Key key,
+    required this.tradePair,
+    required this.tradeSide,
+    Key? key,
     this.limit = 5,
     this.onPressed,
     this.colReverse = false,
@@ -22,7 +22,7 @@ class TickerList extends StatelessWidget {
   final bool showBackground;
   final bool backgroundIsDark;
   final bool backgroundOnPrice;
-  final Function(String) onPressed;
+  final Function(String)? onPressed;
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,8 @@ void showCSBottomSheet(
   bool scrollable = false,
   bool enableDrag = true,
   bool isDismissible = true,
-  double maxHeight,
-  double minHeight,
+  double? maxHeight,
+  double? minHeight,
 }) {
   final height = context.mediaHeight;
   final dragHeight = enableDrag ? 40.0 : 10.0;
@@ -35,7 +35,7 @@ void showCSBottomSheet(
       child: Container(
         decoration: BoxDecoration(
           borderRadius: radiusTop,
-          color: context.bgPrimaryColor,
+          color: context.cardColor,
         ),
         constraints: BoxConstraints(
           maxHeight: _maxHeight + dragHeight,
@@ -63,7 +63,7 @@ void showCSBottomSheet(
             Container(
               decoration: BoxDecoration(
                 borderRadius: radiusTop,
-                color: context.bgPrimaryColor,
+                color: context.cardColor,
               ),
               // If Keyboard is visible, do not add SafeAreaView bottom padding
               // If there is not Keyboard, add SafeAreaView bottom padding

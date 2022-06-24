@@ -2,14 +2,16 @@ part of asset_ui_module;
 
 class AssetWalletCard extends HookWidget {
   const AssetWalletCard({
-    @required this.wallet,
-    @required this.walletStatus,
-    @required this.fiatCurrency,
-    @required this.onSync,
-    @required this.onPressed,
+    this.walletCoins,
+    required this.wallet,
+    required this.walletStatus,
+    required this.fiatCurrency,
+    required this.onSync,
+    required this.onPressed,
   }) : assert(wallet != null);
 
   final Wallet wallet;
+  final walletCoins;
   final WalletStatus walletStatus;
   final String fiatCurrency;
   final void Function(Wallet) onSync;
@@ -20,7 +22,7 @@ class AssetWalletCard extends HookWidget {
     return CSContainer(
       margin: EdgeInsets.zero,
       padding: context.edgeVertical5,
-      decoration: AssetBackgroundCircle(),
+      // decoration: AssetBackgroundCircle(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,7 +34,8 @@ class AssetWalletCard extends HookWidget {
                 child: CSContainer(
                   margin: context.edgeAll8,
                   padding: context.edgeAll8,
-                  width: null,
+                  decoration: BoxDecoration(color: context.cardColor),
+                  //width: null,
                   onTap: onPressed,
                   child: Column(
                     key: Key(wallet.id),
@@ -63,12 +66,35 @@ class AssetWalletCard extends HookWidget {
                       SizedBox(height: 8),
                       Text(
                         tr('asset:lbl_bbc_address', namedArgs: {
-                          'address': wallet.bbcAddress,
+                          'address': wallet.ethAddress,
                         }),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.fade,
                         style: context.textSmall(),
                       ),
+                      SizedBox(height: 8),
+                      SizedBox(
+                        width: 80,
+                        height: 32,
+                        child: CSButton(
+                          bordered: true,
+                          borderColor: context.copyColor,
+                          borderWidth: 1.0,
+                          backgroundColor: Colors.transparent,
+                          borderRadius: 40,
+                          onPressed: () {
+                            copyTextToClipboard(
+                                walletCoins[0].address.toString());
+                            Toast.show(tr('global:msg_copy_success'));
+                          },
+                          child: Text(
+                            tr('global:btn_copy'),
+                            style: TextStyle(
+                                fontSize: 12, color: context.copyColor),
+                          ),
+                          // style: context.textSmall(),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -89,35 +115,35 @@ class AssetWalletCard extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: context.edgeHorizontal16,
-                child: Text(
-                  tr('asset:list_lbl_valuation'),
-                  style: context.textBody(
-                    bold: true,
-                    color: context.bodyColor,
-                  ),
-                ),
-              ),
-              AssetWalletStatus(
-                status: walletStatus,
-                onPressed: () {
-                  onSync(wallet);
-                },
-              ),
+              // Padding(
+              //   padding: context.edgeHorizontal16,
+              //   child: Text(
+              //     tr('asset:list_lbl_valuation'),
+              //     style: context.textBody(
+              //       bold: true,
+              //       color: context.iconColor,
+              //     ),
+              //   ),
+              // ),
+              // AssetWalletStatus(
+              //   status: walletStatus,
+              //   onPressed: () {
+              //     onSync(wallet);
+              //   },
+              // ),
             ],
           ),
-          Padding(
-            padding: context.edgeAll16.copyWith(top: 0),
-            child: AssetPriceListener(
-              symbol: 'BBC/USDT', // Update total when BBC price changes
-              builder: (context, price, fiatCurrency, _) => PriceText(
-                wallet.getTotalValuation(fiatCurrency),
-                fiatCurrency,
-                TextSize.huge,
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: context.edgeAll16.copyWith(top: 0),
+          //   child: AssetPriceListener(
+          //     symbol: 'HAH/USDT', // Update total when HAH price changes
+          //     builder: (context, price, fiatCurrency, _) => PriceText(
+          //       wallet.getTotalValuation(fiatCurrency),
+          //       fiatCurrency,
+          //       TextSize.huge,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

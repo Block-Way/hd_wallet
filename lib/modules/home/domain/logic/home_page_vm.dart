@@ -6,31 +6,31 @@ abstract class HomePageVM implements Built<HomePageVM, HomePageVMBuilder> {
 
 // Fields
 
-  @nullable
-  BuiltList<AssetPrice> get homePrices;
-  @nullable
-  BuiltList<HomeBanner> get homeBanners;
-  @nullable
-  BuiltList<NoticeInfo> get homeNotices;
+  //@nullable
+  BuiltList<AssetPrice>? get homePrices;
+  //@nullable
+  BuiltList<HomeBanner>? get homeBanners;
+  //@nullable
+  BuiltList<NoticeInfo>? get homeNotices;
 
-  @nullable
-  BuiltList<AdmissionInfo> get admissionList;
+  //@nullable
+  BuiltList<AdmissionInfo>? get admissionList;
 
-  @nullable
-  bool get hasNewVersion;
-  @nullable
-  ConfigUpdateData get newVersionData;
+  //@nullable
+  bool? get hasNewVersion;
+  //@nullable
+  ConfigUpdateData? get newVersionData;
 
   BuiltList<TradePair> get allTradePairs;
   BuiltList<TradeMarket> get allTradeMarkets;
 
   bool get hasWallet;
 
-  @nullable
-  CommunityConfig get communityConfig;
+  //@nullable
+  CommunityConfig? get communityConfig;
 
-  @nullable
-  int get communityConfigState;
+  //@nullable
+  int? get communityConfigState;
 
 // Methods
 
@@ -64,8 +64,8 @@ abstract class HomePageVM implements Built<HomePageVM, HomePageVMBuilder> {
         ..hasWallet = store.state.walletState.hasWallet
         ..homePrices =
             store.state.homeState.homePrices?.toBuilder() ?? ListBuilder()
-        ..homeBanners = ListBuilder(store.state.homeState.homeBanners)
-        ..homeNotices = ListBuilder(store.state.noticeState.noticeLatest)
+        ..homeBanners = ListBuilder(store.state.homeState.homeBanners!)
+        //..homeNotices = ListBuilder(store.state.noticeState.noticeLatest)
         ..allTradePairs = ListBuilder(tradeState.config?.allTradePairs ?? [])
         ..admissionList =
             store.state.admissionState.admissionList?.toBuilder() ??
@@ -78,7 +78,7 @@ abstract class HomePageVM implements Built<HomePageVM, HomePageVMBuilder> {
         ..communityConfig = store.state.communityState.config?.toBuilder()
         ..communityConfigState = store.state.communityState.configState
         ..doLoadHomeData = () {
-          // 进入首页应该就要刷新进度
+          // Entering the homepage should refresh the progress
           if (store.state.homeState.isInitialized == false) {
             store.dispatch(HomeActionInit());
           } else {
@@ -86,10 +86,10 @@ abstract class HomePageVM implements Built<HomePageVM, HomePageVMBuilder> {
           }
         }
         ..doRefreshHomeData = () async {
-          return store.dispatchFuture(HomeActionInit());
+          store.dispatch(HomeActionInit());
         }
         ..doRefreshCommunity = () async {
-          return store.dispatchFuture(CommunityActionLoadConfig());
+          store.dispatch(CommunityActionLoadConfig());
         }
         ..doCheckForBetaUpdates = () {
           final completer = Completer<ConfigUpdateData>();
@@ -105,13 +105,13 @@ abstract class HomePageVM implements Built<HomePageVM, HomePageVMBuilder> {
           return completer.future;
         }
         ..doChangeLanguage = (language) async {
-          await store.dispatchFuture(CommonActionChangeLanguage(language));
-          await store.dispatchFuture(CommonActionChangeFiatCurrency(
+          await store.dispatchAsync(CommonActionChangeLanguage(language));
+          await store.dispatchAsync(CommonActionChangeFiatCurrency(
             AppLanguages.getCurrencyByLanguage(language),
           ));
         }
         ..doChangeTradePair = (tradePair) {
-          return store.dispatchFuture(
+          return store.dispatchAsync(
             TradeActionOrderChangePair(tradePair),
           );
         },

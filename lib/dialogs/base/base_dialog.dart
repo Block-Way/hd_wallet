@@ -2,7 +2,7 @@ part of dialogs;
 
 class CSBaseDialog extends StatelessWidget {
   const CSBaseDialog({
-    Key key,
+    Key? key,
     this.contentWidget,
     this.cancelBtnText = 'cancel',
     this.confirmBtnText = 'confirm',
@@ -18,56 +18,50 @@ class CSBaseDialog extends StatelessWidget {
     this.confirmTimeout,
   }) : super(key: key);
 
-  /// 弹窗内容
-  final Widget contentWidget;
+  /// dialog content
+  final Widget? contentWidget;
 
-  /// 取消按钮
+  /// cancel button
   final String cancelBtnText;
 
-  /// 确认按钮
+  /// confirm button
   final String confirmBtnText;
-  final TextStyle cancelBtnStyle;
-  final TextStyle confirmBtnStyle;
+  final TextStyle? cancelBtnStyle;
+  final TextStyle? confirmBtnStyle;
 
-  /// 点击背景以及返回键 关闭弹框
+  /// click background and back button to close dialog
   final bool dismissOnBgClick;
   final bool dismissOnConfirm;
 
-  /// 弹窗关闭回调
-  final void Function() onDismiss;
+  /// dialog close call back
+  final void Function()? onDismiss;
 
-  /// 弹窗关闭回调
-  final void Function() onCancel;
+  /// dialog close call back
+  final void Function()? onCancel;
 
-  /// 弹窗关闭回调
-  final void Function() onConfirm;
+  /// dialog close call back
+  final void Function()? onConfirm;
 
   final bool hideCancel;
   final bool hideConfirm;
 
-  final int confirmTimeout;
+  final int? confirmTimeout;
 
   void handleConfirm() {
     if (dismissOnConfirm) {
       dismiss();
     }
-    if (onConfirm != null) {
-      onConfirm();
-    }
+    onConfirm?.call();
   }
 
   void handleCancel() {
-    if (onCancel != null) {
-      onCancel();
-    }
+    onCancel?.call();
     dismiss();
   }
 
   void dismiss() {
     AppNavigator.goBack();
-    if (onDismiss != null) {
-      onDismiss();
-    }
+    onDismiss?.call();
   }
 
   @override
@@ -82,14 +76,14 @@ class CSBaseDialog extends StatelessWidget {
           child: Container(
             width: context.mediaWidth - 40,
             decoration: BoxDecoration(
-              color: context.bgPrimaryColor,
+              color: context.cardColor,
               borderRadius: context.radiusAll,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                contentWidget,
+                contentWidget!,
                 Padding(
                   padding: context.edgeAll,
                   child: Row(
@@ -98,7 +92,7 @@ class CSBaseDialog extends StatelessWidget {
                         Expanded(
                           child: CSButton(
                             bordered: true,
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: context.mainColor,
                             onPressed: handleCancel,
                             label: cancelBtnText,
                           ),
@@ -110,11 +104,10 @@ class CSBaseDialog extends StatelessWidget {
                           child: confirmTimeout != null
                               ? CSButtonTimeout(
                                   onPressed: handleConfirm,
-                                  countdown: confirmTimeout,
+                                  countdown: confirmTimeout ?? 0,
                                   btnText: confirmBtnText,
-                                  btnColor: confirmBtnStyle != null
-                                      ? confirmBtnStyle.color
-                                      : context.bodyColor,
+                                  btnColor: confirmBtnStyle?.color ??
+                                      context.bodyColor,
                                 )
                               : CSButton(
                                   onPressed: handleConfirm,

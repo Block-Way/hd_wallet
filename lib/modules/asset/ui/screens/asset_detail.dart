@@ -24,7 +24,7 @@ class _GetAssetListParams {
 class AssetDetailPage extends HookWidget {
   const AssetDetailPage(
     this.coinInfo, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final AssetCoin coinInfo;
@@ -35,7 +35,7 @@ class AssetDetailPage extends HookWidget {
     AppNavigator.push(routeName, params: item);
   }
 
-  static Route<dynamic> route(RouteSettings settings, [AssetCoin item]) {
+  static Route<dynamic> route(RouteSettings settings, [AssetCoin? item]) {
     return DefaultTransition(
       settings,
       AssetDetailPage(item ?? settings.arguments as AssetCoin),
@@ -43,7 +43,7 @@ class AssetDetailPage extends HookWidget {
   }
 
   void checkIfWalletHasBackup(BuildContext context, AssetDetailVM viewModel) {
-    if (!viewModel.activeWallet.hasBackup && !kDebugMode) {
+    if (!viewModel.activeWallet!.hasBackup && !kDebugMode) {
       showConfirmDialog(
         context,
         content: tr('asset:detail_msg_backup'),
@@ -55,7 +55,7 @@ class AssetDetailPage extends HookWidget {
             context,
             (password) => viewModel.doUnlockWallet(password),
             (data, _) {
-              WalletBackupPage.open(data.mnemonic);
+              WalletBackupPage.open(data.mnemonic ?? '');
             },
           );
         },
@@ -66,7 +66,7 @@ class AssetDetailPage extends HookWidget {
   Future<int> loadData(
     AssetDetailVM viewModel,
     AssetDetailCubit cubit, {
-    CSListViewParams<_GetAssetListParams> params,
+    required CSListViewParams<_GetAssetListParams> params,
     bool onlyCache = false,
   }) async {
     if (onlyCache == false && (params.skip == 0 || params.isRefresh)) {
@@ -74,7 +74,7 @@ class AssetDetailPage extends HookWidget {
           .doLoadDetail(coinInfo, params.isRefresh)
           .catchError((error) {
         Toast.showError(error);
-        throw error;
+        //throw error;
       });
     }
 
@@ -88,7 +88,7 @@ class AssetDetailPage extends HookWidget {
     )
         .catchError((error) {
       Toast.showError(error);
-      throw error;
+      //throw error;
     });
   }
 
@@ -103,15 +103,21 @@ class AssetDetailPage extends HookWidget {
             SizedBox(height: 4),
             Text(
               tr('asset:detail_lbl_total', namedArgs: {
-                'name': coinInfo.name,
-                'fullName': coinInfo.fullName,
+                'name': coinInfo.name ?? '',
+                'fullName': coinInfo.fullName ?? '',
               }),
               style: context.textSecondary(),
             ),
             SizedBox(height: 10),
             AssetBalanceListener(
               item: coinInfo,
-              builder: (context, {balance, unconfirmed, data}) => PriceText(
+              builder: (
+                context, {
+                required balance,
+                required unconfirmed,
+                data,
+              }) =>
+                  PriceText(
                 balance,
                 '',
                 TextSize.big,
@@ -124,8 +130,8 @@ class AssetDetailPage extends HookWidget {
                   item: coinInfo,
                   builder: (
                     context, {
-                    balance,
-                    unconfirmed,
+                    required balance,
+                    required unconfirmed,
                     data,
                   }) =>
                       AssetPriceListener(
@@ -135,19 +141,19 @@ class AssetDetailPage extends HookWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            tr(
-                              'asset:detail_lbl_valuation',
-                              namedArgs: {'symbol': fiatCurrency},
-                            ),
-                            style: context.textSecondary(),
-                          ),
-                          SizedBox(height: 10),
-                          PriceText(
-                            price,
-                            '',
-                            TextSize.medium,
-                          ),
+                          // Text(
+                          //   tr(
+                          //     'asset:detail_lbl_valuation',
+                          //     namedArgs: {'symbol': fiatCurrency},
+                          //   ),
+                          //   style: context.textSecondary(),
+                          // ),
+                          // SizedBox(height: 10),
+                          // PriceText(
+                          //   price,
+                          //   '',
+                          //   TextSize.medium,
+                          // ),
                         ],
                       ),
                     ),
@@ -158,11 +164,11 @@ class AssetDetailPage extends HookWidget {
                     item: coinInfo,
                     builder: (
                       context, {
-                      balance,
-                      unconfirmed,
+                      required balance,
+                      required unconfirmed,
                       data,
                     }) =>
-                        data.unconfirmed > 0
+                        (data?.unconfirmed ?? 0) > 0
                             ? Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,7 +217,8 @@ class AssetDetailPage extends HookWidget {
 
   Widget buildFooter(BuildContext context) {
     return Container(
-      color: context.bgPrimaryColor,
+      // color: context.bgPrimaryColor,
+      color: Color(0xFF24282D),
       padding: context.edgeAll.copyWith(
         bottom: context.edgeSize + context.safeAreaBottom,
       ),
@@ -222,21 +229,37 @@ class AssetDetailPage extends HookWidget {
           children: [
             Flexible(
               child: CSButton(
+                label: tr('asset:lbl_vote_button'),
+                onPressed: () {
+//                    AppNavigator.push("/asset/dpos/list");
+                  AssetDposList.open(coinInfo);
+                },
+                // bordered: true,
+                backgroundColor: Color(0xFF2f3741),
+                textColor: context.placeholderColor,
+              ),
+            ),
+            SizedBox(width: context.edgeSize),
+            Flexible(
+              child: CSButton(
                 label: tr('asset:lbl_withdraw'),
                 onPressed: () {
                   AssetWithdrawPage.open(coinInfo);
                 },
-                bordered: true,
-                backgroundColor: context.bgPrimaryColor,
+                // bordered: true,
+                backgroundColor: Color(0xFF2f3741),
+                textColor: context.placeholderColor,
               ),
             ),
             SizedBox(width: context.edgeSize),
             Flexible(
               child: CSButton(
                 label: tr('asset:lbl_deposit'),
+                backgroundColor: context.confirmTopColor,
                 onPressed: () {
                   AssetDepositPage.open(coinInfo);
                 },
+                textColor: context.confirmWordColor,
               ),
             ),
           ],
@@ -250,7 +273,7 @@ class AssetDetailPage extends HookWidget {
       padding: context.edgeBottom5.copyWith(left: 4),
       child: Text(
         tr('asset:detail_lbl_transaction'),
-        style: context.textMedium(bold: true),
+        style: context.textMedium(bold: true, color: context.placeholderColor),
       ),
     );
   }
@@ -265,12 +288,14 @@ class AssetDetailPage extends HookWidget {
         useBehaviorStreamController<CSListViewParams<_GetAssetListParams>>();
 
     return CSScaffold(
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       addBottomInset: false,
       title: tr('asset:detail_title'),
       child: StoreConnector<AppState, AssetDetailVM>(
         distinct: true,
         converter: AssetDetailVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           checkIfWalletHasBackup(context, viewModel);
           request.add(CSListViewParams.withParams(_GetAssetListParams()));
         },
@@ -278,7 +303,7 @@ class AssetDetailPage extends HookWidget {
           children: [
             Expanded(
               child: BlocBuilder<AssetDetailCubit, List<Transaction>>(
-                cubit: selectedCubit.value,
+                bloc: selectedCubit.value,
                 builder: (context, data) =>
                     CSListViewStream<_GetAssetListParams>(
                   requestStream: request,
@@ -298,7 +323,9 @@ class AssetDetailPage extends HookWidget {
                     //     background: buildHeader(context),
                     //   ),
                     // ),
-                    SliverToBoxAdapter(child: buildHeader(context)),
+                    SliverToBoxAdapter(
+                      child: buildHeader(context /*,viewModel*/),
+                    ),
                   ],
                   onLoadCachedData: (params) {
                     return loadData(

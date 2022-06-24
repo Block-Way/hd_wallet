@@ -11,14 +11,14 @@ abstract class TradeOrderListVM
 
   // Methods
   @BuiltValueField(compare: false)
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})
       get getCoinInfo;
 
   static TradeOrderListVM fromStore(Store<AppState> store) {
     return TradeOrderListVM(
       (viewModel) => viewModel
         ..walletId = store.state.walletState.activeWalletId
-        ..getCoinInfo = ({chain, symbol}) {
+        ..getCoinInfo = ({required chain, required symbol}) {
           return VMWithWalletGetCoinInfoImplement.getCoinInfo(
             store,
             chain: chain,

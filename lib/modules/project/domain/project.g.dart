@@ -24,9 +24,9 @@ class _$ProjectCreateMintSerializer
   final String wireName = 'ProjectCreateMint';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ProjectCreateMint object,
+  Iterable<Object?> serialize(Serializers serializers, ProjectCreateMint object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'index',
       serializers.serialize(object.index, specifiedType: const FullType(int)),
       'month',
@@ -42,27 +42,27 @@ class _$ProjectCreateMintSerializer
 
   @override
   ProjectCreateMint deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProjectCreateMintBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'index':
           result.index = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'month':
           result.month = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'ratio':
           result.ratio = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -78,19 +78,22 @@ class _$ProjectConfigSerializer implements StructuredSerializer<ProjectConfig> {
   final String wireName = 'ProjectConfig';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ProjectConfig object,
+  Iterable<Object?> serialize(Serializers serializers, ProjectConfig object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.instructions != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.instructions;
+    if (value != null) {
       result
         ..add('instructions')
-        ..add(serializers.serialize(object.instructions,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.id != null) {
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
     return result;
@@ -98,23 +101,23 @@ class _$ProjectConfigSerializer implements StructuredSerializer<ProjectConfig> {
 
   @override
   ProjectConfig deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProjectConfigBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'instructions':
           result.instructions = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
       }
     }
@@ -134,10 +137,10 @@ class _$ProjectCreateParamsSerializer
   final String wireName = 'ProjectCreateParams';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, ProjectCreateParams object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'projectName',
       serializers.serialize(object.projectName,
           specifiedType: const FullType(String)),
@@ -188,157 +191,164 @@ class _$ProjectCreateParamsSerializer
           specifiedType: const FullType(
               BuiltList, const [const FullType(ProjectCreateMint)])),
     ];
-    if (object.chain != null) {
+    Object? value;
+    value = object.chain;
+    if (value != null) {
       result
         ..add('chain')
-        ..add(serializers.serialize(object.chain,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.symbol != null) {
+    value = object.symbol;
+    if (value != null) {
       result
         ..add('symbol')
-        ..add(serializers.serialize(object.symbol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.txId != null) {
+    value = object.txId;
+    if (value != null) {
       result
         ..add('txId')
-        ..add(serializers.serialize(object.txId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.address != null) {
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.withdrawData != null) {
+    value = object.withdrawData;
+    if (value != null) {
       result
         ..add('withdrawData')
-        ..add(serializers.serialize(object.withdrawData,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(WalletWithdrawData)));
     }
-    if (object.withdrawAmount != null) {
+    value = object.withdrawAmount;
+    if (value != null) {
       result
         ..add('withdrawAmount')
-        ..add(serializers.serialize(object.withdrawAmount,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.submittedAt != null) {
+    value = object.submittedAt;
+    if (value != null) {
       result
         ..add('submittedAt')
-        ..add(serializers.serialize(object.submittedAt,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     return result;
   }
 
   @override
   ProjectCreateParams deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProjectCreateParamsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'projectName':
           result.projectName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'projectDescription':
           result.projectDescription = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'coinName':
           result.coinName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'price':
           result.price = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'amount':
           result.amount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'issuerName':
           result.issuerName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'webUrl':
           result.webUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'email':
           result.email = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'poolMinCurrency':
           result.poolMinCurrency = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'poolCycle':
           result.poolCycle = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'poolInitAmount':
           result.poolInitAmount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'poolEnable':
           result.poolEnable = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'remainPoolMonths':
           result.remainPoolMonths = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'remainPoolAmount':
           result.remainPoolAmount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'minBalance':
           result.minBalance = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'mintList':
           result.mintList.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(ProjectCreateMint)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(ProjectCreateMint)]))!
+              as BuiltList<Object?>);
           break;
         case 'chain':
           result.chain = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'symbol':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'txId':
           result.txId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'withdrawData':
           result.withdrawData = serializers.deserialize(value,
                   specifiedType: const FullType(WalletWithdrawData))
-              as WalletWithdrawData;
+              as WalletWithdrawData?;
           break;
         case 'withdrawAmount':
           result.withdrawAmount = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'submittedAt':
           result.submittedAt = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
       }
     }
@@ -354,176 +364,189 @@ class _$ProjectInfoSerializer implements StructuredSerializer<ProjectInfo> {
   final String wireName = 'ProjectInfo';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ProjectInfo object,
+  Iterable<Object?> serialize(Serializers serializers, ProjectInfo object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.id != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.symbol != null) {
+    value = object.symbol;
+    if (value != null) {
       result
         ..add('currency')
-        ..add(serializers.serialize(object.symbol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.currencyPrice != null) {
+    value = object.currencyPrice;
+    if (value != null) {
       result
         ..add('currency_price')
-        ..add(serializers.serialize(object.currencyPrice,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.initAmount != null) {
+    value = object.initAmount;
+    if (value != null) {
       result
         ..add('init_amount')
-        ..add(serializers.serialize(object.initAmount,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.projectName != null) {
+    value = object.projectName;
+    if (value != null) {
       result
         ..add('project_name')
-        ..add(serializers.serialize(object.projectName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.targetNumber != null) {
+    value = object.targetNumber;
+    if (value != null) {
       result
         ..add('target_number')
-        ..add(serializers.serialize(object.targetNumber,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.inviteNumber != null) {
+    value = object.inviteNumber;
+    if (value != null) {
       result
         ..add('invite_number')
-        ..add(serializers.serialize(object.inviteNumber,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.fork != null) {
+    value = object.fork;
+    if (value != null) {
       result
         ..add('fork')
-        ..add(serializers.serialize(object.fork,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.totalAmount != null) {
+    value = object.totalAmount;
+    if (value != null) {
       result
         ..add('total_amount')
-        ..add(serializers.serialize(object.totalAmount,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.ownerWebsite != null) {
+    value = object.ownerWebsite;
+    if (value != null) {
       result
         ..add('owner_website')
-        ..add(serializers.serialize(object.ownerWebsite,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.ownerName != null) {
+    value = object.ownerName;
+    if (value != null) {
       result
         ..add('owner_name')
-        ..add(serializers.serialize(object.ownerName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(String)])));
     }
-    if (object.projectDescription != null) {
+    value = object.projectDescription;
+    if (value != null) {
       result
         ..add('project_description')
-        ..add(serializers.serialize(object.projectDescription,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltMap,
                 const [const FullType(String), const FullType(String)])));
     }
-    if (object.status != null) {
+    value = object.status;
+    if (value != null) {
       result
         ..add('status')
-        ..add(serializers.serialize(object.status,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.miningPoolStatus != null) {
+    value = object.miningPoolStatus;
+    if (value != null) {
       result
         ..add('mining_pool_status')
-        ..add(serializers.serialize(object.miningPoolStatus,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.iconUrl != null) {
+    value = object.iconUrl;
+    if (value != null) {
       result
         ..add('iconUrl')
-        ..add(serializers.serialize(object.iconUrl,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  ProjectInfo deserialize(Serializers serializers, Iterable<Object> serialized,
+  ProjectInfo deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProjectInfoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'currency':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'currency_price':
           result.currencyPrice = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'init_amount':
           result.initAmount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'project_name':
           result.projectName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'target_number':
           result.targetNumber = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'invite_number':
           result.inviteNumber = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'fork':
           result.fork = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'total_amount':
           result.totalAmount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'owner_website':
           result.ownerWebsite = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'owner_name':
           result.ownerName.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)])));
+                  const [const FullType(String), const FullType(String)]))!);
           break;
         case 'project_description':
           result.projectDescription.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltMap,
-                  const [const FullType(String), const FullType(String)])));
+                  const [const FullType(String), const FullType(String)]))!);
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'mining_pool_status':
           result.miningPoolStatus = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'iconUrl':
           result.iconUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -539,54 +562,58 @@ class _$ProjectStateSerializer implements StructuredSerializer<ProjectState> {
   final String wireName = 'ProjectState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ProjectState object,
+  Iterable<Object?> serialize(Serializers serializers, ProjectState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'projectList',
       serializers.serialize(object.projectList,
           specifiedType:
               const FullType(BuiltList, const [const FullType(ProjectInfo)])),
     ];
-    if (object.lastProjectCreateParams != null) {
+    Object? value;
+    value = object.lastProjectCreateParams;
+    if (value != null) {
       result
         ..add('lastProjectCreateParams')
-        ..add(serializers.serialize(object.lastProjectCreateParams,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(ProjectCreateParams)));
     }
-    if (object.projectConfig != null) {
+    value = object.projectConfig;
+    if (value != null) {
       result
         ..add('projectConfig')
-        ..add(serializers.serialize(object.projectConfig,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(ProjectConfig)));
     }
     return result;
   }
 
   @override
-  ProjectState deserialize(Serializers serializers, Iterable<Object> serialized,
+  ProjectState deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new ProjectStateBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'lastProjectCreateParams':
           result.lastProjectCreateParams.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(ProjectCreateParams))
+                  specifiedType: const FullType(ProjectCreateParams))!
               as ProjectCreateParams);
           break;
         case 'projectList':
           result.projectList.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(ProjectInfo)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(ProjectInfo)]))!
+              as BuiltList<Object?>);
           break;
         case 'projectConfig':
           result.projectConfig.replace(serializers.deserialize(value,
-              specifiedType: const FullType(ProjectConfig)) as ProjectConfig);
+              specifiedType: const FullType(ProjectConfig))! as ProjectConfig);
           break;
       }
     }
@@ -597,23 +624,23 @@ class _$ProjectStateSerializer implements StructuredSerializer<ProjectState> {
 
 class _$ProjectApplyVM extends ProjectApplyVM {
   @override
-  final ProjectCreateParams lastProjectCreateParams;
+  final ProjectCreateParams? lastProjectCreateParams;
   @override
-  final String projectRules;
+  final String? projectRules;
   @override
-  final double Function({@required String chain, @required String symbol})
+  final double Function({required String chain, required String symbol})
       getCoinBalance;
   @override
-  final AssetCoin Function({@required String chain, @required String symbol})
+  final AssetCoin Function({required String chain, required String symbol})
       getCoinInfo;
   @override
   final Future<WalletPrivateData> Function(String password) doUnlockHDWallet;
   @override
   final Future<void> Function(
-          {@required ProjectCreateParams params,
-          @required Future<WalletPrivateData> Function() onUnlockWallet,
-          @required Future<bool> Function(ProjectCreateParams) onConfirmData,
-          @required void Function(String txId) onSuccessTransaction})
+          {required ProjectCreateParams params,
+          required Future<WalletPrivateData> Function() onUnlockWallet,
+          required Future<bool> Function(ProjectCreateParams) onConfirmData,
+          required void Function(String txId) onSuccessTransaction})
       doSubmitProject;
   @override
   final Future<void> Function(ProjectCreateParams params) doSubmitCreateProject;
@@ -622,42 +649,34 @@ class _$ProjectApplyVM extends ProjectApplyVM {
   @override
   final Future<void> Function() getProjectConfig;
 
-  factory _$ProjectApplyVM([void Function(ProjectApplyVMBuilder) updates]) =>
-      (new ProjectApplyVMBuilder()..update(updates)).build();
+  factory _$ProjectApplyVM([void Function(ProjectApplyVMBuilder)? updates]) =>
+      (new ProjectApplyVMBuilder()..update(updates))._build();
 
   _$ProjectApplyVM._(
       {this.lastProjectCreateParams,
       this.projectRules,
-      this.getCoinBalance,
-      this.getCoinInfo,
-      this.doUnlockHDWallet,
-      this.doSubmitProject,
-      this.doSubmitCreateProject,
-      this.doSaveToCache,
-      this.getProjectConfig})
+      required this.getCoinBalance,
+      required this.getCoinInfo,
+      required this.doUnlockHDWallet,
+      required this.doSubmitProject,
+      required this.doSubmitCreateProject,
+      required this.doSaveToCache,
+      required this.getProjectConfig})
       : super._() {
-    if (getCoinBalance == null) {
-      throw new BuiltValueNullFieldError('ProjectApplyVM', 'getCoinBalance');
-    }
-    if (getCoinInfo == null) {
-      throw new BuiltValueNullFieldError('ProjectApplyVM', 'getCoinInfo');
-    }
-    if (doUnlockHDWallet == null) {
-      throw new BuiltValueNullFieldError('ProjectApplyVM', 'doUnlockHDWallet');
-    }
-    if (doSubmitProject == null) {
-      throw new BuiltValueNullFieldError('ProjectApplyVM', 'doSubmitProject');
-    }
-    if (doSubmitCreateProject == null) {
-      throw new BuiltValueNullFieldError(
-          'ProjectApplyVM', 'doSubmitCreateProject');
-    }
-    if (doSaveToCache == null) {
-      throw new BuiltValueNullFieldError('ProjectApplyVM', 'doSaveToCache');
-    }
-    if (getProjectConfig == null) {
-      throw new BuiltValueNullFieldError('ProjectApplyVM', 'getProjectConfig');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinBalance, r'ProjectApplyVM', 'getCoinBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinInfo, r'ProjectApplyVM', 'getCoinInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        doUnlockHDWallet, r'ProjectApplyVM', 'doUnlockHDWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        doSubmitProject, r'ProjectApplyVM', 'doSubmitProject');
+    BuiltValueNullFieldError.checkNotNull(
+        doSubmitCreateProject, r'ProjectApplyVM', 'doSubmitCreateProject');
+    BuiltValueNullFieldError.checkNotNull(
+        doSaveToCache, r'ProjectApplyVM', 'doSaveToCache');
+    BuiltValueNullFieldError.checkNotNull(
+        getProjectConfig, r'ProjectApplyVM', 'getProjectConfig');
   }
 
   @override
@@ -687,7 +706,7 @@ class _$ProjectApplyVM extends ProjectApplyVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectApplyVM')
+    return (newBuiltValueToStringHelper(r'ProjectApplyVM')
           ..add('lastProjectCreateParams', lastProjectCreateParams)
           ..add('projectRules', projectRules)
           ..add('getCoinBalance', getCoinBalance)
@@ -703,103 +722,101 @@ class _$ProjectApplyVM extends ProjectApplyVM {
 
 class ProjectApplyVMBuilder
     implements Builder<ProjectApplyVM, ProjectApplyVMBuilder> {
-  _$ProjectApplyVM _$v;
+  _$ProjectApplyVM? _$v;
 
-  ProjectCreateParamsBuilder _lastProjectCreateParams;
+  ProjectCreateParamsBuilder? _lastProjectCreateParams;
   ProjectCreateParamsBuilder get lastProjectCreateParams =>
       _$this._lastProjectCreateParams ??= new ProjectCreateParamsBuilder();
   set lastProjectCreateParams(
-          ProjectCreateParamsBuilder lastProjectCreateParams) =>
+          ProjectCreateParamsBuilder? lastProjectCreateParams) =>
       _$this._lastProjectCreateParams = lastProjectCreateParams;
 
-  String _projectRules;
-  String get projectRules => _$this._projectRules;
-  set projectRules(String projectRules) => _$this._projectRules = projectRules;
+  String? _projectRules;
+  String? get projectRules => _$this._projectRules;
+  set projectRules(String? projectRules) => _$this._projectRules = projectRules;
 
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})?
       _getCoinBalance;
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})?
       get getCoinBalance => _$this._getCoinBalance;
   set getCoinBalance(
-          double Function({@required String chain, @required String symbol})
+          double Function({required String chain, required String symbol})?
               getCoinBalance) =>
       _$this._getCoinBalance = getCoinBalance;
 
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})?
       _getCoinInfo;
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})?
       get getCoinInfo => _$this._getCoinInfo;
   set getCoinInfo(
-          AssetCoin Function({@required String chain, @required String symbol})
+          AssetCoin Function({required String chain, required String symbol})?
               getCoinInfo) =>
       _$this._getCoinInfo = getCoinInfo;
 
-  Future<WalletPrivateData> Function(String password) _doUnlockHDWallet;
-  Future<WalletPrivateData> Function(String password) get doUnlockHDWallet =>
+  Future<WalletPrivateData> Function(String password)? _doUnlockHDWallet;
+  Future<WalletPrivateData> Function(String password)? get doUnlockHDWallet =>
       _$this._doUnlockHDWallet;
   set doUnlockHDWallet(
-          Future<WalletPrivateData> Function(String password)
+          Future<WalletPrivateData> Function(String password)?
               doUnlockHDWallet) =>
       _$this._doUnlockHDWallet = doUnlockHDWallet;
 
   Future<void> Function(
-          {@required ProjectCreateParams params,
-          @required Future<WalletPrivateData> Function() onUnlockWallet,
-          @required Future<bool> Function(ProjectCreateParams) onConfirmData,
-          @required void Function(String txId) onSuccessTransaction})
+          {required ProjectCreateParams params,
+          required Future<WalletPrivateData> Function() onUnlockWallet,
+          required Future<bool> Function(ProjectCreateParams) onConfirmData,
+          required void Function(String txId) onSuccessTransaction})?
       _doSubmitProject;
   Future<void> Function(
-          {@required ProjectCreateParams params,
-          @required Future<WalletPrivateData> Function() onUnlockWallet,
-          @required Future<bool> Function(ProjectCreateParams) onConfirmData,
-          @required void Function(String txId) onSuccessTransaction})
+          {required ProjectCreateParams params,
+          required Future<WalletPrivateData> Function() onUnlockWallet,
+          required Future<bool> Function(ProjectCreateParams) onConfirmData,
+          required void Function(String txId) onSuccessTransaction})?
       get doSubmitProject => _$this._doSubmitProject;
   set doSubmitProject(
           Future<void> Function(
-                  {@required
-                      ProjectCreateParams params,
-                  @required
-                      Future<WalletPrivateData> Function() onUnlockWallet,
-                  @required
-                      Future<bool> Function(ProjectCreateParams) onConfirmData,
-                  @required
-                      void Function(String txId) onSuccessTransaction})
+                  {required ProjectCreateParams params,
+                  required Future<WalletPrivateData> Function() onUnlockWallet,
+                  required Future<bool> Function(ProjectCreateParams)
+                      onConfirmData,
+                  required void Function(String txId) onSuccessTransaction})?
               doSubmitProject) =>
       _$this._doSubmitProject = doSubmitProject;
 
-  Future<void> Function(ProjectCreateParams params) _doSubmitCreateProject;
-  Future<void> Function(ProjectCreateParams params) get doSubmitCreateProject =>
-      _$this._doSubmitCreateProject;
+  Future<void> Function(ProjectCreateParams params)? _doSubmitCreateProject;
+  Future<void> Function(ProjectCreateParams params)?
+      get doSubmitCreateProject => _$this._doSubmitCreateProject;
   set doSubmitCreateProject(
-          Future<void> Function(ProjectCreateParams params)
+          Future<void> Function(ProjectCreateParams params)?
               doSubmitCreateProject) =>
       _$this._doSubmitCreateProject = doSubmitCreateProject;
 
-  Future<void> Function(ProjectCreateParams params) _doSaveToCache;
-  Future<void> Function(ProjectCreateParams params) get doSaveToCache =>
+  Future<void> Function(ProjectCreateParams params)? _doSaveToCache;
+  Future<void> Function(ProjectCreateParams params)? get doSaveToCache =>
       _$this._doSaveToCache;
   set doSaveToCache(
-          Future<void> Function(ProjectCreateParams params) doSaveToCache) =>
+          Future<void> Function(ProjectCreateParams params)? doSaveToCache) =>
       _$this._doSaveToCache = doSaveToCache;
 
-  Future<void> Function() _getProjectConfig;
-  Future<void> Function() get getProjectConfig => _$this._getProjectConfig;
-  set getProjectConfig(Future<void> Function() getProjectConfig) =>
+  Future<void> Function()? _getProjectConfig;
+  Future<void> Function()? get getProjectConfig => _$this._getProjectConfig;
+  set getProjectConfig(Future<void> Function()? getProjectConfig) =>
       _$this._getProjectConfig = getProjectConfig;
 
   ProjectApplyVMBuilder();
 
   ProjectApplyVMBuilder get _$this {
-    if (_$v != null) {
-      _lastProjectCreateParams = _$v.lastProjectCreateParams?.toBuilder();
-      _projectRules = _$v.projectRules;
-      _getCoinBalance = _$v.getCoinBalance;
-      _getCoinInfo = _$v.getCoinInfo;
-      _doUnlockHDWallet = _$v.doUnlockHDWallet;
-      _doSubmitProject = _$v.doSubmitProject;
-      _doSubmitCreateProject = _$v.doSubmitCreateProject;
-      _doSaveToCache = _$v.doSaveToCache;
-      _getProjectConfig = _$v.getProjectConfig;
+    final $v = _$v;
+    if ($v != null) {
+      _lastProjectCreateParams = $v.lastProjectCreateParams?.toBuilder();
+      _projectRules = $v.projectRules;
+      _getCoinBalance = $v.getCoinBalance;
+      _getCoinInfo = $v.getCoinInfo;
+      _doUnlockHDWallet = $v.doUnlockHDWallet;
+      _doSubmitProject = $v.doSubmitProject;
+      _doSubmitCreateProject = $v.doSubmitCreateProject;
+      _doSaveToCache = $v.doSaveToCache;
+      _getProjectConfig = $v.getProjectConfig;
       _$v = null;
     }
     return this;
@@ -807,40 +824,49 @@ class ProjectApplyVMBuilder
 
   @override
   void replace(ProjectApplyVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectApplyVM;
   }
 
   @override
-  void update(void Function(ProjectApplyVMBuilder) updates) {
+  void update(void Function(ProjectApplyVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectApplyVM build() {
+  ProjectApplyVM build() => _build();
+
+  _$ProjectApplyVM _build() {
     _$ProjectApplyVM _$result;
     try {
       _$result = _$v ??
           new _$ProjectApplyVM._(
               lastProjectCreateParams: _lastProjectCreateParams?.build(),
               projectRules: projectRules,
-              getCoinBalance: getCoinBalance,
-              getCoinInfo: getCoinInfo,
-              doUnlockHDWallet: doUnlockHDWallet,
-              doSubmitProject: doSubmitProject,
-              doSubmitCreateProject: doSubmitCreateProject,
-              doSaveToCache: doSaveToCache,
-              getProjectConfig: getProjectConfig);
+              getCoinBalance: BuiltValueNullFieldError.checkNotNull(
+                  getCoinBalance, r'ProjectApplyVM', 'getCoinBalance'),
+              getCoinInfo: BuiltValueNullFieldError.checkNotNull(
+                  getCoinInfo, r'ProjectApplyVM', 'getCoinInfo'),
+              doUnlockHDWallet: BuiltValueNullFieldError.checkNotNull(
+                  doUnlockHDWallet, r'ProjectApplyVM', 'doUnlockHDWallet'),
+              doSubmitProject: BuiltValueNullFieldError.checkNotNull(
+                  doSubmitProject, r'ProjectApplyVM', 'doSubmitProject'),
+              doSubmitCreateProject: BuiltValueNullFieldError.checkNotNull(
+                  doSubmitCreateProject,
+                  r'ProjectApplyVM',
+                  'doSubmitCreateProject'),
+              doSaveToCache: BuiltValueNullFieldError.checkNotNull(
+                  doSaveToCache, r'ProjectApplyVM', 'doSaveToCache'),
+              getProjectConfig: BuiltValueNullFieldError.checkNotNull(
+                  getProjectConfig, r'ProjectApplyVM', 'getProjectConfig'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'lastProjectCreateParams';
         _lastProjectCreateParams?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ProjectApplyVM', _$failedField, e.toString());
+            r'ProjectApplyVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -855,16 +881,16 @@ class _$ProjectDetailVM extends ProjectDetailVM {
   @override
   final Future<void> Function(int id) setActivePool;
 
-  factory _$ProjectDetailVM([void Function(ProjectDetailVMBuilder) updates]) =>
-      (new ProjectDetailVMBuilder()..update(updates)).build();
+  factory _$ProjectDetailVM([void Function(ProjectDetailVMBuilder)? updates]) =>
+      (new ProjectDetailVMBuilder()..update(updates))._build();
 
-  _$ProjectDetailVM._({this.getProjectDetail, this.setActivePool}) : super._() {
-    if (getProjectDetail == null) {
-      throw new BuiltValueNullFieldError('ProjectDetailVM', 'getProjectDetail');
-    }
-    if (setActivePool == null) {
-      throw new BuiltValueNullFieldError('ProjectDetailVM', 'setActivePool');
-    }
+  _$ProjectDetailVM._(
+      {required this.getProjectDetail, required this.setActivePool})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        getProjectDetail, r'ProjectDetailVM', 'getProjectDetail');
+    BuiltValueNullFieldError.checkNotNull(
+        setActivePool, r'ProjectDetailVM', 'setActivePool');
   }
 
   @override
@@ -888,7 +914,7 @@ class _$ProjectDetailVM extends ProjectDetailVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectDetailVM')
+    return (newBuiltValueToStringHelper(r'ProjectDetailVM')
           ..add('getProjectDetail', getProjectDetail)
           ..add('setActivePool', setActivePool))
         .toString();
@@ -897,26 +923,27 @@ class _$ProjectDetailVM extends ProjectDetailVM {
 
 class ProjectDetailVMBuilder
     implements Builder<ProjectDetailVM, ProjectDetailVMBuilder> {
-  _$ProjectDetailVM _$v;
+  _$ProjectDetailVM? _$v;
 
-  Future<ProjectInfo> Function(int projectId) _getProjectDetail;
-  Future<ProjectInfo> Function(int projectId) get getProjectDetail =>
+  Future<ProjectInfo> Function(int projectId)? _getProjectDetail;
+  Future<ProjectInfo> Function(int projectId)? get getProjectDetail =>
       _$this._getProjectDetail;
   set getProjectDetail(
-          Future<ProjectInfo> Function(int projectId) getProjectDetail) =>
+          Future<ProjectInfo> Function(int projectId)? getProjectDetail) =>
       _$this._getProjectDetail = getProjectDetail;
 
-  Future<void> Function(int id) _setActivePool;
-  Future<void> Function(int id) get setActivePool => _$this._setActivePool;
-  set setActivePool(Future<void> Function(int id) setActivePool) =>
+  Future<void> Function(int id)? _setActivePool;
+  Future<void> Function(int id)? get setActivePool => _$this._setActivePool;
+  set setActivePool(Future<void> Function(int id)? setActivePool) =>
       _$this._setActivePool = setActivePool;
 
   ProjectDetailVMBuilder();
 
   ProjectDetailVMBuilder get _$this {
-    if (_$v != null) {
-      _getProjectDetail = _$v.getProjectDetail;
-      _setActivePool = _$v.setActivePool;
+    final $v = _$v;
+    if ($v != null) {
+      _getProjectDetail = $v.getProjectDetail;
+      _setActivePool = $v.setActivePool;
       _$v = null;
     }
     return this;
@@ -924,22 +951,25 @@ class ProjectDetailVMBuilder
 
   @override
   void replace(ProjectDetailVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectDetailVM;
   }
 
   @override
-  void update(void Function(ProjectDetailVMBuilder) updates) {
+  void update(void Function(ProjectDetailVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectDetailVM build() {
+  ProjectDetailVM build() => _build();
+
+  _$ProjectDetailVM _build() {
     final _$result = _$v ??
         new _$ProjectDetailVM._(
-            getProjectDetail: getProjectDetail, setActivePool: setActivePool);
+            getProjectDetail: BuiltValueNullFieldError.checkNotNull(
+                getProjectDetail, r'ProjectDetailVM', 'getProjectDetail'),
+            setActivePool: BuiltValueNullFieldError.checkNotNull(
+                setActivePool, r'ProjectDetailVM', 'setActivePool'));
     replace(_$result);
     return _$result;
   }
@@ -949,18 +979,18 @@ class _$ProjectListVM extends ProjectListVM {
   @override
   final BuiltList<ProjectInfo> projectsList;
   @override
-  final Future<int> Function({bool isRefresh, int skip}) loadData;
+  final Future<int> Function({required bool isRefresh, required int skip})
+      loadData;
 
-  factory _$ProjectListVM([void Function(ProjectListVMBuilder) updates]) =>
-      (new ProjectListVMBuilder()..update(updates)).build();
+  factory _$ProjectListVM([void Function(ProjectListVMBuilder)? updates]) =>
+      (new ProjectListVMBuilder()..update(updates))._build();
 
-  _$ProjectListVM._({this.projectsList, this.loadData}) : super._() {
-    if (projectsList == null) {
-      throw new BuiltValueNullFieldError('ProjectListVM', 'projectsList');
-    }
-    if (loadData == null) {
-      throw new BuiltValueNullFieldError('ProjectListVM', 'loadData');
-    }
+  _$ProjectListVM._({required this.projectsList, required this.loadData})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        projectsList, r'ProjectListVM', 'projectsList');
+    BuiltValueNullFieldError.checkNotNull(
+        loadData, r'ProjectListVM', 'loadData');
   }
 
   @override
@@ -983,7 +1013,7 @@ class _$ProjectListVM extends ProjectListVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectListVM')
+    return (newBuiltValueToStringHelper(r'ProjectListVM')
           ..add('projectsList', projectsList)
           ..add('loadData', loadData))
         .toString();
@@ -992,26 +1022,29 @@ class _$ProjectListVM extends ProjectListVM {
 
 class ProjectListVMBuilder
     implements Builder<ProjectListVM, ProjectListVMBuilder> {
-  _$ProjectListVM _$v;
+  _$ProjectListVM? _$v;
 
-  ListBuilder<ProjectInfo> _projectsList;
+  ListBuilder<ProjectInfo>? _projectsList;
   ListBuilder<ProjectInfo> get projectsList =>
       _$this._projectsList ??= new ListBuilder<ProjectInfo>();
-  set projectsList(ListBuilder<ProjectInfo> projectsList) =>
+  set projectsList(ListBuilder<ProjectInfo>? projectsList) =>
       _$this._projectsList = projectsList;
 
-  Future<int> Function({bool isRefresh, int skip}) _loadData;
-  Future<int> Function({bool isRefresh, int skip}) get loadData =>
-      _$this._loadData;
-  set loadData(Future<int> Function({bool isRefresh, int skip}) loadData) =>
+  Future<int> Function({required bool isRefresh, required int skip})? _loadData;
+  Future<int> Function({required bool isRefresh, required int skip})?
+      get loadData => _$this._loadData;
+  set loadData(
+          Future<int> Function({required bool isRefresh, required int skip})?
+              loadData) =>
       _$this._loadData = loadData;
 
   ProjectListVMBuilder();
 
   ProjectListVMBuilder get _$this {
-    if (_$v != null) {
-      _projectsList = _$v.projectsList?.toBuilder();
-      _loadData = _$v.loadData;
+    final $v = _$v;
+    if ($v != null) {
+      _projectsList = $v.projectsList.toBuilder();
+      _loadData = $v.loadData;
       _$v = null;
     }
     return this;
@@ -1019,32 +1052,34 @@ class ProjectListVMBuilder
 
   @override
   void replace(ProjectListVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectListVM;
   }
 
   @override
-  void update(void Function(ProjectListVMBuilder) updates) {
+  void update(void Function(ProjectListVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectListVM build() {
+  ProjectListVM build() => _build();
+
+  _$ProjectListVM _build() {
     _$ProjectListVM _$result;
     try {
       _$result = _$v ??
           new _$ProjectListVM._(
-              projectsList: projectsList.build(), loadData: loadData);
+              projectsList: projectsList.build(),
+              loadData: BuiltValueNullFieldError.checkNotNull(
+                  loadData, r'ProjectListVM', 'loadData'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'projectsList';
         projectsList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ProjectListVM', _$failedField, e.toString());
+            r'ProjectListVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1062,19 +1097,15 @@ class _$ProjectCreateMint extends ProjectCreateMint {
   final String ratio;
 
   factory _$ProjectCreateMint(
-          [void Function(ProjectCreateMintBuilder) updates]) =>
-      (new ProjectCreateMintBuilder()..update(updates)).build();
+          [void Function(ProjectCreateMintBuilder)? updates]) =>
+      (new ProjectCreateMintBuilder()..update(updates))._build();
 
-  _$ProjectCreateMint._({this.index, this.month, this.ratio}) : super._() {
-    if (index == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateMint', 'index');
-    }
-    if (month == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateMint', 'month');
-    }
-    if (ratio == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateMint', 'ratio');
-    }
+  _$ProjectCreateMint._(
+      {required this.index, required this.month, required this.ratio})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(index, r'ProjectCreateMint', 'index');
+    BuiltValueNullFieldError.checkNotNull(month, r'ProjectCreateMint', 'month');
+    BuiltValueNullFieldError.checkNotNull(ratio, r'ProjectCreateMint', 'ratio');
   }
 
   @override
@@ -1102,7 +1133,7 @@ class _$ProjectCreateMint extends ProjectCreateMint {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectCreateMint')
+    return (newBuiltValueToStringHelper(r'ProjectCreateMint')
           ..add('index', index)
           ..add('month', month)
           ..add('ratio', ratio))
@@ -1112,27 +1143,28 @@ class _$ProjectCreateMint extends ProjectCreateMint {
 
 class ProjectCreateMintBuilder
     implements Builder<ProjectCreateMint, ProjectCreateMintBuilder> {
-  _$ProjectCreateMint _$v;
+  _$ProjectCreateMint? _$v;
 
-  int _index;
-  int get index => _$this._index;
-  set index(int index) => _$this._index = index;
+  int? _index;
+  int? get index => _$this._index;
+  set index(int? index) => _$this._index = index;
 
-  String _month;
-  String get month => _$this._month;
-  set month(String month) => _$this._month = month;
+  String? _month;
+  String? get month => _$this._month;
+  set month(String? month) => _$this._month = month;
 
-  String _ratio;
-  String get ratio => _$this._ratio;
-  set ratio(String ratio) => _$this._ratio = ratio;
+  String? _ratio;
+  String? get ratio => _$this._ratio;
+  set ratio(String? ratio) => _$this._ratio = ratio;
 
   ProjectCreateMintBuilder();
 
   ProjectCreateMintBuilder get _$this {
-    if (_$v != null) {
-      _index = _$v.index;
-      _month = _$v.month;
-      _ratio = _$v.ratio;
+    final $v = _$v;
+    if ($v != null) {
+      _index = $v.index;
+      _month = $v.month;
+      _ratio = $v.ratio;
       _$v = null;
     }
     return this;
@@ -1140,21 +1172,27 @@ class ProjectCreateMintBuilder
 
   @override
   void replace(ProjectCreateMint other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectCreateMint;
   }
 
   @override
-  void update(void Function(ProjectCreateMintBuilder) updates) {
+  void update(void Function(ProjectCreateMintBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectCreateMint build() {
+  ProjectCreateMint build() => _build();
+
+  _$ProjectCreateMint _build() {
     final _$result = _$v ??
-        new _$ProjectCreateMint._(index: index, month: month, ratio: ratio);
+        new _$ProjectCreateMint._(
+            index: BuiltValueNullFieldError.checkNotNull(
+                index, r'ProjectCreateMint', 'index'),
+            month: BuiltValueNullFieldError.checkNotNull(
+                month, r'ProjectCreateMint', 'month'),
+            ratio: BuiltValueNullFieldError.checkNotNull(
+                ratio, r'ProjectCreateMint', 'ratio'));
     replace(_$result);
     return _$result;
   }
@@ -1162,12 +1200,12 @@ class ProjectCreateMintBuilder
 
 class _$ProjectConfig extends ProjectConfig {
   @override
-  final String instructions;
+  final String? instructions;
   @override
-  final double id;
+  final double? id;
 
-  factory _$ProjectConfig([void Function(ProjectConfigBuilder) updates]) =>
-      (new ProjectConfigBuilder()..update(updates)).build();
+  factory _$ProjectConfig([void Function(ProjectConfigBuilder)? updates]) =>
+      (new ProjectConfigBuilder()..update(updates))._build();
 
   _$ProjectConfig._({this.instructions, this.id}) : super._();
 
@@ -1193,7 +1231,7 @@ class _$ProjectConfig extends ProjectConfig {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectConfig')
+    return (newBuiltValueToStringHelper(r'ProjectConfig')
           ..add('instructions', instructions)
           ..add('id', id))
         .toString();
@@ -1202,22 +1240,23 @@ class _$ProjectConfig extends ProjectConfig {
 
 class ProjectConfigBuilder
     implements Builder<ProjectConfig, ProjectConfigBuilder> {
-  _$ProjectConfig _$v;
+  _$ProjectConfig? _$v;
 
-  String _instructions;
-  String get instructions => _$this._instructions;
-  set instructions(String instructions) => _$this._instructions = instructions;
+  String? _instructions;
+  String? get instructions => _$this._instructions;
+  set instructions(String? instructions) => _$this._instructions = instructions;
 
-  double _id;
-  double get id => _$this._id;
-  set id(double id) => _$this._id = id;
+  double? _id;
+  double? get id => _$this._id;
+  set id(double? id) => _$this._id = id;
 
   ProjectConfigBuilder();
 
   ProjectConfigBuilder get _$this {
-    if (_$v != null) {
-      _instructions = _$v.instructions;
-      _id = _$v.id;
+    final $v = _$v;
+    if ($v != null) {
+      _instructions = $v.instructions;
+      _id = $v.id;
       _$v = null;
     }
     return this;
@@ -1225,19 +1264,19 @@ class ProjectConfigBuilder
 
   @override
   void replace(ProjectConfig other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectConfig;
   }
 
   @override
-  void update(void Function(ProjectConfigBuilder) updates) {
+  void update(void Function(ProjectConfigBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectConfig build() {
+  ProjectConfig build() => _build();
+
+  _$ProjectConfig _build() {
     final _$result =
         _$v ?? new _$ProjectConfig._(instructions: instructions, id: id);
     replace(_$result);
@@ -1279,41 +1318,41 @@ class _$ProjectCreateParams extends ProjectCreateParams {
   @override
   final BuiltList<ProjectCreateMint> mintList;
   @override
-  final String chain;
+  final String? chain;
   @override
-  final String symbol;
+  final String? symbol;
   @override
-  final String txId;
+  final String? txId;
   @override
-  final String address;
+  final String? address;
   @override
-  final WalletWithdrawData withdrawData;
+  final WalletWithdrawData? withdrawData;
   @override
-  final double withdrawAmount;
+  final double? withdrawAmount;
   @override
-  final int submittedAt;
+  final int? submittedAt;
 
   factory _$ProjectCreateParams(
-          [void Function(ProjectCreateParamsBuilder) updates]) =>
-      (new ProjectCreateParamsBuilder()..update(updates)).build();
+          [void Function(ProjectCreateParamsBuilder)? updates]) =>
+      (new ProjectCreateParamsBuilder()..update(updates))._build();
 
   _$ProjectCreateParams._(
-      {this.projectName,
-      this.projectDescription,
-      this.coinName,
-      this.price,
-      this.amount,
-      this.issuerName,
-      this.webUrl,
-      this.email,
-      this.poolMinCurrency,
-      this.poolCycle,
-      this.poolInitAmount,
-      this.poolEnable,
-      this.remainPoolMonths,
-      this.remainPoolAmount,
-      this.minBalance,
-      this.mintList,
+      {required this.projectName,
+      required this.projectDescription,
+      required this.coinName,
+      required this.price,
+      required this.amount,
+      required this.issuerName,
+      required this.webUrl,
+      required this.email,
+      required this.poolMinCurrency,
+      required this.poolCycle,
+      required this.poolInitAmount,
+      required this.poolEnable,
+      required this.remainPoolMonths,
+      required this.remainPoolAmount,
+      required this.minBalance,
+      required this.mintList,
       this.chain,
       this.symbol,
       this.txId,
@@ -1322,59 +1361,38 @@ class _$ProjectCreateParams extends ProjectCreateParams {
       this.withdrawAmount,
       this.submittedAt})
       : super._() {
-    if (projectName == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'projectName');
-    }
-    if (projectDescription == null) {
-      throw new BuiltValueNullFieldError(
-          'ProjectCreateParams', 'projectDescription');
-    }
-    if (coinName == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'coinName');
-    }
-    if (price == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'price');
-    }
-    if (amount == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'amount');
-    }
-    if (issuerName == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'issuerName');
-    }
-    if (webUrl == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'webUrl');
-    }
-    if (email == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'email');
-    }
-    if (poolMinCurrency == null) {
-      throw new BuiltValueNullFieldError(
-          'ProjectCreateParams', 'poolMinCurrency');
-    }
-    if (poolCycle == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'poolCycle');
-    }
-    if (poolInitAmount == null) {
-      throw new BuiltValueNullFieldError(
-          'ProjectCreateParams', 'poolInitAmount');
-    }
-    if (poolEnable == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'poolEnable');
-    }
-    if (remainPoolMonths == null) {
-      throw new BuiltValueNullFieldError(
-          'ProjectCreateParams', 'remainPoolMonths');
-    }
-    if (remainPoolAmount == null) {
-      throw new BuiltValueNullFieldError(
-          'ProjectCreateParams', 'remainPoolAmount');
-    }
-    if (minBalance == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'minBalance');
-    }
-    if (mintList == null) {
-      throw new BuiltValueNullFieldError('ProjectCreateParams', 'mintList');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        projectName, r'ProjectCreateParams', 'projectName');
+    BuiltValueNullFieldError.checkNotNull(
+        projectDescription, r'ProjectCreateParams', 'projectDescription');
+    BuiltValueNullFieldError.checkNotNull(
+        coinName, r'ProjectCreateParams', 'coinName');
+    BuiltValueNullFieldError.checkNotNull(
+        price, r'ProjectCreateParams', 'price');
+    BuiltValueNullFieldError.checkNotNull(
+        amount, r'ProjectCreateParams', 'amount');
+    BuiltValueNullFieldError.checkNotNull(
+        issuerName, r'ProjectCreateParams', 'issuerName');
+    BuiltValueNullFieldError.checkNotNull(
+        webUrl, r'ProjectCreateParams', 'webUrl');
+    BuiltValueNullFieldError.checkNotNull(
+        email, r'ProjectCreateParams', 'email');
+    BuiltValueNullFieldError.checkNotNull(
+        poolMinCurrency, r'ProjectCreateParams', 'poolMinCurrency');
+    BuiltValueNullFieldError.checkNotNull(
+        poolCycle, r'ProjectCreateParams', 'poolCycle');
+    BuiltValueNullFieldError.checkNotNull(
+        poolInitAmount, r'ProjectCreateParams', 'poolInitAmount');
+    BuiltValueNullFieldError.checkNotNull(
+        poolEnable, r'ProjectCreateParams', 'poolEnable');
+    BuiltValueNullFieldError.checkNotNull(
+        remainPoolMonths, r'ProjectCreateParams', 'remainPoolMonths');
+    BuiltValueNullFieldError.checkNotNull(
+        remainPoolAmount, r'ProjectCreateParams', 'remainPoolAmount');
+    BuiltValueNullFieldError.checkNotNull(
+        minBalance, r'ProjectCreateParams', 'minBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        mintList, r'ProjectCreateParams', 'mintList');
   }
 
   @override
@@ -1459,7 +1477,7 @@ class _$ProjectCreateParams extends ProjectCreateParams {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectCreateParams')
+    return (newBuiltValueToStringHelper(r'ProjectCreateParams')
           ..add('projectName', projectName)
           ..add('projectDescription', projectDescription)
           ..add('coinName', coinName)
@@ -1489,136 +1507,137 @@ class _$ProjectCreateParams extends ProjectCreateParams {
 
 class ProjectCreateParamsBuilder
     implements Builder<ProjectCreateParams, ProjectCreateParamsBuilder> {
-  _$ProjectCreateParams _$v;
+  _$ProjectCreateParams? _$v;
 
-  String _projectName;
-  String get projectName => _$this._projectName;
-  set projectName(String projectName) => _$this._projectName = projectName;
+  String? _projectName;
+  String? get projectName => _$this._projectName;
+  set projectName(String? projectName) => _$this._projectName = projectName;
 
-  String _projectDescription;
-  String get projectDescription => _$this._projectDescription;
-  set projectDescription(String projectDescription) =>
+  String? _projectDescription;
+  String? get projectDescription => _$this._projectDescription;
+  set projectDescription(String? projectDescription) =>
       _$this._projectDescription = projectDescription;
 
-  String _coinName;
-  String get coinName => _$this._coinName;
-  set coinName(String coinName) => _$this._coinName = coinName;
+  String? _coinName;
+  String? get coinName => _$this._coinName;
+  set coinName(String? coinName) => _$this._coinName = coinName;
 
-  String _price;
-  String get price => _$this._price;
-  set price(String price) => _$this._price = price;
+  String? _price;
+  String? get price => _$this._price;
+  set price(String? price) => _$this._price = price;
 
-  String _amount;
-  String get amount => _$this._amount;
-  set amount(String amount) => _$this._amount = amount;
+  String? _amount;
+  String? get amount => _$this._amount;
+  set amount(String? amount) => _$this._amount = amount;
 
-  String _issuerName;
-  String get issuerName => _$this._issuerName;
-  set issuerName(String issuerName) => _$this._issuerName = issuerName;
+  String? _issuerName;
+  String? get issuerName => _$this._issuerName;
+  set issuerName(String? issuerName) => _$this._issuerName = issuerName;
 
-  String _webUrl;
-  String get webUrl => _$this._webUrl;
-  set webUrl(String webUrl) => _$this._webUrl = webUrl;
+  String? _webUrl;
+  String? get webUrl => _$this._webUrl;
+  set webUrl(String? webUrl) => _$this._webUrl = webUrl;
 
-  String _email;
-  String get email => _$this._email;
-  set email(String email) => _$this._email = email;
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
 
-  String _poolMinCurrency;
-  String get poolMinCurrency => _$this._poolMinCurrency;
-  set poolMinCurrency(String poolMinCurrency) =>
+  String? _poolMinCurrency;
+  String? get poolMinCurrency => _$this._poolMinCurrency;
+  set poolMinCurrency(String? poolMinCurrency) =>
       _$this._poolMinCurrency = poolMinCurrency;
 
-  String _poolCycle;
-  String get poolCycle => _$this._poolCycle;
-  set poolCycle(String poolCycle) => _$this._poolCycle = poolCycle;
+  String? _poolCycle;
+  String? get poolCycle => _$this._poolCycle;
+  set poolCycle(String? poolCycle) => _$this._poolCycle = poolCycle;
 
-  String _poolInitAmount;
-  String get poolInitAmount => _$this._poolInitAmount;
-  set poolInitAmount(String poolInitAmount) =>
+  String? _poolInitAmount;
+  String? get poolInitAmount => _$this._poolInitAmount;
+  set poolInitAmount(String? poolInitAmount) =>
       _$this._poolInitAmount = poolInitAmount;
 
-  bool _poolEnable;
-  bool get poolEnable => _$this._poolEnable;
-  set poolEnable(bool poolEnable) => _$this._poolEnable = poolEnable;
+  bool? _poolEnable;
+  bool? get poolEnable => _$this._poolEnable;
+  set poolEnable(bool? poolEnable) => _$this._poolEnable = poolEnable;
 
-  String _remainPoolMonths;
-  String get remainPoolMonths => _$this._remainPoolMonths;
-  set remainPoolMonths(String remainPoolMonths) =>
+  String? _remainPoolMonths;
+  String? get remainPoolMonths => _$this._remainPoolMonths;
+  set remainPoolMonths(String? remainPoolMonths) =>
       _$this._remainPoolMonths = remainPoolMonths;
 
-  String _remainPoolAmount;
-  String get remainPoolAmount => _$this._remainPoolAmount;
-  set remainPoolAmount(String remainPoolAmount) =>
+  String? _remainPoolAmount;
+  String? get remainPoolAmount => _$this._remainPoolAmount;
+  set remainPoolAmount(String? remainPoolAmount) =>
       _$this._remainPoolAmount = remainPoolAmount;
 
-  String _minBalance;
-  String get minBalance => _$this._minBalance;
-  set minBalance(String minBalance) => _$this._minBalance = minBalance;
+  String? _minBalance;
+  String? get minBalance => _$this._minBalance;
+  set minBalance(String? minBalance) => _$this._minBalance = minBalance;
 
-  ListBuilder<ProjectCreateMint> _mintList;
+  ListBuilder<ProjectCreateMint>? _mintList;
   ListBuilder<ProjectCreateMint> get mintList =>
       _$this._mintList ??= new ListBuilder<ProjectCreateMint>();
-  set mintList(ListBuilder<ProjectCreateMint> mintList) =>
+  set mintList(ListBuilder<ProjectCreateMint>? mintList) =>
       _$this._mintList = mintList;
 
-  String _chain;
-  String get chain => _$this._chain;
-  set chain(String chain) => _$this._chain = chain;
+  String? _chain;
+  String? get chain => _$this._chain;
+  set chain(String? chain) => _$this._chain = chain;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  String _txId;
-  String get txId => _$this._txId;
-  set txId(String txId) => _$this._txId = txId;
+  String? _txId;
+  String? get txId => _$this._txId;
+  set txId(String? txId) => _$this._txId = txId;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  WalletWithdrawData _withdrawData;
-  WalletWithdrawData get withdrawData => _$this._withdrawData;
-  set withdrawData(WalletWithdrawData withdrawData) =>
+  WalletWithdrawData? _withdrawData;
+  WalletWithdrawData? get withdrawData => _$this._withdrawData;
+  set withdrawData(WalletWithdrawData? withdrawData) =>
       _$this._withdrawData = withdrawData;
 
-  double _withdrawAmount;
-  double get withdrawAmount => _$this._withdrawAmount;
-  set withdrawAmount(double withdrawAmount) =>
+  double? _withdrawAmount;
+  double? get withdrawAmount => _$this._withdrawAmount;
+  set withdrawAmount(double? withdrawAmount) =>
       _$this._withdrawAmount = withdrawAmount;
 
-  int _submittedAt;
-  int get submittedAt => _$this._submittedAt;
-  set submittedAt(int submittedAt) => _$this._submittedAt = submittedAt;
+  int? _submittedAt;
+  int? get submittedAt => _$this._submittedAt;
+  set submittedAt(int? submittedAt) => _$this._submittedAt = submittedAt;
 
   ProjectCreateParamsBuilder();
 
   ProjectCreateParamsBuilder get _$this {
-    if (_$v != null) {
-      _projectName = _$v.projectName;
-      _projectDescription = _$v.projectDescription;
-      _coinName = _$v.coinName;
-      _price = _$v.price;
-      _amount = _$v.amount;
-      _issuerName = _$v.issuerName;
-      _webUrl = _$v.webUrl;
-      _email = _$v.email;
-      _poolMinCurrency = _$v.poolMinCurrency;
-      _poolCycle = _$v.poolCycle;
-      _poolInitAmount = _$v.poolInitAmount;
-      _poolEnable = _$v.poolEnable;
-      _remainPoolMonths = _$v.remainPoolMonths;
-      _remainPoolAmount = _$v.remainPoolAmount;
-      _minBalance = _$v.minBalance;
-      _mintList = _$v.mintList?.toBuilder();
-      _chain = _$v.chain;
-      _symbol = _$v.symbol;
-      _txId = _$v.txId;
-      _address = _$v.address;
-      _withdrawData = _$v.withdrawData;
-      _withdrawAmount = _$v.withdrawAmount;
-      _submittedAt = _$v.submittedAt;
+    final $v = _$v;
+    if ($v != null) {
+      _projectName = $v.projectName;
+      _projectDescription = $v.projectDescription;
+      _coinName = $v.coinName;
+      _price = $v.price;
+      _amount = $v.amount;
+      _issuerName = $v.issuerName;
+      _webUrl = $v.webUrl;
+      _email = $v.email;
+      _poolMinCurrency = $v.poolMinCurrency;
+      _poolCycle = $v.poolCycle;
+      _poolInitAmount = $v.poolInitAmount;
+      _poolEnable = $v.poolEnable;
+      _remainPoolMonths = $v.remainPoolMonths;
+      _remainPoolAmount = $v.remainPoolAmount;
+      _minBalance = $v.minBalance;
+      _mintList = $v.mintList.toBuilder();
+      _chain = $v.chain;
+      _symbol = $v.symbol;
+      _txId = $v.txId;
+      _address = $v.address;
+      _withdrawData = $v.withdrawData;
+      _withdrawAmount = $v.withdrawAmount;
+      _submittedAt = $v.submittedAt;
       _$v = null;
     }
     return this;
@@ -1626,38 +1645,47 @@ class ProjectCreateParamsBuilder
 
   @override
   void replace(ProjectCreateParams other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectCreateParams;
   }
 
   @override
-  void update(void Function(ProjectCreateParamsBuilder) updates) {
+  void update(void Function(ProjectCreateParamsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectCreateParams build() {
+  ProjectCreateParams build() => _build();
+
+  _$ProjectCreateParams _build() {
     _$ProjectCreateParams _$result;
     try {
       _$result = _$v ??
           new _$ProjectCreateParams._(
-              projectName: projectName,
-              projectDescription: projectDescription,
-              coinName: coinName,
-              price: price,
-              amount: amount,
-              issuerName: issuerName,
-              webUrl: webUrl,
-              email: email,
-              poolMinCurrency: poolMinCurrency,
-              poolCycle: poolCycle,
-              poolInitAmount: poolInitAmount,
-              poolEnable: poolEnable,
-              remainPoolMonths: remainPoolMonths,
-              remainPoolAmount: remainPoolAmount,
-              minBalance: minBalance,
+              projectName: BuiltValueNullFieldError.checkNotNull(
+                  projectName, r'ProjectCreateParams', 'projectName'),
+              projectDescription: BuiltValueNullFieldError.checkNotNull(
+                  projectDescription,
+                  r'ProjectCreateParams',
+                  'projectDescription'),
+              coinName: BuiltValueNullFieldError.checkNotNull(
+                  coinName, r'ProjectCreateParams', 'coinName'),
+              price: BuiltValueNullFieldError.checkNotNull(
+                  price, r'ProjectCreateParams', 'price'),
+              amount: BuiltValueNullFieldError.checkNotNull(
+                  amount, r'ProjectCreateParams', 'amount'),
+              issuerName: BuiltValueNullFieldError.checkNotNull(
+                  issuerName, r'ProjectCreateParams', 'issuerName'),
+              webUrl: BuiltValueNullFieldError.checkNotNull(
+                  webUrl, r'ProjectCreateParams', 'webUrl'),
+              email: BuiltValueNullFieldError.checkNotNull(email, r'ProjectCreateParams', 'email'),
+              poolMinCurrency: BuiltValueNullFieldError.checkNotNull(poolMinCurrency, r'ProjectCreateParams', 'poolMinCurrency'),
+              poolCycle: BuiltValueNullFieldError.checkNotNull(poolCycle, r'ProjectCreateParams', 'poolCycle'),
+              poolInitAmount: BuiltValueNullFieldError.checkNotNull(poolInitAmount, r'ProjectCreateParams', 'poolInitAmount'),
+              poolEnable: BuiltValueNullFieldError.checkNotNull(poolEnable, r'ProjectCreateParams', 'poolEnable'),
+              remainPoolMonths: BuiltValueNullFieldError.checkNotNull(remainPoolMonths, r'ProjectCreateParams', 'remainPoolMonths'),
+              remainPoolAmount: BuiltValueNullFieldError.checkNotNull(remainPoolAmount, r'ProjectCreateParams', 'remainPoolAmount'),
+              minBalance: BuiltValueNullFieldError.checkNotNull(minBalance, r'ProjectCreateParams', 'minBalance'),
               mintList: mintList.build(),
               chain: chain,
               symbol: symbol,
@@ -1667,13 +1695,13 @@ class ProjectCreateParamsBuilder
               withdrawAmount: withdrawAmount,
               submittedAt: submittedAt);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'mintList';
         mintList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ProjectCreateParams', _$failedField, e.toString());
+            r'ProjectCreateParams', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1684,38 +1712,38 @@ class ProjectCreateParamsBuilder
 
 class _$ProjectInfo extends ProjectInfo {
   @override
-  final int id;
+  final int? id;
   @override
-  final String symbol;
+  final String? symbol;
   @override
-  final String currencyPrice;
+  final String? currencyPrice;
   @override
-  final String initAmount;
+  final String? initAmount;
   @override
-  final String projectName;
+  final String? projectName;
   @override
-  final double targetNumber;
+  final double? targetNumber;
   @override
-  final double inviteNumber;
+  final double? inviteNumber;
   @override
-  final String fork;
+  final String? fork;
   @override
-  final String totalAmount;
+  final String? totalAmount;
   @override
-  final String ownerWebsite;
+  final String? ownerWebsite;
   @override
-  final BuiltMap<String, String> ownerName;
+  final BuiltMap<String, String>? ownerName;
   @override
-  final BuiltMap<String, String> projectDescription;
+  final BuiltMap<String, String>? projectDescription;
   @override
-  final int status;
+  final int? status;
   @override
-  final int miningPoolStatus;
+  final int? miningPoolStatus;
   @override
-  final String iconUrl;
+  final String? iconUrl;
 
-  factory _$ProjectInfo([void Function(ProjectInfoBuilder) updates]) =>
-      (new ProjectInfoBuilder()..update(updates)).build();
+  factory _$ProjectInfo([void Function(ProjectInfoBuilder)? updates]) =>
+      (new ProjectInfoBuilder()..update(updates))._build();
 
   _$ProjectInfo._(
       {this.id,
@@ -1797,7 +1825,7 @@ class _$ProjectInfo extends ProjectInfo {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectInfo')
+    return (newBuiltValueToStringHelper(r'ProjectInfo')
           ..add('id', id)
           ..add('symbol', symbol)
           ..add('currencyPrice', currencyPrice)
@@ -1818,93 +1846,94 @@ class _$ProjectInfo extends ProjectInfo {
 }
 
 class ProjectInfoBuilder implements Builder<ProjectInfo, ProjectInfoBuilder> {
-  _$ProjectInfo _$v;
+  _$ProjectInfo? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  String _currencyPrice;
-  String get currencyPrice => _$this._currencyPrice;
-  set currencyPrice(String currencyPrice) =>
+  String? _currencyPrice;
+  String? get currencyPrice => _$this._currencyPrice;
+  set currencyPrice(String? currencyPrice) =>
       _$this._currencyPrice = currencyPrice;
 
-  String _initAmount;
-  String get initAmount => _$this._initAmount;
-  set initAmount(String initAmount) => _$this._initAmount = initAmount;
+  String? _initAmount;
+  String? get initAmount => _$this._initAmount;
+  set initAmount(String? initAmount) => _$this._initAmount = initAmount;
 
-  String _projectName;
-  String get projectName => _$this._projectName;
-  set projectName(String projectName) => _$this._projectName = projectName;
+  String? _projectName;
+  String? get projectName => _$this._projectName;
+  set projectName(String? projectName) => _$this._projectName = projectName;
 
-  double _targetNumber;
-  double get targetNumber => _$this._targetNumber;
-  set targetNumber(double targetNumber) => _$this._targetNumber = targetNumber;
+  double? _targetNumber;
+  double? get targetNumber => _$this._targetNumber;
+  set targetNumber(double? targetNumber) => _$this._targetNumber = targetNumber;
 
-  double _inviteNumber;
-  double get inviteNumber => _$this._inviteNumber;
-  set inviteNumber(double inviteNumber) => _$this._inviteNumber = inviteNumber;
+  double? _inviteNumber;
+  double? get inviteNumber => _$this._inviteNumber;
+  set inviteNumber(double? inviteNumber) => _$this._inviteNumber = inviteNumber;
 
-  String _fork;
-  String get fork => _$this._fork;
-  set fork(String fork) => _$this._fork = fork;
+  String? _fork;
+  String? get fork => _$this._fork;
+  set fork(String? fork) => _$this._fork = fork;
 
-  String _totalAmount;
-  String get totalAmount => _$this._totalAmount;
-  set totalAmount(String totalAmount) => _$this._totalAmount = totalAmount;
+  String? _totalAmount;
+  String? get totalAmount => _$this._totalAmount;
+  set totalAmount(String? totalAmount) => _$this._totalAmount = totalAmount;
 
-  String _ownerWebsite;
-  String get ownerWebsite => _$this._ownerWebsite;
-  set ownerWebsite(String ownerWebsite) => _$this._ownerWebsite = ownerWebsite;
+  String? _ownerWebsite;
+  String? get ownerWebsite => _$this._ownerWebsite;
+  set ownerWebsite(String? ownerWebsite) => _$this._ownerWebsite = ownerWebsite;
 
-  MapBuilder<String, String> _ownerName;
+  MapBuilder<String, String>? _ownerName;
   MapBuilder<String, String> get ownerName =>
       _$this._ownerName ??= new MapBuilder<String, String>();
-  set ownerName(MapBuilder<String, String> ownerName) =>
+  set ownerName(MapBuilder<String, String>? ownerName) =>
       _$this._ownerName = ownerName;
 
-  MapBuilder<String, String> _projectDescription;
+  MapBuilder<String, String>? _projectDescription;
   MapBuilder<String, String> get projectDescription =>
       _$this._projectDescription ??= new MapBuilder<String, String>();
-  set projectDescription(MapBuilder<String, String> projectDescription) =>
+  set projectDescription(MapBuilder<String, String>? projectDescription) =>
       _$this._projectDescription = projectDescription;
 
-  int _status;
-  int get status => _$this._status;
-  set status(int status) => _$this._status = status;
+  int? _status;
+  int? get status => _$this._status;
+  set status(int? status) => _$this._status = status;
 
-  int _miningPoolStatus;
-  int get miningPoolStatus => _$this._miningPoolStatus;
-  set miningPoolStatus(int miningPoolStatus) =>
+  int? _miningPoolStatus;
+  int? get miningPoolStatus => _$this._miningPoolStatus;
+  set miningPoolStatus(int? miningPoolStatus) =>
       _$this._miningPoolStatus = miningPoolStatus;
 
-  String _iconUrl;
-  String get iconUrl => _$this._iconUrl;
-  set iconUrl(String iconUrl) => _$this._iconUrl = iconUrl;
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
 
   ProjectInfoBuilder();
 
   ProjectInfoBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _symbol = _$v.symbol;
-      _currencyPrice = _$v.currencyPrice;
-      _initAmount = _$v.initAmount;
-      _projectName = _$v.projectName;
-      _targetNumber = _$v.targetNumber;
-      _inviteNumber = _$v.inviteNumber;
-      _fork = _$v.fork;
-      _totalAmount = _$v.totalAmount;
-      _ownerWebsite = _$v.ownerWebsite;
-      _ownerName = _$v.ownerName?.toBuilder();
-      _projectDescription = _$v.projectDescription?.toBuilder();
-      _status = _$v.status;
-      _miningPoolStatus = _$v.miningPoolStatus;
-      _iconUrl = _$v.iconUrl;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _symbol = $v.symbol;
+      _currencyPrice = $v.currencyPrice;
+      _initAmount = $v.initAmount;
+      _projectName = $v.projectName;
+      _targetNumber = $v.targetNumber;
+      _inviteNumber = $v.inviteNumber;
+      _fork = $v.fork;
+      _totalAmount = $v.totalAmount;
+      _ownerWebsite = $v.ownerWebsite;
+      _ownerName = $v.ownerName?.toBuilder();
+      _projectDescription = $v.projectDescription?.toBuilder();
+      _status = $v.status;
+      _miningPoolStatus = $v.miningPoolStatus;
+      _iconUrl = $v.iconUrl;
       _$v = null;
     }
     return this;
@@ -1912,19 +1941,19 @@ class ProjectInfoBuilder implements Builder<ProjectInfo, ProjectInfoBuilder> {
 
   @override
   void replace(ProjectInfo other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectInfo;
   }
 
   @override
-  void update(void Function(ProjectInfoBuilder) updates) {
+  void update(void Function(ProjectInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectInfo build() {
+  ProjectInfo build() => _build();
+
+  _$ProjectInfo _build() {
     _$ProjectInfo _$result;
     try {
       _$result = _$v ??
@@ -1945,7 +1974,7 @@ class ProjectInfoBuilder implements Builder<ProjectInfo, ProjectInfoBuilder> {
               miningPoolStatus: miningPoolStatus,
               iconUrl: iconUrl);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'ownerName';
         _ownerName?.build();
@@ -1953,7 +1982,7 @@ class ProjectInfoBuilder implements Builder<ProjectInfo, ProjectInfoBuilder> {
         _projectDescription?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ProjectInfo', _$failedField, e.toString());
+            r'ProjectInfo', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1964,21 +1993,22 @@ class ProjectInfoBuilder implements Builder<ProjectInfo, ProjectInfoBuilder> {
 
 class _$ProjectState extends ProjectState {
   @override
-  final ProjectCreateParams lastProjectCreateParams;
+  final ProjectCreateParams? lastProjectCreateParams;
   @override
   final BuiltList<ProjectInfo> projectList;
   @override
-  final ProjectConfig projectConfig;
+  final ProjectConfig? projectConfig;
 
-  factory _$ProjectState([void Function(ProjectStateBuilder) updates]) =>
-      (new ProjectStateBuilder()..update(updates)).build();
+  factory _$ProjectState([void Function(ProjectStateBuilder)? updates]) =>
+      (new ProjectStateBuilder()..update(updates))._build();
 
   _$ProjectState._(
-      {this.lastProjectCreateParams, this.projectList, this.projectConfig})
+      {this.lastProjectCreateParams,
+      required this.projectList,
+      this.projectConfig})
       : super._() {
-    if (projectList == null) {
-      throw new BuiltValueNullFieldError('ProjectState', 'projectList');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        projectList, r'ProjectState', 'projectList');
   }
 
   @override
@@ -2006,7 +2036,7 @@ class _$ProjectState extends ProjectState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ProjectState')
+    return (newBuiltValueToStringHelper(r'ProjectState')
           ..add('lastProjectCreateParams', lastProjectCreateParams)
           ..add('projectList', projectList)
           ..add('projectConfig', projectConfig))
@@ -2016,34 +2046,35 @@ class _$ProjectState extends ProjectState {
 
 class ProjectStateBuilder
     implements Builder<ProjectState, ProjectStateBuilder> {
-  _$ProjectState _$v;
+  _$ProjectState? _$v;
 
-  ProjectCreateParamsBuilder _lastProjectCreateParams;
+  ProjectCreateParamsBuilder? _lastProjectCreateParams;
   ProjectCreateParamsBuilder get lastProjectCreateParams =>
       _$this._lastProjectCreateParams ??= new ProjectCreateParamsBuilder();
   set lastProjectCreateParams(
-          ProjectCreateParamsBuilder lastProjectCreateParams) =>
+          ProjectCreateParamsBuilder? lastProjectCreateParams) =>
       _$this._lastProjectCreateParams = lastProjectCreateParams;
 
-  ListBuilder<ProjectInfo> _projectList;
+  ListBuilder<ProjectInfo>? _projectList;
   ListBuilder<ProjectInfo> get projectList =>
       _$this._projectList ??= new ListBuilder<ProjectInfo>();
-  set projectList(ListBuilder<ProjectInfo> projectList) =>
+  set projectList(ListBuilder<ProjectInfo>? projectList) =>
       _$this._projectList = projectList;
 
-  ProjectConfigBuilder _projectConfig;
+  ProjectConfigBuilder? _projectConfig;
   ProjectConfigBuilder get projectConfig =>
       _$this._projectConfig ??= new ProjectConfigBuilder();
-  set projectConfig(ProjectConfigBuilder projectConfig) =>
+  set projectConfig(ProjectConfigBuilder? projectConfig) =>
       _$this._projectConfig = projectConfig;
 
   ProjectStateBuilder();
 
   ProjectStateBuilder get _$this {
-    if (_$v != null) {
-      _lastProjectCreateParams = _$v.lastProjectCreateParams?.toBuilder();
-      _projectList = _$v.projectList?.toBuilder();
-      _projectConfig = _$v.projectConfig?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _lastProjectCreateParams = $v.lastProjectCreateParams?.toBuilder();
+      _projectList = $v.projectList.toBuilder();
+      _projectConfig = $v.projectConfig?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2051,19 +2082,19 @@ class ProjectStateBuilder
 
   @override
   void replace(ProjectState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ProjectState;
   }
 
   @override
-  void update(void Function(ProjectStateBuilder) updates) {
+  void update(void Function(ProjectStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ProjectState build() {
+  ProjectState build() => _build();
+
+  _$ProjectState _build() {
     _$ProjectState _$result;
     try {
       _$result = _$v ??
@@ -2072,7 +2103,7 @@ class ProjectStateBuilder
               projectList: projectList.build(),
               projectConfig: _projectConfig?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'lastProjectCreateParams';
         _lastProjectCreateParams?.build();
@@ -2082,7 +2113,7 @@ class ProjectStateBuilder
         _projectConfig?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ProjectState', _$failedField, e.toString());
+            r'ProjectState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -2091,4 +2122,4 @@ class ProjectStateBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

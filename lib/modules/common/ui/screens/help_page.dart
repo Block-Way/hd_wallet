@@ -2,9 +2,9 @@ part of common_ui_module;
 
 class HelpCenterGroup {
   HelpCenterGroup({
-    @required this.icon,
-    @required this.title,
-    @required this.links,
+    required this.icon,
+    required this.title,
+    required this.links,
   });
 
   final String title;
@@ -14,8 +14,8 @@ class HelpCenterGroup {
 
 class HelpCenterLink {
   HelpCenterLink({
-    @required this.title,
-    @required this.url,
+    required this.title,
+    required this.url,
   });
   final String title;
   final String url;
@@ -38,8 +38,8 @@ class HelpCenterPage extends HookWidget {
 
   Widget buildGroup(
     BuildContext context, {
-    @required IconData icon,
-    @required String title,
+    required IconData icon,
+    required String title,
   }) {
     return Container(
       width: context.mediaWidth * 0.32,
@@ -65,9 +65,9 @@ class HelpCenterPage extends HookWidget {
 
   Widget buildQuestion(
     BuildContext context, {
-    @required String question,
-    @required String url,
-    @required bool hideBorder,
+    required String question,
+    required String url,
+    required bool hideBorder,
   }) {
     return CSContainer(
       padding: context.edgeAll.copyWith(top: 20, bottom: 20),
@@ -199,93 +199,11 @@ class HelpCenterPage extends HookWidget {
       ),
     ];
 
-    return CSScaffold(
-      headerBgColor: context.primaryColor,
-      backgroundColor: context.whiteColor,
-      child: Column(
-        children: [
-          Container(
-            color: context.primaryColor,
-            child: Transform.translate(
-              offset: Offset(0, context.edgeSize),
-              child: Container(
-                color: context.primaryColor,
-                padding: context.edgeAll.copyWith(top: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr('user:help_title'),
-                      style: context.textHuge(bold: true),
-                    ),
-                    CSImage(
-                      'assets/images/help_bg.png',
-                      backgroundColor: Colors.transparent,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: context.boxDecorationOnlyTop(),
-              child: ListView(
-                shrinkWrap: true,
-                children: links
-                    .asMap()
-                    .entries
-                    .map(
-                      (group) => Column(
-                        children: [
-                          Row(
-                            children: [
-                              buildGroup(
-                                context,
-                                icon: group.value.icon,
-                                title: group.value.title,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: group.value.links
-                                      .asMap()
-                                      .entries
-                                      .map(
-                                        (question) => buildQuestion(
-                                          context,
-                                          question: question.value.title,
-                                          url: question.value.url,
-                                          hideBorder: question.key == 0,
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (group.key != links.length - 1)
-                            Divider(
-                              color: context.greyColor,
-                              height: 1,
-                              thickness: 1,
-                            ),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ),
-          DividerShadow(),
-          CSButton(
-            margin: context.edgeVertical,
-            label: tr('user:help_btn_more'),
-            onPressed: () {
-              WebViewPage.open(tr('user:help_btn_more_url'));
-            },
-          ),
-        ],
-      ),
-    );
+    final searchController = useTextEditingController(text: '');
+    void handleSearch() {
+      print('sjisoifjas');
+    }
+
+    return Container(child: CSTabBar());
   }
 }

@@ -3,8 +3,8 @@ part of wallet_domain_module;
 @HiveType(typeId: kHiveTypeCoinBalance)
 class CoinBalance extends HiveObject {
   CoinBalance({
-    @required this.chain,
-    @required this.symbol,
+    required this.chain,
+    required this.symbol,
     this.balance = 0,
     this.unconfirmed = 0,
   }) {
@@ -20,9 +20,9 @@ class CoinBalance extends HiveObject {
   @HiveField(3)
   double unconfirmed;
   @HiveField(4)
-  DateTime createdAt;
+  DateTime createdAt = DateTime.now();
   @HiveField(5)
-  DateTime updatedAt;
+  DateTime? updatedAt = DateTime.now();
   @HiveField(6)
-  DateTime lockUntil;
+  DateTime lockUntil = DateTime.now();
 }

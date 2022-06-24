@@ -4,18 +4,18 @@ part of widgets;
 
 class PinTheme {
   factory PinTheme(
-      {Color activeColor,
-      Color selectedColor,
-      Color inactiveColor,
-      Color disabledColor,
-      Color activeFillColor,
-      Color selectedFillColor,
-      Color inactiveFillColor,
-      BorderRadius borderRadius,
-      double fieldHeight,
-      double fieldWidth,
-      double borderWidth,
-      PinCodeFieldShape shape}) {
+      {Color? activeColor,
+      Color? selectedColor,
+      Color? inactiveColor,
+      Color? disabledColor,
+      Color? activeFillColor,
+      Color? selectedFillColor,
+      Color? inactiveFillColor,
+      BorderRadius? borderRadius,
+      double? fieldHeight,
+      double? fieldWidth,
+      double? borderWidth,
+      PinCodeFieldShape? shape}) {
     final defaultValues = PinTheme.defaults();
     return PinTheme.defaults(
       activeColor: activeColor ?? defaultValues.activeColor,

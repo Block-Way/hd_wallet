@@ -5,11 +5,11 @@ class TradeActionOrderAddPending extends _BaseAction {
   final TradeOrder order;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final walletId = store.state.walletState.activeWalletId;
 
     final cachedOrders = await TradeRepository().getTradeOrdersFromCache(
-      walletId: walletId,
+      walletId: walletId!,
     );
 
     cachedOrders.add(order);
@@ -32,16 +32,15 @@ class TradeActionOrderAddCancelling extends _BaseAction {
   final String cancelTxId;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final walletId = store.state.walletState.activeWalletId;
 
     final cachedOrders = await TradeRepository().getTradeOrdersFromCache(
-      walletId: walletId,
+      walletId: walletId!,
     );
 
     final cached = cachedOrders.firstWhere(
       (item) => item.txId == order.txId,
-      orElse: () => null,
     );
 
     if (cached != null) {
@@ -67,61 +66,61 @@ class TradeActionOrderDetail extends _BaseAction {
   final Completer<TradeOrderDetail> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final walletId = store.state.walletState.activeWalletId;
     final res = await TradeRepository().getOrderDetail(
       txId: txId,
-      walletId: walletId,
+      walletId: walletId!,
     );
     completer.complete(res);
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }
 
 class TradeActionGetApproveBalance extends _BaseAction {
   TradeActionGetApproveBalance({
-    @required this.chain,
-    @required this.symbol,
-    @required this.completer,
+    required this.chain,
+    required this.symbol,
+    required this.completer,
   });
   final String chain;
   final String symbol;
   final Completer<double> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final coinInfo = store.state.assetState.getCoinInfo(
       chain: chain,
       symbol: symbol,
     );
     final approveBalance = await WalletRepository().getDexApproveBalance(
-      chain: coinInfo.chain,
-      symbol: coinInfo.symbol,
-      contract: coinInfo.contract,
-      sellAddress: coinInfo.address,
-      chainPrecision: coinInfo.chainPrecision,
+      chain: coinInfo.chain ?? '',
+      symbol: coinInfo.symbol ?? '',
+      contract: coinInfo.contract ?? '',
+      sellAddress: coinInfo.address ?? '',
+      chainPrecision: coinInfo.chainPrecision ?? 0,
     );
     completer.complete(approveBalance);
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }
 
 class TradeActionGetOrderBalance extends _BaseAction {
   TradeActionGetOrderBalance({
-    @required this.order,
-    @required this.completer,
+    required this.order,
+    required this.completer,
     this.forceUpdate = false,
   });
   final TradeOrder order;
@@ -129,7 +128,7 @@ class TradeActionGetOrderBalance extends _BaseAction {
   final Completer<double> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final coinInfo = store.state.assetState.getCoinInfo(
       chain: order.chain,
       symbol: fixUSDTSymbol(order.symbol),
@@ -144,22 +143,23 @@ class TradeActionGetOrderBalance extends _BaseAction {
 
     if (order.isChainUseApiRawTx) {
       balance = await WalletRepository().getDexOrderBalance(
-        chain: coinInfo.chain,
-        symbol: coinInfo.symbol,
+        chain: coinInfo.chain ?? '',
+        symbol: coinInfo.symbol ?? '',
         primaryKey: order.templateHex,
-        sellAddress: coinInfo.address,
-        chainPrecision: coinInfo.chainPrecision,
+        sellAddress: coinInfo.address ?? '',
+        chainPrecision: coinInfo.chainPrecision ?? 0,
       );
     } else {
       final completer = Completer<double>();
-      store.dispatch(AssetActionGetCoinBalance(
-        wallet: store.state.walletState.activeWallet,
-        chain: coinInfo.chain,
-        symbol: coinInfo.symbol,
-        address: order.templateAddress,
-        ignoreUnspent: true,
-        completer: completer,
-      ));
+      store.dispatch(
+        AssetActionGetCoinBalance(
+          wallet: store.state.walletState.activeWallet!,
+          chain: coinInfo.chain ?? '',
+          symbol: coinInfo.symbol ?? '',
+          address: order.templateAddress,
+          completer: completer,
+        ),
+      );
       balance = await completer.future;
     }
 
@@ -170,22 +170,22 @@ class TradeActionGetOrderBalance extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }
 
 class TradeActionOrderCheckStatus extends _BaseAction {
   TradeActionOrderCheckStatus({
-    @required this.order,
-    @required this.completer,
+    required this.order,
+    required this.completer,
   });
   final TradeOrder order;
   final Completer<TradeOrder> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final txId = order.isCancelling ? order.cancelTxId : order.txId;
 
     final coinInfo = store.state.assetState.getCoinInfo(
@@ -194,28 +194,29 @@ class TradeActionOrderCheckStatus extends _BaseAction {
     );
 
     final getTransInfo = Completer<Transaction>();
-    dispatch(AssetActionGetSingleTransaction(
-      txId: txId,
-      chain: coinInfo.chain,
-      symbol: coinInfo.symbol,
-      fromAddress: order.fromAddress,
-      chainPrecision: coinInfo.chainPrecision,
-      completer: getTransInfo,
-    ));
+    dispatch(
+      AssetActionGetSingleTransaction(
+        txId: txId,
+        chain: coinInfo.chain ?? '',
+        symbol: coinInfo.symbol ?? '',
+        fromAddress: order.fromAddress,
+        chainPrecision: coinInfo.chainPrecision ?? 0,
+        completer: getTransInfo,
+      ),
+    );
     final transInfo = await getTransInfo.future;
 
     final walletId = store.state.walletState.activeWalletId;
     final cachedOrders = await TradeRepository().getTradeOrdersFromCache(
-      walletId: walletId,
+      walletId: walletId!,
     );
 
     final cached = cachedOrders.firstWhere(
       (item) => item.txId == order.txId,
-      orElse: () => null,
     );
 
     if (cached != null) {
-      if (transInfo?.isFailed == true) {
+      if (transInfo.isFailed == true) {
         cached.status = TradeOrderStatus.failed;
       }
 
@@ -236,8 +237,8 @@ class TradeActionOrderCheckStatus extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer.completeError(error as Object);
     return error;
   }
 }

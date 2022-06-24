@@ -7,9 +7,9 @@ class ResolutionItem {
     this.key,
   });
 
-  final String label;
-  final String id;
-  final String key;
+  final String? label;
+  final String? id;
+  final String? key;
 }
 
 const kChartResolutions = [

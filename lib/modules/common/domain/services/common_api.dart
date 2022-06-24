@@ -1,6 +1,7 @@
 part of common_domain_module;
 
 class CommonApi {
+  /*
   Future<Map<String, Object>> getConfig() =>
       Request().getValue<Map<String, Object>>(
         '/v1/config',
@@ -25,8 +26,8 @@ class CommonApi {
       );
 
   Future<Map<String, dynamic>> getLastBetaVersion({
-    @required String appSecret,
-    @required String appDistribution,
+    required String appSecret,
+    required String appDistribution,
   }) =>
       Request().getExternalObject(
         '/public/sdk/apps/$appSecret/distribution_groups/$appDistribution/releases/latest',
@@ -35,8 +36,8 @@ class CommonApi {
       );
 
   Future<List<Map<String, dynamic>>> getLastBetaReleases({
-    @required String appName,
-    @required String platform,
+    required String appName,
+    required String platform,
   }) =>
       Request().getExternalListOfObjects(
         '/apps/LoMoCoinTeam/$appName-$platform/releases?published_only=true',
@@ -48,4 +49,5 @@ class CommonApi {
       Request().getValue<List<dynamic>>(
         '/v1/config/advertising/$type',
       );
+      */
 }

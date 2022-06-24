@@ -37,7 +37,7 @@ part 'widgets/swap_coin.dart';
 part 'widgets/swap_approve_balance.dart';
 part 'process/swap_submit_process.dart';
 
-Route<dynamic> moduleSwapInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleSwapInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case SwapCreatePage.routeName:
       return SwapCreatePage.route(settings);

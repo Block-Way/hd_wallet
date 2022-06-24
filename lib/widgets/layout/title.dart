@@ -2,21 +2,21 @@ part of widgets;
 
 class HeaderTitle extends StatelessWidget {
   const HeaderTitle({
-    @required this.title,
+    required this.title,
     this.subtitle,
     this.brightness,
   }) : assert(title != null);
 
   final String title;
-  final String subtitle;
-  final Brightness brightness;
+  final String? subtitle;
+  final Brightness? brightness;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          title ?? '',
+          title,
           style: context.textMedium(
             bold: true,
             color: brightness == Brightness.dark ? context.whiteColor : null,
@@ -25,7 +25,7 @@ class HeaderTitle extends StatelessWidget {
         if (subtitle != null) SizedBox(height: 2),
         if (subtitle != null)
           Text(
-            subtitle,
+            subtitle ?? '',
             style: context.textSecondary(
               color: brightness == Brightness.dark
                   ? context.whiteColor

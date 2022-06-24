@@ -6,10 +6,10 @@ class CommonActionLoadCache extends _BaseAction {
   @override
   Future<AppState> reduce() async {
     // Load Env
-    await DotEnv().load();
-    AppConstants.isBeta = DotEnv().env['IS_BETA'] == 'true';
-    AppConstants.buildId = DotEnv().env['BUILD_ID'];
-    AppConstants.commitHash = DotEnv().env['COMMIT_HASH'];
+    //await DotEnv().load();
+    //AppConstants.isBeta = DotEnv().env['IS_BETA'] == 'true';
+    //AppConstants.buildId = DotEnv().env['BUILD_ID'] ?? '';
+    //AppConstants.commitHash = DotEnv().env['COMMIT_HASH'] ?? '';
 
     // Check if is a new installation
     if (Platform.isIOS) {
@@ -32,7 +32,7 @@ class CommonActionLoadCache extends _BaseAction {
       initialState = AppState.initialState();
       await appPersistor.saveInitialState(initialState);
     }
-    return store.state.rebuild((a) => a.replace(initialState));
+    return store.state.rebuild((a) => a.replace(initialState!));
   }
 }
 
@@ -60,13 +60,13 @@ class CommonActionLoadSettings extends _BaseAction {
   Future<AppState> reduce() async {
     final settings = CommonRepository().getSettings();
 
-    settings.installId = settings.installId ?? generateUuidV4();
-    AppConfig().installId = settings.installId;
+    settings?.installId = settings.installId ?? generateUuidV4();
+    AppConfig().installId = settings?.installId ?? '';
 
     return state.rebuild(
       (b) => b.commonState
-        ..language = settings.language
-        ..fiatCurrency = settings.fiatCurrency,
+        ..language = settings?.language
+        ..fiatCurrency = settings?.fiatCurrency,
     );
   }
 }
@@ -75,50 +75,53 @@ class CommonActionLoadHost extends _BaseAction {
   CommonActionLoadHost();
 
   @override
-  Future<AppState> reduce() async {
-    final hostBase64 = await CommonRepository().getApiDns();
+  Future<AppState?> reduce() async {
+    //final hostBase64 = await CommonRepository().getApiDns();
 
-    final apiUrl = utf8.decode(base64Decode(hostBase64));
-    Request().updateBaseUrl(apiUrl);
+    //final apiUrl = utf8.decode(base64Decode(hostBase64));
+    //Request().updateBaseUrl(apiUrl);
     return null;
   }
 }
 
 class CommonActionLoadImageConfig extends _BaseAction {
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final settings = CommonRepository().getSettings();
     final timeNow = DateTime.now();
     // Use cache last Signature
-    final prevJson = settings.imageSignature;
+    final prevJson = settings?.imageSignature;
     if (prevJson != null) {
       final prevSigned = prevJson['signed'] ?? {};
       AppConfig().setImageUrl(
         prevJson['url'].toString(),
-        prevSigned['Key-Pair-Id']?.toString(),
-        prevSigned['Policy']?.toString(),
-        prevSigned['Signature']?.toString(),
+        prevSigned['Key-Pair-Id'].toString(),
+        prevSigned['Policy'].toString(),
+        prevSigned['Signature'].toString(),
       );
     }
 
     if (kDebugMode ||
-        settings.imageSignatureLastUpdate == null ||
+        settings?.imageSignatureLastUpdate == null ||
         timeNow
-                .difference(DateTime.fromMillisecondsSinceEpoch(
-                    settings.imageSignatureLastUpdate))
+                .difference(
+                  DateTime.fromMillisecondsSinceEpoch(
+                    settings?.imageSignatureLastUpdate ?? 0,
+                  ),
+                )
                 .inDays >
             10) {
       final configJson = await CommonRepository().getConfigImage();
       final configSigned = configJson['signed'] ?? {};
       AppConfig().setImageUrl(
         configJson['url'].toString(),
-        configSigned['Key-Pair-Id']?.toString(),
-        configSigned['Policy']?.toString(),
-        configSigned['Signature']?.toString(),
+        configSigned['Key-Pair-Id'].toString(),
+        configSigned['Policy'].toString(),
+        configSigned['Signature'].toString(),
       );
-      settings.imageSignature = configJson;
-      settings.imageSignatureLastUpdate = timeNow.millisecondsSinceEpoch;
-      await settings.save();
+      settings?.imageSignature = configJson;
+      settings?.imageSignatureLastUpdate = timeNow.millisecondsSinceEpoch;
+      await settings?.save();
     }
     return null;
   }

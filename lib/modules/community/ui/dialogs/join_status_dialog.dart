@@ -2,7 +2,7 @@ part of community_ui_module;
 
 void showJoinStatusDialog(
   BuildContext context, {
-  @required String message,
+  required String message,
 }) {
   showAlertDialog(
     context,

@@ -19,7 +19,7 @@ part 'screens/notice_detail.dart';
 part 'screens/notice_list.dart';
 part 'widgets/notice_list_item.dart';
 
-Route<dynamic> moduleNoticeInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleNoticeInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case NoticeListPage.routeName:
       return NoticeListPage.route(settings);

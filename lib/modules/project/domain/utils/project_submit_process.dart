@@ -4,7 +4,7 @@ class ProjectSubmitProcess {
   static void doSubmitProject(
     BuildContext context,
     ProjectApplyVM viewModel, {
-    @required ProjectCreateParams projectParams,
+    required ProjectCreateParams projectParams,
   }) {
     LoadingDialog.show(context);
 

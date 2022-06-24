@@ -2,8 +2,8 @@ part of trade_ui_module;
 
 class ChartOrderDeals extends StatelessWidget {
   const ChartOrderDeals({
-    @required this.tradePair,
-    Key key,
+    required this.tradePair,
+    Key? key,
   }) : super(key: key);
 
   final TradePair tradePair;
@@ -17,7 +17,11 @@ class ChartOrderDeals extends StatelessWidget {
             padding: context.edgeLeft8,
             child: Text(
               item.displayCreatedAt,
-              style: context.textSmallPrice(color: context.whiteLightColor),
+              style: context.textSmallPrice(
+                color: context.whiteLightColor,
+                bold: true,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ),
         ),
@@ -57,7 +61,11 @@ class ChartOrderDeals extends StatelessWidget {
                   padding: context.edgeLeft8,
                   child: Text(
                     tr('trade:chart_lbl_time'),
-                    style: context.textTiny(color: textColor),
+                    style: context.textTiny(
+                      color: textColor,
+                      bold: true,
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
                 ),
               ),
@@ -77,7 +85,11 @@ class ChartOrderDeals extends StatelessWidget {
                               'trade:chart_lbl_price',
                               namedArgs: {'symbol': tradePair.priceSymbol},
                             ),
-                            style: context.textTiny(color: textColor),
+                            style: context.textTiny(
+                              color: textColor,
+                              bold: true,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
                       ),
@@ -87,7 +99,11 @@ class ChartOrderDeals extends StatelessWidget {
                             'trade:chart_lbl_amount',
                             namedArgs: {'symbol': tradePair.tradeSymbol},
                           ),
-                          style: context.textTiny(color: textColor),
+                          style: context.textTiny(
+                            color: textColor,
+                            bold: true,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
                     ],

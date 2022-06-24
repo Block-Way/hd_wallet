@@ -2,9 +2,9 @@ part of common_ui_module;
 
 class UploadButton extends HookWidget {
   const UploadButton({
-    @required this.signature,
-    @required this.uploadType,
-    Key key,
+    required this.signature,
+    required this.uploadType,
+    Key? key,
     this.size = 96,
     this.icon,
     this.iconSize = 24,
@@ -19,50 +19,46 @@ class UploadButton extends HookWidget {
   }) : super(key: key);
 
   final double size;
-  final IconData icon;
+  final IconData? icon;
   final double iconSize;
-  final Widget child;
-  final Color color;
+  final Widget? child;
+  final Color? color;
   final bool clearAfterUpload;
   final String signature;
   final String uploadType;
-  final Uri localFileUri;
-  final Function() onRemove;
-  final Function(bool) onUploadChange;
-  final Function(String, File) onUploadSuccess;
-  final EdgeInsetsGeometry margin;
+  final Uri? localFileUri;
+  final Function()? onRemove;
+  final Function(bool)? onUploadChange;
+  final Function(String, File)? onUploadSuccess;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
     final uploadProgress = useStreamController<num>();
-    final uploadFile = useState<File>();
+    final uploadFile = useState<File?>(null);
     final isUploading = useState(false);
 
     void onSelectedFile(ImageResult selectedFile) {
       uploadFile.value = selectedFile.file;
       isUploading.value = true;
-      if (onUploadChange != null) {
-        onUploadChange(true);
-      }
+      onUploadChange?.call(true);
       UploadUtils.requestUpload(
         uploadType,
         selectedFile.file,
         signature: signature,
         uploadProgress: uploadProgress,
       ).then((result) {
-        if (onUploadChange != null) {
-          onUploadChange(false);
-        }
-        if (onUploadSuccess != null) {
-          onUploadSuccess(result.path, uploadFile.value);
-        }
+        //if (onUploadChange != null) {
+        onUploadChange?.call(false);
+        //}
+        //if (onUploadSuccess != null) {
+        onUploadSuccess?.call(result?.path ?? '', uploadFile.value!);
+        //}
         if (clearAfterUpload) {
           uploadFile.value = null;
         }
       }).catchError((error) {
-        if (onUploadChange != null) {
-          onUploadChange(false);
-        }
+        onUploadChange?.call(false);
         uploadFile.value = null;
         Toast.show(tr('global:msg_upload_failed'));
       }).whenComplete(() {
@@ -72,7 +68,7 @@ class UploadButton extends HookWidget {
 
     useEffect(() {
       if (localFileUri != null) {
-        uploadFile.value = File.fromUri(localFileUri);
+        uploadFile.value = File.fromUri(localFileUri!);
       }
       return null;
     }, [localFileUri]);
@@ -105,7 +101,7 @@ class UploadButton extends HookWidget {
             if (uploadFile.value != null)
               Center(
                 child: Image.file(
-                  uploadFile.value,
+                  uploadFile.value!,
                   fit: BoxFit.cover,
                 ),
               )
@@ -130,7 +126,7 @@ class UploadButton extends HookWidget {
                         Center(
                           child: CSProgressIndicator(
                             size: size / 2,
-                            value: snapshot.data / 100,
+                            value: snapshot.data! / 100,
                             strokeWidth: 4,
                             color: context.primaryColor,
                           ),
@@ -158,9 +154,7 @@ class UploadButton extends HookWidget {
                   onTap: () {
                     if (isUploading.value == false) {
                       uploadFile.value = null;
-                      if (onRemove != null) {
-                        onRemove();
-                      }
+                      onRemove?.call();
                     }
                   },
                   child: Container(

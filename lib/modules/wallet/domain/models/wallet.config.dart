@@ -10,7 +10,7 @@ const kChainsNeedLockBalance = ['ETH', 'TRX', 'BTC'];
 const kChainsHasUnconfirmedBalance = ['BBC'];
 
 class WalletConfigNetwork {
-  static bool bbc = kDebugMode;
+  static bool hah = kDebugMode;
   static bool btc = false;
   static bool eth = false;
   static bool trx = false;
@@ -18,7 +18,7 @@ class WalletConfigNetwork {
   static bool getTestNetByChain(String chain) {
     switch (chain) {
       case 'BBC':
-        return WalletConfigNetwork.bbc;
+        return WalletConfigNetwork.hah;
         break;
       case 'BTC':
         return WalletConfigNetwork.btc;
@@ -34,19 +34,19 @@ class WalletConfigNetwork {
     }
   }
 
-  static void setTestNetByChain(String chain, {bool value}) {
+  static void setTestNetByChain(String chain, {bool? value}) {
     switch (chain) {
       case 'BBC':
-        WalletConfigNetwork.bbc = value;
+        WalletConfigNetwork.hah = value ?? false;
         break;
       case 'BTC':
-        WalletConfigNetwork.btc = value;
+        WalletConfigNetwork.btc = value ?? false;
         break;
       case 'ETH':
-        WalletConfigNetwork.eth = value;
+        WalletConfigNetwork.eth = value ?? false;
         break;
       case 'TRX':
-        WalletConfigNetwork.trx = value;
+        WalletConfigNetwork.trx = value ?? false;
         break;
       default:
     }

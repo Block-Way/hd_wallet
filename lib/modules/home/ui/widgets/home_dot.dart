@@ -12,10 +12,10 @@ class DotBuilder extends SwiperPlugin {
 
   ///color when current index,if set null ,
   /// will be Theme.of(context).primaryColor
-  final Color activeColor;
+  final Color? activeColor;
 
   ///,if set null , will be Theme.of(context).scaffoldBackgroundColor
-  final Color color;
+  final Color? color;
 
   ///Size of the dot when activate
   final double activeSize;
@@ -26,7 +26,7 @@ class DotBuilder extends SwiperPlugin {
   /// Space between dots
   final double space;
 
-  final Key key;
+  final Key? key;
 
   @override
   Widget build(BuildContext context, SwiperPluginConfig config) {
@@ -130,7 +130,7 @@ class SwiperCSPagination extends SwiperPlugin {
 
   /// Alignment.bottomCenter by default when scrollDirection== Axis.horizontal
   /// Alignment.centerRight by default when scrollDirection== Axis.vertical
-  final Alignment alignment;
+  final Alignment? alignment;
 
   /// Distance between pagination and the container
   final EdgeInsetsGeometry margin;
@@ -138,7 +138,7 @@ class SwiperCSPagination extends SwiperPlugin {
   /// Build the widget
   final SwiperPlugin builder;
 
-  final Key key;
+  final Key? key;
 
   @override
   Widget build(BuildContext context, SwiperPluginConfig config) {

@@ -15,37 +15,41 @@ class _$NoticeInfoSerializer implements StructuredSerializer<NoticeInfo> {
   final String wireName = 'NoticeInfo';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, NoticeInfo object,
+  Iterable<Object?> serialize(Serializers serializers, NoticeInfo object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.id != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.title != null) {
+    value = object.title;
+    if (value != null) {
       result
         ..add('title')
-        ..add(serializers.serialize(object.title,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.coverImg != null) {
+    value = object.coverImg;
+    if (value != null) {
       result
         ..add('cover_img')
-        ..add(serializers.serialize(object.coverImg,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.createdAt != null) {
+    value = object.createdAt;
+    if (value != null) {
       result
         ..add('created_at')
-        ..add(serializers.serialize(object.createdAt,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.shareImg != null) {
+    value = object.shareImg;
+    if (value != null) {
       result
         ..add('share_img')
-        ..add(serializers.serialize(object.shareImg,
+        ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
@@ -53,37 +57,37 @@ class _$NoticeInfoSerializer implements StructuredSerializer<NoticeInfo> {
   }
 
   @override
-  NoticeInfo deserialize(Serializers serializers, Iterable<Object> serialized,
+  NoticeInfo deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new NoticeInfoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'title':
           result.title = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'cover_img':
           result.coverImg = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'created_at':
           result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'share_img':
           result.shareImg.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -94,10 +98,10 @@ class _$NoticeInfoSerializer implements StructuredSerializer<NoticeInfo> {
 
 class _$NoticeDetailVM extends NoticeDetailVM {
   @override
-  final NoticeInfo noticeDetail;
+  final NoticeInfo? noticeDetail;
 
-  factory _$NoticeDetailVM([void Function(NoticeDetailVMBuilder) updates]) =>
-      (new NoticeDetailVMBuilder()..update(updates)).build();
+  factory _$NoticeDetailVM([void Function(NoticeDetailVMBuilder)? updates]) =>
+      (new NoticeDetailVMBuilder()..update(updates))._build();
 
   _$NoticeDetailVM._({this.noticeDetail}) : super._();
 
@@ -122,7 +126,7 @@ class _$NoticeDetailVM extends NoticeDetailVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('NoticeDetailVM')
+    return (newBuiltValueToStringHelper(r'NoticeDetailVM')
           ..add('noticeDetail', noticeDetail))
         .toString();
   }
@@ -130,19 +134,20 @@ class _$NoticeDetailVM extends NoticeDetailVM {
 
 class NoticeDetailVMBuilder
     implements Builder<NoticeDetailVM, NoticeDetailVMBuilder> {
-  _$NoticeDetailVM _$v;
+  _$NoticeDetailVM? _$v;
 
-  NoticeInfoBuilder _noticeDetail;
+  NoticeInfoBuilder? _noticeDetail;
   NoticeInfoBuilder get noticeDetail =>
       _$this._noticeDetail ??= new NoticeInfoBuilder();
-  set noticeDetail(NoticeInfoBuilder noticeDetail) =>
+  set noticeDetail(NoticeInfoBuilder? noticeDetail) =>
       _$this._noticeDetail = noticeDetail;
 
   NoticeDetailVMBuilder();
 
   NoticeDetailVMBuilder get _$this {
-    if (_$v != null) {
-      _noticeDetail = _$v.noticeDetail?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _noticeDetail = $v.noticeDetail?.toBuilder();
       _$v = null;
     }
     return this;
@@ -150,31 +155,31 @@ class NoticeDetailVMBuilder
 
   @override
   void replace(NoticeDetailVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoticeDetailVM;
   }
 
   @override
-  void update(void Function(NoticeDetailVMBuilder) updates) {
+  void update(void Function(NoticeDetailVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$NoticeDetailVM build() {
+  NoticeDetailVM build() => _build();
+
+  _$NoticeDetailVM _build() {
     _$NoticeDetailVM _$result;
     try {
       _$result =
           _$v ?? new _$NoticeDetailVM._(noticeDetail: _noticeDetail?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'noticeDetail';
         _noticeDetail?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'NoticeDetailVM', _$failedField, e.toString());
+            r'NoticeDetailVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -185,20 +190,19 @@ class NoticeDetailVMBuilder
 
 class _$NoticeListVM extends NoticeListVM {
   @override
-  final BuiltList<NoticeInfo> noticeList;
+  final BuiltList<NoticeInfo>? noticeList;
   @override
-  final BuiltList<NoticeInfo> noticeLatest;
+  final BuiltList<NoticeInfo>? noticeLatest;
   @override
   final Future<int> Function(bool isRefresh, int skip) loadData;
 
-  factory _$NoticeListVM([void Function(NoticeListVMBuilder) updates]) =>
-      (new NoticeListVMBuilder()..update(updates)).build();
+  factory _$NoticeListVM([void Function(NoticeListVMBuilder)? updates]) =>
+      (new NoticeListVMBuilder()..update(updates))._build();
 
-  _$NoticeListVM._({this.noticeList, this.noticeLatest, this.loadData})
+  _$NoticeListVM._({this.noticeList, this.noticeLatest, required this.loadData})
       : super._() {
-    if (loadData == null) {
-      throw new BuiltValueNullFieldError('NoticeListVM', 'loadData');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        loadData, r'NoticeListVM', 'loadData');
   }
 
   @override
@@ -223,7 +227,7 @@ class _$NoticeListVM extends NoticeListVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('NoticeListVM')
+    return (newBuiltValueToStringHelper(r'NoticeListVM')
           ..add('noticeList', noticeList)
           ..add('noticeLatest', noticeLatest)
           ..add('loadData', loadData))
@@ -233,33 +237,34 @@ class _$NoticeListVM extends NoticeListVM {
 
 class NoticeListVMBuilder
     implements Builder<NoticeListVM, NoticeListVMBuilder> {
-  _$NoticeListVM _$v;
+  _$NoticeListVM? _$v;
 
-  ListBuilder<NoticeInfo> _noticeList;
+  ListBuilder<NoticeInfo>? _noticeList;
   ListBuilder<NoticeInfo> get noticeList =>
       _$this._noticeList ??= new ListBuilder<NoticeInfo>();
-  set noticeList(ListBuilder<NoticeInfo> noticeList) =>
+  set noticeList(ListBuilder<NoticeInfo>? noticeList) =>
       _$this._noticeList = noticeList;
 
-  ListBuilder<NoticeInfo> _noticeLatest;
+  ListBuilder<NoticeInfo>? _noticeLatest;
   ListBuilder<NoticeInfo> get noticeLatest =>
       _$this._noticeLatest ??= new ListBuilder<NoticeInfo>();
-  set noticeLatest(ListBuilder<NoticeInfo> noticeLatest) =>
+  set noticeLatest(ListBuilder<NoticeInfo>? noticeLatest) =>
       _$this._noticeLatest = noticeLatest;
 
-  Future<int> Function(bool isRefresh, int skip) _loadData;
-  Future<int> Function(bool isRefresh, int skip) get loadData =>
+  Future<int> Function(bool isRefresh, int skip)? _loadData;
+  Future<int> Function(bool isRefresh, int skip)? get loadData =>
       _$this._loadData;
-  set loadData(Future<int> Function(bool isRefresh, int skip) loadData) =>
+  set loadData(Future<int> Function(bool isRefresh, int skip)? loadData) =>
       _$this._loadData = loadData;
 
   NoticeListVMBuilder();
 
   NoticeListVMBuilder get _$this {
-    if (_$v != null) {
-      _noticeList = _$v.noticeList?.toBuilder();
-      _noticeLatest = _$v.noticeLatest?.toBuilder();
-      _loadData = _$v.loadData;
+    final $v = _$v;
+    if ($v != null) {
+      _noticeList = $v.noticeList?.toBuilder();
+      _noticeLatest = $v.noticeLatest?.toBuilder();
+      _loadData = $v.loadData;
       _$v = null;
     }
     return this;
@@ -267,28 +272,29 @@ class NoticeListVMBuilder
 
   @override
   void replace(NoticeListVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoticeListVM;
   }
 
   @override
-  void update(void Function(NoticeListVMBuilder) updates) {
+  void update(void Function(NoticeListVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$NoticeListVM build() {
+  NoticeListVM build() => _build();
+
+  _$NoticeListVM _build() {
     _$NoticeListVM _$result;
     try {
       _$result = _$v ??
           new _$NoticeListVM._(
               noticeList: _noticeList?.build(),
               noticeLatest: _noticeLatest?.build(),
-              loadData: loadData);
+              loadData: BuiltValueNullFieldError.checkNotNull(
+                  loadData, r'NoticeListVM', 'loadData'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'noticeList';
         _noticeList?.build();
@@ -296,7 +302,7 @@ class NoticeListVMBuilder
         _noticeLatest?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'NoticeListVM', _$failedField, e.toString());
+            r'NoticeListVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -307,20 +313,20 @@ class NoticeListVMBuilder
 
 class _$NoticeInfo extends NoticeInfo {
   @override
-  final int id;
+  final int? id;
   @override
-  final String title;
+  final String? title;
   @override
-  final String coverImg;
+  final String? coverImg;
   @override
-  final int createdAt;
+  final int? createdAt;
   @override
-  final BuiltList<String> shareImg;
-  String __image;
-  List<String> __shareImgWithUrl;
+  final BuiltList<String>? shareImg;
+  String? __image;
+  List<String>? __shareImgWithUrl;
 
-  factory _$NoticeInfo([void Function(NoticeInfoBuilder) updates]) =>
-      (new NoticeInfoBuilder()..update(updates)).build();
+  factory _$NoticeInfo([void Function(NoticeInfoBuilder)? updates]) =>
+      (new NoticeInfoBuilder()..update(updates))._build();
 
   _$NoticeInfo._(
       {this.id, this.title, this.coverImg, this.createdAt, this.shareImg})
@@ -361,7 +367,7 @@ class _$NoticeInfo extends NoticeInfo {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('NoticeInfo')
+    return (newBuiltValueToStringHelper(r'NoticeInfo')
           ..add('id', id)
           ..add('title', title)
           ..add('coverImg', coverImg)
@@ -372,38 +378,39 @@ class _$NoticeInfo extends NoticeInfo {
 }
 
 class NoticeInfoBuilder implements Builder<NoticeInfo, NoticeInfoBuilder> {
-  _$NoticeInfo _$v;
+  _$NoticeInfo? _$v;
 
-  int _id;
-  int get id => _$this._id;
-  set id(int id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  String _title;
-  String get title => _$this._title;
-  set title(String title) => _$this._title = title;
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
 
-  String _coverImg;
-  String get coverImg => _$this._coverImg;
-  set coverImg(String coverImg) => _$this._coverImg = coverImg;
+  String? _coverImg;
+  String? get coverImg => _$this._coverImg;
+  set coverImg(String? coverImg) => _$this._coverImg = coverImg;
 
-  int _createdAt;
-  int get createdAt => _$this._createdAt;
-  set createdAt(int createdAt) => _$this._createdAt = createdAt;
+  int? _createdAt;
+  int? get createdAt => _$this._createdAt;
+  set createdAt(int? createdAt) => _$this._createdAt = createdAt;
 
-  ListBuilder<String> _shareImg;
+  ListBuilder<String>? _shareImg;
   ListBuilder<String> get shareImg =>
       _$this._shareImg ??= new ListBuilder<String>();
-  set shareImg(ListBuilder<String> shareImg) => _$this._shareImg = shareImg;
+  set shareImg(ListBuilder<String>? shareImg) => _$this._shareImg = shareImg;
 
   NoticeInfoBuilder();
 
   NoticeInfoBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _title = _$v.title;
-      _coverImg = _$v.coverImg;
-      _createdAt = _$v.createdAt;
-      _shareImg = _$v.shareImg?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _title = $v.title;
+      _coverImg = $v.coverImg;
+      _createdAt = $v.createdAt;
+      _shareImg = $v.shareImg?.toBuilder();
       _$v = null;
     }
     return this;
@@ -411,19 +418,19 @@ class NoticeInfoBuilder implements Builder<NoticeInfo, NoticeInfoBuilder> {
 
   @override
   void replace(NoticeInfo other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoticeInfo;
   }
 
   @override
-  void update(void Function(NoticeInfoBuilder) updates) {
+  void update(void Function(NoticeInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$NoticeInfo build() {
+  NoticeInfo build() => _build();
+
+  _$NoticeInfo _build() {
     _$NoticeInfo _$result;
     try {
       _$result = _$v ??
@@ -434,13 +441,13 @@ class NoticeInfoBuilder implements Builder<NoticeInfo, NoticeInfoBuilder> {
               createdAt: createdAt,
               shareImg: _shareImg?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'shareImg';
         _shareImg?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'NoticeInfo', _$failedField, e.toString());
+            r'NoticeInfo', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -451,14 +458,14 @@ class NoticeInfoBuilder implements Builder<NoticeInfo, NoticeInfoBuilder> {
 
 class _$NoticeState extends NoticeState {
   @override
-  final BuiltList<NoticeInfo> noticeList;
+  final BuiltList<NoticeInfo>? noticeList;
   @override
-  final BuiltList<NoticeInfo> noticeLatest;
+  final BuiltList<NoticeInfo>? noticeLatest;
   @override
-  final NoticeInfo noticeDetail;
+  final NoticeInfo? noticeDetail;
 
-  factory _$NoticeState([void Function(NoticeStateBuilder) updates]) =>
-      (new NoticeStateBuilder()..update(updates)).build();
+  factory _$NoticeState([void Function(NoticeStateBuilder)? updates]) =>
+      (new NoticeStateBuilder()..update(updates))._build();
 
   _$NoticeState._({this.noticeList, this.noticeLatest, this.noticeDetail})
       : super._();
@@ -487,7 +494,7 @@ class _$NoticeState extends NoticeState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('NoticeState')
+    return (newBuiltValueToStringHelper(r'NoticeState')
           ..add('noticeList', noticeList)
           ..add('noticeLatest', noticeLatest)
           ..add('noticeDetail', noticeDetail))
@@ -496,33 +503,34 @@ class _$NoticeState extends NoticeState {
 }
 
 class NoticeStateBuilder implements Builder<NoticeState, NoticeStateBuilder> {
-  _$NoticeState _$v;
+  _$NoticeState? _$v;
 
-  ListBuilder<NoticeInfo> _noticeList;
+  ListBuilder<NoticeInfo>? _noticeList;
   ListBuilder<NoticeInfo> get noticeList =>
       _$this._noticeList ??= new ListBuilder<NoticeInfo>();
-  set noticeList(ListBuilder<NoticeInfo> noticeList) =>
+  set noticeList(ListBuilder<NoticeInfo>? noticeList) =>
       _$this._noticeList = noticeList;
 
-  ListBuilder<NoticeInfo> _noticeLatest;
+  ListBuilder<NoticeInfo>? _noticeLatest;
   ListBuilder<NoticeInfo> get noticeLatest =>
       _$this._noticeLatest ??= new ListBuilder<NoticeInfo>();
-  set noticeLatest(ListBuilder<NoticeInfo> noticeLatest) =>
+  set noticeLatest(ListBuilder<NoticeInfo>? noticeLatest) =>
       _$this._noticeLatest = noticeLatest;
 
-  NoticeInfoBuilder _noticeDetail;
+  NoticeInfoBuilder? _noticeDetail;
   NoticeInfoBuilder get noticeDetail =>
       _$this._noticeDetail ??= new NoticeInfoBuilder();
-  set noticeDetail(NoticeInfoBuilder noticeDetail) =>
+  set noticeDetail(NoticeInfoBuilder? noticeDetail) =>
       _$this._noticeDetail = noticeDetail;
 
   NoticeStateBuilder();
 
   NoticeStateBuilder get _$this {
-    if (_$v != null) {
-      _noticeList = _$v.noticeList?.toBuilder();
-      _noticeLatest = _$v.noticeLatest?.toBuilder();
-      _noticeDetail = _$v.noticeDetail?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _noticeList = $v.noticeList?.toBuilder();
+      _noticeLatest = $v.noticeLatest?.toBuilder();
+      _noticeDetail = $v.noticeDetail?.toBuilder();
       _$v = null;
     }
     return this;
@@ -530,19 +538,19 @@ class NoticeStateBuilder implements Builder<NoticeState, NoticeStateBuilder> {
 
   @override
   void replace(NoticeState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$NoticeState;
   }
 
   @override
-  void update(void Function(NoticeStateBuilder) updates) {
+  void update(void Function(NoticeStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$NoticeState build() {
+  NoticeState build() => _build();
+
+  _$NoticeState _build() {
     _$NoticeState _$result;
     try {
       _$result = _$v ??
@@ -551,7 +559,7 @@ class NoticeStateBuilder implements Builder<NoticeState, NoticeStateBuilder> {
               noticeLatest: _noticeLatest?.build(),
               noticeDetail: _noticeDetail?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'noticeList';
         _noticeList?.build();
@@ -561,7 +569,7 @@ class NoticeStateBuilder implements Builder<NoticeState, NoticeStateBuilder> {
         _noticeDetail?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'NoticeState', _$failedField, e.toString());
+            r'NoticeState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -570,4 +578,4 @@ class NoticeStateBuilder implements Builder<NoticeState, NoticeStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

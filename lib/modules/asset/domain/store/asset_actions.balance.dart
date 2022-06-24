@@ -2,12 +2,12 @@ part of asset_domain_module;
 
 class AssetActionGetCoinBalance extends _BaseAction {
   AssetActionGetCoinBalance({
-    @required this.wallet,
-    @required this.chain,
-    @required this.symbol,
-    @required this.address,
-    this.subtractFromBalance,
-    this.ignoreUnspent = false,
+    required this.wallet,
+    required this.chain,
+    required this.symbol,
+    required this.address,
+    this.subtractFromBalance = 0,
+    this.ignoreUnspent = true,
     this.ignoreBalanceLock = false,
     this.completer,
   });
@@ -19,10 +19,10 @@ class AssetActionGetCoinBalance extends _BaseAction {
   final double subtractFromBalance;
   final bool ignoreUnspent;
   final bool ignoreBalanceLock;
-  final Completer<double> completer;
+  final Completer<double>? completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final balanceInfo = wallet.getCoinBalanceInfo(
       chain: chain,
       symbol: symbol,
@@ -56,7 +56,7 @@ class AssetActionGetCoinBalance extends _BaseAction {
           chain: chain,
           symbol: symbol,
           address: address,
-          contract: coinInfo.contract,
+          contract: coinInfo.contract ?? '',
         );
 
         // For ETH token, since we use etherscan the balance
@@ -64,7 +64,7 @@ class AssetActionGetCoinBalance extends _BaseAction {
         if (chain == 'ETH' && symbol != 'ETH') {
           newBalance = NumberUtil.getIntAmountAsDouble(
             apiBalance['balance'],
-            coinInfo.chainPrecision,
+            coinInfo.chainPrecision ?? 0,
           );
         } else {
           newBalance = NumberUtil.getDouble(apiBalance['balance']);
@@ -86,13 +86,13 @@ class AssetActionGetCoinBalance extends _BaseAction {
     // We need to subtractFromBalance
     if (subtractFromBalance != null &&
         (newBalance == -1 || cachedBalance == newBalance)) {
-      newBalance = NumberUtil.minus(cachedBalance, subtractFromBalance);
+      newBalance = NumberUtil.minus(cachedBalance, subtractFromBalance)!;
     }
 
     // If api return a negative balance,
     // use the provided balance or the cached one
     if (newBalance < 0) {
-      newBalance = cachedBalance ?? 0.0;
+      newBalance = cachedBalance;
     }
 
     // If balance still negative, use zero
@@ -116,7 +116,7 @@ class AssetActionGetCoinBalance extends _BaseAction {
         unspent = await utxosRequest.future;
       } catch (_) {
         isFailed = true;
-        unspent = null;
+        unspent = [];
       }
 
       // If we have unspent and is a empty list, means we don't have any balance
@@ -149,7 +149,7 @@ class AssetActionGetCoinBalance extends _BaseAction {
       unconfirmed: newUnconfirmed,
     );
 
-    await dispatchFuture(_AssetActionUpdateAssetCoinBalance(
+    await dispatchAsync(_AssetActionUpdateAssetCoinBalance(
       chain: chain,
       symbol: symbol,
       address: address,
@@ -162,18 +162,18 @@ class AssetActionGetCoinBalance extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer?.completeError(error);
+  Object? wrapError(dynamic error) {
+    completer?.completeError(error as Object);
     return error;
   }
 }
 
 class AssetActionResetCoinBalance extends _BaseAction {
   AssetActionResetCoinBalance({
-    @required this.wallet,
-    @required this.chain,
-    @required this.symbol,
-    @required this.address,
+    required this.wallet,
+    required this.chain,
+    required this.symbol,
+    required this.address,
   });
 
   final Wallet wallet;
@@ -182,7 +182,7 @@ class AssetActionResetCoinBalance extends _BaseAction {
   final String address;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
     const newBalance = 0.0;
 
     wallet.updateCoinBalance(
@@ -223,11 +223,11 @@ class _AssetActionUpdateAssetCoinBalance extends _BaseAction {
     this.hasError,
   });
 
-  final String chain;
-  final String symbol;
-  final String address;
-  final double balance;
-  final bool hasError;
+  final String? chain;
+  final String? symbol;
+  final String? address;
+  final double? balance;
+  final bool? hasError;
 
   @override
   AppState reduce() {
@@ -270,7 +270,7 @@ class _AssetActionUpdateBalancesAfter extends _BaseAction {
 
 class AssetActionUpdateWalletBalances extends _BaseAction {
   AssetActionUpdateWalletBalances({
-    @required this.wallet,
+    required this.wallet,
     this.skipFrequentUpdate = false,
   });
 
@@ -283,28 +283,28 @@ class AssetActionUpdateWalletBalances extends _BaseAction {
   }
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     if (wallet == null) {
       return null;
     }
 
     for (final coin in state.assetState.coins) {
       final balanceInfo = wallet.getCoinBalanceInfo(
-        chain: coin.chain,
-        symbol: coin.symbol,
-        address: coin.address,
+        chain: coin.chain ?? '',
+        symbol: coin.symbol ?? '',
+        address: coin.address ?? '',
       );
       if (skipFrequentUpdate == true &&
           balanceInfo?.updatedAt != null &&
-          DateTime.now().difference(balanceInfo.updatedAt).inMinutes < 5) {
+          DateTime.now().difference(balanceInfo!.updatedAt!).inMinutes < 5) {
         await Future.delayed(Duration(milliseconds: 200));
       } else {
-        await dispatchFuture(
+        await dispatchAsync(
           AssetActionGetCoinBalance(
             wallet: wallet,
-            chain: coin.chain,
-            symbol: coin.symbol,
-            address: coin.address,
+            chain: coin.chain ?? '',
+            symbol: coin.symbol ?? '',
+            address: coin.address ?? '',
           ),
         );
       }
@@ -318,7 +318,7 @@ class AssetActionUpdateWalletBalances extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }

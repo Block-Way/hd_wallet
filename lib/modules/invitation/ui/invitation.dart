@@ -12,7 +12,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_it/get_it.dart';
-import 'package:network_flutter/network_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 // Project imports:
@@ -37,7 +36,7 @@ part 'screens/invitation_create.dart';
 part 'screens/invitation_list.dart';
 part 'process/invitation_submit_process.dart';
 
-Route<dynamic> moduleInvitationInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleInvitationInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case InvitationCreatePage.routeName:
       return InvitationCreatePage.route(settings);

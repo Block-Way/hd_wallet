@@ -30,7 +30,7 @@ class AppConfig {
 
 // Methods
   void setImageUrl(String url, String key, String policy, String signature) {
-    _imageUrl = url ?? AppConstants.imageUrl;
+    _imageUrl = url;
     _imageUrlKey = key;
     _imageUrlPolicy = policy;
     _imageUrlSignature = signature;

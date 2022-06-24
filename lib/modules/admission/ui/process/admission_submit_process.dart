@@ -2,14 +2,15 @@ part of admission_ui_module;
 
 class AdmissionSubmitProcess {
   static void doSubmit({
-    @required BuildContext context,
-    @required AdmissionCreateVM viewModel,
-    @required AssetCoin coinInfo,
-    @required String toAddress,
-    @required String txData,
-    @required String amount,
-    @required AssetCoin Function({String chain, String symbol}) getCoinInfo,
-    @required Function(String) onSuccessTransaction,
+    required BuildContext context,
+    required AdmissionCreateVM viewModel,
+    required AssetCoin coinInfo,
+    required String toAddress,
+    required String txData,
+    required String amount,
+    required AssetCoin Function({required String chain, required String symbol})
+        getCoinInfo,
+    required Function(String) onSuccessTransaction,
   }) {
     LoadingDialog.show(context);
     viewModel

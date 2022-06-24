@@ -2,17 +2,17 @@ part of asset_ui_module;
 
 class AssetCoinBox extends StatelessWidget {
   const AssetCoinBox({
-    @required this.title,
-    @required this.coinInfo,
+    required this.title,
+    required this.coinInfo,
     this.titleAction,
     this.onPress,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final String title;
-  final Widget titleAction;
+  final Widget? titleAction;
   final AssetCoin coinInfo;
-  final void Function() onPress;
+  final void Function()? onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class AssetCoinBox extends StatelessWidget {
           key: ValueKey('$onPress'),
           children: [
             CSImage(
-              coinInfo?.iconUrl ?? '',
-              fallbackUrl: coinInfo?.iconLocal,
+              coinInfo.iconUrl,
+              fallbackUrl: coinInfo.iconLocal,
               width: 30,
               height: 30,
               radius: 30,
@@ -38,24 +38,23 @@ class AssetCoinBox extends StatelessWidget {
             ),
             SizedBox(width: 10),
             Text(
-              coinInfo?.name ?? '',
+              coinInfo.name ?? '',
               style: context.textBody(bold: true),
             ),
             SizedBox(width: 10),
-            if (coinInfo?.fullName != null)
+            if (coinInfo.fullName != null)
               Text(
-                coinInfo.fullName,
+                coinInfo.fullName ?? '',
                 style: context.textSecondary(),
               ),
             Spacer(),
             if (coinInfo != null && onPress != null)
               Padding(
                 padding: context.edgeLeft8,
-                child: Icon(
-                  CSIcons.More,
-                  size: 12,
-                  color: context.bodyColor,
-                ),
+                child: Icon(CSIcons.More,
+                    size: 12,
+                    // color: context.placeholderColor,
+                    color: Color(0xFFB7BFC7)),
               ),
           ],
         ),

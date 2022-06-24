@@ -8,6 +8,9 @@ abstract class TradeState implements Built<TradeState, TradeStateBuilder> {
       tradeSide: TradeSide.buy,
       hideSlowTradePairTip: BuiltList(),
       configState: ConfigState.loading.index,
+      config: TradeConfig(),
+      //tradePair: TradePair(),
+      currentOrderDetail: TradeOrderDetail(),
     );
   }
   TradeState._();
@@ -17,11 +20,13 @@ abstract class TradeState implements Built<TradeState, TradeStateBuilder> {
   ) {
     try {
       return _$TradeState._(
-        config: deserialize<TradeConfig>(data[0]),
+        config: deserialize<TradeConfig>(data[0])!,
         hideSlowTradePairTip:
             BuiltList.from(data.length > 1 ? data[1] as List : []),
         tradeSide: TradeSide.buy,
         configState: ConfigState.loading.index,
+        //tradePair: TradePair(),
+        currentOrderDetail: TradeOrderDetail(),
       );
     } catch (_) {
       return TradeState();
@@ -32,7 +37,7 @@ abstract class TradeState implements Built<TradeState, TradeStateBuilder> {
   List<dynamic> toCache() {
     try {
       return [
-        serialize<TradeConfig>(config),
+        serialize<TradeConfig>(config!),
         hideSlowTradePairTip.toList(),
       ];
     } catch (_) {
@@ -42,23 +47,24 @@ abstract class TradeState implements Built<TradeState, TradeStateBuilder> {
 
 // Fields
 
-  @nullable
-  TradeConfig get config;
+  //@nullable
+  TradeConfig? get config;
 
-  @nullable
-  int get configState;
+  //@nullable
+  int? get configState;
 
-  @nullable
-  TradePair get tradePair;
+  //@nullable
+  //TradePair? get tradePair;
 
   TradeSide get tradeSide;
 
   BuiltList<String> get hideSlowTradePairTip;
 
-  @nullable
-  TradeOrderDetail get currentOrderDetail;
+  //@nullable
+  TradeOrderDetail? get currentOrderDetail;
 
-// Methods
+  //Methods
+  /*
   TradePair getDefaultTradePair() => (config?.allTradePairs ?? []).firstWhere(
         (e) => e.id == AppConstants.defaultTradePair,
         orElse: () => TradePair.fromConfig(
@@ -74,13 +80,13 @@ abstract class TradeState implements Built<TradeState, TradeStateBuilder> {
           apiStatus: 'NOT_ONLINE',
         ),
       );
+*/
 
   TradeConfigCoin getCoinConfig({
-    @required String symbol,
-    @required String chain,
+    required String symbol,
+    required String chain,
   }) =>
-      config?.coins?.firstWhere(
+      config!.coins.firstWhere(
         (e) => e.symbol == symbol && e.chain == chain,
-        orElse: () => null,
       );
 }

@@ -26,7 +26,7 @@ class MnemonicBackupMsgTip extends StatelessWidget {
                         width: 6,
                         height: 6,
                         decoration: BoxDecoration(
-                          color: context.primaryColor,
+                          color: context.iconColor,
                           borderRadius: context.radiusAll5,
                         ),
                       ),
@@ -37,7 +37,7 @@ class MnemonicBackupMsgTip extends StatelessWidget {
                         tipText,
                         style: context.textSecondary().copyWith(
                               height: 2,
-                              color: context.bodyColor,
+                              color: context.iconColor,
                             ),
                       ),
                     )

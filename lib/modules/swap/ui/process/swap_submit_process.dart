@@ -6,10 +6,10 @@ class SwapSubmitProcess {
     SwapCreateVM viewModel, {
 
     /// If True user request a reset
-    @required bool userReset,
-    @required AssetCoin outCoinInfo,
-    @required SwapConfigCoin outCoinConfig,
-    @required Function(String) onSuccessTransaction,
+    required bool userReset,
+    required AssetCoin outCoinInfo,
+    required SwapConfigCoin outCoinConfig,
+    required Function(String) onSuccessTransaction,
   }) {
     var isReset = userReset;
     LoadingDialog.show(context);
@@ -18,10 +18,10 @@ class SwapSubmitProcess {
             outCoinInfo: outCoinInfo,
             outCoinConfig: outCoinConfig,
             onConfirmSubmit: ({
-              approveData,
-              currentBalance,
-              approveAmount,
-              needReset,
+              required approveData,
+              required currentBalance,
+              required approveAmount,
+              required needReset,
             }) {
               isReset = userReset || needReset;
               LoadingDialog.dismiss(context);
@@ -54,13 +54,13 @@ class SwapSubmitProcess {
               showTradeOrderTransactionPendingDialog(
                 context,
                 txId: txId,
-                chain: outCoinInfo.chain,
+                chain: outCoinInfo.chain ?? '',
                 getTransactionInfo: (txId) => viewModel.getTransactionInfo(
                   txId: txId,
-                  chain: outCoinInfo.chain,
-                  symbol: outCoinInfo.symbol,
-                  fromAddress: outCoinInfo.address,
-                  chainPrecision: outCoinInfo.chainPrecision,
+                  chain: outCoinInfo.chain ?? '',
+                  symbol: outCoinInfo.symbol ?? '',
+                  fromAddress: outCoinInfo.address ?? '',
+                  chainPrecision: outCoinInfo.chainPrecision ?? 0,
                 ),
                 onConfirmed: (txId) {
                   if (isReset == true) {
@@ -83,12 +83,12 @@ class SwapSubmitProcess {
   static void doSubmitSwap(
     BuildContext context,
     SwapCreateVM viewModel, {
-    @required String amount,
-    @required AssetCoin inCoinInfo,
-    @required AssetCoin outCoinInfo,
-    @required SwapConfigCoin inCoinConfig,
-    @required SwapConfigCoin outCoinConfig,
-    @required Function(String) onSuccessTransaction,
+    required String amount,
+    required AssetCoin inCoinInfo,
+    required AssetCoin outCoinInfo,
+    required SwapConfigCoin inCoinConfig,
+    required SwapConfigCoin outCoinConfig,
+    required Function(String) onSuccessTransaction,
   }) {
     LoadingDialog.show(context);
     viewModel

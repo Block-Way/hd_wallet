@@ -42,7 +42,7 @@ part 'widgets/mnemonic_card.dart';
 part 'widgets/password_check_tip.dart';
 part 'widgets/wallet_create_buttons.dart';
 
-Route<dynamic> moduleWalletInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleWalletInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case WalletManagementPage.routeName:
       return WalletManagementPage.route(settings);

@@ -15,10 +15,8 @@ abstract class NoticeState implements Built<NoticeState, NoticeStateBuilder> {
   ) {
     try {
       return _$NoticeState._(
-        noticeList:
-            deserializeListOf<NoticeInfo>(data[0]) ?? BuiltList<NoticeInfo>([]),
-        noticeLatest:
-            deserializeListOf<NoticeInfo>(data[1]) ?? BuiltList<NoticeInfo>([]),
+        noticeList: deserializeListOf<NoticeInfo>(data[0]),
+        noticeLatest: deserializeListOf<NoticeInfo>(data[1]),
       );
     } catch (_) {
       return NoticeState();
@@ -37,12 +35,12 @@ abstract class NoticeState implements Built<NoticeState, NoticeStateBuilder> {
   }
 
 // Fields
-  @nullable
-  BuiltList<NoticeInfo> get noticeList;
+  //@nullable
+  BuiltList<NoticeInfo>? get noticeList;
 
-  @nullable
-  BuiltList<NoticeInfo> get noticeLatest;
+  //@nullable
+  BuiltList<NoticeInfo>? get noticeLatest;
 
-  @nullable
-  NoticeInfo get noticeDetail;
+  //@nullable
+  NoticeInfo? get noticeDetail;
 }

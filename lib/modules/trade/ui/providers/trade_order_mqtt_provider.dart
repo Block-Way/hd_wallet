@@ -2,9 +2,9 @@ part of trade_ui_module;
 
 class TradeOrderMqttProvider extends TradeBaseMqttProvider {
   const TradeOrderMqttProvider({
-    @required TradeMqtt mqtt,
-    @required Widget child,
-    Key key,
+    required TradeMqtt mqtt,
+    required Widget child,
+    Key? key,
   }) : super(key: key, mqtt: mqtt, child: child);
 
   @override
@@ -40,6 +40,8 @@ class TradeOrderMqttProvider extends TradeBaseMqttProvider {
             ordersCubit.loadData(
               walletId: mqtt.walletId,
               tradePairId: tradePairId,
+              tradeAddress: '',
+              priceAddress: '',
             );
             break;
           default:
@@ -48,7 +50,7 @@ class TradeOrderMqttProvider extends TradeBaseMqttProvider {
 
       final subMessages = mqtt.messages.listen((event) {
         try {
-          final tradePairId = event.topicArgs?.split('/')?.reversed?.join('/');
+          final tradePairId = event.topicArgs.split('/').reversed.join('/');
 
           if (tradePairId == null) {
             return;
@@ -57,7 +59,7 @@ class TradeOrderMqttProvider extends TradeBaseMqttProvider {
           switch (event.type) {
             case TradeMqttMsgTypes.deep:
               final orderTxId = event.data['id']?.toString();
-              if (isAlreadyReceived(event.type, orderTxId)) {
+              if (isAlreadyReceived(event.type, orderTxId!)) {
                 break;
               }
               ordersCubit.updateFromMqtt(
@@ -91,7 +93,7 @@ class TradeOrderMqttProvider extends TradeBaseMqttProvider {
               break;
             case TradeMqttMsgTypes.orderMatch:
               final orderTxId = event.data?.toString();
-              if (isAlreadyReceived(event.type, orderTxId)) {
+              if (isAlreadyReceived(event.type, orderTxId!)) {
                 break;
               }
               ordersCubit.updateFromMqtt(

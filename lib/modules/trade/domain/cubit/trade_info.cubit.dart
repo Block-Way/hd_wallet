@@ -2,8 +2,8 @@ part of trade_domain_module;
 
 class TradeInfo24hState {
   TradeInfo24hState({
-    @required this.tradePair,
-    @required this.data,
+    required this.tradePair,
+    required this.data,
   });
 
   final TradePair tradePair;
@@ -23,24 +23,26 @@ class TradeInfo24hState {
 }
 
 class TradeInfo24hCubit extends Cubit<TradeInfo24hState> {
-  TradeInfo24hCubit([TradeRepository tradeRepository])
+  TradeInfo24hCubit([TradeRepository? tradeRepository])
       : super(TradeInfo24hState(
-          tradePair: null,
+          tradePair: TradePair(),
           data: TradeInfo24h(),
         )) {
     _tradeRepository = tradeRepository ?? TradeRepository();
   }
 
-  TradeRepository _tradeRepository;
+  late TradeRepository _tradeRepository;
 
   // ▼▼▼▼▼▼ Update/Load Data ▼▼▼▼▼▼  //
 
   Future<void> loadData(TradePair tradePair) async {
-    if (state.tradePair?.id != tradePair?.id) {
-      emit(TradeInfo24hState(
-        tradePair: tradePair,
-        data: TradeInfo24h(),
-      ));
+    if (state.tradePair.id != tradePair.id) {
+      emit(
+        TradeInfo24hState(
+          tradePair: tradePair,
+          data: TradeInfo24h(),
+        ),
+      );
     }
 
     final data = await _tradeRepository.getTradePairInfo24H(
@@ -55,7 +57,7 @@ class TradeInfo24hCubit extends Cubit<TradeInfo24hState> {
 
   void clearData() {
     emit(TradeInfo24hState(
-      tradePair: null,
+      tradePair: TradePair(),
       data: TradeInfo24h(),
     ));
   }
@@ -67,7 +69,7 @@ class TradeInfo24hCubit extends Cubit<TradeInfo24hState> {
 
   /// Add/Update a ticker from mqtt
   Future<void> updateFromMqtt({
-    @required Map<String, dynamic> json,
+    required Map<String, dynamic> json,
   }) async {
     // TODO: wait api
   }

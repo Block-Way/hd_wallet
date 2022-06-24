@@ -16,7 +16,7 @@ abstract class WalletBackupVM
     return WalletBackupVM(
       (viewModel) => viewModel
         ..backupSuccess = () {
-          return store.dispatchFuture(WalletActionWalletDidBackup());
+          return store.dispatchAsync(WalletActionWalletDidBackup());
         },
     );
   }

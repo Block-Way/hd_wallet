@@ -6,8 +6,8 @@ abstract class TradeTicker implements Built<TradeTicker, TradeTickerBuilder> {
   TradeTicker._();
 
   factory TradeTicker.fromPlaceholder({
-    @required int tradeSideId,
-    @required String tradePairId,
+    required int tradeSideId,
+    required String tradePairId,
   }) =>
       TradeTicker(
         (b) => b
@@ -18,10 +18,10 @@ abstract class TradeTicker implements Built<TradeTicker, TradeTickerBuilder> {
       );
 
   factory TradeTicker.fromApi({
-    @required int tradeSideId,
-    @required String tradePairId,
-    @required String price,
-    @required String amount,
+    required int tradeSideId,
+    required String tradePairId,
+    required String price,
+    required String amount,
   }) =>
       TradeTicker(
         (b) => b
@@ -32,8 +32,8 @@ abstract class TradeTicker implements Built<TradeTicker, TradeTickerBuilder> {
       );
 
   factory TradeTicker.fromMqtt({
-    @required Map<String, dynamic> json,
-    @required String span,
+    required Map<String, dynamic> json,
+    required String span,
   }) =>
       TradeTicker(
         (b) => b
@@ -48,7 +48,7 @@ abstract class TradeTicker implements Built<TradeTicker, TradeTickerBuilder> {
   static Serializer<TradeTicker> get serializer => _$tradeTickerSerializer;
 
 // Serializers
-  static TradeTicker fromJson(Map<String, dynamic> json) {
+  static TradeTicker? fromJson(Map<String, dynamic> json) {
     return deserialize<TradeTicker>(json);
   }
 

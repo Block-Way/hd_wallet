@@ -2,7 +2,7 @@ part of widgets;
 
 class CSAmountInput extends HookWidget {
   const CSAmountInput({
-    Key key,
+    Key? key,
     this.value,
     this.validator,
     this.controller,
@@ -16,27 +16,27 @@ class CSAmountInput extends HookWidget {
     this.unit,
   }) : super(key: key);
 
-  final String value;
-  final FieldValidator validator;
-  final TextEditingController controller;
+  final String? value;
+  final FieldValidator? validator;
+  final TextEditingController? controller;
   final double step;
   final int maxInteger;
   final int maxDecimal;
   final bool spinner;
-  final String unit;
+  final String? unit;
 
-  final String hintText;
-  final TextStyle hintStyle;
+  final String? hintText;
+  final TextStyle? hintStyle;
 
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
     final focusNode = useFocusNode();
 
     void handleChangeValue(String newValue) {
-      controller.text = newValue;
-      onChanged(newValue);
+      controller?.text = newValue;
+      onChanged?.call(newValue);
     }
 
     return Container(
@@ -60,8 +60,12 @@ class CSAmountInput extends HookWidget {
               onPressed: () {
                 focusNode.unfocus();
                 handleChangeValue(
-                  NumberUtil.isGreater(controller.text, step)
-                      ? NumberUtil.minus<String>(controller.text, step)
+                  NumberUtil.isGreater(controller?.text ?? '', step)
+                      ? (NumberUtil.minus<String>(
+                            controller?.text ?? '',
+                            step,
+                          ) ??
+                          '')
                       : '0',
                 );
               },
@@ -87,7 +91,7 @@ class CSAmountInput extends HookWidget {
               keyboardType: TextInputType.numberWithOptions(
                 decimal: true,
               ),
-              validator: validator,
+              validator: validator!,
               controller: controller,
               inputFormatters: [
                 NumberTextInputFormatter(
@@ -105,7 +109,7 @@ class CSAmountInput extends HookWidget {
               height: 28,
               alignment: Alignment.centerRight,
               child: Text(
-                unit,
+                unit ?? '',
                 style: context.textBody(bold: true),
                 maxLines: 1,
               ),
@@ -122,9 +126,11 @@ class CSAmountInput extends HookWidget {
                 focusNode.unfocus();
                 handleChangeValue(
                   NumberUtil.plus<String>(
-                    controller.text.isNotEmpty ? controller.text : 0,
+                    (controller?.text.isNotEmpty ?? false)
+                        ? controller?.text
+                        : 0,
                     step,
-                  ),
+                  )!,
                 );
               },
             ),

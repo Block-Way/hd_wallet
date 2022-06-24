@@ -16,7 +16,7 @@ class SettingsDevPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = useState<SettingsConfig>();
+    final settings = useState<SettingsConfig?>(null);
     final apiAppVersion = useTextEditingController(text: '');
     final apiBaseUrl = useTextEditingController(text: '');
     final mqttUseTls = useTextEditingController(text: '');
@@ -25,12 +25,12 @@ class SettingsDevPage extends HookWidget {
 
     useEffect(() {
       SettingsRepository().getSettings().then((value) {
-        apiAppVersion.text = value.apiAppVersion;
-        apiBaseUrl.text = value.apiBaseUrl;
-        mqttUseTls.text = value.mqttUseTls;
-        mqttDisabled.text = value.mqttDisabled;
-        proxyUrl.text = value.proxyUrl;
-        settings.value = value;
+        apiAppVersion.text = value?.apiAppVersion ?? '';
+        apiBaseUrl.text = value?.apiBaseUrl ?? '';
+        mqttUseTls.text = value?.mqttUseTls ?? '';
+        mqttDisabled.text = value?.mqttDisabled ?? '';
+        proxyUrl.text = value?.proxyUrl ?? '';
+        settings.value = value!;
       });
 
       // HDKeyCore.addEventListener((event) {
@@ -43,7 +43,7 @@ class SettingsDevPage extends HookWidget {
     void saveSettings() {
       LoadingDialog.show(context);
 
-      final newSettings = settings.value.rebuild(
+      final newSettings = settings.value?.rebuild(
         (a) => a
           ..apiAppVersion = apiAppVersion.text
           ..apiBaseUrl = apiBaseUrl.text
@@ -52,8 +52,9 @@ class SettingsDevPage extends HookWidget {
           ..proxyUrl = proxyUrl.text,
       );
 
-      SettingsRepository().saveSettings(newSettings).then(
+      SettingsRepository().saveSettings(newSettings!).then(
         (value) async {
+          /*
           await Future.delayed(Duration(milliseconds: 200));
           if (newSettings.hasApiBaseUrl) {
             Request().updateBaseUrl(newSettings.apiBaseUrl);
@@ -65,6 +66,7 @@ class SettingsDevPage extends HookWidget {
             Request().setupProxy(newSettings.proxyUrl);
           }
           LoadingDialog.dismiss(context);
+          */
         },
       ).catchError((error) {
         Toast.showError(error);
@@ -156,7 +158,7 @@ class SettingsDevPage extends HookWidget {
                 onPressed: () {
                   final store = StoreProvider.of<AppState>(context, false);
                   TradeRepository().clearTradeOrdersCache(
-                    store.state.walletState.activeWalletId,
+                    store.state.walletState.activeWalletId ?? '',
                   );
                   Toast.show('Cache orders cleared');
                 },
@@ -176,7 +178,7 @@ class SettingsDevPage extends HookWidget {
                       final store = StoreProvider.of<AppState>(context, false);
                       LoadingDialog.show(context);
                       store
-                          .dispatchFuture(WalletActionWalletRemoveAll())
+                          .dispatchAsync(WalletActionWalletRemoveAll())
                           .then((value) => Toast.show('wallet remove success'))
                           .whenComplete(() => LoadingDialog.dismiss(context));
                     },
@@ -189,7 +191,7 @@ class SettingsDevPage extends HookWidget {
                   final store = StoreProvider.of<AppState>(context, false);
                   LoadingDialog.show(context);
                   store
-                      .dispatchFuture(WalletActionWalletFromEnv())
+                      .dispatchAsync(WalletActionWalletFromEnv())
                       .then((value) => Toast.show('import wallet success'))
                       .whenComplete(() => LoadingDialog.dismiss(context));
                 },
@@ -200,7 +202,7 @@ class SettingsDevPage extends HookWidget {
                   final store = StoreProvider.of<AppState>(context, false);
                   LoadingDialog.show(context);
                   store
-                      .dispatchFuture(WalletActionWalletFromEnv(20))
+                      .dispatchAsync(WalletActionWalletFromEnv(20))
                       .then((value) => Toast.show('wallet create success'))
                       .whenComplete(() => LoadingDialog.dismiss(context));
                 },
@@ -222,7 +224,7 @@ class SettingsDevPage extends HookWidget {
                 onPressed: () {
                   final store = StoreProvider.of<AppState>(context, false);
                   InvitationRepository().clearInvitationCodeCache(
-                    store.state.walletState.activeWalletId,
+                    store.state.walletState.activeWalletId ?? '',
                   );
                 },
               ),

@@ -8,13 +8,13 @@ class HomePage extends StatelessWidget {
   void handleOpenBannerPage(HomeBanner bannerItem) {
     switch (bannerItem.type) {
       case 'URL':
-        WebViewPage.open(bannerItem.content, bannerItem.title);
+        WebViewPage.open(bannerItem.content ?? '', bannerItem.title);
         break;
       case 'SYSTEM_NOTICE':
-        NoticeDetailPage.open(
-          null,
-          NumberUtil.getInt(bannerItem.content, -1),
-        );
+        //NoticeDetailPage.open(
+        //  null,
+        //  NumberUtil.getInt(bannerItem.content, -1),
+        //);
         break;
       default:
     }
@@ -24,35 +24,35 @@ class HomePage extends StatelessWidget {
     if (data != null) {
       showUpdateAppDialog(
         context,
-        downloadUrl: data.downloadUrl,
-        description: data.description,
-        version: data.version,
+        downloadUrl: data.downloadUrl ?? '',
+        description: data.description ?? '',
+        version: data.version ?? '',
       );
       _hasShownNewVersionDialog = true;
     }
   }
 
-  Future<void> handleOpenTrade(HomePageVM viewModel, TradePair tradePair) {
-    return viewModel.doChangeTradePair(tradePair).then((value) {
-      AppNavigator.gotoTabBarPage(AppTabBarPages.trade);
-    });
-  }
+  // Future<void> handleOpenTrade() {
+  //   return null;
+  // }
 
   @override
   Widget build(BuildContext context) {
     return CSScaffold(
       hideLeading: true,
       titleCenter: false,
-      headerBgColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
-      titleWidget: StoreConnector<AppState, HomePageVM>(
-        distinct: true,
-        converter: HomePageVM.fromStore,
-        builder: (context, viewModel) => Text(
-          tr('home:title'),
-          style: context.textHuge(fontWeight: FontWeight.w700),
-        ),
-      ),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
+      // Color(0xFF17191C)
+      // titleWidget: StoreConnector<AppState, HomePageVM>(
+      //   distinct: true,
+      //   converter: HomePageVM.fromStore,
+      //   builder: (context, viewModel) => Text(
+      //     tr('home:title'),
+      //     style: context.textHuge(fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
+      //
+      //   ),
+      // ),
       outerChild: Container(
         width: double.infinity,
         height: 112,
@@ -61,8 +61,8 @@ class HomePage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: const [
-              Color(0xFFfff9d0),
-              Color(0xFFfaf9f7),
+              Color(0xFF32383E),
+              Color(0xFF17191C),
             ],
           ),
         ),
@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
       child: StoreConnector<AppState, HomePageVM>(
         distinct: true,
         converter: HomePageVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           viewModel.doLoadHomeData();
           if (AppConstants.isBeta && !kDebugMode) {
             // Only on Beta force check for new version
@@ -79,133 +79,118 @@ class HomePage extends StatelessWidget {
               handleShowNewVersion(context, value);
             });
           }
-          if (viewModel.hasNewVersion && !_hasShownNewVersionDialog) {
-            handleShowNewVersion(context, viewModel.newVersionData);
+          if ((viewModel.hasNewVersion ?? false) &&
+              !_hasShownNewVersionDialog) {
+            handleShowNewVersion(context, viewModel.newVersionData!);
           } else {
-            viewModel.doCheckLanguage().then((lang) async {
-              if (lang != null) {
-                final newLangTr =
-                    await AppLocalizations.getTranslationsByLocale(lang.locale);
+            // viewModel.doCheckLanguage().then(
+            //   (lang) async {
+            //     if (lang != null) {
+            //       final newLangTr =
+            //           await AppLocalizations.getTranslationsByLocale(
+            //         lang.locale,
+            //       );
 
-                showConfirmDialog(
-                  context,
-                  title: newLangTr.get('global:dialog_alert_title'),
-                  content: newLangTr
-                      .get(
-                        'global:msg_change_language',
-                      )
-                      .replaceAll(RegExp('{name}'), lang.name),
-                  cancelBtnText: newLangTr.get('global:btn_not_ask'),
-                  confirmBtnText: newLangTr.get('global:btn_confirm'),
-                  onConfirm: () {
-                    context.locale = lang.locale;
-                    viewModel.doChangeLanguage(lang.languageCode);
-                  },
-                  onCancel: () {
-                    viewModel.doChangeLanguage(context.locale.languageCode);
-                  },
-                );
-              }
-            });
+            //       showConfirmDialog(
+            //         context,
+            //         title: newLangTr.get('global:dialog_alert_title'),
+            //         content: newLangTr
+            //             .get(
+            //               'global:msg_change_language',
+            //             )!
+            //             .replaceAll(RegExp('{name}'), lang.name),
+            //         cancelBtnText: newLangTr.get('global:btn_not_ask'),
+            //         confirmBtnText: newLangTr.get('global:btn_confirm'),
+            //         onConfirm: () {
+            //           context.locale = lang.locale;
+            //           viewModel.doChangeLanguage(lang.languageCode);
+            //         },
+            //         onCancel: () {
+            //           viewModel.doChangeLanguage(context.locale.languageCode);
+            //         },
+            //       );
+            //     }
+            //   },
+            // );
           }
         },
-        onDidChange: (viewModel) {
-          if (viewModel.hasNewVersion && !_hasShownNewVersionDialog) {
-            handleShowNewVersion(context, viewModel.newVersionData);
+        onDidChange: (_, __, viewModel) {
+          if (viewModel.hasNewVersion! && !_hasShownNewVersionDialog) {
+            handleShowNewVersion(context, viewModel.newVersionData!);
           }
         },
-        builder: (context, viewModel) => CSRefresher(
-          refreshDelay: Duration(seconds: 5),
-          onRefresh: () {
-            viewModel.doRefreshHomeData().then((_) {
-              refreshController.refreshCompleted();
-            }).catchError((_) {
-              refreshController.refreshFailed();
-            });
-          },
-          header: ListViewHeader(background: Colors.transparent),
-          controller: refreshController,
-          child: ListView(
-            children: [
-              Padding(
-                padding: context.edgeAll.copyWith(top: 8),
-                child: Row(
-                  children: [
-                    CSButton(
-                      flat: true,
-                      onPressed: () {
-                        AppMainPage.openDrawer();
-                      },
-                      customBorder: CircleBorder(),
-                      child: CSImage(
-                        'assets/images/logo.png',
-                        width: 44,
-                        height: 44,
-                        backgroundColor: Colors.transparent,
-                      ),
+        builder: (context, viewModel) => ListView(
+          children: [
+            Padding(
+              padding: context.edgeAll.copyWith(top: 8),
+              child: Row(
+                children: [
+                  CSButton(
+                    flat: true,
+                    onPressed: () {
+                      AppMainPage.openDrawer();
+                    },
+                    customBorder: CircleBorder(),
+                    child: CSImage(
+                      'assets/images/hamburger_tab.png',
+                      height: 18,
+                      backgroundColor: context.mainColor,
                     ),
-                    Expanded(
-                      child: CSButton(
-                        label: tr('home:search_hint'),
-                        borderRadius: 22,
-                        height: 44,
-                        alignment: MainAxisAlignment.start,
-                        margin: context.edgeLeft,
-                        backgroundColor: context.whiteColor,
-                        textStyle: context.textSmall(bold: true),
-                        cmpLeft: Padding(
-                          padding: context.edgeRight8,
-                          child: Icon(
-                            CSIcons.Search,
-                            size: 16,
-                            color: context.secondaryColor,
-                          ),
-                        ),
-                        onPressed: () {
-                          ExplorerHomePage.open();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              HomeBanners(
-                viewModel.homeBanners?.toList(),
-                handleOpenBannerPage,
-              ),
-              CommunityTypeCard(
-                config: viewModel.communityConfig,
-                configState: viewModel.communityConfigState,
-                onPressed: (item) {
-                  CommunityDetailPage.open(item);
-                },
-                onRefresh: () {
-                  LoadingDialog.show(context);
-                  viewModel.doRefreshCommunity().catchError((error) {
-                    Toast.showError(error);
-                  }).whenComplete(() {
-                    LoadingDialog.dismiss(context);
-                  });
-                },
-              ),
-              CommunityQuickEntry(
-                hasWallet: viewModel.hasWallet,
-                communityConfig: viewModel.communityConfig,
-              ),
-              AdmissionLatest(
-                list: viewModel.admissionList.toList(),
-                hasWallet: viewModel.hasWallet,
-              ),
-              HomePricesCard(
-                prices: viewModel.homePrices.toList(),
-                doChangeTradePair: (tradePair) {
-                  return handleOpenTrade(viewModel, tradePair);
-                },
-                allTradePairs: viewModel.allTradePairs.toList(),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 8),
+            HomePricesCard(
+              prices: viewModel.homePrices?.toList() ?? [],
+            ),
+          ],
         ),
+        // builder: (context, viewModel) => CSRefresher(
+        //   refreshDelay: Duration(seconds: 5),
+        //   onRefresh: () {
+        //     viewModel.doRefreshHomeData().then((_) {
+        //       refreshController.refreshCompleted();
+        //     }).catchError((_) {
+        //       refreshController.refreshFailed();
+        //     });
+        //   },
+        //   header: ListViewHeader(background: Colors.transparent),
+        //   controller: refreshController,
+        //   child: ListView(
+        //     children: [
+        //       Padding(
+        //         padding: context.edgeAll.copyWith(top: 8),
+        //         child: Row(
+        //           children: [
+        //             CSButton(
+        //               flat: true,
+        //               onPressed: () {
+        //                 AppMainPage.openDrawer();
+        //               },
+        //               customBorder: CircleBorder(),
+        //               child: CSImage(
+        //                 'assets/images/hamburger_tab.png',
+        //                 height: 25,
+        //                 backgroundColor: context.mainColor,
+        //               ),
+        //             ),
+        //
+        //           ],
+        //         ),
+        //       ),
+        //
+        //       SizedBox(height: 8),
+        //       HomePricesCard(
+        //         prices: viewModel.homePrices?.toList() ?? [],
+        //         doChangeTradePair: (tradePair) {
+        //           return handleOpenTrade(viewModel, tradePair);
+        //         },
+        //         allTradePairs: viewModel.allTradePairs.toList(),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

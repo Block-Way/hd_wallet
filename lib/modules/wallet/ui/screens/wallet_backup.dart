@@ -83,6 +83,8 @@ class WalletBackupPage extends HookWidget {
         SizedBox(height: 50),
         CSButton(
           label: tr('wallet:backup_btn_next'),
+          backgroundColor: context.confirmTopColor,
+          textColor: context.confirmWordColor,
           onPressed: () {
             step.value = _BackupStep.validateMnemonic;
           },
@@ -104,7 +106,7 @@ class WalletBackupPage extends HookWidget {
     return state;
   }
 
-  // 验证 选择页面
+  // check chose page
   Widget buildConfirmView(
     BuildContext context,
     WalletBackupVM viewModel,
@@ -117,7 +119,7 @@ class WalletBackupPage extends HookWidget {
       list[index] = '${value}_$index';
     });
 
-    // 重置列表随机列表
+    // reset list random list
     if (randomList.value.isEmpty) {
       for (var i = list.length - 1; i >= 0; i--) {
         final randomIndex = math.Random().nextInt(i == 0 ? 1 : i);
@@ -197,42 +199,42 @@ class WalletBackupPage extends HookWidget {
   }
 
   Widget buildItem({
-    BuildContext context,
-    String text,
-    Function(String item) onPress,
+    BuildContext? context,
+    String? text,
+    Function(String item)? onPress,
   }) {
     return InkWell(
       onTap: () {
-        onPress(text);
+        onPress?.call(text!);
       },
-      borderRadius: context.radiusAll5,
+      borderRadius: context?.radiusAll5,
       child: CSContainer(
-        width: null,
+        //width: null,
         radius: 5,
-        margin: context.edgeRight8.copyWith(bottom: 10),
-        padding: context.edgeAll5,
+        margin: context?.edgeRight8.copyWith(bottom: 10),
+        padding: context?.edgeAll5,
         secondary: true,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              text.split('_')[0] ?? '',
-              style: context.textBody(
+              text!.split('_')[0],
+              style: context?.textBody(
                 color: context.secondaryColor,
                 bold: true,
               ),
             ),
             Container(
-              decoration: context.boxDecoration(
+              decoration: context?.boxDecoration(
                 color: context.primaryColor,
                 radius: 5,
               ),
-              margin: context.edgeLeft8,
+              margin: context?.edgeLeft8,
               padding: EdgeInsets.all(3),
               child: Icon(
                 Icons.close,
                 size: 15,
-                color: context.bodyColor,
+                color: context?.bodyColor,
               ),
             ),
           ],
@@ -254,7 +256,6 @@ class WalletBackupPage extends HookWidget {
       };
     }, []);
 
-    // VALID 下面会单独判断 因为参数 不一样
     final viewBuild =
         step.value == _BackupStep.intro ? buildTipView : buildMnemonicView;
 
@@ -273,6 +274,8 @@ class WalletBackupPage extends HookWidget {
       },
       child: CSScaffold(
         title: tr('wallet:backup_title'),
+        headerBgColor: context.mainColor,
+        backgroundColor: context.mainColor,
         scrollable: true,
         actions: [
           if (AppConstants.isBeta)

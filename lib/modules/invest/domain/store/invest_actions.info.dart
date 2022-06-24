@@ -5,22 +5,28 @@ class InvestActionLoadMintInfo extends _BaseAction {
   @override
   Future<AppState> reduce() async {
     final activeMint = store.state.investState.activeMint;
-    final walletId = store.state.walletState.activeWalletId;
-
+    //final walletId = store.state.walletState.activeWalletId;
+    final coin = store.state.walletState.activeWallet!.addresses
+        .where((element) => element.chain == 'BBC')
+        .first;
     final result = await InvestRepository().getMintInfo(
-      fork: activeMint.forkId,
-      walletId: walletId,
+      fork: activeMint?.forkId ?? '',
+      addr: coin.address,
     );
 
     if (result.isEmpty) {
-      return state.rebuild((a) => a.investState.mintInfo = MintInfo((a) => a
-        ..minBalance = '-1'
-        ..bestBalance = '0'
-        ..bestBalanceReward = '0'
-        ..minBalanceReward = '0').toBuilder());
+      return state.rebuild(
+        (a) => a.investState.mintInfo = MintInfo(
+          (a) => a
+            ..minBalance = '-1'
+            ..bestBalance = '0'
+            ..bestBalanceReward = '0'
+            ..minBalanceReward = '0',
+        ).toBuilder(),
+      );
     } else {
       final data = deserialize<MintInfo>(result);
-      return state.rebuild((a) => a.investState.mintInfo = data.toBuilder());
+      return state.rebuild((a) => a.investState.mintInfo = data!.toBuilder());
     }
   }
 }
@@ -30,11 +36,14 @@ class InvestActionLoadChart extends _BaseAction {
   @override
   Future<AppState> reduce() async {
     final activeMint = store.state.investState.activeMint;
-    final walletId = store.state.walletState.activeWalletId;
+    //final walletId = store.state.walletState.activeWalletId;
+    final coin = store.state.walletState.activeWallet!.addresses
+        .where((element) => element.chain == 'BBC')
+        .first;
 
     final result = await InvestRepository().getChartList(
-      fork: activeMint.forkId,
-      walletId: walletId,
+      fork: activeMint?.forkId ?? '',
+      addr: coin.address,
     );
     final data = deserializeListOf<MintChart>(result);
     return state.rebuild((a) => a.investState.chartList = ListBuilder(data));
@@ -44,9 +53,9 @@ class InvestActionLoadChart extends _BaseAction {
 ///获取收益记录
 class InvestActionGetProfitRecordList extends _BaseAction {
   InvestActionGetProfitRecordList({
-    @required this.isRefresh,
-    @required this.take,
-    @required this.skip,
+    required this.isRefresh,
+    required this.take,
+    required this.skip,
   });
 
   final bool isRefresh;
@@ -57,20 +66,15 @@ class InvestActionGetProfitRecordList extends _BaseAction {
   Future<AppState> reduce() async {
     final activeMint = store.state.investState.activeMint;
     final walletId = store.state.walletState.activeWalletId;
-
     final result = await InvestRepository().getProfitRecordList(
-      fork: activeMint.forkId,
-      walletId: walletId,
+      fork: activeMint?.forkId ?? '',
+      walletId: walletId ?? '',
       take: take,
       skip: skip,
     );
-
     final data = deserializeListOf<ProfitRecordItem>(result);
-
     return state.rebuild(
-      (a) => isRefresh
-          ? a.investState.profitRecordList.replace(data)
-          : a.investState.profitRecordList.addAll(data),
+      (a) => a.investState.profitRecordList.replace(data),
     );
   }
 }
@@ -83,28 +87,29 @@ class InvestActionGetInvitationList extends _BaseAction {
     this.skip,
   });
 
-  final bool isRefresh;
-  final int take;
-  final int skip;
+  final bool? isRefresh;
+  final int? take;
+  final int? skip;
 
   @override
   Future<AppState> reduce() async {
     final activeMint = store.state.investState.activeMint;
-    final walletId = store.state.walletState.activeWalletId;
+    //final walletId = store.state.walletState.activeWalletId;
+    final coin = store.state.walletState.activeWallet!.addresses
+        .where((element) => element.chain == 'BBC')
+        .first;
 
     final result = await InvestRepository().getProfitInvitationList(
-      fork: activeMint.forkId,
-      walletId: walletId,
-      take: take,
-      skip: skip,
+      fork: activeMint?.forkId ?? '',
+      addr: coin.address,
+      take: take ?? 0,
+      skip: skip ?? 0,
     );
 
     final data = deserializeListOf<ProfitInvitationItem>(result);
 
     return state.rebuild(
-      (a) => isRefresh
-          ? a.investState.profitInvitationList.replace(data)
-          : a.investState.profitInvitationList.addAll(data),
+      (a) => a.investState.profitInvitationList.replace(data),
     );
   }
 }

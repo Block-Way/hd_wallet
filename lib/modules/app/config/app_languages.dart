@@ -21,5 +21,6 @@ class AppLanguages {
       languages.map((e) => e.locale).toList();
 
   static String getCurrencyByLanguage(String lang) =>
-      lang == 'zh' ? 'CNY' : 'USD';
+      // lang == 'zh' ? 'CNY' : 'USD';
+      lang = 'USD';
 }

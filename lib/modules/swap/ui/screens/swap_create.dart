@@ -1,7 +1,7 @@
 part of swap_ui_module;
 
 class SwapCreatePage extends HookWidget {
-  SwapCreatePage({Key key}) : super(key: key);
+  SwapCreatePage({Key? key}) : super(key: key);
   static const routeName = '/swap/create';
 
   static void open() {
@@ -17,12 +17,12 @@ class SwapCreatePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final fieldAmount = useTextEditingController(text: '');
-    final fromCoinConfig = useState<SwapConfigCoin>(null);
-    final toCoinConfig = useState<SwapConfigCoin>(null);
-    final fromCoinInfo = useState<AssetCoin>(null);
-    final toCoinInfo = useState<AssetCoin>(null);
+    final fromCoinConfig = useState<SwapConfigCoin?>(null);
+    final toCoinConfig = useState<SwapConfigCoin?>(null);
+    final fromCoinInfo = useState<AssetCoin?>(null);
+    final toCoinInfo = useState<AssetCoin?>(null);
     final autovalidate = useState(false);
-    final approveBalance = useState<double>(null);
+    final approveBalance = useState<double?>(null);
     final approveBalanceLoading = useState(false);
 
     final transferMin = fromCoinConfig.value?.transferMin ?? 1;
@@ -38,8 +38,8 @@ class SwapCreatePage extends HookWidget {
       approveBalanceLoading.value = true;
       viewModel
           .getApproveBalance(
-        chain: coinConfig.chain,
-        symbol: coinConfig.symbol,
+        chain: coinConfig.chain ?? '',
+        symbol: coinConfig.symbol ?? '',
       )
           .then((value) {
         approveBalance.value = value;
@@ -55,7 +55,7 @@ class SwapCreatePage extends HookWidget {
       SwapCreateVM viewModel,
       MapEntry<SwapConfigCoin, SwapConfigCoin> pair,
     ) {
-      formKey.currentState.reset();
+      formKey.currentState?.reset();
 
       fromCoinConfig.value = pair.key;
       toCoinConfig.value = pair.value;
@@ -64,10 +64,10 @@ class SwapCreatePage extends HookWidget {
       fromCoinInfo.value = toCoinInfo.value;
       toCoinInfo.value = fromCoin;
 
-      if (fromCoinConfig.value.isChainNeedApprove &&
+      if (fromCoinConfig.value!.isChainNeedApprove &&
           approveBalanceLoading.value != true &&
           approveBalance.value == null) {
-        doUpdateApproveBalance(viewModel, fromCoinConfig.value);
+        doUpdateApproveBalance(viewModel, fromCoinConfig.value!);
       }
     }
 
@@ -76,7 +76,7 @@ class SwapCreatePage extends HookWidget {
       MapEntry<SwapConfigCoin, SwapConfigCoin> pair,
     ) {
       fieldAmount.clear();
-      formKey.currentState.reset();
+      formKey.currentState?.reset();
       approveBalance.value = null;
       approveBalanceLoading.value = false;
 
@@ -84,22 +84,22 @@ class SwapCreatePage extends HookWidget {
       toCoinConfig.value = pair.value;
 
       fromCoinInfo.value = viewModel.getCoinInfo(
-        chain: fromCoinConfig.value.chain,
-        symbol: fromCoinConfig.value.symbol,
+        chain: fromCoinConfig.value?.chain ?? '',
+        symbol: fromCoinConfig.value?.symbol ?? '',
       );
       toCoinInfo.value = viewModel.getCoinInfo(
-        chain: toCoinConfig.value.chain,
-        symbol: toCoinConfig.value.symbol,
+        chain: toCoinConfig.value?.chain ?? '',
+        symbol: toCoinConfig.value?.symbol ?? '',
       );
 
-      if (fromCoinConfig.value.isChainNeedApprove &&
+      if (fromCoinConfig.value!.isChainNeedApprove &&
           approveBalanceLoading.value != true) {
-        doUpdateApproveBalance(viewModel, fromCoinConfig.value);
+        doUpdateApproveBalance(viewModel, fromCoinConfig.value!);
       }
     }
 
     void doResetApproveBalance(SwapCreateVM viewModel) {
-      if (approveBalance.value != null && approveBalance.value <= 0) {
+      if (approveBalance.value != null && approveBalance.value! <= 0) {
         Toast.show(
           tr('swap:create_msg_error_approve_balance_zero'),
         );
@@ -112,11 +112,11 @@ class SwapCreatePage extends HookWidget {
           SwapSubmitProcess.doApproveSwap(
             context,
             viewModel,
-            outCoinInfo: fromCoinInfo.value,
-            outCoinConfig: fromCoinConfig.value,
+            outCoinInfo: fromCoinInfo.value!,
+            outCoinConfig: fromCoinConfig.value!,
             userReset: true,
             onSuccessTransaction: (txId) {
-              doUpdateApproveBalance(viewModel, fromCoinConfig.value);
+              doUpdateApproveBalance(viewModel, fromCoinConfig.value!);
             },
           );
         },
@@ -124,42 +124,44 @@ class SwapCreatePage extends HookWidget {
     }
 
     Future<void> handleSubmit(SwapCreateVM viewModel) async {
-      final isValid = formKey.currentState.validate();
+      final isValid = formKey.currentState?.validate();
       if (!autovalidate.value) {
         autovalidate.value = true;
       }
 
-      if (!isValid) {
-        return;
-      }
+      //if (!isValid) {
+      //  return;
+      // }
 
       if (NumberUtil.isLessOrEqual(fieldAmount.text, transferMin)) {
-        Toast.show(tr(
-          'swap:create_req_receive',
-          namedArgs: {
-            'min': transferMin.toString(),
-            'max': transferMax.toString(),
-            'symbol': fromCoinInfo.value.name,
-          },
-        ));
+        Toast.show(
+          tr(
+            'swap:create_req_receive',
+            namedArgs: {
+              'min': transferMin.toString(),
+              'max': transferMax.toString(),
+              'symbol': fromCoinInfo.value?.name ?? '',
+            },
+          ),
+        );
         return;
       }
 
-      if (fromCoinInfo.value.balance <= 0) {
+      if (fromCoinInfo.value!.balance! <= 0) {
         return Toast.show(tr('swap:create_msg_error_balance'));
       }
 
-      formKey.currentState.save();
+      formKey.currentState?.save();
 
       if (needApprove) {
         SwapSubmitProcess.doApproveSwap(
           context,
           viewModel,
-          outCoinInfo: fromCoinInfo.value,
-          outCoinConfig: fromCoinConfig.value,
+          outCoinInfo: fromCoinInfo.value!,
+          outCoinConfig: fromCoinConfig.value!,
           userReset: false,
           onSuccessTransaction: (txId) {
-            doUpdateApproveBalance(viewModel, fromCoinConfig.value);
+            doUpdateApproveBalance(viewModel, fromCoinConfig.value!);
           },
         );
       } else {
@@ -167,10 +169,10 @@ class SwapCreatePage extends HookWidget {
           context,
           viewModel,
           amount: fieldAmount.text,
-          inCoinInfo: toCoinInfo.value,
-          outCoinInfo: fromCoinInfo.value,
-          inCoinConfig: toCoinConfig.value,
-          outCoinConfig: fromCoinConfig.value,
+          inCoinInfo: toCoinInfo.value!,
+          outCoinInfo: fromCoinInfo.value!,
+          inCoinConfig: toCoinConfig.value!,
+          outCoinConfig: fromCoinConfig.value!,
           onSuccessTransaction: (txId) {
             Toast.show(tr('swap:create_msg_exchange_success'));
             AppNavigator.gotoTabBar();
@@ -180,7 +182,7 @@ class SwapCreatePage extends HookWidget {
     }
 
     void doSwapAll(SwapCreateVM viewModel) {
-      fieldAmount.text = fromCoinInfo.value.balance.toString();
+      fieldAmount.text = fromCoinInfo.value!.balance.toString();
     }
 
     return CSScaffold(
@@ -198,7 +200,7 @@ class SwapCreatePage extends HookWidget {
       ],
       child: StoreConnector<AppState, SwapCreateVM>(
         distinct: true,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           final enabledTradePairs = viewModel.getEnabledTradePairs();
           if (enabledTradePairs != null && enabledTradePairs.isNotEmpty) {
             doChangeCoin(viewModel, enabledTradePairs.first);
@@ -225,8 +227,8 @@ class SwapCreatePage extends HookWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SwapCoin(
-                        fromCoin: fromCoinConfig.value,
-                        toCoin: toCoinConfig.value,
+                        fromCoin: fromCoinConfig.value!,
+                        toCoin: toCoinConfig.value!,
                         coinList: viewModel.getEnabledTradePairs(),
                         doChangeDirection: (value) {
                           doChangeDirection(viewModel, value);
@@ -237,12 +239,12 @@ class SwapCreatePage extends HookWidget {
                       ),
                       if (fromCoinConfig.value?.isChainNeedApprove == true)
                         SwapApproveBalance(
-                          approveBalance: approveBalance.value,
+                          approveBalance: approveBalance.value!,
                           isRefreshing: approveBalanceLoading.value,
                           onGetApproveBalance: () {
                             doUpdateApproveBalance(
                               viewModel,
-                              fromCoinConfig.value,
+                              fromCoinConfig.value!,
                             );
                           },
                           onResetApproveBalance: () {
@@ -290,8 +292,13 @@ class SwapCreatePage extends HookWidget {
                       Padding(
                         padding: context.edgeAll.copyWith(top: 0),
                         child: AssetBalanceListener(
-                          item: fromCoinInfo.value,
-                          builder: (context, {balance, unconfirmed, data}) =>
+                          item: fromCoinInfo.value!,
+                          builder: (
+                            context, {
+                            required balance,
+                            required unconfirmed,
+                            data,
+                          }) =>
                               Text(
                             tr(
                               'swap:create_lbl_balance',
@@ -309,7 +316,7 @@ class SwapCreatePage extends HookWidget {
                           builder: (context, value, _) {
                             final total = NumberUtil.minus<double>(
                               NumberUtil.getDouble(value.text),
-                              toCoinConfig?.value?.transferFee ?? 0,
+                              toCoinConfig.value?.transferFee ?? 0,
                             );
                             return FormBox(
                               key: ValueKey(value),
@@ -323,7 +330,7 @@ class SwapCreatePage extends HookWidget {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        total <= 0 ? '-' : total.toString(),
+                                        total! <= 0 ? '-' : total.toString(),
                                         style: context.textBody(),
                                       ),
                                     ),

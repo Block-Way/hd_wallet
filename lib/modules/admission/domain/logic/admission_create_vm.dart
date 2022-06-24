@@ -7,9 +7,9 @@ abstract class AdmissionCreateVM
       _$AdmissionCreateVM;
   AdmissionCreateVM._();
 
-// Fields
-  @nullable
-  String get walletId;
+  // Fields
+  //@nullable
+  String? get walletId;
 
 // Withdraw Methods
   @override
@@ -29,28 +29,29 @@ abstract class AdmissionCreateVM
 
   @BuiltValueField(compare: false)
   Future<void> Function({
-    AssetCoin coinInfo,
-    String toAddress,
-    String txData,
-    String amount,
-    Future<WalletPrivateData> Function() onUnlockWallet,
-    void Function(String txId) onSuccessTransaction,
-    Future<bool> Function(WalletWithdrawData withdrawData) onConfirmParams,
-    Future<bool> Function() onConfirmSubmit,
+    required AssetCoin coinInfo,
+    required String toAddress,
+    required String txData,
+    required String amount,
+    required Future<WalletPrivateData> Function() onUnlockWallet,
+    required void Function(String txId) onSuccessTransaction,
+    required Future<bool> Function(WalletWithdrawData withdrawData)
+        onConfirmParams,
+    Future<bool> Function()? onConfirmSubmit,
   }) get doSubmitAdmission;
 
   @override
   @BuiltValueField(compare: false)
   double Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinBalance;
 
   @override
   @BuiltValueField(compare: false)
   AssetCoin Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinInfo;
 
   @BuiltValueField(compare: false)
@@ -63,66 +64,68 @@ abstract class AdmissionCreateVM
   Future<WalletPrivateData> Function(String password) get doUnlockWallet;
 
   static AdmissionCreateVM fromStore(Store<AppState> store) {
-    return AdmissionCreateVM((viewModel) => viewModel
-      ..walletId = store.state.walletState.activeWalletId
-      ..onWithdrawBefore = (params, previousData) {
-        final completer = Completer<WalletWithdrawData>();
-        store.dispatch(WalletActionWithdrawBefore(
-          params: params,
-          completer: completer,
-          previousData: previousData,
-        ));
-        return completer.future;
-      }
-      ..submit = (_, __, [___]) {
-        return Future.value('');
-      }
-      ..doUnlockWallet = (password) {
-        final completer = Completer<WalletPrivateData>();
-        store.dispatch(WalletActionWalletUnlock(password, completer));
-        return completer.future;
-      }
-      ..doSubmitAdmission = ({
-        coinInfo,
-        toAddress,
-        txData,
-        amount,
-        onUnlockWallet,
-        onSuccessTransaction,
-        onConfirmParams,
-        onConfirmSubmit,
-      }) {
-        return store.dispatchFuture(AdmissionActionCreateSubmit(
-          coinInfo: coinInfo,
-          toAddress: toAddress,
-          txData: txData,
-          amount: amount,
-          onUnlockWallet: onUnlockWallet,
-          onSuccessTransaction: onSuccessTransaction,
-          onConfirmParams: onConfirmParams,
-          onConfirmSubmit: onConfirmSubmit,
-        ));
-      }
-      ..getCoinInfo = ({chain, symbol}) {
-        return VMWithWalletGetCoinInfoImplement.getCoinInfo(
-          store,
-          chain: chain,
-          symbol: symbol,
-        );
-      }
-      ..getCoinInfoByFork = (fork) {
-        final coins = store.state.assetState.coins;
-        final coin =
-            coins.firstWhere((e) => e.contract == fork, orElse: () => null);
-
-        return coin;
-      }
-      ..getCoinBalance = ({chain, symbol}) {
-        return VMWithAssetGetCoinBalanceImplement.getCoinBalance(
-          store,
-          chain: chain,
-          symbol: symbol,
-        );
-      });
+    return AdmissionCreateVM(
+      (viewModel) => viewModel
+        ..walletId = store.state.walletState.activeWalletId
+        ..onWithdrawBefore = (params, previousData) {
+          final completer = Completer<WalletWithdrawData>();
+          store.dispatch(WalletActionWithdrawBefore(
+            params: params,
+            completer: completer,
+            previousData: previousData,
+          ));
+          return completer.future;
+        }
+        ..submit = (_, __, [Future<bool> Function()? F]) {
+          return Future.value('');
+        }
+        ..doUnlockWallet = (password) {
+          final completer = Completer<WalletPrivateData>();
+          store.dispatch(WalletActionWalletUnlock(password, completer));
+          return completer.future;
+        }
+        ..doSubmitAdmission = ({
+          required coinInfo,
+          required toAddress,
+          required txData,
+          required amount,
+          required onUnlockWallet,
+          required onSuccessTransaction,
+          required onConfirmParams,
+          onConfirmSubmit,
+        }) {
+          return store.dispatchAsync(
+            AdmissionActionCreateSubmit(
+              coinInfo: coinInfo,
+              toAddress: toAddress,
+              txData: txData,
+              amount: amount,
+              onUnlockWallet: onUnlockWallet,
+              onSuccessTransaction: onSuccessTransaction,
+              onConfirmParams: onConfirmParams,
+              onConfirmSubmit: onConfirmSubmit!,
+            ),
+          );
+        }
+        ..getCoinInfo = ({required chain, required symbol}) {
+          return VMWithWalletGetCoinInfoImplement.getCoinInfo(
+            store,
+            chain: chain,
+            symbol: symbol,
+          );
+        }
+        ..getCoinInfoByFork = (fork) {
+          final coins = store.state.assetState.coins;
+          final coin = coins.firstWhere((e) => e.contract == fork);
+          return coin;
+        }
+        ..getCoinBalance = ({required chain, required symbol}) {
+          return VMWithAssetGetCoinBalanceImplement.getCoinBalance(
+            store,
+            chain: chain,
+            symbol: symbol,
+          );
+        },
+    );
   }
 }

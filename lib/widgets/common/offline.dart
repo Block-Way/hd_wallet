@@ -12,7 +12,7 @@ StreamTransformer<ConnectivityResult, ConnectivityResult> debounce(
   Duration debounceDuration,
 ) {
   var _seenFirstData = false;
-  Timer _debounceTimer;
+  Timer? _debounceTimer;
 
   return StreamTransformer<ConnectivityResult, ConnectivityResult>.fromHandlers(
     handleData: (data, sink) {
@@ -39,16 +39,16 @@ StreamTransformer<ConnectivityResult, ConnectivityResult> startsWith(
       input,
       cancelOnError,
     ) {
-      StreamController<ConnectivityResult> controller;
-      StreamSubscription<ConnectivityResult> subscription;
+      StreamController<ConnectivityResult>? controller;
+      StreamSubscription<ConnectivityResult>? subscription;
 
       controller = StreamController<ConnectivityResult>(
         sync: true,
         onListen: () => controller?.add(data),
         onPause: ([resumeSignal]) =>
-            subscription.pause(resumeSignal as Future<dynamic>),
-        onResume: () => subscription.resume(),
-        onCancel: () => subscription.cancel(),
+            subscription?.pause(resumeSignal as Future<dynamic>),
+        onResume: () => subscription?.resume(),
+        onCancel: () => subscription?.cancel(),
       );
 
       subscription = input.listen(
@@ -67,11 +67,11 @@ const kOfflineDebounceDuration = Duration(seconds: kDebugMode ? 1 : 3);
 
 class OfflineBuilder extends StatefulWidget {
   factory OfflineBuilder({
-    Key key,
+    Key? key,
     Duration debounceDuration = kOfflineDebounceDuration,
-    AsyncWidgetBuilder<bool> builder,
-    Widget child,
-    WidgetBuilder errorBuilder,
+    AsyncWidgetBuilder<bool>? builder,
+    Widget? child,
+    WidgetBuilder? errorBuilder,
   }) {
     return OfflineBuilder.initialize(
       key: key,
@@ -85,8 +85,8 @@ class OfflineBuilder extends StatefulWidget {
 
   @visibleForTesting
   const OfflineBuilder.initialize({
-    @required this.connectivityService,
-    Key key,
+    required this.connectivityService,
+    Key? key,
     this.debounceDuration = kOfflineDebounceDuration,
     this.builder,
     this.child,
@@ -107,20 +107,20 @@ class OfflineBuilder extends StatefulWidget {
   final Duration debounceDuration;
 
   /// Used for building the child widget
-  final AsyncWidgetBuilder<bool> builder;
+  final AsyncWidgetBuilder<bool>? builder;
 
   /// The widget below this widget in the tree.
-  final Widget child;
+  final Widget? child;
 
   /// Used for building the error widget incase of any platform errors
-  final WidgetBuilder errorBuilder;
+  final WidgetBuilder? errorBuilder;
 
   @override
   OfflineBuilderState createState() => OfflineBuilderState();
 }
 
 class OfflineBuilderState extends State<OfflineBuilder> {
-  Stream<ConnectivityResult> _connectivityStream;
+  Stream<ConnectivityResult>? _connectivityStream;
 
   @override
   void initState() {
@@ -145,13 +145,13 @@ class OfflineBuilderState extends State<OfflineBuilder> {
 
         if (snapshot.hasError) {
           if (widget.errorBuilder != null) {
-            return widget.errorBuilder(context);
+            return widget.errorBuilder!(context);
           }
-          throw OfflineBuilderError(snapshot.error);
+          throw OfflineBuilderError(snapshot.error!);
         }
 
         return widget.child ??
-            widget.builder(
+            widget.builder!(
               context,
               AsyncSnapshot.withData(
                 ConnectionState.done,

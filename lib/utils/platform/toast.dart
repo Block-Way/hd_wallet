@@ -3,12 +3,9 @@ part of utils;
 /// Toast
 class Toast {
   // ignore: prefer_function_declarations_over_variables
-  static String Function(dynamic) onParseError = (error) => error?.toString();
+  static String Function(dynamic) onParseError = (error) => error.toString();
 
   static void show(String msg, {int duration = 3500}) {
-    if (msg == null) {
-      return;
-    }
     showToast(
       msg,
       duration: Duration(milliseconds: kDebugMode ? 5000 : duration),
@@ -18,7 +15,7 @@ class Toast {
 
   static void showError(
     dynamic error, {
-    String defaultMessage,
+    String? defaultMessage,
     bool appendErrorToDefaultMessage = false,
   }) {
     // Add the errors to check for message

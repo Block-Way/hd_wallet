@@ -8,8 +8,8 @@ class TradePreference extends HiveObject {
   }
 
   @HiveField(1)
-  Map<String, String> tradePairSpan;
+  late Map<String, String> tradePairSpan;
 
   @HiveField(2)
-  Map<String, String> tradePairResolution;
+  late Map<String, String> tradePairResolution;
 }

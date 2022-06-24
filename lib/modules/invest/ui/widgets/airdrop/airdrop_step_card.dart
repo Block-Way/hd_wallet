@@ -14,13 +14,13 @@ enum AirdropStep {
 /// Status Icon/Step Number + Text + Icon
 class AirdropStepCard extends StatelessWidget {
   const AirdropStepCard({
-    Key key,
+    Key? key,
     this.step,
     this.index,
   }) : super(key: key);
 
-  final AirdropStep step;
-  final int index;
+  final AirdropStep? step;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class AirdropStepCard extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      tr(labelTransKey(step)),
+                      tr(labelTransKey(step!)),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: context.textSecondary(
@@ -91,7 +91,7 @@ class AirdropStepCard extends StatelessWidget {
             top: 0,
             right: 0,
             child: CSImage(
-              imageUrl(step),
+              imageUrl(step!),
               width: 34,
               height: 34,
               backgroundColor: Colors.transparent,

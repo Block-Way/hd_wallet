@@ -8,26 +8,26 @@ abstract class ModulePermissionVM
 
   ModulePermissionVM._();
 
-  @nullable
-  int get configState;
+  //@nullable
+  int? get configState;
 
-  @nullable
-  int get tradeConfigState;
+  //@nullable
+  int? get tradeConfigState;
 
-  @nullable
-  int get investConfigState;
+  //@nullable
+  int? get investConfigState;
 
-  @nullable
-  int get swapConfigState;
+  //@nullable
+  int? get swapConfigState;
 
-  @nullable
-  int get communityConfigState;
+  //@nullable
+  int? get communityConfigState;
 
-  @nullable
-  ConfigUpdateData get newVersionData;
+  //@nullable
+  ConfigUpdateData? get newVersionData;
 
-  @nullable
-  BuiltMap<String, String> get disabledModules;
+  //@nullable
+  BuiltMap<String, String>? get disabledModules;
 
   // Methods
   @BuiltValueField(compare: false)
@@ -50,7 +50,7 @@ abstract class ModulePermissionVM
         ..configState = store.state.commonState.configState
         ..investConfigState = store.state.investState.configState
         ..tradeConfigState = store.state.tradeState.configState
-        ..swapConfigState = store.state.swapState.configState
+        //..swapConfigState = store.state.swapState.configState
         ..communityConfigState = store.state.communityState.configState
         ..doRefreshModulePermission = (moduleName, permission) async {
           final state = store.state;
@@ -58,29 +58,29 @@ abstract class ModulePermissionVM
           // 通用 config 判断 ，功能关闭 也是刷新 config 获取最新的配置
           if (permission == ModulePermissionState.needConfig ||
               permission == ModulePermissionState.disable) {
-            await store.dispatchFuture(CommonActionLoadConfig());
+            await store.dispatch(CommonActionLoadConfig());
           }
 
           // 特定页面 参数判断
           if (moduleName == ModuleName.trade &&
               state.tradeState.configState != ConfigState.success.index) {
-            await store.dispatchFuture(TradeActionLoadConfig());
+            await store.dispatch(TradeActionLoadConfig());
           }
 
           // 特定页面 参数判断
           if (moduleName == ModuleName.mint &&
               state.investState.configState != ConfigState.success.index) {
-            await store.dispatchFuture(InvestActionLoadConfig());
+            await store.dispatch(InvestActionLoadConfig());
           }
-
+          /*
           if (moduleName == ModuleName.swap &&
               state.swapState.configState != ConfigState.success.index) {
-            await store.dispatchFuture(SwapActionLoadConfig());
-          }
+            await store.dispatch(SwapActionLoadConfig());
+          }*/
 
           if (moduleName == ModuleName.community &&
               state.communityState.configState != ConfigState.success.index) {
-            await store.dispatchFuture(CommunityActionLoadConfig());
+            await store.dispatch(CommunityActionLoadConfig());
           }
 
           return true;

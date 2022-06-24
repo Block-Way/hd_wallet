@@ -2,9 +2,9 @@ part of wallet_domain_module;
 
 class WalletFeeUtils {
   static List<MapEntry<String, String>> getFeeOptions({
-    @required String chain,
-    @required ConfigCoinFee configCoinFee,
-    @required WalletWithdrawFeeData defaultFee,
+    required String chain,
+    required ConfigCoinFee configCoinFee,
+    required WalletWithdrawFeeData defaultFee,
   }) {
     final List<MapEntry<String, String>> feeOptions = [];
     switch (chain) {
@@ -15,7 +15,7 @@ class WalletFeeUtils {
               defaultFee.feeRate,
               ratio == 0 ? 1 : ratio,
             );
-            feeOptions.add(MapEntry(level, getBTCFeeRate(satoshi)));
+            //feeOptions.add(MapEntry(level, getBTCFeeRate(satoshi)));
           },
         );
         break;
@@ -26,7 +26,7 @@ class WalletFeeUtils {
               defaultFee.gasPrice,
               ratio == 0 ? 1 : ratio,
             );
-            feeOptions.add(MapEntry(level, getETHFeeRate(gasPrice)));
+            //feeOptions.add(MapEntry(level, getETHFeeRate(gasPrice)));
           },
         );
         break;
@@ -36,7 +36,7 @@ class WalletFeeUtils {
             defaultFee.feeRate,
             ratio == 0 ? 1 : ratio,
           );
-          feeOptions.add(MapEntry(level, getTRXFeeRate(sun)));
+          //feeOptions.add(MapEntry(level, getTRXFeeRate(sun)));
         });
         break;
       case 'BBC':
@@ -46,7 +46,7 @@ class WalletFeeUtils {
               defaultFee.feeRate,
               ratio == 0 ? 1 : ratio,
             );
-            feeOptions.add(MapEntry(level, getBBCFeeRate(bbc)));
+            //feeOptions.add(MapEntry(level, getBBCFeeRate(bbc)));
           },
         );
         break;
@@ -68,9 +68,9 @@ class WalletFeeUtils {
 
   /// Return fee in ETH
   static double getETHFeeValue({
-    @required int gasPrice,
-    @required int gasLimit,
-    @required int chainPrecision,
+    required int gasPrice,
+    required int gasLimit,
+    required int chainPrecision,
   }) {
     final fee = NumberUtil.getIntAmountAsDouble(
       gasPrice * gasLimit,
@@ -85,8 +85,8 @@ class WalletFeeUtils {
 
   /// Return fee in TRX
   static double getTRXFeeValue({
-    @required int sun,
-    @required int chainPrecision,
+    required int sun,
+    required int chainPrecision,
   }) {
     return NumberUtil.truncateDecimal<double>(
       NumberUtil.getIntAmountAsDouble(sun, 6),
@@ -104,8 +104,8 @@ class WalletFeeUtils {
 
   /// Return fee in BBC
   static double getBBCFeeValue({
-    @required double bbc,
-    @required int chainPrecision,
+    required double bbc,
+    required int chainPrecision,
   }) {
     return NumberUtil.truncateDecimal<double>(
       bbc,
@@ -120,8 +120,8 @@ class WalletFeeUtils {
 
   /// Return fee in BTC (Bitcoin)
   static Future<double> getBTCFeeValue({
-    @required int satoshi,
-    @required String fromAddress,
+    required int satoshi,
+    required String fromAddress,
   }) async {
     try {
       final unspent = await WalletRepository().getUnspentFromCache(
@@ -129,14 +129,16 @@ class WalletFeeUtils {
         address: fromAddress,
       );
       if (unspent == null || unspent.isEmpty) {
-        return null;
+        //    return null;
       }
       final utxos = unspent
-          .map((item) => {
-                'txId': item['tx_hash'],
-                'vOut': NumberUtil.getInt(item['tx_output_n']),
-                'vAmount': Decimal.parse('${item['value']}').toInt(),
-              })
+          .map(
+            (item) => {
+              'txId': item['tx_hash'],
+              'vOut': NumberUtil.getInt(item['tx_output_n']),
+              'vAmount': Decimal.parse('${item['value']}').toBigInt(),
+            },
+          )
           .toList();
       final feeInBtc = await WalletRepository().createBTCTransaction(
         utxos: utxos,
@@ -156,24 +158,24 @@ class WalletFeeUtils {
     }
   }
 
-  static Future<WalletWithdrawFeeData> getFeeData({
-    @required WalletWithdrawFeeData defaultFee,
-    @required AssetCoin coinInfo,
-    @required String level,
-    @required String fromAddress,
+  static Future<WalletWithdrawFeeData?> getFeeData({
+    required WalletWithdrawFeeData defaultFee,
+    required AssetCoin coinInfo,
+    required String level,
+    required String fromAddress,
   }) async {
     final configCoinFee = GetIt.I<CoinConfig>().getFeeLevel(
-      chain: coinInfo.chain,
-      symbol: coinInfo.symbol,
+      chain: coinInfo.chain ?? '',
+      symbol: coinInfo.symbol ?? '',
     );
     final ratio =
-        configCoinFee.level[level] == 0 ? 1.0 : configCoinFee.level[level];
+        configCoinFee!.level[level] == 0 ? 1.0 : configCoinFee.level[level];
 
     switch (coinInfo.chain) {
       case 'BTC':
         final satoshi = NumberUtil.multiply<int>(defaultFee.feeRate, ratio);
         final feeValue = await getBTCFeeValue(
-          satoshi: satoshi,
+          satoshi: satoshi!,
           fromAddress: fromAddress,
         );
         final feeRate = getBTCFeeRate(satoshi);
@@ -185,9 +187,9 @@ class WalletFeeUtils {
       case 'ETH':
         final gasPrice = NumberUtil.multiply<int>(defaultFee.gasPrice, ratio);
         final feeValue = getETHFeeValue(
-          gasPrice: gasPrice,
+          gasPrice: gasPrice!,
           gasLimit: defaultFee.gasLimit,
-          chainPrecision: coinInfo.chainPrecision,
+          chainPrecision: coinInfo.chainPrecision ?? 0,
         );
         final feeRate = getETHFeeRate(gasPrice);
         return defaultFee.copyWith(
@@ -199,8 +201,8 @@ class WalletFeeUtils {
       case 'TRX':
         final sun = NumberUtil.multiply<int>(defaultFee.feeRate, ratio);
         final feeValue = getTRXFeeValue(
-          sun: sun,
-          chainPrecision: coinInfo.chainPrecision,
+          sun: sun!,
+          chainPrecision: coinInfo.chainPrecision ?? 0,
         );
         final feeRate = getTRXFeeRate(sun);
         return defaultFee.copyWith(
@@ -211,8 +213,8 @@ class WalletFeeUtils {
       case 'BBC':
         final bbc = NumberUtil.multiply<double>(defaultFee.feeRate, ratio);
         final feeValue = getBBCFeeValue(
-          bbc: bbc,
-          chainPrecision: coinInfo.chainPrecision,
+          bbc: bbc!,
+          chainPrecision: coinInfo.chainPrecision ?? 0,
         );
         final feeRate = getBBCFeeRate(bbc);
         return defaultFee.copyWith(

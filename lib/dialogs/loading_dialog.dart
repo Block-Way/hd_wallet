@@ -5,7 +5,7 @@ bool _loadingDialogIsShowing = false;
 class LoadingDialog {
   static void show<T extends dynamic>(
     BuildContext context, [
-    String loadingText,
+    String? loadingText,
   ]) {
     _loadingDialogIsShowing = true;
     showDialog<T>(

@@ -6,22 +6,22 @@ class AssetWithdrawProcess {
   static const getFeeOnChangeAmount = ['BTC'];
 
   static Future<WalletWithdrawData> getWithdrawFee({
-    @required VMWithWalletWithdraw viewModel,
-    @required AssetCoin coinInfo,
-    @required String toAddress,
-    @required String amount,
-    @required WalletWithdrawData previousWithdrawData,
+    required VMWithWalletWithdraw viewModel,
+    required AssetCoin coinInfo,
+    required String toAddress,
+    required String amount,
+    required WalletWithdrawData previousWithdrawData,
   }) {
     return viewModel
         .onWithdrawBefore(
       WithdrawBeforeParams(
-        chain: coinInfo.chain,
-        symbol: coinInfo.symbol,
+        chain: coinInfo.chain ?? '',
+        symbol: coinInfo.symbol ?? '',
         toAddress: toAddress,
-        chainPrecision: coinInfo.chainPrecision,
+        chainPrecision: coinInfo.chainPrecision ?? 0,
         amount: NumberUtil.getDouble(amount),
-        fromAddress: coinInfo.address,
-        contractOrForkId: coinInfo.contract,
+        fromAddress: coinInfo.address ?? '',
+        contractOrForkId: coinInfo.contract ?? '',
       ),
       previousWithdrawData,
     )
@@ -35,15 +35,15 @@ class AssetWithdrawProcess {
 
   static void doSubmitWithdraw(
     BuildContext context, {
-    @required VMWithWalletWithdraw viewModel,
-    @required WalletWithdrawData withdrawData,
-    @required double amount,
-    @required String toAddress,
-    @required int chainPrecision,
-    @required void Function(String txId) onWithdrawSuccess,
-    int type,
-    String withdrawFailedMessage,
-    Future<bool> Function() onConfirmSubmit,
+    required VMWithWalletWithdraw viewModel,
+    required WalletWithdrawData withdrawData,
+    required double amount,
+    required String toAddress,
+    required int chainPrecision,
+    required void Function(String txId) onWithdrawSuccess,
+    int? type,
+    String? withdrawFailedMessage,
+    Future<bool> Function()? onConfirmSubmit,
   }) {
     // Check again withdraw data
     final symbol = withdrawData.symbol;
@@ -58,9 +58,9 @@ class AssetWithdrawProcess {
         ? NumberUtil.plus<double>(amount, withdrawData.fee.feeValue)
         : amount;
 
-    if (total >
+    if ((total ?? 0) >
         viewModel.getCoinBalance(
-          chain: withdrawData.chain,
+          chain: /*withdrawData.chain*/ 'BBC',
           symbol: symbol,
         )) {
       Toast.show(tr('asset:withdraw_msg_error_balance'));
@@ -70,7 +70,7 @@ class AssetWithdrawProcess {
     // For coin like USDT where the fee is ETH, we need to check ETH balance
     if (symbol != feeSymbol) {
       final feeBalance = viewModel.getCoinBalance(
-        chain: withdrawData.chain,
+        chain: /*withdrawData.chain*/ 'BBC',
         symbol: feeSymbol,
       );
       if (withdrawData.fee.feeValue > feeBalance) {
@@ -97,10 +97,10 @@ class AssetWithdrawProcess {
             toAddress: toAddress,
             withdrawData: withdrawData,
             chainPrecision: chainPrecision,
-            type: type,
+            type: type ?? 0,
           ),
           walletData,
-          onConfirmSubmit,
+          onConfirmSubmit!,
         )
             .then(
           (txId) {

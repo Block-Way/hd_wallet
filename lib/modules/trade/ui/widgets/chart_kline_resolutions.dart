@@ -2,10 +2,10 @@ part of trade_ui_module;
 
 class ChartKLineResolutions extends HookWidget {
   const ChartKLineResolutions({
-    @required this.height,
-    @required this.color,
-    @required this.selected,
-    @required this.onSelected,
+    required this.height,
+    required this.color,
+    required this.selected,
+    required this.onSelected,
   });
 
   final double height;
@@ -21,7 +21,7 @@ class ChartKLineResolutions extends HookWidget {
 
     useEffect(() {
       scrollController.scrollToIndex(
-        kChartResolutions.indexWhere((e) => e.id == selected?.id),
+        kChartResolutions.indexWhere((e) => e.id == selected.id),
         preferPosition: AutoScrollPosition.begin,
       );
 
@@ -41,7 +41,7 @@ class ChartKLineResolutions extends HookWidget {
               final value = item.value;
               final index = item.key;
               return AutoScrollTag(
-                key: Key(value.id),
+                key: Key(value.id ?? ''),
                 index: index,
                 controller: scrollController,
                 child: CSButton(
@@ -51,10 +51,12 @@ class ChartKLineResolutions extends HookWidget {
                       .copyWith(left: index == 0 ? 0 : 10),
                   textStyle: context.textSmall(
                     color:
-                        value.id == selected?.id ? context.primaryColor : color,
+                        value.id == selected.id ? context.primaryColor : color,
+                    bold: true,
+                    fontWeight: FontWeight.normal,
                   ),
                   onPressed: () {
-                    if (value.id == selected?.id) {
+                    if (value.id == selected.id) {
                       return;
                     }
                     scrollController.scrollToIndex(
@@ -65,7 +67,7 @@ class ChartKLineResolutions extends HookWidget {
                       onSelected(value);
                     }
                   },
-                  label: tr(value.label),
+                  label: tr(value.label!),
                 ),
               );
             },

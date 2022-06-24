@@ -3,12 +3,12 @@ part of wallet_domain_module;
 @HiveType(typeId: kHiveTypeCoinInfo)
 class CoinInfo extends HiveObject {
   CoinInfo({
-    @required this.chain,
-    @required this.symbol,
-    @required this.name,
-    @required this.fullName,
-    @required this.chainPrecision,
-    @required this.displayPrecision,
+    required this.chain,
+    required this.symbol,
+    required this.name,
+    required this.fullName,
+    required this.chainPrecision,
+    required this.displayPrecision,
     this.contract = '',
     this.iconOnline,
     this.iconLocal,
@@ -23,7 +23,6 @@ class CoinInfo extends HiveObject {
 
   /// Token contract or fork
   /// - ETH: Token contract
-  /// - BBC: Fork ID/TX
   @HiveField(2)
   String contract;
 
@@ -33,9 +32,9 @@ class CoinInfo extends HiveObject {
   String fullName;
 
   @HiveField(5)
-  String iconOnline;
+  String? iconOnline;
   @HiveField(6)
-  String iconLocal;
+  String? iconLocal;
 
   @HiveField(7)
   int chainPrecision;
@@ -43,8 +42,8 @@ class CoinInfo extends HiveObject {
   int displayPrecision;
 
   @HiveField(10)
-  bool isFixed;
+  bool? isFixed;
 
   @HiveField(11)
-  bool isEnabled;
+  bool? isEnabled;
 }

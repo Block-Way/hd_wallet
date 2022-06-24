@@ -10,49 +10,49 @@ abstract class CommunityInfo
 
 // Fields
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'display_type')
-  String get displayType;
+  String? get displayType;
 
   bool get isTeamList => displayType == 'TEAM_LIST';
 
-  @nullable
-  String get id;
+  //@nullable
+  String? get id;
 
-  @nullable
-  String get name;
+  //@nullable
+  String? get name;
 
-  @nullable
-  int get type;
+  //@nullable
+  int? get type;
 
-  CommunityTypes get teamType => CommunityUtils.mapCommunityType(type);
+  CommunityTypes get teamType => CommunityUtils.mapCommunityType(type ?? 0);
 
-  @nullable
-  String get describe;
+  //@nullable
+  String? get describe;
 
-  @nullable
-  String get image;
+  //@nullable
+  String? get image;
 
   @BuiltValueField(wireName: 'join_type')
   String get joinType;
 
   bool get joinIsOnChain => joinType == 'on_chain';
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'create_type')
-  String get createType;
+  String? get createType;
 
   bool get canCreate => createType == 'on';
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'join_apply_type')
-  String get joinApplyType;
+  String? get joinApplyType;
 
   bool get canJoin => joinApplyType == 'on';
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'home_quick_start')
-  String get homeQuickEntry;
+  String? get homeQuickEntry;
 
-  String get imageUrl => AppConfig().getImageUrlFor(image);
+  String get imageUrl => AppConfig().getImageUrlFor(image ?? '');
 }

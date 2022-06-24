@@ -2,11 +2,11 @@ part of wallet_domain_module;
 
 class WalletTemplateData {
   WalletTemplateData({
-    @required this.chain,
-    @required this.symbol,
-    @required this.templateHex,
-    @required this.templateData,
-    @required this.templateAddress,
+    required this.chain,
+    required this.symbol,
+    required this.templateHex,
+    required this.templateData,
+    required this.templateAddress,
   });
 
   final String chain;
@@ -23,7 +23,7 @@ class WalletTemplateData {
   /// - For ETH/TRX this is the Primary Key
   final String templateHex;
 
-  String get rawTx => templateData['raw']?.toString();
+  String get rawTx => templateData['raw'].toString();
 
   String get contract =>
       templateData['contract']?.toString() ?? templateAddress;

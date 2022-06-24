@@ -12,10 +12,10 @@ enum TradeMqttMsgTypes {
 
 class TradeMqttMessage {
   TradeMqttMessage({
-    @required this.type,
-    @required this.data,
-    @required this.topic,
-    @required this.topicArgs,
+    required this.type,
+    required this.data,
+    required this.topic,
+    required this.topicArgs,
   });
 
   final TradeMqttMsgTypes type;
@@ -25,9 +25,9 @@ class TradeMqttMessage {
 }
 
 class TradeMqtt {
-  MqttServerClient _client;
+  late MqttServerClient _client;
 
-  String walletId;
+  late String walletId;
 
   bool isInitialized = false;
   final _messages = StreamController<TradeMqttMessage>.broadcast();
@@ -36,7 +36,7 @@ class TradeMqtt {
 
   bool get isConnected =>
       _client != null &&
-      _client.connectionStatus.state == MqttConnectionState.connected;
+      _client.connectionStatus?.state == MqttConnectionState.connected;
 
   void _log(String type, String message) {
     dev.log(
@@ -49,7 +49,7 @@ class TradeMqtt {
   void onConnected() {
     _log('Connected', 'OK Connected');
 
-    _client.updates.listen((messages) async {
+    _client.updates?.listen((messages) async {
       for (final message in messages) {
         final topic = message.topic;
         final payload = message.payload as MqttPublishMessage;
@@ -102,7 +102,7 @@ class TradeMqtt {
 
   /// The unsolicited disconnect callback
   void onDisconnected() {
-    if (_client.connectionStatus.returnCode ==
+    if (_client.connectionStatus?.returnCode ==
         MqttConnectReturnCode.brokerUnavailable) {
       _log('Disconnected', 'Client manually disconnected, will not reconnect');
     } else {
@@ -127,13 +127,13 @@ class TradeMqtt {
   }
 
   Future<bool> initMqtt({
-    @required String clientId,
-    @required String username,
-    @required String password,
-    @required String host,
-    @required int port,
-    @required bool useTls,
-    @required bool disabled,
+    required String clientId,
+    required String username,
+    required String password,
+    required String host,
+    required int port,
+    required bool useTls,
+    required bool disabled,
   }) async {
     if (_client != null) {
       return true;
@@ -191,13 +191,13 @@ class TradeMqtt {
     }
 
     /// Check if we are connected
-    switch (_client.connectionStatus.state) {
+    switch (_client.connectionStatus?.state) {
       case MqttConnectionState.connected:
         isInitialized = true;
         break;
       case MqttConnectionState.faulted:
         isInitialized = false;
-        _client = null;
+        //_client = null;
         break;
       default:
     }

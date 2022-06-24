@@ -19,172 +19,186 @@ class _$AssetCoinSerializer implements StructuredSerializer<AssetCoin> {
   final String wireName = 'AssetCoin';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AssetCoin object,
+  Iterable<Object?> serialize(Serializers serializers, AssetCoin object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.name != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.name;
+    if (value != null) {
       result
         ..add('name')
-        ..add(serializers.serialize(object.name,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.fullName != null) {
+    value = object.fullName;
+    if (value != null) {
       result
         ..add('fullName')
-        ..add(serializers.serialize(object.fullName,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.chain != null) {
+    value = object.chain;
+    if (value != null) {
       result
         ..add('chain')
-        ..add(serializers.serialize(object.chain,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.symbol != null) {
+    value = object.symbol;
+    if (value != null) {
       result
         ..add('symbol')
-        ..add(serializers.serialize(object.symbol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.address != null) {
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.iconOnline != null) {
+    value = object.iconOnline;
+    if (value != null) {
       result
         ..add('iconOnline')
-        ..add(serializers.serialize(object.iconOnline,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.iconLocal != null) {
+    value = object.iconLocal;
+    if (value != null) {
       result
         ..add('iconLocal')
-        ..add(serializers.serialize(object.iconLocal,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.chainPrecision != null) {
+    value = object.chainPrecision;
+    if (value != null) {
       result
         ..add('chainPrecision')
-        ..add(serializers.serialize(object.chainPrecision,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.displayPrecision != null) {
+    value = object.displayPrecision;
+    if (value != null) {
       result
         ..add('displayPrecision')
-        ..add(serializers.serialize(object.displayPrecision,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.balance != null) {
+    value = object.balance;
+    if (value != null) {
       result
         ..add('balance')
-        ..add(serializers.serialize(object.balance,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.balanceUnconfirmed != null) {
+    value = object.balanceUnconfirmed;
+    if (value != null) {
       result
         ..add('balanceUnconfirmed')
-        ..add(serializers.serialize(object.balanceUnconfirmed,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    if (object.balanceUpdateFailed != null) {
+    value = object.balanceUpdateFailed;
+    if (value != null) {
       result
         ..add('balanceUpdateFailed')
-        ..add(serializers.serialize(object.balanceUpdateFailed,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.isEnabled != null) {
+    value = object.isEnabled;
+    if (value != null) {
       result
         ..add('isEnabled')
-        ..add(serializers.serialize(object.isEnabled,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.isFixed != null) {
+    value = object.isFixed;
+    if (value != null) {
       result
         ..add('isFixed')
-        ..add(serializers.serialize(object.isFixed,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    if (object.contract != null) {
+    value = object.contract;
+    if (value != null) {
       result
         ..add('contract')
-        ..add(serializers.serialize(object.contract,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  AssetCoin deserialize(Serializers serializers, Iterable<Object> serialized,
+  AssetCoin deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AssetCoinBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'fullName':
           result.fullName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'chain':
           result.chain = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'symbol':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'iconOnline':
           result.iconOnline = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'iconLocal':
           result.iconLocal = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'chainPrecision':
           result.chainPrecision = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'displayPrecision':
           result.displayPrecision = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'balance':
           result.balance = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'balanceUnconfirmed':
           result.balanceUnconfirmed = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double)) as double?;
           break;
         case 'balanceUpdateFailed':
           result.balanceUpdateFailed = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'isEnabled':
           result.isEnabled = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'isFixed':
           result.isFixed = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'contract':
           result.contract = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -200,9 +214,9 @@ class _$AssetPriceSerializer implements StructuredSerializer<AssetPrice> {
   final String wireName = 'AssetPrice';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AssetPrice object,
+  Iterable<Object?> serialize(Serializers serializers, AssetPrice object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'tradePairId',
       serializers.serialize(object.tradePairId,
           specifiedType: const FullType(String)),
@@ -221,31 +235,31 @@ class _$AssetPriceSerializer implements StructuredSerializer<AssetPrice> {
   }
 
   @override
-  AssetPrice deserialize(Serializers serializers, Iterable<Object> serialized,
+  AssetPrice deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AssetPriceBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'tradePairId':
           result.tradePairId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'precision':
           result.precision = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'price':
           result.price = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
         case 'price24h':
           result.price24h = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
+              specifiedType: const FullType(double))! as double;
           break;
       }
     }
@@ -261,82 +275,90 @@ class _$AssetAddressSerializer implements StructuredSerializer<AssetAddress> {
   final String wireName = 'AssetAddress';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AssetAddress object,
+  Iterable<Object?> serialize(Serializers serializers, AssetAddress object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    if (object.id != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.id;
+    if (value != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.address != null) {
+    value = object.address;
+    if (value != null) {
       result
         ..add('address')
-        ..add(serializers.serialize(object.address,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.chain != null) {
+    value = object.chain;
+    if (value != null) {
       result
         ..add('chain')
-        ..add(serializers.serialize(object.chain,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.comments != null) {
+    value = object.comments;
+    if (value != null) {
       result
         ..add('comments')
-        ..add(serializers.serialize(object.comments,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.symbol != null) {
+    value = object.symbol;
+    if (value != null) {
       result
         ..add('currency')
-        ..add(serializers.serialize(object.symbol,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.isLocal != null) {
+    value = object.isLocal;
+    if (value != null) {
       result
         ..add('isLocal')
-        ..add(serializers.serialize(object.isLocal,
-            specifiedType: const FullType(bool)));
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
 
   @override
-  AssetAddress deserialize(Serializers serializers, Iterable<Object> serialized,
+  AssetAddress deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AssetAddressBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'address':
           result.address = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'chain':
           result.chain = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'comments':
           result.comments = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'currency':
           result.symbol = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'isLocal':
           result.isLocal = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -352,9 +374,9 @@ class _$AssetStateSerializer implements StructuredSerializer<AssetState> {
   final String wireName = 'AssetState';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, AssetState object,
+  Iterable<Object?> serialize(Serializers serializers, AssetState object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
+    final result = <Object?>[
       'coins',
       serializers.serialize(object.coins,
           specifiedType:
@@ -380,74 +402,80 @@ class _$AssetStateSerializer implements StructuredSerializer<AssetState> {
       'coinsSearchTerm',
       serializers.serialize(object.coinsSearchTerm,
           specifiedType: const FullType(String)),
-      'addressList',
-      serializers.serialize(object.addressList,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(AssetAddress)])),
     ];
-    if (object.addressRequestId != null) {
+    Object? value;
+    value = object.addressList;
+    if (value != null) {
+      result
+        ..add('addressList')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(AssetAddress)])));
+    }
+    value = object.addressRequestId;
+    if (value != null) {
       result
         ..add('addressRequestId')
-        ..add(serializers.serialize(object.addressRequestId,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  AssetState deserialize(Serializers serializers, Iterable<Object> serialized,
+  AssetState deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new AssetStateBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'coins':
           result.coins.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(AssetCoin)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(AssetCoin)]))!
+              as BuiltList<Object?>);
           break;
         case 'hideInvitationShowcase':
           result.hideInvitationShowcase = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'hideInvitationNotice':
           result.hideInvitationNotice = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'hideSmallAssets':
           result.hideSmallAssets = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'isBalanceUpdating':
           result.isBalanceUpdating = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'hideDepositShowcase':
           result.hideDepositShowcase = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'hideWithdrawShowcase':
           result.hideWithdrawShowcase = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool))! as bool;
           break;
         case 'coinsSearchTerm':
           result.coinsSearchTerm = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String))! as String;
           break;
         case 'addressList':
           result.addressList.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      BuiltList, const [const FullType(AssetAddress)]))
-              as BuiltList<Object>);
+                      BuiltList, const [const FullType(AssetAddress)]))!
+              as BuiltList<Object?>);
           break;
         case 'addressRequestId':
           result.addressRequestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -457,8 +485,8 @@ class _$AssetStateSerializer implements StructuredSerializer<AssetState> {
 }
 
 class _$AssetDepositVM extends AssetDepositVM {
-  factory _$AssetDepositVM([void Function(AssetDepositVMBuilder) updates]) =>
-      (new AssetDepositVMBuilder()..update(updates)).build();
+  factory _$AssetDepositVM([void Function(AssetDepositVMBuilder)? updates]) =>
+      (new AssetDepositVMBuilder()..update(updates))._build();
 
   _$AssetDepositVM._() : super._();
 
@@ -483,31 +511,31 @@ class _$AssetDepositVM extends AssetDepositVM {
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('AssetDepositVM').toString();
+    return newBuiltValueToStringHelper(r'AssetDepositVM').toString();
   }
 }
 
 class AssetDepositVMBuilder
     implements Builder<AssetDepositVM, AssetDepositVMBuilder> {
-  _$AssetDepositVM _$v;
+  _$AssetDepositVM? _$v;
 
   AssetDepositVMBuilder();
 
   @override
   void replace(AssetDepositVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetDepositVM;
   }
 
   @override
-  void update(void Function(AssetDepositVMBuilder) updates) {
+  void update(void Function(AssetDepositVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetDepositVM build() {
+  AssetDepositVM build() => _build();
+
+  _$AssetDepositVM _build() {
     final _$result = _$v ?? new _$AssetDepositVM._();
     replace(_$result);
     return _$result;
@@ -516,23 +544,24 @@ class AssetDepositVMBuilder
 
 class _$AssetDetailVM extends AssetDetailVM {
   @override
-  final Wallet activeWallet;
+  final Wallet? activeWallet;
   @override
   final Future<void> Function(AssetCoin coin, bool isRefresh) doLoadDetail;
   @override
   final Future<WalletPrivateData> Function(String password) doUnlockWallet;
 
-  factory _$AssetDetailVM([void Function(AssetDetailVMBuilder) updates]) =>
-      (new AssetDetailVMBuilder()..update(updates)).build();
+  factory _$AssetDetailVM([void Function(AssetDetailVMBuilder)? updates]) =>
+      (new AssetDetailVMBuilder()..update(updates))._build();
 
-  _$AssetDetailVM._({this.activeWallet, this.doLoadDetail, this.doUnlockWallet})
+  _$AssetDetailVM._(
+      {this.activeWallet,
+      required this.doLoadDetail,
+      required this.doUnlockWallet})
       : super._() {
-    if (doLoadDetail == null) {
-      throw new BuiltValueNullFieldError('AssetDetailVM', 'doLoadDetail');
-    }
-    if (doUnlockWallet == null) {
-      throw new BuiltValueNullFieldError('AssetDetailVM', 'doUnlockWallet');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        doLoadDetail, r'AssetDetailVM', 'doLoadDetail');
+    BuiltValueNullFieldError.checkNotNull(
+        doUnlockWallet, r'AssetDetailVM', 'doUnlockWallet');
   }
 
   @override
@@ -555,7 +584,7 @@ class _$AssetDetailVM extends AssetDetailVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetDetailVM')
+    return (newBuiltValueToStringHelper(r'AssetDetailVM')
           ..add('activeWallet', activeWallet)
           ..add('doLoadDetail', doLoadDetail)
           ..add('doUnlockWallet', doUnlockWallet))
@@ -565,33 +594,36 @@ class _$AssetDetailVM extends AssetDetailVM {
 
 class AssetDetailVMBuilder
     implements Builder<AssetDetailVM, AssetDetailVMBuilder> {
-  _$AssetDetailVM _$v;
+  _$AssetDetailVM? _$v;
 
-  Wallet _activeWallet;
-  Wallet get activeWallet => _$this._activeWallet;
-  set activeWallet(Wallet activeWallet) => _$this._activeWallet = activeWallet;
+  Wallet? _activeWallet;
+  Wallet? get activeWallet => _$this._activeWallet;
+  set activeWallet(Wallet? activeWallet) => _$this._activeWallet = activeWallet;
 
-  Future<void> Function(AssetCoin coin, bool isRefresh) _doLoadDetail;
-  Future<void> Function(AssetCoin coin, bool isRefresh) get doLoadDetail =>
+  Future<void> Function(AssetCoin coin, bool isRefresh)? _doLoadDetail;
+  Future<void> Function(AssetCoin coin, bool isRefresh)? get doLoadDetail =>
       _$this._doLoadDetail;
   set doLoadDetail(
-          Future<void> Function(AssetCoin coin, bool isRefresh) doLoadDetail) =>
+          Future<void> Function(AssetCoin coin, bool isRefresh)?
+              doLoadDetail) =>
       _$this._doLoadDetail = doLoadDetail;
 
-  Future<WalletPrivateData> Function(String password) _doUnlockWallet;
-  Future<WalletPrivateData> Function(String password) get doUnlockWallet =>
+  Future<WalletPrivateData> Function(String password)? _doUnlockWallet;
+  Future<WalletPrivateData> Function(String password)? get doUnlockWallet =>
       _$this._doUnlockWallet;
   set doUnlockWallet(
-          Future<WalletPrivateData> Function(String password) doUnlockWallet) =>
+          Future<WalletPrivateData> Function(String password)?
+              doUnlockWallet) =>
       _$this._doUnlockWallet = doUnlockWallet;
 
   AssetDetailVMBuilder();
 
   AssetDetailVMBuilder get _$this {
-    if (_$v != null) {
-      _activeWallet = _$v.activeWallet;
-      _doLoadDetail = _$v.doLoadDetail;
-      _doUnlockWallet = _$v.doUnlockWallet;
+    final $v = _$v;
+    if ($v != null) {
+      _activeWallet = $v.activeWallet;
+      _doLoadDetail = $v.doLoadDetail;
+      _doUnlockWallet = $v.doUnlockWallet;
       _$v = null;
     }
     return this;
@@ -599,24 +631,26 @@ class AssetDetailVMBuilder
 
   @override
   void replace(AssetDetailVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetDetailVM;
   }
 
   @override
-  void update(void Function(AssetDetailVMBuilder) updates) {
+  void update(void Function(AssetDetailVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetDetailVM build() {
+  AssetDetailVM build() => _build();
+
+  _$AssetDetailVM _build() {
     final _$result = _$v ??
         new _$AssetDetailVM._(
             activeWallet: activeWallet,
-            doLoadDetail: doLoadDetail,
-            doUnlockWallet: doUnlockWallet);
+            doLoadDetail: BuiltValueNullFieldError.checkNotNull(
+                doLoadDetail, r'AssetDetailVM', 'doLoadDetail'),
+            doUnlockWallet: BuiltValueNullFieldError.checkNotNull(
+                doUnlockWallet, r'AssetDetailVM', 'doUnlockWallet'));
     replace(_$result);
     return _$result;
   }
@@ -624,10 +658,12 @@ class AssetDetailVMBuilder
 
 class _$AssetAddressVM extends AssetAddressVM {
   @override
-  final BuiltList<AssetAddress> addressList;
+  final BuiltList<AssetAddress>? addressList;
   @override
-  final Future<int> Function({AssetCoin coin, String requestId, bool isLocal})
-      loadAddressList;
+  final Future<int> Function(
+      {required AssetCoin coin,
+      required String requestId,
+      required bool isLocal}) loadAddressList;
   @override
   final void Function() clearAddressList;
   @override
@@ -637,35 +673,30 @@ class _$AssetAddressVM extends AssetAddressVM {
   final Future<void> Function(AssetCoin coin, AssetAddress address)
       submitAddressDelete;
   @override
-  final Future<bool> Function({String chain, String address}) validateAddress;
+  final Future<bool> Function({required String chain, required String address})
+      validateAddress;
 
-  factory _$AssetAddressVM([void Function(AssetAddressVMBuilder) updates]) =>
-      (new AssetAddressVMBuilder()..update(updates)).build();
+  factory _$AssetAddressVM([void Function(AssetAddressVMBuilder)? updates]) =>
+      (new AssetAddressVMBuilder()..update(updates))._build();
 
   _$AssetAddressVM._(
       {this.addressList,
-      this.loadAddressList,
-      this.clearAddressList,
-      this.submitAddressAdd,
-      this.submitAddressDelete,
-      this.validateAddress})
+      required this.loadAddressList,
+      required this.clearAddressList,
+      required this.submitAddressAdd,
+      required this.submitAddressDelete,
+      required this.validateAddress})
       : super._() {
-    if (loadAddressList == null) {
-      throw new BuiltValueNullFieldError('AssetAddressVM', 'loadAddressList');
-    }
-    if (clearAddressList == null) {
-      throw new BuiltValueNullFieldError('AssetAddressVM', 'clearAddressList');
-    }
-    if (submitAddressAdd == null) {
-      throw new BuiltValueNullFieldError('AssetAddressVM', 'submitAddressAdd');
-    }
-    if (submitAddressDelete == null) {
-      throw new BuiltValueNullFieldError(
-          'AssetAddressVM', 'submitAddressDelete');
-    }
-    if (validateAddress == null) {
-      throw new BuiltValueNullFieldError('AssetAddressVM', 'validateAddress');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        loadAddressList, r'AssetAddressVM', 'loadAddressList');
+    BuiltValueNullFieldError.checkNotNull(
+        clearAddressList, r'AssetAddressVM', 'clearAddressList');
+    BuiltValueNullFieldError.checkNotNull(
+        submitAddressAdd, r'AssetAddressVM', 'submitAddressAdd');
+    BuiltValueNullFieldError.checkNotNull(
+        submitAddressDelete, r'AssetAddressVM', 'submitAddressDelete');
+    BuiltValueNullFieldError.checkNotNull(
+        validateAddress, r'AssetAddressVM', 'validateAddress');
   }
 
   @override
@@ -689,7 +720,7 @@ class _$AssetAddressVM extends AssetAddressVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetAddressVM')
+    return (newBuiltValueToStringHelper(r'AssetAddressVM')
           ..add('addressList', addressList)
           ..add('loadAddressList', loadAddressList)
           ..add('clearAddressList', clearAddressList)
@@ -702,63 +733,74 @@ class _$AssetAddressVM extends AssetAddressVM {
 
 class AssetAddressVMBuilder
     implements Builder<AssetAddressVM, AssetAddressVMBuilder> {
-  _$AssetAddressVM _$v;
+  _$AssetAddressVM? _$v;
 
-  ListBuilder<AssetAddress> _addressList;
+  ListBuilder<AssetAddress>? _addressList;
   ListBuilder<AssetAddress> get addressList =>
       _$this._addressList ??= new ListBuilder<AssetAddress>();
-  set addressList(ListBuilder<AssetAddress> addressList) =>
+  set addressList(ListBuilder<AssetAddress>? addressList) =>
       _$this._addressList = addressList;
 
-  Future<int> Function({AssetCoin coin, String requestId, bool isLocal})
-      _loadAddressList;
-  Future<int> Function({AssetCoin coin, String requestId, bool isLocal})
-      get loadAddressList => _$this._loadAddressList;
+  Future<int> Function(
+      {required AssetCoin coin,
+      required String requestId,
+      required bool isLocal})? _loadAddressList;
+  Future<int> Function(
+      {required AssetCoin coin,
+      required String requestId,
+      required bool isLocal})? get loadAddressList => _$this._loadAddressList;
   set loadAddressList(
-          Future<int> Function({AssetCoin coin, String requestId, bool isLocal})
+          Future<int> Function(
+                  {required AssetCoin coin,
+                  required String requestId,
+                  required bool isLocal})?
               loadAddressList) =>
       _$this._loadAddressList = loadAddressList;
 
-  void Function() _clearAddressList;
-  void Function() get clearAddressList => _$this._clearAddressList;
-  set clearAddressList(void Function() clearAddressList) =>
+  void Function()? _clearAddressList;
+  void Function()? get clearAddressList => _$this._clearAddressList;
+  set clearAddressList(void Function()? clearAddressList) =>
       _$this._clearAddressList = clearAddressList;
 
-  Future<void> Function(AssetCoin coin, AssetAddress address) _submitAddressAdd;
-  Future<void> Function(AssetCoin coin, AssetAddress address)
+  Future<void> Function(AssetCoin coin, AssetAddress address)?
+      _submitAddressAdd;
+  Future<void> Function(AssetCoin coin, AssetAddress address)?
       get submitAddressAdd => _$this._submitAddressAdd;
   set submitAddressAdd(
-          Future<void> Function(AssetCoin coin, AssetAddress address)
+          Future<void> Function(AssetCoin coin, AssetAddress address)?
               submitAddressAdd) =>
       _$this._submitAddressAdd = submitAddressAdd;
 
-  Future<void> Function(AssetCoin coin, AssetAddress address)
+  Future<void> Function(AssetCoin coin, AssetAddress address)?
       _submitAddressDelete;
-  Future<void> Function(AssetCoin coin, AssetAddress address)
+  Future<void> Function(AssetCoin coin, AssetAddress address)?
       get submitAddressDelete => _$this._submitAddressDelete;
   set submitAddressDelete(
-          Future<void> Function(AssetCoin coin, AssetAddress address)
+          Future<void> Function(AssetCoin coin, AssetAddress address)?
               submitAddressDelete) =>
       _$this._submitAddressDelete = submitAddressDelete;
 
-  Future<bool> Function({String chain, String address}) _validateAddress;
-  Future<bool> Function({String chain, String address}) get validateAddress =>
-      _$this._validateAddress;
+  Future<bool> Function({required String chain, required String address})?
+      _validateAddress;
+  Future<bool> Function({required String chain, required String address})?
+      get validateAddress => _$this._validateAddress;
   set validateAddress(
-          Future<bool> Function({String chain, String address})
+          Future<bool> Function(
+                  {required String chain, required String address})?
               validateAddress) =>
       _$this._validateAddress = validateAddress;
 
   AssetAddressVMBuilder();
 
   AssetAddressVMBuilder get _$this {
-    if (_$v != null) {
-      _addressList = _$v.addressList?.toBuilder();
-      _loadAddressList = _$v.loadAddressList;
-      _clearAddressList = _$v.clearAddressList;
-      _submitAddressAdd = _$v.submitAddressAdd;
-      _submitAddressDelete = _$v.submitAddressDelete;
-      _validateAddress = _$v.validateAddress;
+    final $v = _$v;
+    if ($v != null) {
+      _addressList = $v.addressList?.toBuilder();
+      _loadAddressList = $v.loadAddressList;
+      _clearAddressList = $v.clearAddressList;
+      _submitAddressAdd = $v.submitAddressAdd;
+      _submitAddressDelete = $v.submitAddressDelete;
+      _validateAddress = $v.validateAddress;
       _$v = null;
     }
     return this;
@@ -766,37 +808,44 @@ class AssetAddressVMBuilder
 
   @override
   void replace(AssetAddressVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetAddressVM;
   }
 
   @override
-  void update(void Function(AssetAddressVMBuilder) updates) {
+  void update(void Function(AssetAddressVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetAddressVM build() {
+  AssetAddressVM build() => _build();
+
+  _$AssetAddressVM _build() {
     _$AssetAddressVM _$result;
     try {
       _$result = _$v ??
           new _$AssetAddressVM._(
               addressList: _addressList?.build(),
-              loadAddressList: loadAddressList,
-              clearAddressList: clearAddressList,
-              submitAddressAdd: submitAddressAdd,
-              submitAddressDelete: submitAddressDelete,
-              validateAddress: validateAddress);
+              loadAddressList: BuiltValueNullFieldError.checkNotNull(
+                  loadAddressList, r'AssetAddressVM', 'loadAddressList'),
+              clearAddressList: BuiltValueNullFieldError.checkNotNull(
+                  clearAddressList, r'AssetAddressVM', 'clearAddressList'),
+              submitAddressAdd: BuiltValueNullFieldError.checkNotNull(
+                  submitAddressAdd, r'AssetAddressVM', 'submitAddressAdd'),
+              submitAddressDelete: BuiltValueNullFieldError.checkNotNull(
+                  submitAddressDelete,
+                  r'AssetAddressVM',
+                  'submitAddressDelete'),
+              validateAddress: BuiltValueNullFieldError.checkNotNull(
+                  validateAddress, r'AssetAddressVM', 'validateAddress'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'addressList';
         _addressList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'AssetAddressVM', _$failedField, e.toString());
+            r'AssetAddressVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -815,9 +864,9 @@ class _$AssetListVM extends AssetListVM {
   @override
   final List<Wallet> wallets;
   @override
-  final bool hasWallet;
+  final bool? hasWallet;
   @override
-  final Wallet activeWallet;
+  final Wallet? activeWallet;
   @override
   final String activeWalletId;
   @override
@@ -831,53 +880,41 @@ class _$AssetListVM extends AssetListVM {
   @override
   final void Function(bool hide) doHideSmallAssets;
 
-  factory _$AssetListVM([void Function(AssetListVMBuilder) updates]) =>
-      (new AssetListVMBuilder()..update(updates)).build();
+  factory _$AssetListVM([void Function(AssetListVMBuilder)? updates]) =>
+      (new AssetListVMBuilder()..update(updates))._build();
 
   _$AssetListVM._(
-      {this.fiatCurrency,
-      this.coins,
-      this.isBalanceUpdating,
-      this.wallets,
+      {required this.fiatCurrency,
+      required this.coins,
+      required this.isBalanceUpdating,
+      required this.wallets,
       this.hasWallet,
       this.activeWallet,
-      this.activeWalletId,
-      this.activeWalletStatus,
-      this.doRefreshList,
-      this.doSwitchWallet,
-      this.doSyncWallet,
-      this.doHideSmallAssets})
+      required this.activeWalletId,
+      required this.activeWalletStatus,
+      required this.doRefreshList,
+      required this.doSwitchWallet,
+      required this.doSyncWallet,
+      required this.doHideSmallAssets})
       : super._() {
-    if (fiatCurrency == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'fiatCurrency');
-    }
-    if (coins == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'coins');
-    }
-    if (isBalanceUpdating == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'isBalanceUpdating');
-    }
-    if (wallets == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'wallets');
-    }
-    if (activeWalletId == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'activeWalletId');
-    }
-    if (activeWalletStatus == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'activeWalletStatus');
-    }
-    if (doRefreshList == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'doRefreshList');
-    }
-    if (doSwitchWallet == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'doSwitchWallet');
-    }
-    if (doSyncWallet == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'doSyncWallet');
-    }
-    if (doHideSmallAssets == null) {
-      throw new BuiltValueNullFieldError('AssetListVM', 'doHideSmallAssets');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        fiatCurrency, r'AssetListVM', 'fiatCurrency');
+    BuiltValueNullFieldError.checkNotNull(coins, r'AssetListVM', 'coins');
+    BuiltValueNullFieldError.checkNotNull(
+        isBalanceUpdating, r'AssetListVM', 'isBalanceUpdating');
+    BuiltValueNullFieldError.checkNotNull(wallets, r'AssetListVM', 'wallets');
+    BuiltValueNullFieldError.checkNotNull(
+        activeWalletId, r'AssetListVM', 'activeWalletId');
+    BuiltValueNullFieldError.checkNotNull(
+        activeWalletStatus, r'AssetListVM', 'activeWalletStatus');
+    BuiltValueNullFieldError.checkNotNull(
+        doRefreshList, r'AssetListVM', 'doRefreshList');
+    BuiltValueNullFieldError.checkNotNull(
+        doSwitchWallet, r'AssetListVM', 'doSwitchWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        doSyncWallet, r'AssetListVM', 'doSyncWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        doHideSmallAssets, r'AssetListVM', 'doHideSmallAssets');
   }
 
   @override
@@ -919,7 +956,7 @@ class _$AssetListVM extends AssetListVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetListVM')
+    return (newBuiltValueToStringHelper(r'AssetListVM')
           ..add('fiatCurrency', fiatCurrency)
           ..add('coins', coins)
           ..add('isBalanceUpdating', isBalanceUpdating)
@@ -937,81 +974,83 @@ class _$AssetListVM extends AssetListVM {
 }
 
 class AssetListVMBuilder implements Builder<AssetListVM, AssetListVMBuilder> {
-  _$AssetListVM _$v;
+  _$AssetListVM? _$v;
 
-  String _fiatCurrency;
-  String get fiatCurrency => _$this._fiatCurrency;
-  set fiatCurrency(String fiatCurrency) => _$this._fiatCurrency = fiatCurrency;
+  String? _fiatCurrency;
+  String? get fiatCurrency => _$this._fiatCurrency;
+  set fiatCurrency(String? fiatCurrency) => _$this._fiatCurrency = fiatCurrency;
 
-  ListBuilder<AssetCoin> _coins;
+  ListBuilder<AssetCoin>? _coins;
   ListBuilder<AssetCoin> get coins =>
       _$this._coins ??= new ListBuilder<AssetCoin>();
-  set coins(ListBuilder<AssetCoin> coins) => _$this._coins = coins;
+  set coins(ListBuilder<AssetCoin>? coins) => _$this._coins = coins;
 
-  bool _isBalanceUpdating;
-  bool get isBalanceUpdating => _$this._isBalanceUpdating;
-  set isBalanceUpdating(bool isBalanceUpdating) =>
+  bool? _isBalanceUpdating;
+  bool? get isBalanceUpdating => _$this._isBalanceUpdating;
+  set isBalanceUpdating(bool? isBalanceUpdating) =>
       _$this._isBalanceUpdating = isBalanceUpdating;
 
-  List<Wallet> _wallets;
-  List<Wallet> get wallets => _$this._wallets;
-  set wallets(List<Wallet> wallets) => _$this._wallets = wallets;
+  List<Wallet>? _wallets;
+  List<Wallet>? get wallets => _$this._wallets;
+  set wallets(List<Wallet>? wallets) => _$this._wallets = wallets;
 
-  bool _hasWallet;
-  bool get hasWallet => _$this._hasWallet;
-  set hasWallet(bool hasWallet) => _$this._hasWallet = hasWallet;
+  bool? _hasWallet;
+  bool? get hasWallet => _$this._hasWallet;
+  set hasWallet(bool? hasWallet) => _$this._hasWallet = hasWallet;
 
-  Wallet _activeWallet;
-  Wallet get activeWallet => _$this._activeWallet;
-  set activeWallet(Wallet activeWallet) => _$this._activeWallet = activeWallet;
+  Wallet? _activeWallet;
+  Wallet? get activeWallet => _$this._activeWallet;
+  set activeWallet(Wallet? activeWallet) => _$this._activeWallet = activeWallet;
 
-  String _activeWalletId;
-  String get activeWalletId => _$this._activeWalletId;
-  set activeWalletId(String activeWalletId) =>
+  String? _activeWalletId;
+  String? get activeWalletId => _$this._activeWalletId;
+  set activeWalletId(String? activeWalletId) =>
       _$this._activeWalletId = activeWalletId;
 
-  WalletStatus _activeWalletStatus;
-  WalletStatus get activeWalletStatus => _$this._activeWalletStatus;
-  set activeWalletStatus(WalletStatus activeWalletStatus) =>
+  WalletStatus? _activeWalletStatus;
+  WalletStatus? get activeWalletStatus => _$this._activeWalletStatus;
+  set activeWalletStatus(WalletStatus? activeWalletStatus) =>
       _$this._activeWalletStatus = activeWalletStatus;
 
-  Future<void> Function() _doRefreshList;
-  Future<void> Function() get doRefreshList => _$this._doRefreshList;
-  set doRefreshList(Future<void> Function() doRefreshList) =>
+  Future<void> Function()? _doRefreshList;
+  Future<void> Function()? get doRefreshList => _$this._doRefreshList;
+  set doRefreshList(Future<void> Function()? doRefreshList) =>
       _$this._doRefreshList = doRefreshList;
 
-  Future<void> Function(Wallet wallet) _doSwitchWallet;
-  Future<void> Function(Wallet wallet) get doSwitchWallet =>
+  Future<void> Function(Wallet wallet)? _doSwitchWallet;
+  Future<void> Function(Wallet wallet)? get doSwitchWallet =>
       _$this._doSwitchWallet;
-  set doSwitchWallet(Future<void> Function(Wallet wallet) doSwitchWallet) =>
+  set doSwitchWallet(Future<void> Function(Wallet wallet)? doSwitchWallet) =>
       _$this._doSwitchWallet = doSwitchWallet;
 
-  Future<void> Function(Wallet wallet) _doSyncWallet;
-  Future<void> Function(Wallet wallet) get doSyncWallet => _$this._doSyncWallet;
-  set doSyncWallet(Future<void> Function(Wallet wallet) doSyncWallet) =>
+  Future<void> Function(Wallet wallet)? _doSyncWallet;
+  Future<void> Function(Wallet wallet)? get doSyncWallet =>
+      _$this._doSyncWallet;
+  set doSyncWallet(Future<void> Function(Wallet wallet)? doSyncWallet) =>
       _$this._doSyncWallet = doSyncWallet;
 
-  void Function(bool hide) _doHideSmallAssets;
-  void Function(bool hide) get doHideSmallAssets => _$this._doHideSmallAssets;
-  set doHideSmallAssets(void Function(bool hide) doHideSmallAssets) =>
+  void Function(bool hide)? _doHideSmallAssets;
+  void Function(bool hide)? get doHideSmallAssets => _$this._doHideSmallAssets;
+  set doHideSmallAssets(void Function(bool hide)? doHideSmallAssets) =>
       _$this._doHideSmallAssets = doHideSmallAssets;
 
   AssetListVMBuilder();
 
   AssetListVMBuilder get _$this {
-    if (_$v != null) {
-      _fiatCurrency = _$v.fiatCurrency;
-      _coins = _$v.coins?.toBuilder();
-      _isBalanceUpdating = _$v.isBalanceUpdating;
-      _wallets = _$v.wallets;
-      _hasWallet = _$v.hasWallet;
-      _activeWallet = _$v.activeWallet;
-      _activeWalletId = _$v.activeWalletId;
-      _activeWalletStatus = _$v.activeWalletStatus;
-      _doRefreshList = _$v.doRefreshList;
-      _doSwitchWallet = _$v.doSwitchWallet;
-      _doSyncWallet = _$v.doSyncWallet;
-      _doHideSmallAssets = _$v.doHideSmallAssets;
+    final $v = _$v;
+    if ($v != null) {
+      _fiatCurrency = $v.fiatCurrency;
+      _coins = $v.coins.toBuilder();
+      _isBalanceUpdating = $v.isBalanceUpdating;
+      _wallets = $v.wallets;
+      _hasWallet = $v.hasWallet;
+      _activeWallet = $v.activeWallet;
+      _activeWalletId = $v.activeWalletId;
+      _activeWalletStatus = $v.activeWalletStatus;
+      _doRefreshList = $v.doRefreshList;
+      _doSwitchWallet = $v.doSwitchWallet;
+      _doSyncWallet = $v.doSyncWallet;
+      _doHideSmallAssets = $v.doHideSmallAssets;
       _$v = null;
     }
     return this;
@@ -1019,43 +1058,51 @@ class AssetListVMBuilder implements Builder<AssetListVM, AssetListVMBuilder> {
 
   @override
   void replace(AssetListVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetListVM;
   }
 
   @override
-  void update(void Function(AssetListVMBuilder) updates) {
+  void update(void Function(AssetListVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetListVM build() {
+  AssetListVM build() => _build();
+
+  _$AssetListVM _build() {
     _$AssetListVM _$result;
     try {
       _$result = _$v ??
           new _$AssetListVM._(
-              fiatCurrency: fiatCurrency,
+              fiatCurrency: BuiltValueNullFieldError.checkNotNull(
+                  fiatCurrency, r'AssetListVM', 'fiatCurrency'),
               coins: coins.build(),
-              isBalanceUpdating: isBalanceUpdating,
-              wallets: wallets,
+              isBalanceUpdating: BuiltValueNullFieldError.checkNotNull(
+                  isBalanceUpdating, r'AssetListVM', 'isBalanceUpdating'),
+              wallets: BuiltValueNullFieldError.checkNotNull(
+                  wallets, r'AssetListVM', 'wallets'),
               hasWallet: hasWallet,
               activeWallet: activeWallet,
-              activeWalletId: activeWalletId,
-              activeWalletStatus: activeWalletStatus,
-              doRefreshList: doRefreshList,
-              doSwitchWallet: doSwitchWallet,
-              doSyncWallet: doSyncWallet,
-              doHideSmallAssets: doHideSmallAssets);
+              activeWalletId: BuiltValueNullFieldError.checkNotNull(
+                  activeWalletId, r'AssetListVM', 'activeWalletId'),
+              activeWalletStatus: BuiltValueNullFieldError.checkNotNull(
+                  activeWalletStatus, r'AssetListVM', 'activeWalletStatus'),
+              doRefreshList: BuiltValueNullFieldError.checkNotNull(
+                  doRefreshList, r'AssetListVM', 'doRefreshList'),
+              doSwitchWallet: BuiltValueNullFieldError.checkNotNull(
+                  doSwitchWallet, r'AssetListVM', 'doSwitchWallet'),
+              doSyncWallet: BuiltValueNullFieldError.checkNotNull(
+                  doSyncWallet, r'AssetListVM', 'doSyncWallet'),
+              doHideSmallAssets: BuiltValueNullFieldError.checkNotNull(doHideSmallAssets, r'AssetListVM', 'doHideSmallAssets'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'coins';
         coins.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'AssetListVM', _$failedField, e.toString());
+            r'AssetListVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1080,36 +1127,29 @@ class _$AssetManagementVM extends AssetManagementVM {
       updateCoinAddress;
 
   factory _$AssetManagementVM(
-          [void Function(AssetManagementVMBuilder) updates]) =>
-      (new AssetManagementVMBuilder()..update(updates)).build();
+          [void Function(AssetManagementVMBuilder)? updates]) =>
+      (new AssetManagementVMBuilder()..update(updates))._build();
 
   _$AssetManagementVM._(
-      {this.coinsEnabled,
-      this.coinsDisabled,
-      this.doToggleCoin,
-      this.doSearchCoin,
-      this.doUnlockWallet,
-      this.updateCoinAddress})
+      {required this.coinsEnabled,
+      required this.coinsDisabled,
+      required this.doToggleCoin,
+      required this.doSearchCoin,
+      required this.doUnlockWallet,
+      required this.updateCoinAddress})
       : super._() {
-    if (coinsEnabled == null) {
-      throw new BuiltValueNullFieldError('AssetManagementVM', 'coinsEnabled');
-    }
-    if (coinsDisabled == null) {
-      throw new BuiltValueNullFieldError('AssetManagementVM', 'coinsDisabled');
-    }
-    if (doToggleCoin == null) {
-      throw new BuiltValueNullFieldError('AssetManagementVM', 'doToggleCoin');
-    }
-    if (doSearchCoin == null) {
-      throw new BuiltValueNullFieldError('AssetManagementVM', 'doSearchCoin');
-    }
-    if (doUnlockWallet == null) {
-      throw new BuiltValueNullFieldError('AssetManagementVM', 'doUnlockWallet');
-    }
-    if (updateCoinAddress == null) {
-      throw new BuiltValueNullFieldError(
-          'AssetManagementVM', 'updateCoinAddress');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        coinsEnabled, r'AssetManagementVM', 'coinsEnabled');
+    BuiltValueNullFieldError.checkNotNull(
+        coinsDisabled, r'AssetManagementVM', 'coinsDisabled');
+    BuiltValueNullFieldError.checkNotNull(
+        doToggleCoin, r'AssetManagementVM', 'doToggleCoin');
+    BuiltValueNullFieldError.checkNotNull(
+        doSearchCoin, r'AssetManagementVM', 'doSearchCoin');
+    BuiltValueNullFieldError.checkNotNull(
+        doUnlockWallet, r'AssetManagementVM', 'doUnlockWallet');
+    BuiltValueNullFieldError.checkNotNull(
+        updateCoinAddress, r'AssetManagementVM', 'updateCoinAddress');
   }
 
   @override
@@ -1135,7 +1175,7 @@ class _$AssetManagementVM extends AssetManagementVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetManagementVM')
+    return (newBuiltValueToStringHelper(r'AssetManagementVM')
           ..add('coinsEnabled', coinsEnabled)
           ..add('coinsDisabled', coinsDisabled)
           ..add('doToggleCoin', doToggleCoin)
@@ -1148,56 +1188,58 @@ class _$AssetManagementVM extends AssetManagementVM {
 
 class AssetManagementVMBuilder
     implements Builder<AssetManagementVM, AssetManagementVMBuilder> {
-  _$AssetManagementVM _$v;
+  _$AssetManagementVM? _$v;
 
-  List<AssetCoin> _coinsEnabled;
-  List<AssetCoin> get coinsEnabled => _$this._coinsEnabled;
-  set coinsEnabled(List<AssetCoin> coinsEnabled) =>
+  List<AssetCoin>? _coinsEnabled;
+  List<AssetCoin>? get coinsEnabled => _$this._coinsEnabled;
+  set coinsEnabled(List<AssetCoin>? coinsEnabled) =>
       _$this._coinsEnabled = coinsEnabled;
 
-  List<AssetCoin> _coinsDisabled;
-  List<AssetCoin> get coinsDisabled => _$this._coinsDisabled;
-  set coinsDisabled(List<AssetCoin> coinsDisabled) =>
+  List<AssetCoin>? _coinsDisabled;
+  List<AssetCoin>? get coinsDisabled => _$this._coinsDisabled;
+  set coinsDisabled(List<AssetCoin>? coinsDisabled) =>
       _$this._coinsDisabled = coinsDisabled;
 
-  void Function(AssetCoin coin, bool isEnabled) _doToggleCoin;
-  void Function(AssetCoin coin, bool isEnabled) get doToggleCoin =>
+  void Function(AssetCoin coin, bool isEnabled)? _doToggleCoin;
+  void Function(AssetCoin coin, bool isEnabled)? get doToggleCoin =>
       _$this._doToggleCoin;
   set doToggleCoin(
-          void Function(AssetCoin coin, bool isEnabled) doToggleCoin) =>
+          void Function(AssetCoin coin, bool isEnabled)? doToggleCoin) =>
       _$this._doToggleCoin = doToggleCoin;
 
-  void Function(String term) _doSearchCoin;
-  void Function(String term) get doSearchCoin => _$this._doSearchCoin;
-  set doSearchCoin(void Function(String term) doSearchCoin) =>
+  void Function(String term)? _doSearchCoin;
+  void Function(String term)? get doSearchCoin => _$this._doSearchCoin;
+  set doSearchCoin(void Function(String term)? doSearchCoin) =>
       _$this._doSearchCoin = doSearchCoin;
 
-  Future<WalletPrivateData> Function(String password) _doUnlockWallet;
-  Future<WalletPrivateData> Function(String password) get doUnlockWallet =>
+  Future<WalletPrivateData> Function(String password)? _doUnlockWallet;
+  Future<WalletPrivateData> Function(String password)? get doUnlockWallet =>
       _$this._doUnlockWallet;
   set doUnlockWallet(
-          Future<WalletPrivateData> Function(String password) doUnlockWallet) =>
+          Future<WalletPrivateData> Function(String password)?
+              doUnlockWallet) =>
       _$this._doUnlockWallet = doUnlockWallet;
 
-  Future<bool> Function(WalletPrivateData data, String chain)
+  Future<bool> Function(WalletPrivateData data, String chain)?
       _updateCoinAddress;
-  Future<bool> Function(WalletPrivateData data, String chain)
+  Future<bool> Function(WalletPrivateData data, String chain)?
       get updateCoinAddress => _$this._updateCoinAddress;
   set updateCoinAddress(
-          Future<bool> Function(WalletPrivateData data, String chain)
+          Future<bool> Function(WalletPrivateData data, String chain)?
               updateCoinAddress) =>
       _$this._updateCoinAddress = updateCoinAddress;
 
   AssetManagementVMBuilder();
 
   AssetManagementVMBuilder get _$this {
-    if (_$v != null) {
-      _coinsEnabled = _$v.coinsEnabled;
-      _coinsDisabled = _$v.coinsDisabled;
-      _doToggleCoin = _$v.doToggleCoin;
-      _doSearchCoin = _$v.doSearchCoin;
-      _doUnlockWallet = _$v.doUnlockWallet;
-      _updateCoinAddress = _$v.updateCoinAddress;
+    final $v = _$v;
+    if ($v != null) {
+      _coinsEnabled = $v.coinsEnabled;
+      _coinsDisabled = $v.coinsDisabled;
+      _doToggleCoin = $v.doToggleCoin;
+      _doSearchCoin = $v.doSearchCoin;
+      _doUnlockWallet = $v.doUnlockWallet;
+      _updateCoinAddress = $v.updateCoinAddress;
       _$v = null;
     }
     return this;
@@ -1205,27 +1247,33 @@ class AssetManagementVMBuilder
 
   @override
   void replace(AssetManagementVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetManagementVM;
   }
 
   @override
-  void update(void Function(AssetManagementVMBuilder) updates) {
+  void update(void Function(AssetManagementVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetManagementVM build() {
+  AssetManagementVM build() => _build();
+
+  _$AssetManagementVM _build() {
     final _$result = _$v ??
         new _$AssetManagementVM._(
-            coinsEnabled: coinsEnabled,
-            coinsDisabled: coinsDisabled,
-            doToggleCoin: doToggleCoin,
-            doSearchCoin: doSearchCoin,
-            doUnlockWallet: doUnlockWallet,
-            updateCoinAddress: updateCoinAddress);
+            coinsEnabled: BuiltValueNullFieldError.checkNotNull(
+                coinsEnabled, r'AssetManagementVM', 'coinsEnabled'),
+            coinsDisabled: BuiltValueNullFieldError.checkNotNull(
+                coinsDisabled, r'AssetManagementVM', 'coinsDisabled'),
+            doToggleCoin: BuiltValueNullFieldError.checkNotNull(
+                doToggleCoin, r'AssetManagementVM', 'doToggleCoin'),
+            doSearchCoin: BuiltValueNullFieldError.checkNotNull(
+                doSearchCoin, r'AssetManagementVM', 'doSearchCoin'),
+            doUnlockWallet: BuiltValueNullFieldError.checkNotNull(
+                doUnlockWallet, r'AssetManagementVM', 'doUnlockWallet'),
+            updateCoinAddress: BuiltValueNullFieldError.checkNotNull(
+                updateCoinAddress, r'AssetManagementVM', 'updateCoinAddress'));
     replace(_$result);
     return _$result;
   }
@@ -1239,18 +1287,16 @@ class _$AssetTransactionVM extends AssetTransactionVM {
       getSingleTransaction;
 
   factory _$AssetTransactionVM(
-          [void Function(AssetTransactionVMBuilder) updates]) =>
-      (new AssetTransactionVMBuilder()..update(updates)).build();
+          [void Function(AssetTransactionVMBuilder)? updates]) =>
+      (new AssetTransactionVMBuilder()..update(updates))._build();
 
-  _$AssetTransactionVM._({this.getCoinName, this.getSingleTransaction})
+  _$AssetTransactionVM._(
+      {required this.getCoinName, required this.getSingleTransaction})
       : super._() {
-    if (getCoinName == null) {
-      throw new BuiltValueNullFieldError('AssetTransactionVM', 'getCoinName');
-    }
-    if (getSingleTransaction == null) {
-      throw new BuiltValueNullFieldError(
-          'AssetTransactionVM', 'getSingleTransaction');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinName, r'AssetTransactionVM', 'getCoinName');
+    BuiltValueNullFieldError.checkNotNull(
+        getSingleTransaction, r'AssetTransactionVM', 'getSingleTransaction');
   }
 
   @override
@@ -1275,7 +1321,7 @@ class _$AssetTransactionVM extends AssetTransactionVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetTransactionVM')
+    return (newBuiltValueToStringHelper(r'AssetTransactionVM')
           ..add('getCoinName', getCoinName)
           ..add('getSingleTransaction', getSingleTransaction))
         .toString();
@@ -1284,28 +1330,29 @@ class _$AssetTransactionVM extends AssetTransactionVM {
 
 class AssetTransactionVMBuilder
     implements Builder<AssetTransactionVM, AssetTransactionVMBuilder> {
-  _$AssetTransactionVM _$v;
+  _$AssetTransactionVM? _$v;
 
-  String Function(String chain, String symbol) _getCoinName;
-  String Function(String chain, String symbol) get getCoinName =>
+  String Function(String chain, String symbol)? _getCoinName;
+  String Function(String chain, String symbol)? get getCoinName =>
       _$this._getCoinName;
-  set getCoinName(String Function(String chain, String symbol) getCoinName) =>
+  set getCoinName(String Function(String chain, String symbol)? getCoinName) =>
       _$this._getCoinName = getCoinName;
 
-  Future<Transaction> Function(Transaction transaction) _getSingleTransaction;
-  Future<Transaction> Function(Transaction transaction)
+  Future<Transaction> Function(Transaction transaction)? _getSingleTransaction;
+  Future<Transaction> Function(Transaction transaction)?
       get getSingleTransaction => _$this._getSingleTransaction;
   set getSingleTransaction(
-          Future<Transaction> Function(Transaction transaction)
+          Future<Transaction> Function(Transaction transaction)?
               getSingleTransaction) =>
       _$this._getSingleTransaction = getSingleTransaction;
 
   AssetTransactionVMBuilder();
 
   AssetTransactionVMBuilder get _$this {
-    if (_$v != null) {
-      _getCoinName = _$v.getCoinName;
-      _getSingleTransaction = _$v.getSingleTransaction;
+    final $v = _$v;
+    if ($v != null) {
+      _getCoinName = $v.getCoinName;
+      _getSingleTransaction = $v.getSingleTransaction;
       _$v = null;
     }
     return this;
@@ -1313,23 +1360,27 @@ class AssetTransactionVMBuilder
 
   @override
   void replace(AssetTransactionVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetTransactionVM;
   }
 
   @override
-  void update(void Function(AssetTransactionVMBuilder) updates) {
+  void update(void Function(AssetTransactionVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetTransactionVM build() {
+  AssetTransactionVM build() => _build();
+
+  _$AssetTransactionVM _build() {
     final _$result = _$v ??
         new _$AssetTransactionVM._(
-            getCoinName: getCoinName,
-            getSingleTransaction: getSingleTransaction);
+            getCoinName: BuiltValueNullFieldError.checkNotNull(
+                getCoinName, r'AssetTransactionVM', 'getCoinName'),
+            getSingleTransaction: BuiltValueNullFieldError.checkNotNull(
+                getSingleTransaction,
+                r'AssetTransactionVM',
+                'getSingleTransaction'));
     replace(_$result);
     return _$result;
   }
@@ -1349,49 +1400,39 @@ class _$AssetWithdrawVM extends AssetWithdrawVM {
       WithdrawSubmitParams params, WalletPrivateData walletData,
       [Future<bool> Function() onFinalCheck]) submit;
   @override
-  final double Function({@required String chain, @required String symbol})
+  final double Function({required String chain, required String symbol})
       getCoinBalance;
   @override
-  final AssetCoin Function({@required String chain, @required String symbol})
+  final AssetCoin Function({required String chain, required String symbol})
       getCoinInfo;
   @override
   final Future<WalletPrivateData> Function(String password) doUnlockWallet;
 
-  factory _$AssetWithdrawVM([void Function(AssetWithdrawVMBuilder) updates]) =>
-      (new AssetWithdrawVMBuilder()..update(updates)).build();
+  factory _$AssetWithdrawVM([void Function(AssetWithdrawVMBuilder)? updates]) =>
+      (new AssetWithdrawVMBuilder()..update(updates))._build();
 
   _$AssetWithdrawVM._(
-      {this.hideDepositShowcase,
-      this.hideWithdrawShowcase,
-      this.onWithdrawBefore,
-      this.submit,
-      this.getCoinBalance,
-      this.getCoinInfo,
-      this.doUnlockWallet})
+      {required this.hideDepositShowcase,
+      required this.hideWithdrawShowcase,
+      required this.onWithdrawBefore,
+      required this.submit,
+      required this.getCoinBalance,
+      required this.getCoinInfo,
+      required this.doUnlockWallet})
       : super._() {
-    if (hideDepositShowcase == null) {
-      throw new BuiltValueNullFieldError(
-          'AssetWithdrawVM', 'hideDepositShowcase');
-    }
-    if (hideWithdrawShowcase == null) {
-      throw new BuiltValueNullFieldError(
-          'AssetWithdrawVM', 'hideWithdrawShowcase');
-    }
-    if (onWithdrawBefore == null) {
-      throw new BuiltValueNullFieldError('AssetWithdrawVM', 'onWithdrawBefore');
-    }
-    if (submit == null) {
-      throw new BuiltValueNullFieldError('AssetWithdrawVM', 'submit');
-    }
-    if (getCoinBalance == null) {
-      throw new BuiltValueNullFieldError('AssetWithdrawVM', 'getCoinBalance');
-    }
-    if (getCoinInfo == null) {
-      throw new BuiltValueNullFieldError('AssetWithdrawVM', 'getCoinInfo');
-    }
-    if (doUnlockWallet == null) {
-      throw new BuiltValueNullFieldError('AssetWithdrawVM', 'doUnlockWallet');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        hideDepositShowcase, r'AssetWithdrawVM', 'hideDepositShowcase');
+    BuiltValueNullFieldError.checkNotNull(
+        hideWithdrawShowcase, r'AssetWithdrawVM', 'hideWithdrawShowcase');
+    BuiltValueNullFieldError.checkNotNull(
+        onWithdrawBefore, r'AssetWithdrawVM', 'onWithdrawBefore');
+    BuiltValueNullFieldError.checkNotNull(submit, r'AssetWithdrawVM', 'submit');
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinBalance, r'AssetWithdrawVM', 'getCoinBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        getCoinInfo, r'AssetWithdrawVM', 'getCoinInfo');
+    BuiltValueNullFieldError.checkNotNull(
+        doUnlockWallet, r'AssetWithdrawVM', 'doUnlockWallet');
   }
 
   @override
@@ -1418,7 +1459,7 @@ class _$AssetWithdrawVM extends AssetWithdrawVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetWithdrawVM')
+    return (newBuiltValueToStringHelper(r'AssetWithdrawVM')
           ..add('hideDepositShowcase', hideDepositShowcase)
           ..add('hideWithdrawShowcase', hideWithdrawShowcase)
           ..add('onWithdrawBefore', onWithdrawBefore)
@@ -1432,79 +1473,81 @@ class _$AssetWithdrawVM extends AssetWithdrawVM {
 
 class AssetWithdrawVMBuilder
     implements Builder<AssetWithdrawVM, AssetWithdrawVMBuilder> {
-  _$AssetWithdrawVM _$v;
+  _$AssetWithdrawVM? _$v;
 
-  bool _hideDepositShowcase;
-  bool get hideDepositShowcase => _$this._hideDepositShowcase;
-  set hideDepositShowcase(bool hideDepositShowcase) =>
+  bool? _hideDepositShowcase;
+  bool? get hideDepositShowcase => _$this._hideDepositShowcase;
+  set hideDepositShowcase(bool? hideDepositShowcase) =>
       _$this._hideDepositShowcase = hideDepositShowcase;
 
-  bool _hideWithdrawShowcase;
-  bool get hideWithdrawShowcase => _$this._hideWithdrawShowcase;
-  set hideWithdrawShowcase(bool hideWithdrawShowcase) =>
+  bool? _hideWithdrawShowcase;
+  bool? get hideWithdrawShowcase => _$this._hideWithdrawShowcase;
+  set hideWithdrawShowcase(bool? hideWithdrawShowcase) =>
       _$this._hideWithdrawShowcase = hideWithdrawShowcase;
 
   Future<WalletWithdrawData> Function(
-          WithdrawBeforeParams params, WalletWithdrawData previousData)
+          WithdrawBeforeParams params, WalletWithdrawData previousData)?
       _onWithdrawBefore;
   Future<WalletWithdrawData> Function(
-          WithdrawBeforeParams params, WalletWithdrawData previousData)
+          WithdrawBeforeParams params, WalletWithdrawData previousData)?
       get onWithdrawBefore => _$this._onWithdrawBefore;
   set onWithdrawBefore(
           Future<WalletWithdrawData> Function(
-                  WithdrawBeforeParams params, WalletWithdrawData previousData)
+                  WithdrawBeforeParams params, WalletWithdrawData previousData)?
               onWithdrawBefore) =>
       _$this._onWithdrawBefore = onWithdrawBefore;
 
   Future<String> Function(
       WithdrawSubmitParams params, WalletPrivateData walletData,
-      [Future<bool> Function() onFinalCheck]) _submit;
+      [Future<bool> Function() onFinalCheck])? _submit;
   Future<String> Function(
       WithdrawSubmitParams params, WalletPrivateData walletData,
-      [Future<bool> Function() onFinalCheck]) get submit => _$this._submit;
+      [Future<bool> Function() onFinalCheck])? get submit => _$this._submit;
   set submit(
           Future<String> Function(
                   WithdrawSubmitParams params, WalletPrivateData walletData,
-                  [Future<bool> Function() onFinalCheck])
+                  [Future<bool> Function() onFinalCheck])?
               submit) =>
       _$this._submit = submit;
 
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})?
       _getCoinBalance;
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})?
       get getCoinBalance => _$this._getCoinBalance;
   set getCoinBalance(
-          double Function({@required String chain, @required String symbol})
+          double Function({required String chain, required String symbol})?
               getCoinBalance) =>
       _$this._getCoinBalance = getCoinBalance;
 
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})?
       _getCoinInfo;
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})?
       get getCoinInfo => _$this._getCoinInfo;
   set getCoinInfo(
-          AssetCoin Function({@required String chain, @required String symbol})
+          AssetCoin Function({required String chain, required String symbol})?
               getCoinInfo) =>
       _$this._getCoinInfo = getCoinInfo;
 
-  Future<WalletPrivateData> Function(String password) _doUnlockWallet;
-  Future<WalletPrivateData> Function(String password) get doUnlockWallet =>
+  Future<WalletPrivateData> Function(String password)? _doUnlockWallet;
+  Future<WalletPrivateData> Function(String password)? get doUnlockWallet =>
       _$this._doUnlockWallet;
   set doUnlockWallet(
-          Future<WalletPrivateData> Function(String password) doUnlockWallet) =>
+          Future<WalletPrivateData> Function(String password)?
+              doUnlockWallet) =>
       _$this._doUnlockWallet = doUnlockWallet;
 
   AssetWithdrawVMBuilder();
 
   AssetWithdrawVMBuilder get _$this {
-    if (_$v != null) {
-      _hideDepositShowcase = _$v.hideDepositShowcase;
-      _hideWithdrawShowcase = _$v.hideWithdrawShowcase;
-      _onWithdrawBefore = _$v.onWithdrawBefore;
-      _submit = _$v.submit;
-      _getCoinBalance = _$v.getCoinBalance;
-      _getCoinInfo = _$v.getCoinInfo;
-      _doUnlockWallet = _$v.doUnlockWallet;
+    final $v = _$v;
+    if ($v != null) {
+      _hideDepositShowcase = $v.hideDepositShowcase;
+      _hideWithdrawShowcase = $v.hideWithdrawShowcase;
+      _onWithdrawBefore = $v.onWithdrawBefore;
+      _submit = $v.submit;
+      _getCoinBalance = $v.getCoinBalance;
+      _getCoinInfo = $v.getCoinInfo;
+      _doUnlockWallet = $v.doUnlockWallet;
       _$v = null;
     }
     return this;
@@ -1512,28 +1555,37 @@ class AssetWithdrawVMBuilder
 
   @override
   void replace(AssetWithdrawVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetWithdrawVM;
   }
 
   @override
-  void update(void Function(AssetWithdrawVMBuilder) updates) {
+  void update(void Function(AssetWithdrawVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetWithdrawVM build() {
+  AssetWithdrawVM build() => _build();
+
+  _$AssetWithdrawVM _build() {
     final _$result = _$v ??
         new _$AssetWithdrawVM._(
-            hideDepositShowcase: hideDepositShowcase,
-            hideWithdrawShowcase: hideWithdrawShowcase,
-            onWithdrawBefore: onWithdrawBefore,
-            submit: submit,
-            getCoinBalance: getCoinBalance,
-            getCoinInfo: getCoinInfo,
-            doUnlockWallet: doUnlockWallet);
+            hideDepositShowcase: BuiltValueNullFieldError.checkNotNull(
+                hideDepositShowcase, r'AssetWithdrawVM', 'hideDepositShowcase'),
+            hideWithdrawShowcase: BuiltValueNullFieldError.checkNotNull(
+                hideWithdrawShowcase,
+                r'AssetWithdrawVM',
+                'hideWithdrawShowcase'),
+            onWithdrawBefore: BuiltValueNullFieldError.checkNotNull(
+                onWithdrawBefore, r'AssetWithdrawVM', 'onWithdrawBefore'),
+            submit: BuiltValueNullFieldError.checkNotNull(
+                submit, r'AssetWithdrawVM', 'submit'),
+            getCoinBalance: BuiltValueNullFieldError.checkNotNull(
+                getCoinBalance, r'AssetWithdrawVM', 'getCoinBalance'),
+            getCoinInfo: BuiltValueNullFieldError.checkNotNull(
+                getCoinInfo, r'AssetWithdrawVM', 'getCoinInfo'),
+            doUnlockWallet: BuiltValueNullFieldError.checkNotNull(
+                doUnlockWallet, r'AssetWithdrawVM', 'doUnlockWallet'));
     replace(_$result);
     return _$result;
   }
@@ -1541,38 +1593,38 @@ class AssetWithdrawVMBuilder
 
 class _$AssetCoin extends AssetCoin {
   @override
-  final String name;
+  final String? name;
   @override
-  final String fullName;
+  final String? fullName;
   @override
-  final String chain;
+  final String? chain;
   @override
-  final String symbol;
+  final String? symbol;
   @override
-  final String address;
+  final String? address;
   @override
-  final String iconOnline;
+  final String? iconOnline;
   @override
-  final String iconLocal;
+  final String? iconLocal;
   @override
-  final int chainPrecision;
+  final int? chainPrecision;
   @override
-  final int displayPrecision;
+  final int? displayPrecision;
   @override
-  final double balance;
+  final double? balance;
   @override
-  final double balanceUnconfirmed;
+  final double? balanceUnconfirmed;
   @override
-  final bool balanceUpdateFailed;
+  final bool? balanceUpdateFailed;
   @override
-  final bool isEnabled;
+  final bool? isEnabled;
   @override
-  final bool isFixed;
+  final bool? isFixed;
   @override
-  final String contract;
+  final String? contract;
 
-  factory _$AssetCoin([void Function(AssetCoinBuilder) updates]) =>
-      (new AssetCoinBuilder()..update(updates)).build();
+  factory _$AssetCoin([void Function(AssetCoinBuilder)? updates]) =>
+      (new AssetCoinBuilder()..update(updates))._build();
 
   _$AssetCoin._(
       {this.name,
@@ -1656,7 +1708,7 @@ class _$AssetCoin extends AssetCoin {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetCoin')
+    return (newBuiltValueToStringHelper(r'AssetCoin')
           ..add('name', name)
           ..add('fullName', fullName)
           ..add('chain', chain)
@@ -1677,91 +1729,92 @@ class _$AssetCoin extends AssetCoin {
 }
 
 class AssetCoinBuilder implements Builder<AssetCoin, AssetCoinBuilder> {
-  _$AssetCoin _$v;
+  _$AssetCoin? _$v;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _fullName;
-  String get fullName => _$this._fullName;
-  set fullName(String fullName) => _$this._fullName = fullName;
+  String? _fullName;
+  String? get fullName => _$this._fullName;
+  set fullName(String? fullName) => _$this._fullName = fullName;
 
-  String _chain;
-  String get chain => _$this._chain;
-  set chain(String chain) => _$this._chain = chain;
+  String? _chain;
+  String? get chain => _$this._chain;
+  set chain(String? chain) => _$this._chain = chain;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _iconOnline;
-  String get iconOnline => _$this._iconOnline;
-  set iconOnline(String iconOnline) => _$this._iconOnline = iconOnline;
+  String? _iconOnline;
+  String? get iconOnline => _$this._iconOnline;
+  set iconOnline(String? iconOnline) => _$this._iconOnline = iconOnline;
 
-  String _iconLocal;
-  String get iconLocal => _$this._iconLocal;
-  set iconLocal(String iconLocal) => _$this._iconLocal = iconLocal;
+  String? _iconLocal;
+  String? get iconLocal => _$this._iconLocal;
+  set iconLocal(String? iconLocal) => _$this._iconLocal = iconLocal;
 
-  int _chainPrecision;
-  int get chainPrecision => _$this._chainPrecision;
-  set chainPrecision(int chainPrecision) =>
+  int? _chainPrecision;
+  int? get chainPrecision => _$this._chainPrecision;
+  set chainPrecision(int? chainPrecision) =>
       _$this._chainPrecision = chainPrecision;
 
-  int _displayPrecision;
-  int get displayPrecision => _$this._displayPrecision;
-  set displayPrecision(int displayPrecision) =>
+  int? _displayPrecision;
+  int? get displayPrecision => _$this._displayPrecision;
+  set displayPrecision(int? displayPrecision) =>
       _$this._displayPrecision = displayPrecision;
 
-  double _balance;
-  double get balance => _$this._balance;
-  set balance(double balance) => _$this._balance = balance;
+  double? _balance;
+  double? get balance => _$this._balance;
+  set balance(double? balance) => _$this._balance = balance;
 
-  double _balanceUnconfirmed;
-  double get balanceUnconfirmed => _$this._balanceUnconfirmed;
-  set balanceUnconfirmed(double balanceUnconfirmed) =>
+  double? _balanceUnconfirmed;
+  double? get balanceUnconfirmed => _$this._balanceUnconfirmed;
+  set balanceUnconfirmed(double? balanceUnconfirmed) =>
       _$this._balanceUnconfirmed = balanceUnconfirmed;
 
-  bool _balanceUpdateFailed;
-  bool get balanceUpdateFailed => _$this._balanceUpdateFailed;
-  set balanceUpdateFailed(bool balanceUpdateFailed) =>
+  bool? _balanceUpdateFailed;
+  bool? get balanceUpdateFailed => _$this._balanceUpdateFailed;
+  set balanceUpdateFailed(bool? balanceUpdateFailed) =>
       _$this._balanceUpdateFailed = balanceUpdateFailed;
 
-  bool _isEnabled;
-  bool get isEnabled => _$this._isEnabled;
-  set isEnabled(bool isEnabled) => _$this._isEnabled = isEnabled;
+  bool? _isEnabled;
+  bool? get isEnabled => _$this._isEnabled;
+  set isEnabled(bool? isEnabled) => _$this._isEnabled = isEnabled;
 
-  bool _isFixed;
-  bool get isFixed => _$this._isFixed;
-  set isFixed(bool isFixed) => _$this._isFixed = isFixed;
+  bool? _isFixed;
+  bool? get isFixed => _$this._isFixed;
+  set isFixed(bool? isFixed) => _$this._isFixed = isFixed;
 
-  String _contract;
-  String get contract => _$this._contract;
-  set contract(String contract) => _$this._contract = contract;
+  String? _contract;
+  String? get contract => _$this._contract;
+  set contract(String? contract) => _$this._contract = contract;
 
   AssetCoinBuilder();
 
   AssetCoinBuilder get _$this {
-    if (_$v != null) {
-      _name = _$v.name;
-      _fullName = _$v.fullName;
-      _chain = _$v.chain;
-      _symbol = _$v.symbol;
-      _address = _$v.address;
-      _iconOnline = _$v.iconOnline;
-      _iconLocal = _$v.iconLocal;
-      _chainPrecision = _$v.chainPrecision;
-      _displayPrecision = _$v.displayPrecision;
-      _balance = _$v.balance;
-      _balanceUnconfirmed = _$v.balanceUnconfirmed;
-      _balanceUpdateFailed = _$v.balanceUpdateFailed;
-      _isEnabled = _$v.isEnabled;
-      _isFixed = _$v.isFixed;
-      _contract = _$v.contract;
+    final $v = _$v;
+    if ($v != null) {
+      _name = $v.name;
+      _fullName = $v.fullName;
+      _chain = $v.chain;
+      _symbol = $v.symbol;
+      _address = $v.address;
+      _iconOnline = $v.iconOnline;
+      _iconLocal = $v.iconLocal;
+      _chainPrecision = $v.chainPrecision;
+      _displayPrecision = $v.displayPrecision;
+      _balance = $v.balance;
+      _balanceUnconfirmed = $v.balanceUnconfirmed;
+      _balanceUpdateFailed = $v.balanceUpdateFailed;
+      _isEnabled = $v.isEnabled;
+      _isFixed = $v.isFixed;
+      _contract = $v.contract;
       _$v = null;
     }
     return this;
@@ -1769,19 +1822,19 @@ class AssetCoinBuilder implements Builder<AssetCoin, AssetCoinBuilder> {
 
   @override
   void replace(AssetCoin other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetCoin;
   }
 
   @override
-  void update(void Function(AssetCoinBuilder) updates) {
+  void update(void Function(AssetCoinBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetCoin build() {
+  AssetCoin build() => _build();
+
+  _$AssetCoin _build() {
     final _$result = _$v ??
         new _$AssetCoin._(
             name: name,
@@ -1814,23 +1867,21 @@ class _$AssetPrice extends AssetPrice {
   @override
   final double price24h;
 
-  factory _$AssetPrice([void Function(AssetPriceBuilder) updates]) =>
-      (new AssetPriceBuilder()..update(updates)).build();
+  factory _$AssetPrice([void Function(AssetPriceBuilder)? updates]) =>
+      (new AssetPriceBuilder()..update(updates))._build();
 
-  _$AssetPrice._({this.tradePairId, this.precision, this.price, this.price24h})
+  _$AssetPrice._(
+      {required this.tradePairId,
+      required this.precision,
+      required this.price,
+      required this.price24h})
       : super._() {
-    if (tradePairId == null) {
-      throw new BuiltValueNullFieldError('AssetPrice', 'tradePairId');
-    }
-    if (precision == null) {
-      throw new BuiltValueNullFieldError('AssetPrice', 'precision');
-    }
-    if (price == null) {
-      throw new BuiltValueNullFieldError('AssetPrice', 'price');
-    }
-    if (price24h == null) {
-      throw new BuiltValueNullFieldError('AssetPrice', 'price24h');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        tradePairId, r'AssetPrice', 'tradePairId');
+    BuiltValueNullFieldError.checkNotNull(
+        precision, r'AssetPrice', 'precision');
+    BuiltValueNullFieldError.checkNotNull(price, r'AssetPrice', 'price');
+    BuiltValueNullFieldError.checkNotNull(price24h, r'AssetPrice', 'price24h');
   }
 
   @override
@@ -1860,7 +1911,7 @@ class _$AssetPrice extends AssetPrice {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetPrice')
+    return (newBuiltValueToStringHelper(r'AssetPrice')
           ..add('tradePairId', tradePairId)
           ..add('precision', precision)
           ..add('price', price)
@@ -1870,32 +1921,33 @@ class _$AssetPrice extends AssetPrice {
 }
 
 class AssetPriceBuilder implements Builder<AssetPrice, AssetPriceBuilder> {
-  _$AssetPrice _$v;
+  _$AssetPrice? _$v;
 
-  String _tradePairId;
-  String get tradePairId => _$this._tradePairId;
-  set tradePairId(String tradePairId) => _$this._tradePairId = tradePairId;
+  String? _tradePairId;
+  String? get tradePairId => _$this._tradePairId;
+  set tradePairId(String? tradePairId) => _$this._tradePairId = tradePairId;
 
-  int _precision;
-  int get precision => _$this._precision;
-  set precision(int precision) => _$this._precision = precision;
+  int? _precision;
+  int? get precision => _$this._precision;
+  set precision(int? precision) => _$this._precision = precision;
 
-  double _price;
-  double get price => _$this._price;
-  set price(double price) => _$this._price = price;
+  double? _price;
+  double? get price => _$this._price;
+  set price(double? price) => _$this._price = price;
 
-  double _price24h;
-  double get price24h => _$this._price24h;
-  set price24h(double price24h) => _$this._price24h = price24h;
+  double? _price24h;
+  double? get price24h => _$this._price24h;
+  set price24h(double? price24h) => _$this._price24h = price24h;
 
   AssetPriceBuilder();
 
   AssetPriceBuilder get _$this {
-    if (_$v != null) {
-      _tradePairId = _$v.tradePairId;
-      _precision = _$v.precision;
-      _price = _$v.price;
-      _price24h = _$v.price24h;
+    final $v = _$v;
+    if ($v != null) {
+      _tradePairId = $v.tradePairId;
+      _precision = $v.precision;
+      _price = $v.price;
+      _price24h = $v.price24h;
       _$v = null;
     }
     return this;
@@ -1903,25 +1955,29 @@ class AssetPriceBuilder implements Builder<AssetPrice, AssetPriceBuilder> {
 
   @override
   void replace(AssetPrice other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetPrice;
   }
 
   @override
-  void update(void Function(AssetPriceBuilder) updates) {
+  void update(void Function(AssetPriceBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetPrice build() {
+  AssetPrice build() => _build();
+
+  _$AssetPrice _build() {
     final _$result = _$v ??
         new _$AssetPrice._(
-            tradePairId: tradePairId,
-            precision: precision,
-            price: price,
-            price24h: price24h);
+            tradePairId: BuiltValueNullFieldError.checkNotNull(
+                tradePairId, r'AssetPrice', 'tradePairId'),
+            precision: BuiltValueNullFieldError.checkNotNull(
+                precision, r'AssetPrice', 'precision'),
+            price: BuiltValueNullFieldError.checkNotNull(
+                price, r'AssetPrice', 'price'),
+            price24h: BuiltValueNullFieldError.checkNotNull(
+                price24h, r'AssetPrice', 'price24h'));
     replace(_$result);
     return _$result;
   }
@@ -1929,20 +1985,20 @@ class AssetPriceBuilder implements Builder<AssetPrice, AssetPriceBuilder> {
 
 class _$AssetAddress extends AssetAddress {
   @override
-  final String id;
+  final String? id;
   @override
-  final String address;
+  final String? address;
   @override
-  final String chain;
+  final String? chain;
   @override
-  final String comments;
+  final String? comments;
   @override
-  final String symbol;
+  final String? symbol;
   @override
-  final bool isLocal;
+  final bool? isLocal;
 
-  factory _$AssetAddress([void Function(AssetAddressBuilder) updates]) =>
-      (new AssetAddressBuilder()..update(updates)).build();
+  factory _$AssetAddress([void Function(AssetAddressBuilder)? updates]) =>
+      (new AssetAddressBuilder()..update(updates))._build();
 
   _$AssetAddress._(
       {this.id,
@@ -1984,7 +2040,7 @@ class _$AssetAddress extends AssetAddress {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetAddress')
+    return (newBuiltValueToStringHelper(r'AssetAddress')
           ..add('id', id)
           ..add('address', address)
           ..add('chain', chain)
@@ -1997,42 +2053,43 @@ class _$AssetAddress extends AssetAddress {
 
 class AssetAddressBuilder
     implements Builder<AssetAddress, AssetAddressBuilder> {
-  _$AssetAddress _$v;
+  _$AssetAddress? _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _chain;
-  String get chain => _$this._chain;
-  set chain(String chain) => _$this._chain = chain;
+  String? _chain;
+  String? get chain => _$this._chain;
+  set chain(String? chain) => _$this._chain = chain;
 
-  String _comments;
-  String get comments => _$this._comments;
-  set comments(String comments) => _$this._comments = comments;
+  String? _comments;
+  String? get comments => _$this._comments;
+  set comments(String? comments) => _$this._comments = comments;
 
-  String _symbol;
-  String get symbol => _$this._symbol;
-  set symbol(String symbol) => _$this._symbol = symbol;
+  String? _symbol;
+  String? get symbol => _$this._symbol;
+  set symbol(String? symbol) => _$this._symbol = symbol;
 
-  bool _isLocal;
-  bool get isLocal => _$this._isLocal;
-  set isLocal(bool isLocal) => _$this._isLocal = isLocal;
+  bool? _isLocal;
+  bool? get isLocal => _$this._isLocal;
+  set isLocal(bool? isLocal) => _$this._isLocal = isLocal;
 
   AssetAddressBuilder();
 
   AssetAddressBuilder get _$this {
-    if (_$v != null) {
-      _id = _$v.id;
-      _address = _$v.address;
-      _chain = _$v.chain;
-      _comments = _$v.comments;
-      _symbol = _$v.symbol;
-      _isLocal = _$v.isLocal;
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _address = $v.address;
+      _chain = $v.chain;
+      _comments = $v.comments;
+      _symbol = $v.symbol;
+      _isLocal = $v.isLocal;
       _$v = null;
     }
     return this;
@@ -2040,19 +2097,19 @@ class AssetAddressBuilder
 
   @override
   void replace(AssetAddress other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetAddress;
   }
 
   @override
-  void update(void Function(AssetAddressBuilder) updates) {
+  void update(void Function(AssetAddressBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetAddress build() {
+  AssetAddress build() => _build();
+
+  _$AssetAddress _build() {
     final _$result = _$v ??
         new _$AssetAddress._(
             id: id,
@@ -2084,53 +2141,40 @@ class _$AssetState extends AssetState {
   @override
   final String coinsSearchTerm;
   @override
-  final BuiltList<AssetAddress> addressList;
+  final BuiltList<AssetAddress>? addressList;
   @override
-  final String addressRequestId;
+  final String? addressRequestId;
 
-  factory _$AssetState([void Function(AssetStateBuilder) updates]) =>
-      (new AssetStateBuilder()..update(updates)).build();
+  factory _$AssetState([void Function(AssetStateBuilder)? updates]) =>
+      (new AssetStateBuilder()..update(updates))._build();
 
   _$AssetState._(
-      {this.coins,
-      this.hideInvitationShowcase,
-      this.hideInvitationNotice,
-      this.hideSmallAssets,
-      this.isBalanceUpdating,
-      this.hideDepositShowcase,
-      this.hideWithdrawShowcase,
-      this.coinsSearchTerm,
+      {required this.coins,
+      required this.hideInvitationShowcase,
+      required this.hideInvitationNotice,
+      required this.hideSmallAssets,
+      required this.isBalanceUpdating,
+      required this.hideDepositShowcase,
+      required this.hideWithdrawShowcase,
+      required this.coinsSearchTerm,
       this.addressList,
       this.addressRequestId})
       : super._() {
-    if (coins == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'coins');
-    }
-    if (hideInvitationShowcase == null) {
-      throw new BuiltValueNullFieldError(
-          'AssetState', 'hideInvitationShowcase');
-    }
-    if (hideInvitationNotice == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'hideInvitationNotice');
-    }
-    if (hideSmallAssets == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'hideSmallAssets');
-    }
-    if (isBalanceUpdating == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'isBalanceUpdating');
-    }
-    if (hideDepositShowcase == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'hideDepositShowcase');
-    }
-    if (hideWithdrawShowcase == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'hideWithdrawShowcase');
-    }
-    if (coinsSearchTerm == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'coinsSearchTerm');
-    }
-    if (addressList == null) {
-      throw new BuiltValueNullFieldError('AssetState', 'addressList');
-    }
+    BuiltValueNullFieldError.checkNotNull(coins, r'AssetState', 'coins');
+    BuiltValueNullFieldError.checkNotNull(
+        hideInvitationShowcase, r'AssetState', 'hideInvitationShowcase');
+    BuiltValueNullFieldError.checkNotNull(
+        hideInvitationNotice, r'AssetState', 'hideInvitationNotice');
+    BuiltValueNullFieldError.checkNotNull(
+        hideSmallAssets, r'AssetState', 'hideSmallAssets');
+    BuiltValueNullFieldError.checkNotNull(
+        isBalanceUpdating, r'AssetState', 'isBalanceUpdating');
+    BuiltValueNullFieldError.checkNotNull(
+        hideDepositShowcase, r'AssetState', 'hideDepositShowcase');
+    BuiltValueNullFieldError.checkNotNull(
+        hideWithdrawShowcase, r'AssetState', 'hideWithdrawShowcase');
+    BuiltValueNullFieldError.checkNotNull(
+        coinsSearchTerm, r'AssetState', 'coinsSearchTerm');
   }
 
   @override
@@ -2180,7 +2224,7 @@ class _$AssetState extends AssetState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AssetState')
+    return (newBuiltValueToStringHelper(r'AssetState')
           ..add('coins', coins)
           ..add('hideInvitationShowcase', hideInvitationShowcase)
           ..add('hideInvitationNotice', hideInvitationNotice)
@@ -2196,73 +2240,74 @@ class _$AssetState extends AssetState {
 }
 
 class AssetStateBuilder implements Builder<AssetState, AssetStateBuilder> {
-  _$AssetState _$v;
+  _$AssetState? _$v;
 
-  ListBuilder<AssetCoin> _coins;
+  ListBuilder<AssetCoin>? _coins;
   ListBuilder<AssetCoin> get coins =>
       _$this._coins ??= new ListBuilder<AssetCoin>();
-  set coins(ListBuilder<AssetCoin> coins) => _$this._coins = coins;
+  set coins(ListBuilder<AssetCoin>? coins) => _$this._coins = coins;
 
-  bool _hideInvitationShowcase;
-  bool get hideInvitationShowcase => _$this._hideInvitationShowcase;
-  set hideInvitationShowcase(bool hideInvitationShowcase) =>
+  bool? _hideInvitationShowcase;
+  bool? get hideInvitationShowcase => _$this._hideInvitationShowcase;
+  set hideInvitationShowcase(bool? hideInvitationShowcase) =>
       _$this._hideInvitationShowcase = hideInvitationShowcase;
 
-  bool _hideInvitationNotice;
-  bool get hideInvitationNotice => _$this._hideInvitationNotice;
-  set hideInvitationNotice(bool hideInvitationNotice) =>
+  bool? _hideInvitationNotice;
+  bool? get hideInvitationNotice => _$this._hideInvitationNotice;
+  set hideInvitationNotice(bool? hideInvitationNotice) =>
       _$this._hideInvitationNotice = hideInvitationNotice;
 
-  bool _hideSmallAssets;
-  bool get hideSmallAssets => _$this._hideSmallAssets;
-  set hideSmallAssets(bool hideSmallAssets) =>
+  bool? _hideSmallAssets;
+  bool? get hideSmallAssets => _$this._hideSmallAssets;
+  set hideSmallAssets(bool? hideSmallAssets) =>
       _$this._hideSmallAssets = hideSmallAssets;
 
-  bool _isBalanceUpdating;
-  bool get isBalanceUpdating => _$this._isBalanceUpdating;
-  set isBalanceUpdating(bool isBalanceUpdating) =>
+  bool? _isBalanceUpdating;
+  bool? get isBalanceUpdating => _$this._isBalanceUpdating;
+  set isBalanceUpdating(bool? isBalanceUpdating) =>
       _$this._isBalanceUpdating = isBalanceUpdating;
 
-  bool _hideDepositShowcase;
-  bool get hideDepositShowcase => _$this._hideDepositShowcase;
-  set hideDepositShowcase(bool hideDepositShowcase) =>
+  bool? _hideDepositShowcase;
+  bool? get hideDepositShowcase => _$this._hideDepositShowcase;
+  set hideDepositShowcase(bool? hideDepositShowcase) =>
       _$this._hideDepositShowcase = hideDepositShowcase;
 
-  bool _hideWithdrawShowcase;
-  bool get hideWithdrawShowcase => _$this._hideWithdrawShowcase;
-  set hideWithdrawShowcase(bool hideWithdrawShowcase) =>
+  bool? _hideWithdrawShowcase;
+  bool? get hideWithdrawShowcase => _$this._hideWithdrawShowcase;
+  set hideWithdrawShowcase(bool? hideWithdrawShowcase) =>
       _$this._hideWithdrawShowcase = hideWithdrawShowcase;
 
-  String _coinsSearchTerm;
-  String get coinsSearchTerm => _$this._coinsSearchTerm;
-  set coinsSearchTerm(String coinsSearchTerm) =>
+  String? _coinsSearchTerm;
+  String? get coinsSearchTerm => _$this._coinsSearchTerm;
+  set coinsSearchTerm(String? coinsSearchTerm) =>
       _$this._coinsSearchTerm = coinsSearchTerm;
 
-  ListBuilder<AssetAddress> _addressList;
+  ListBuilder<AssetAddress>? _addressList;
   ListBuilder<AssetAddress> get addressList =>
       _$this._addressList ??= new ListBuilder<AssetAddress>();
-  set addressList(ListBuilder<AssetAddress> addressList) =>
+  set addressList(ListBuilder<AssetAddress>? addressList) =>
       _$this._addressList = addressList;
 
-  String _addressRequestId;
-  String get addressRequestId => _$this._addressRequestId;
-  set addressRequestId(String addressRequestId) =>
+  String? _addressRequestId;
+  String? get addressRequestId => _$this._addressRequestId;
+  set addressRequestId(String? addressRequestId) =>
       _$this._addressRequestId = addressRequestId;
 
   AssetStateBuilder();
 
   AssetStateBuilder get _$this {
-    if (_$v != null) {
-      _coins = _$v.coins?.toBuilder();
-      _hideInvitationShowcase = _$v.hideInvitationShowcase;
-      _hideInvitationNotice = _$v.hideInvitationNotice;
-      _hideSmallAssets = _$v.hideSmallAssets;
-      _isBalanceUpdating = _$v.isBalanceUpdating;
-      _hideDepositShowcase = _$v.hideDepositShowcase;
-      _hideWithdrawShowcase = _$v.hideWithdrawShowcase;
-      _coinsSearchTerm = _$v.coinsSearchTerm;
-      _addressList = _$v.addressList?.toBuilder();
-      _addressRequestId = _$v.addressRequestId;
+    final $v = _$v;
+    if ($v != null) {
+      _coins = $v.coins.toBuilder();
+      _hideInvitationShowcase = $v.hideInvitationShowcase;
+      _hideInvitationNotice = $v.hideInvitationNotice;
+      _hideSmallAssets = $v.hideSmallAssets;
+      _isBalanceUpdating = $v.isBalanceUpdating;
+      _hideDepositShowcase = $v.hideDepositShowcase;
+      _hideWithdrawShowcase = $v.hideWithdrawShowcase;
+      _coinsSearchTerm = $v.coinsSearchTerm;
+      _addressList = $v.addressList?.toBuilder();
+      _addressRequestId = $v.addressRequestId;
       _$v = null;
     }
     return this;
@@ -2270,44 +2315,51 @@ class AssetStateBuilder implements Builder<AssetState, AssetStateBuilder> {
 
   @override
   void replace(AssetState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AssetState;
   }
 
   @override
-  void update(void Function(AssetStateBuilder) updates) {
+  void update(void Function(AssetStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AssetState build() {
+  AssetState build() => _build();
+
+  _$AssetState _build() {
     _$AssetState _$result;
     try {
       _$result = _$v ??
           new _$AssetState._(
               coins: coins.build(),
-              hideInvitationShowcase: hideInvitationShowcase,
-              hideInvitationNotice: hideInvitationNotice,
-              hideSmallAssets: hideSmallAssets,
-              isBalanceUpdating: isBalanceUpdating,
-              hideDepositShowcase: hideDepositShowcase,
-              hideWithdrawShowcase: hideWithdrawShowcase,
-              coinsSearchTerm: coinsSearchTerm,
-              addressList: addressList.build(),
+              hideInvitationShowcase: BuiltValueNullFieldError.checkNotNull(
+                  hideInvitationShowcase, r'AssetState', 'hideInvitationShowcase'),
+              hideInvitationNotice: BuiltValueNullFieldError.checkNotNull(
+                  hideInvitationNotice, r'AssetState', 'hideInvitationNotice'),
+              hideSmallAssets: BuiltValueNullFieldError.checkNotNull(
+                  hideSmallAssets, r'AssetState', 'hideSmallAssets'),
+              isBalanceUpdating: BuiltValueNullFieldError.checkNotNull(
+                  isBalanceUpdating, r'AssetState', 'isBalanceUpdating'),
+              hideDepositShowcase: BuiltValueNullFieldError.checkNotNull(
+                  hideDepositShowcase, r'AssetState', 'hideDepositShowcase'),
+              hideWithdrawShowcase: BuiltValueNullFieldError.checkNotNull(
+                  hideWithdrawShowcase, r'AssetState', 'hideWithdrawShowcase'),
+              coinsSearchTerm: BuiltValueNullFieldError.checkNotNull(
+                  coinsSearchTerm, r'AssetState', 'coinsSearchTerm'),
+              addressList: _addressList?.build(),
               addressRequestId: addressRequestId);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'coins';
         coins.build();
 
         _$failedField = 'addressList';
-        addressList.build();
+        _addressList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'AssetState', _$failedField, e.toString());
+            r'AssetState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -2316,7 +2368,7 @@ class AssetStateBuilder implements Builder<AssetState, AssetStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -2333,12 +2385,12 @@ class PricesAdapter extends TypeAdapter<Prices> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Prices()
-      ..coinPrices = (fields[0] as Map)?.cast<String, double>()
-      ..fiatPrices = (fields[1] as Map)?.cast<String, double>()
-      ..createdAt = fields[2] as DateTime
-      ..updatedAt = fields[3] as DateTime
-      ..coinUpdatedAt = fields[4] as DateTime
-      ..fiatUpdatedAt = fields[5] as DateTime;
+      ..coinPrices = (fields[0] as Map?)?.cast<String, double>()
+      ..fiatPrices = (fields[1] as Map?)?.cast<String, double>()
+      ..createdAt = fields[2] as DateTime?
+      ..updatedAt = fields[3] as DateTime?
+      ..coinUpdatedAt = fields[4] as DateTime?
+      ..fiatUpdatedAt = fields[5] as DateTime?;
   }
 
   @override
@@ -2370,55 +2422,6 @@ class PricesAdapter extends TypeAdapter<Prices> {
           typeId == other.typeId;
 }
 
-class TransactionTypeAdapter extends TypeAdapter<TransactionType> {
-  @override
-  final int typeId = 22;
-
-  @override
-  TransactionType read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return TransactionType.deposit;
-      case 1:
-        return TransactionType.withdraw;
-      case 2:
-        return TransactionType.contractCall;
-      case 3:
-        return TransactionType.approveCall;
-      default:
-        return null;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, TransactionType obj) {
-    switch (obj) {
-      case TransactionType.deposit:
-        writer.writeByte(0);
-        break;
-      case TransactionType.withdraw:
-        writer.writeByte(1);
-        break;
-      case TransactionType.contractCall:
-        writer.writeByte(2);
-        break;
-      case TransactionType.approveCall:
-        writer.writeByte(3);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TransactionTypeAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class TransactionAdapter extends TypeAdapter<Transaction> {
   @override
   final int typeId = 21;
@@ -2430,20 +2433,20 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Transaction()
-      ..txId = fields[0] as String
-      ..chain = fields[1] as String
-      ..symbol = fields[2] as String
-      ..confirmations = fields[3] as int
-      ..timestamp = fields[4] as int
-      ..blockHeight = fields[5] as int
-      ..failed = fields[6] as bool
-      ..toAddress = fields[7] as String
-      ..fromAddress = fields[8] as String
-      ..amount = fields[9] as double
-      ..fee = fields[10] as double
-      ..feeSymbol = fields[11] as String
-      ..contract = fields[12] as String
-      ..type = fields[13] as TransactionType;
+      ..txId = fields[0] as String?
+      ..chain = fields[1] as String?
+      ..symbol = fields[2] as String?
+      ..confirmations = fields[3] as int?
+      ..timestamp = fields[4] as int?
+      ..blockHeight = fields[5] as int?
+      ..failed = fields[6] as bool?
+      ..toAddress = fields[7] as String?
+      ..fromAddress = fields[8] as String?
+      ..amount = fields[9] as double?
+      ..fee = fields[10] as double?
+      ..feeSymbol = fields[11] as String?
+      ..contract = fields[12] as String?
+      ..type = fields[13] as TransactionType?;
   }
 
   @override
@@ -2487,6 +2490,55 @@ class TransactionAdapter extends TypeAdapter<Transaction> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TransactionAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class TransactionTypeAdapter extends TypeAdapter<TransactionType> {
+  @override
+  final int typeId = 22;
+
+  @override
+  TransactionType read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return TransactionType.deposit;
+      case 1:
+        return TransactionType.withdraw;
+      case 2:
+        return TransactionType.contractCall;
+      case 3:
+        return TransactionType.approveCall;
+      default:
+        return TransactionType.deposit;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, TransactionType obj) {
+    switch (obj) {
+      case TransactionType.deposit:
+        writer.writeByte(0);
+        break;
+      case TransactionType.withdraw:
+        writer.writeByte(1);
+        break;
+      case TransactionType.contractCall:
+        writer.writeByte(2);
+        break;
+      case TransactionType.approveCall:
+        writer.writeByte(3);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TransactionTypeAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

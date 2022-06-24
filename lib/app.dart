@@ -40,11 +40,11 @@ class MyApp extends StatelessWidget {
         store: store,
         child: EasyLocalization(
           path: 'assets/locales',
-          assetLoader: AppLocalizationsLoader(),
+          //assetLoader: AppLocalizationsLoader(),
           useOnlyLangCode: true,
           startLocale: Locale(AppConstants.defaultLanguage),
           fallbackLocale: Locale(AppConstants.defaultLanguage),
-          preloaderColor: Colors.black,
+          //preloaderColor: Colors.black,
           supportedLocales: AppLanguages.supportedLocales,
           child: Builder(
             builder: (context) => GestureDetector(
@@ -60,14 +60,14 @@ class MyApp extends StatelessWidget {
                 theme: AppThemes.getLightTheme(context),
                 locale: context.locale,
                 supportedLocales: context.supportedLocales,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                localizationsDelegates: context.localizationDelegates,
                 navigatorKey: navigatorKey,
                 onGenerateRoute: AppNavigator.onGenerateRoute,
                 builder: (context, child) => MediaQuery(
                   data: MediaQuery.of(context).copyWith(
                     textScaleFactor: 1.0,
                   ),
-                  child: child,
+                  child: child!,
                 ),
               ),
             ),

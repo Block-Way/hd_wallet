@@ -1,35 +1,37 @@
 part of wallet_domain_module;
 
 String generatePrivateKey() {
-  final timestamp = DateTime.now().microsecondsSinceEpoch;
-  final timestampByte = hex.decode(timestamp.toString());
-  final randomByte = PrivateKey.randomBytes(24).extractSync();
-  final result = hex.encode(timestampByte + randomByte);
-  return result;
+  //final timestamp = DateTime.now().microsecondsSinceEpoch;
+  //final timestampByte = hex.decode(timestamp.toString());
+  //final randomByte = PrivateKey.randomBytes(24).extractSync();
+  //final result = hex.encode(timestampByte + randomByte);
+  //return result;
+  throw 'err';
+  return '';
 }
 
 class DexCreateOrderParams {
   DexCreateOrderParams({
-    @required this.chain,
-    @required this.symbol,
-    @required this.price,
-    @required this.amount,
-    @required this.total,
-    @required this.sellAddress,
-    @required this.sellContract,
-    @required this.sellChainPrecision,
-    @required this.buyAddress,
-    @required this.buyContract,
-    @required this.buyChainPrecision,
-    @required this.tradePairId,
-    @required this.isBuy,
-    @required this.matchFee,
-    @required this.maxBlockHeight,
-    @required this.minBlockHeight,
-    @required this.currentHeight,
-    @required this.matchAddress,
-    @required this.dealAddress,
-    @required this.withdrawData,
+    required this.chain,
+    required this.symbol,
+    required this.price,
+    required this.amount,
+    required this.total,
+    required this.sellAddress,
+    required this.sellContract,
+    required this.sellChainPrecision,
+    required this.buyAddress,
+    required this.buyContract,
+    required this.buyChainPrecision,
+    required this.tradePairId,
+    required this.isBuy,
+    required this.matchFee,
+    required this.maxBlockHeight,
+    required this.minBlockHeight,
+    required this.currentHeight,
+    required this.matchAddress,
+    required this.dealAddress,
+    required this.withdrawData,
   });
 
   final double amount;
@@ -60,7 +62,7 @@ class DexCreateOrderParams {
   final int sellChainPrecision;
   final String sellContract;
   final String symbol;
-  WalletTemplateData templateData;
+  late WalletTemplateData templateData;
   final double total;
   final String tradePairId;
   WalletWithdrawData withdrawData;
@@ -69,7 +71,7 @@ class DexCreateOrderParams {
 
   int get validHeight => currentHeight + maxBlockHeight;
 
-  double get payAmount => (isBuy ? total : amount) ?? 0.0;
+  double get payAmount => isBuy ? total : amount;
 
   /// If true, this chain used API to create Order transaction RawTx
   bool get isChainUseApiRawTx => ['ETH', 'TRX'].contains(chain);
@@ -85,14 +87,11 @@ class WalletActionCreateDexOrderTemplate extends _BaseAction {
   final DexCreateOrderParams params;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final chain = params.chain;
 
-    _BaseAction action;
+    late _BaseAction action;
     switch (chain) {
-      case 'BBC':
-        action = _WalletActionCreateDexOrderTemplateBBC(params, completer);
-        break;
       case 'ETH':
       case 'TRX':
         action = _WalletActionCreateDexOrderTemplateApi(params, completer);
@@ -103,19 +102,19 @@ class WalletActionCreateDexOrderTemplate extends _BaseAction {
         );
     }
     if (action != null) {
-      await store.dispatchFuture(action, notify: false);
+      await store.dispatchAsync(action, notify: false);
     }
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     // Customize errors
     if (error is PlatformException && error.code == 'AddressError') {
       completer.completeError(WalletAddressError());
       return error;
     }
-    completer.completeError(error);
+    completer.completeError(error as Object);
     CrashesReport().reportEvent(
       'WalletLog_11_DexCreateOrder',
       error,
@@ -129,44 +128,6 @@ class WalletActionCreateDexOrderTemplate extends _BaseAction {
   }
 }
 
-//  ▼▼▼▼▼▼ Chains Implementations ▼▼▼▼▼▼  //
-
-class _WalletActionCreateDexOrderTemplateBBC extends _BaseAction {
-  _WalletActionCreateDexOrderTemplateBBC(
-    this.params,
-    this.completer,
-  );
-
-  final Completer<WalletTemplateData> completer;
-  final DexCreateOrderParams params;
-
-  @override
-  Future<AppState> reduce() async {
-    final timestamp = SystemDate.getTime();
-
-    final template = await WalletRepository().dexCreateBBCOrderTransaction(
-      tradePairId: params.tradePairId,
-      price: params.price,
-      fee: params.matchFee,
-      timestamp: timestamp,
-      validHeight: params.validHeight,
-      sellerAddress: params.sellAddress,
-      recvAddress: params.buyAddress,
-      matchAddress: params.matchAddress,
-      dealAddress: params.dealAddress,
-    );
-
-    completer.complete(WalletTemplateData(
-      chain: params.chain,
-      symbol: params.symbol,
-      templateHex: template.template,
-      templateData: null,
-      templateAddress: template.address,
-    ));
-    return null;
-  }
-}
-
 class _WalletActionCreateDexOrderTemplateApi extends _BaseAction {
   _WalletActionCreateDexOrderTemplateApi(
     this.params,
@@ -177,7 +138,7 @@ class _WalletActionCreateDexOrderTemplateApi extends _BaseAction {
   final DexCreateOrderParams params;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final primaryKey = generatePrivateKey();
 
     final buyAmount = NumberUtil.getAmountAsInt(
@@ -202,7 +163,7 @@ class _WalletActionCreateDexOrderTemplateApi extends _BaseAction {
       matchAddress: params.matchAddress,
       dealAddress: params.dealAddress,
       sellContract: params.sellContract, // USDT(ETH) contract
-      buyContract: params.buyContract, // BBC fork
+      buyContract: params.buyContract, //
       primaryKey: primaryKey,
     );
 

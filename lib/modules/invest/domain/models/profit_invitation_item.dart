@@ -14,6 +14,14 @@ abstract class ProfitInvitationItem
   @BuiltValueField(wireName: '_id')
   String get address;
 
-  @BuiltValueField(wireName: 'achievement')
+  @BuiltValueField(wireName: 'amount')
   String get amount;
+
+  //
+  //@nullable
+  String? get height;
+
+  //
+  //@nullable
+  String? get time;
 }

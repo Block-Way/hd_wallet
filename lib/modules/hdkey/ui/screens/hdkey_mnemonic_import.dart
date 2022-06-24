@@ -23,17 +23,17 @@ class HDKeyMnemonicImportPage extends HookWidget {
     final mnemonic = useTextEditingController(text: '');
 
     void createWallet(HDKeyManagementVM viewModel) {
-      final isValid = formKey.currentState.validate();
+      final isValid = formKey.currentState?.validate();
 
       if (!autovalidate.value) {
         autovalidate.value = true;
       }
 
-      if (!isValid) {
-        return;
-      }
+      //if (!isValid) {
+      //  return;
+      // }
 
-      formKey.currentState.save();
+      formKey.currentState?.save();
       LoadingDialog.show(context);
       viewModel.validateMnemonic(mnemonic.text).then((_) {
         LoadingDialog.dismiss(context);

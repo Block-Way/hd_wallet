@@ -2,7 +2,7 @@ part of widgets;
 
 class CSDrawer extends StatefulWidget {
   const CSDrawer({
-    Key key,
+    Key? key,
     this.elevation = 16.0,
     this.child,
     this.semanticLabel,
@@ -17,14 +17,14 @@ class CSDrawer extends StatefulWidget {
         super(key: key);
 
   final double elevation;
-  final Widget child;
-  final String semanticLabel;
+  final Widget? child;
+  final String? semanticLabel;
   final double widthPercent;
-  final double width;
-  final DrawerCallback callback;
-  final BorderRadiusGeometry borderRadius;
-  final Decoration decoration;
-  final Color color;
+  final double? width;
+  final DrawerCallback? callback;
+  final BorderRadiusGeometry? borderRadius;
+  final Decoration? decoration;
+  final Color? color;
 
   @override
   _CSDrawerState createState() => _CSDrawerState();
@@ -34,7 +34,7 @@ class _CSDrawerState extends State<CSDrawer> {
   @override
   void initState() {
     if (widget.callback != null) {
-      widget.callback(true);
+      widget.callback?.call(true);
     }
     super.initState();
   }
@@ -42,7 +42,7 @@ class _CSDrawerState extends State<CSDrawer> {
   @override
   void dispose() {
     if (widget.callback != null) {
-      widget.callback(false);
+      widget.callback?.call(false);
     }
     super.dispose();
   }
@@ -51,18 +51,18 @@ class _CSDrawerState extends State<CSDrawer> {
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterialLocalizations(context));
 
-    String label = widget.semanticLabel;
+    String label = widget.semanticLabel ?? '';
     switch (Theme.of(context).platform) {
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-        label = widget.semanticLabel;
+        label = widget.semanticLabel ?? '';
         break;
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:
       case TargetPlatform.windows:
         label = widget.semanticLabel ??
-            MaterialLocalizations.of(context)?.drawerLabel;
+            MaterialLocalizations.of(context).drawerLabel;
     }
 
     final double _width =

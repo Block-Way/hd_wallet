@@ -2,8 +2,8 @@ part of widgets;
 
 class CSButtonIcon extends StatelessWidget {
   const CSButtonIcon({
-    @required this.icon,
-    Key key,
+    required this.icon,
+    Key? key,
     this.borderRadius,
     this.onPressed,
     this.color,
@@ -18,28 +18,28 @@ class CSButtonIcon extends StatelessWidget {
     this.containerSize,
   }) : super(key: key);
 
-  final double borderRadius;
-  final Function onPressed;
+  final double? borderRadius;
+  final Function? onPressed;
   final bool disabled;
   final bool disableDebounce;
-  final Color color;
-  final Color background;
-  final Color splashColor;
+  final Color? color;
+  final Color? background;
+  final Color? splashColor;
   final double size;
   final IconData icon;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
   final int doubleClickInterval;
-  final double containerSize;
+  final double? containerSize;
 
   @override
   Widget build(BuildContext context) {
     void handlePress() {
       if (onPressed != null && !disabled) {
         if (disableDebounce) {
-          onPressed();
+          onPressed?.call();
         } else {
-          ButtonUtils.doubleClick(onPressed, doubleClickInterval);
+          ButtonUtils.doubleClick(onPressed!, doubleClickInterval);
         }
       }
     }
@@ -48,7 +48,7 @@ class CSButtonIcon extends StatelessWidget {
       margin: margin,
       child: ClipRRect(
         borderRadius: borderRadius != null
-            ? BorderRadius.circular(borderRadius)
+            ? BorderRadius.circular(borderRadius ?? 0)
             : BorderRadius.zero,
         child: Container(
           width: containerSize,
@@ -62,7 +62,7 @@ class CSButtonIcon extends StatelessWidget {
               icon: Icon(icon),
               iconSize: size,
               padding: EdgeInsets.zero,
-              color: color ?? context.bodyColor,
+              color: color ?? context.iconColor,
               splashColor: splashColor ?? context.bgSecondaryColor,
               onPressed: handlePress,
             ),

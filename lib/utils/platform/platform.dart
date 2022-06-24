@@ -14,22 +14,22 @@ class DeviceInfo {
     this.osBuild,
   });
 
-  final String brand;
-  final String model;
-  final String product;
-  final String manufacturer;
-  final String deviceId;
-  final String osName;
-  final String osVersion;
-  final String osBuild;
+  final String? brand;
+  final String? model;
+  final String? product;
+  final String? manufacturer;
+  final String? deviceId;
+  final String? osName;
+  final String? osVersion;
+  final String? osBuild;
 
   Map<String, String> toJson() {
     final data = <String, String>{};
-    data['Brand'] = brand;
-    data['Model'] = model;
-    data['Manufacturer'] = manufacturer;
-    data['OsName'] = osName;
-    data['OsVersion'] = osVersion;
+    data['Brand'] = brand ?? '';
+    data['Model'] = model ?? '';
+    data['Manufacturer'] = manufacturer ?? '';
+    data['OsName'] = osName ?? '';
+    data['OsVersion'] = osVersion ?? '';
     return data;
   }
 }
@@ -62,7 +62,7 @@ class PlatformUtils {
     return deviceId;
   }
 
-  static Future<DeviceInfo> getDeviceInfo() async {
+  static Future<DeviceInfo?> getDeviceInfo() async {
     final deviceInfo = DeviceInfoPlugin();
 
     if (Platform.isAndroid) {

@@ -1,6 +1,12 @@
 part of app_module;
 
 class AppConstants {
+  static const bbc_fork =
+      '00000000a137256624bda82aec19645b1dd8d41311ceac9b5c3e49d2822cd49f';
+  static const btca_fork =
+      '0000000190e31a56bea3d263cc271649bf72ef1bf5ca8aa7e271ba9dd754f2da';
+  static const hah_fork =
+      '000000007fd73a8a4dc7cb9e67dd9a8f61a09606514c4f9f7c8c7867a2a47944';
   static const codeVersion = 0;
 
   // From env
@@ -13,7 +19,8 @@ class AppConstants {
 
   // Api/Service data
   static const apiUrl = [
-    'https://hapi.sugar.one/api',
+    // 'https://hapi.sugar.one/api',
+    'http://119.8.55.78:7711'
   ];
   static const apiUrlDev = [
     'http://dabank.coinbi.io:8000/sugar_api',

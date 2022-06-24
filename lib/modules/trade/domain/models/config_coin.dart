@@ -17,13 +17,13 @@ abstract class TradeConfigCoin
   @BuiltValueField(wireName: 'currency')
   String get symbol;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'deal_address')
-  String get dealAddress;
+  String? get dealAddress;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'match_address')
-  String get matchAddress;
+  String? get matchAddress;
 
   @BuiltValueField(wireName: 'default_fee')
   int get matchFee;

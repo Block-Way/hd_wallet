@@ -14,19 +14,19 @@ class Prices extends HiveObject {
   /// USD price of a coin
   /// Example: BTC => 10000.00
   @HiveField(0)
-  Map<String, double> coinPrices;
+  Map<String, double>? coinPrices;
 
   /// Exchange rate between USD and other fiat currencies
   /// Example: USDCNY => 7.00
   @HiveField(1)
-  Map<String, double> fiatPrices;
+  Map<String, double>? fiatPrices;
 
   @HiveField(2)
-  DateTime createdAt;
+  DateTime? createdAt;
   @HiveField(3)
-  DateTime updatedAt;
+  DateTime? updatedAt;
   @HiveField(4)
-  DateTime coinUpdatedAt;
+  DateTime? coinUpdatedAt;
   @HiveField(5)
-  DateTime fiatUpdatedAt;
+  DateTime? fiatUpdatedAt;
 }

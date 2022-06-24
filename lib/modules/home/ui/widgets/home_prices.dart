@@ -2,14 +2,11 @@ part of home_ui_module;
 
 class HomePricesCard extends StatelessWidget {
   const HomePricesCard({
-    @required this.prices,
-    @required this.doChangeTradePair,
-    @required this.allTradePairs,
+    required this.prices,
   }) : assert(prices != null);
 
   final List<AssetPrice> prices;
-  final List<TradePair> allTradePairs;
-  final Future<void> Function(TradePair tradePair) doChangeTradePair;
+
   @override
   Widget build(BuildContext context) {
     if (prices.isEmpty) {
@@ -24,7 +21,8 @@ class HomePricesCard extends StatelessWidget {
         children: [
           Text(
             tr('home:price_title'),
-            style: context.textMedium(bold: true),
+            style:
+                context.textMedium(bold: true, color: context.cardTitleColor),
           ),
           Padding(
             padding: context.edgeTop,
@@ -35,7 +33,7 @@ class HomePricesCard extends StatelessWidget {
                   child: Text(
                     tr('home:price_lbl_pair'),
                     maxLines: 1,
-                    style: context.textSmall(),
+                    style: context.textSmall(color: context.cardSecondColor),
                   ),
                 ),
                 Expanded(
@@ -43,7 +41,7 @@ class HomePricesCard extends StatelessWidget {
                   child: Text(
                     tr('home:price_lbl_price'),
                     maxLines: 1,
-                    style: context.textSmall(),
+                    style: context.textSmall(color: context.cardSecondColor),
                   ),
                 ),
                 Expanded(
@@ -53,7 +51,7 @@ class HomePricesCard extends StatelessWidget {
                     child: Text(
                       tr('home:price_lbl_change'),
                       maxLines: 1,
-                      style: context.textSmall(),
+                      style: context.textSmall(color: context.cardSecondColor),
                     ),
                   ),
                 )
@@ -66,32 +64,20 @@ class HomePricesCard extends StatelessWidget {
             itemCount: prices.length,
             itemBuilder: (context, index) {
               final item = prices[index];
-              final tradePair = allTradePairs.firstWhere(
-                  (e) => e.id == item.tradePairId,
-                  orElse: () => null);
-
               return CSContainer(
                 radius: 0,
                 padding: EdgeInsets.zero,
                 margin: EdgeInsets.zero,
-                onTap: tradePair != null
-                    ? () {
-                        doChangeTradePair(tradePair).then((_) {
-                          AppNavigator.gotoTabBarPage(AppTabBarPages.trade);
-                        });
-                      }
-                    : null,
                 key: Key(item.tradePairId),
                 height: 50,
                 child: Row(
                   children: [
+                    SizedBox(height: 15),
                     Expanded(
                       flex: 4,
                       child: TextTradePair(
-                        item.tradeSymbol,
-                        item.priceSymbol,
-                        TextSize.body,
-                      ),
+                          item.tradeSymbol, item.priceSymbol, TextSize.body,
+                          color: context.cardTitleColor),
                     ),
                     Expanded(
                       flex: 4,
@@ -108,17 +94,14 @@ class HomePricesCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(height: 2),
-                            PriceText(
-                              price.displayPrice,
-                              '',
-                              TextSize.body,
-                            ),
+                            PriceText(item.displayPrice, '', TextSize.body,
+                                color: context.cardTitleColor),
                             SizedBox(height: 2),
                             PriceText(
                               fiatPrice,
                               fiatCurrency,
                               TextSize.tiny,
-                              color: context.placeholderColor,
+                              color: context.cardSecondWordColor,
                               approximate: true,
                               sameStyle: true,
                             ),

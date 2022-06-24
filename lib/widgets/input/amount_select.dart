@@ -2,11 +2,11 @@ part of widgets;
 
 class CSAmountSelect extends HookWidget {
   const CSAmountSelect({
-    @required this.maxChanges,
-    @required this.ratioChanges,
-    @required this.onChanged,
-    @required this.selectedSide,
-    Key key,
+    required this.maxChanges,
+    required this.ratioChanges,
+    required this.onChanged,
+    required this.selectedSide,
+    Key? key,
   }) : super(key: key);
 
   final Stream<double> maxChanges;
@@ -48,7 +48,7 @@ class CSAmountSelect extends HookWidget {
                 maxValue.data,
                 NumberUtil.divide(ratio, 100),
               );
-              onChanged(value, ratio);
+              onChanged(value ?? 0, ratio);
             },
           ),
         ),

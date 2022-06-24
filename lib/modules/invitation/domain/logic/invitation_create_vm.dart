@@ -9,8 +9,8 @@ abstract class InvitationCreateVM
   InvitationCreateVM._();
 
 // Fields
-  @nullable
-  String get walletId;
+  //@nullable
+  String? get walletId;
 
 // Withdraw Methods
   @override
@@ -30,29 +30,30 @@ abstract class InvitationCreateVM
 
   @BuiltValueField(compare: false)
   Future<void> Function({
-    AssetCoin coinInfo,
-    String toAddress,
-    String signCode,
-    String sharePrvKey,
-    String amount,
-    Future<WalletPrivateData> Function() onUnlockWallet,
-    void Function(String txId) onSuccessTransaction,
-    Future<bool> Function(WalletWithdrawData withdrawData) onConfirmParams,
-    Future<bool> Function() onConfirmSubmit,
+    required AssetCoin coinInfo,
+    required String toAddress,
+    required String signCode,
+    required String sharePrvKey,
+    required String amount,
+    required Future<WalletPrivateData> Function() onUnlockWallet,
+    required void Function(String txId) onSuccessTransaction,
+    required Future<bool> Function(WalletWithdrawData withdrawData)
+        onConfirmParams,
+    required Future<bool> Function() onConfirmSubmit,
   }) get doSubmitInvitation;
 
   @override
   @BuiltValueField(compare: false)
   double Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinBalance;
 
   @override
   @BuiltValueField(compare: false)
   AssetCoin Function({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) get getCoinInfo;
 
   @override
@@ -67,73 +68,77 @@ abstract class InvitationCreateVM
   List<AssetCoin> Function() get getInvitationCoins;
 
   static InvitationCreateVM fromStore(Store<AppState> store) {
-    return InvitationCreateVM((viewModel) => viewModel
-      ..walletId = store.state.walletState.activeWalletId
-      ..getInvitationCoins = () {
-        return VMWithInvitation.getInvitationCoins(store);
-      }
-      ..onWithdrawBefore = (params, previousData) {
-        final completer = Completer<WalletWithdrawData>();
-        store.dispatch(WalletActionWithdrawBefore(
-          params: params,
-          completer: completer,
-          previousData: previousData,
-        ));
-        return completer.future;
-      }
-      ..submit = (_, __, [___]) {
-        return Future.value('');
-      }
-      ..doUnlockWallet = (password) {
-        final completer = Completer<WalletPrivateData>();
-        store.dispatch(WalletActionWalletUnlock(password, completer));
-        return completer.future;
-      }
-      ..doSubmitInvitation = ({
-        coinInfo,
-        toAddress,
-        signCode,
-        sharePrvKey,
-        amount,
-        onUnlockWallet,
-        onSuccessTransaction,
-        onConfirmParams,
-        onConfirmSubmit,
-      }) {
-        return store.dispatchFuture(InvitationActionCreateSubmit(
-          coinInfo: coinInfo,
-          toAddress: toAddress,
-          signCode: signCode,
-          sharePrvKey: sharePrvKey,
-          amount: amount,
-          onUnlockWallet: onUnlockWallet,
-          onSuccessTransaction: onSuccessTransaction,
-          onConfirmParams: onConfirmParams,
-          onConfirmSubmit: onConfirmSubmit,
-        ));
-      }
-      ..getCoinInfo = ({chain, symbol}) {
-        return VMWithWalletGetCoinInfoImplement.getCoinInfo(
-          store,
-          chain: chain,
-          symbol: symbol,
-        );
-      }
-      ..getCoinBalance = ({chain, symbol}) {
-        return VMWithAssetGetCoinBalanceImplement.getCoinBalance(
-          store,
-          chain: chain,
-          symbol: symbol,
-        );
-      }
-      ..checkDefiRelation = (fork, toAddress) {
-        final completer = Completer<bool>();
-        store.dispatch(InvitationActionCheckRelationParent(
-          fork: fork,
-          toAddress: toAddress,
-          completer: completer,
-        ));
-        return completer.future;
-      });
+    return InvitationCreateVM(
+      (viewModel) => viewModel
+        ..walletId = store.state.walletState.activeWalletId
+        ..getInvitationCoins = () {
+          return VMWithInvitation.getInvitationCoins(store);
+        }
+        ..onWithdrawBefore = (params, previousData) {
+          final completer = Completer<WalletWithdrawData>();
+          store.dispatch(WalletActionWithdrawBefore(
+            params: params,
+            completer: completer,
+            previousData: previousData,
+          ));
+          return completer.future;
+        }
+        ..submit = (_, __, [Future<bool> Function()? f]) {
+          return Future.value('');
+        }
+        ..doUnlockWallet = (password) {
+          final completer = Completer<WalletPrivateData>();
+          store.dispatch(WalletActionWalletUnlock(password, completer));
+          return completer.future;
+        }
+        ..doSubmitInvitation = ({
+          required coinInfo,
+          required toAddress,
+          required signCode,
+          required sharePrvKey,
+          required amount,
+          required onUnlockWallet,
+          required onSuccessTransaction,
+          required onConfirmParams,
+          required onConfirmSubmit,
+        }) {
+          return store.dispatchAsync(InvitationActionCreateSubmit(
+            coinInfo: coinInfo,
+            toAddress: toAddress,
+            signCode: signCode,
+            sharePrvKey: sharePrvKey,
+            amount: amount,
+            onUnlockWallet: onUnlockWallet,
+            onSuccessTransaction: onSuccessTransaction,
+            onConfirmParams: onConfirmParams,
+            onConfirmSubmit: onConfirmSubmit,
+          ));
+        }
+        ..getCoinInfo = ({required chain, required symbol}) {
+          return VMWithWalletGetCoinInfoImplement.getCoinInfo(
+            store,
+            chain: chain,
+            symbol: symbol,
+          );
+        }
+        ..getCoinBalance = ({required chain, required symbol}) {
+          return VMWithAssetGetCoinBalanceImplement.getCoinBalance(
+            store,
+            chain: chain,
+            symbol: symbol,
+          );
+        }
+        ..checkDefiRelation = (fork, toAddress) {
+          final completer = Completer<bool>();
+          store.dispatch(
+            InvitationActionCheckRelationParent(
+              fork: fork,
+              toAddress: toAddress,
+              completer: completer,
+            ),
+          );
+          return completer.future;
+        },
+    );
   }
 }

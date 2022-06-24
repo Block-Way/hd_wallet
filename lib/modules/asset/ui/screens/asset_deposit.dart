@@ -3,7 +3,7 @@ part of asset_ui_module;
 class AssetDepositPage extends HookWidget {
   AssetDepositPage(
     this.coinInfo, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final AssetCoin coinInfo;
@@ -14,7 +14,7 @@ class AssetDepositPage extends HookWidget {
     AppNavigator.push(routeName, params: item);
   }
 
-  static Route<dynamic> route(RouteSettings settings, [AssetCoin item]) {
+  static Route<dynamic> route(RouteSettings settings, [AssetCoin? item]) {
     return DefaultTransition(
       settings,
       AssetDepositPage(item ?? settings.arguments as AssetCoin),
@@ -26,7 +26,7 @@ class AssetDepositPage extends HookWidget {
   void saveQRCodeView(BuildContext context) {
     LoadingDialog.show(context);
     saveImageState.currentState
-        .capture()
+        ?.capture()
         .whenComplete(() => LoadingDialog.dismiss(context));
   }
 
@@ -34,6 +34,8 @@ class AssetDepositPage extends HookWidget {
   Widget build(BuildContext context) {
     return CSScaffold(
       scrollable: true,
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: tr('asset:deposit_title'),
       child: Stack(
         children: [
@@ -41,31 +43,34 @@ class AssetDepositPage extends HookWidget {
           Container(
             width: context.mediaWidth,
             height: context.mediaHeight * 0.75,
-            color: context.bgSecondaryColor,
+            color: context.mainColor,
           ),
           CSContainer(
+            // decoration: new BoxDecoration(color: Color(0xFF32383E)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 CSContainer(
                   margin: EdgeInsets.zero,
+                  decoration: new BoxDecoration(color: context.cardColor),
                   secondary: true,
                   child: Column(
                     children: [
                       SizedBox(height: context.edgeSize),
                       Text(
                         tr('asset:lbl_coin_name', namedArgs: {
-                          'name': coinInfo.name,
-                          'fullName': coinInfo.fullName,
+                          'name': coinInfo.name ?? '',
+                          'fullName': coinInfo.fullName ?? '',
                         }),
                         style: context.textBody(bold: true),
                       ),
                       SizedBox(height: context.edgeSize),
                       Center(
                         child: CSContainer(
-                          width: null,
+                          // decoration: new BoxDecoration(color: Color(0xFF32383E)),
+                          //width: null,
                           child: QrCodeView(
-                            coinInfo.address,
+                            coinInfo.address ?? '',
                             size: context.mediaWidth * 0.437,
                             padding: EdgeInsets.all(5),
                           ),
@@ -87,7 +92,7 @@ class AssetDepositPage extends HookWidget {
                             containerSize: 20,
                             margin: EdgeInsets.symmetric(horizontal: 2),
                             onPressed: () {
-                              copyTextToClipboard(coinInfo.address);
+                              copyTextToClipboard(coinInfo.address ?? '');
                               Toast.show(tr('global:msg_copy_success'));
                             },
                           ),
@@ -95,10 +100,10 @@ class AssetDepositPage extends HookWidget {
                       ),
                       SizedBox(height: context.edgeSize),
                       Text(
-                        coinInfo.address,
+                        coinInfo.address ?? '',
                         style: context.textSecondary(
                           bold: true,
-                          color: context.bodyColor,
+                          color: context.iconColor,
                         ),
                         textAlign: TextAlign.start,
                       ),
@@ -109,6 +114,8 @@ class AssetDepositPage extends HookWidget {
                 SizedBox(height: 16),
                 CSButton(
                   label: tr('asset:deposit_btn_address_save'),
+                  backgroundColor: context.confirmTopColor,
+                  textColor: context.confirmWordColor,
                   width: context.mediaWidth - 48,
                   onPressed: () {
                     saveQRCodeView(context);
@@ -135,18 +142,18 @@ class AssetDepositPage extends HookWidget {
             SizedBox(height: context.edgeSize),
             Text(
               tr('asset:lbl_coin_name', namedArgs: {
-                'name': coinInfo.name,
-                'fullName': coinInfo.fullName,
+                'name': coinInfo.name ?? '',
+                'fullName': coinInfo.fullName ?? '',
               }),
               style: context.textMedium(bold: true),
             ),
             SizedBox(height: context.edgeSize),
             QrCodeView(
-              coinInfo.address,
+              coinInfo.address ?? '',
               size: context.mediaWidth * 0.5,
               padding: context.edgeAll5,
               backgroundColor: context.bgSecondaryColor,
-              embeddedImage: AssetImage('assets/images/logo.png'),
+              embeddedImage: AssetImage('assets/images/logo.svg'),
               embeddedSize: context.mediaWidth * 0.5 * 0.1,
             ),
             SizedBox(height: context.edgeSize),

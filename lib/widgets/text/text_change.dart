@@ -11,7 +11,7 @@ class TextChange extends StatelessWidget {
     this.autoWidth = false,
     this.isKLine = false,
     this.padding,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   final double change;
@@ -19,10 +19,10 @@ class TextChange extends StatelessWidget {
   final double height;
   final TextSize size;
   final bool hideBackground;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry? alignment;
   final bool autoWidth;
   final bool isKLine;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -49,31 +49,27 @@ class TextChange extends StatelessWidget {
                 ? context.greenColor
                 : context.redColor;
 
-    double _width;
-    TextStyle textStyle;
+    late double? _width;
+    late TextStyle textStyle;
     switch (size) {
       case TextSize.body:
-        textStyle = context.textBodyPrice(
-          bold: true,
-        );
+        textStyle =
+            context.textBodyPrice(bold: true, fontWeight: FontWeight.normal);
         _width = 65;
         break;
       case TextSize.secondary:
         textStyle = context.textSecondaryPrice(
-          bold: true,
-        );
+            bold: true, fontWeight: FontWeight.normal);
         _width = 65;
         break;
       case TextSize.small:
-        textStyle = context.textSmallPrice(
-          bold: true,
-        );
+        textStyle =
+            context.textSmallPrice(bold: true, fontWeight: FontWeight.normal);
         _width = 56;
         break;
       case TextSize.tiny:
-        textStyle = context.textTinyPrice(
-          bold: true,
-        );
+        textStyle =
+            context.textTinyPrice(bold: true, fontWeight: FontWeight.normal);
         _width = 55;
         break;
       default:
@@ -81,7 +77,7 @@ class TextChange extends StatelessWidget {
     }
 
     return Container(
-      width: autoWidth ? null : _width,
+      width: _width,
       height: height,
       padding: padding,
       decoration: hideBackground

@@ -14,8 +14,8 @@ abstract class CommunityTeamVM
 
   @BuiltValueField(compare: false)
   Future<bool> Function({
-    String fork,
-    String fromAddress,
+    required String fork,
+    required String fromAddress,
   }) get checkOnChainData;
 
   // UI Logic
@@ -24,13 +24,15 @@ abstract class CommunityTeamVM
       ..communityConfig = store.state.communityState.config?.toBuilder()
       ..getCommunityTeam = (teamId) {
         final completer = Completer<CommunityTeam>();
-        store.dispatch(CommunityActionGetTeamInfo(
-          completer: completer,
-          teamId: teamId,
-        ));
+        store.dispatch(
+          CommunityActionGetTeamInfo(
+              //completer: completer,
+              //teamId: teamId,
+              ),
+        );
         return completer.future;
       }
-      ..checkOnChainData = ({fork, fromAddress}) {
+      ..checkOnChainData = ({required fork, required fromAddress}) {
         final completer = Completer<bool>();
         store.dispatch(InvitationActionCheckRelationChild(
           fork: fork,

@@ -9,7 +9,7 @@ enum AirdropStatus {
 }
 
 class AirdropTab extends StatelessWidget {
-  const AirdropTab({Key key}) : super(key: key);
+  const AirdropTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

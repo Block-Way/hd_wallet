@@ -4,9 +4,9 @@ const Duration _kExpand = Duration(milliseconds: 200);
 
 class CSExpansionTile extends StatefulWidget {
   const CSExpansionTile({
-    @required this.title,
-    @required this.body,
-    Key key,
+    required this.title,
+    required this.body,
+    Key? key,
     this.leading,
     this.subtitle,
     this.backgroundColor,
@@ -33,7 +33,7 @@ class CSExpansionTile extends StatefulWidget {
   /// A widget to display before the title.
   ///
   /// Typically a [CircleAvatar] widget.
-  final Widget leading;
+  final Widget? leading;
 
   /// The primary content of the list item.
   ///
@@ -43,23 +43,23 @@ class CSExpansionTile extends StatefulWidget {
   /// Additional content displayed below the title.
   ///
   /// Typically a [Text] widget.
-  final Widget subtitle;
+  final Widget? subtitle;
 
   /// Called when the tile expands or collapses.
   ///
   /// When the tile starts expanding, this function is called with the value
   /// true. When the tile starts collapsing, this function is called with
   /// the value false.
-  final ValueChanged<bool> onExpansionChanged;
+  final ValueChanged<bool>? onExpansionChanged;
 
   /// The widget that are displayed when the tile expands.
   final Widget body;
 
   /// The color to display behind the sublist when expanded.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// A widget to display instead of a rotating arrow icon.
-  final Widget trailing;
+  final Widget? trailing;
 
   /// Specifies if the list tile is initially expanded (true)
   /// or collapsed (false, the default).
@@ -84,10 +84,10 @@ class CSExpansionTile extends StatefulWidget {
   ///
   /// When the value is null, the tile's padding
   /// is `EdgeInsets.symmetric(horizontal: 16.0)`.
-  final EdgeInsetsGeometry tilePadding;
-  final EdgeInsetsGeometry tileMargin;
-  final double tileRadius;
-  final BoxDecoration tileDecoration;
+  final EdgeInsetsGeometry? tilePadding;
+  final EdgeInsetsGeometry? tileMargin;
+  final double? tileRadius;
+  final BoxDecoration? tileDecoration;
 
   /// Specifies the alignment of [children], which are arranged in a column when
   /// the tile is expanded.
@@ -106,7 +106,7 @@ class CSExpansionTile extends StatefulWidget {
   ///
   /// When the value is null,
   /// the value of `expandedAlignment` is [Alignment.center].
-  final Alignment expandedAlignment;
+  final Alignment? expandedAlignment;
 
   /// Specifies the alignment of each
   /// child within [children] when the tile is expanded.
@@ -128,13 +128,13 @@ class CSExpansionTile extends StatefulWidget {
   ///
   /// When the value is null, the value
   /// of `expandedCrossAxisAlignment` is [CrossAxisAlignment.center].
-  final CrossAxisAlignment expandedCrossAxisAlignment;
+  final CrossAxisAlignment? expandedCrossAxisAlignment;
 
   /// Specifies padding for [children].
   ///
   /// When the value is null,
   /// the value of `childrenPadding` is [EdgeInsets.zero].
-  final EdgeInsetsGeometry childrenPadding;
+  final EdgeInsetsGeometry? childrenPadding;
 
   @override
   _CSExpansionTileState createState() => _CSExpansionTileState();
@@ -150,9 +150,9 @@ class _CSExpansionTileState extends State<CSExpansionTile>
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-  AnimationController _controller;
-  Animation<double> _iconTurns;
-  Animation<double> _heightFactor;
+  late AnimationController _controller;
+  late Animation<double> _iconTurns;
+  late Animation<double> _heightFactor;
   // Animation<Color> _backgroundColor;
 
   bool _isExpanded = false;
@@ -169,8 +169,7 @@ class _CSExpansionTileState extends State<CSExpansionTile>
     // _backgroundColor =
     //     _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
-    _isExpanded = PageStorage.of(context)?.readState(context) as bool ??
-        widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) as bool;
     if (_isExpanded) {
       _controller.value = 1.0;
     }
@@ -200,24 +199,24 @@ class _CSExpansionTileState extends State<CSExpansionTile>
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null) {
-      widget.onExpansionChanged(_isExpanded);
+      widget.onExpansionChanged!(_isExpanded);
     }
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     return CSContainer(
       margin: widget.tileMargin,
       padding: EdgeInsets.zero,
-      radius: widget.tileRadius,
+      radius: widget.tileRadius!,
       onTap: _handleTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: widget.tilePadding,
+            padding: widget.tilePadding!,
             child: Row(
               children: [
-                if (widget.leading != null) widget.leading,
+                if (widget.leading != null) widget.leading!,
                 widget.title,
                 Spacer(),
                 RotationTransition(

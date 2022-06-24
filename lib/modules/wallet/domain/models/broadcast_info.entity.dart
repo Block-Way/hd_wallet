@@ -18,11 +18,11 @@ enum BroadcastTxType {
 @HiveType(typeId: kHiveTypeBroadcastTxInfo)
 class BroadcastTxInfo extends HiveObject {
   BroadcastTxInfo({
-    @required this.chain,
-    @required this.symbol,
-    @required this.type,
-    @required this.txId,
-    @required this.apiParams,
+    required this.chain,
+    required this.symbol,
+    required this.type,
+    required this.txId,
+    required this.apiParams,
   }) {
     createdAt = DateTime.now();
     isSubmitted = false;
@@ -39,13 +39,13 @@ class BroadcastTxInfo extends HiveObject {
   String txId;
 
   @HiveField(4)
-  bool isSubmitted;
+  late bool isSubmitted;
 
   @HiveField(5)
-  String apiParams;
+  late String apiParams;
 
   @HiveField(6)
-  DateTime createdAt;
+  late DateTime createdAt;
   @HiveField(7)
-  DateTime updatedAt;
+  late DateTime updatedAt;
 }

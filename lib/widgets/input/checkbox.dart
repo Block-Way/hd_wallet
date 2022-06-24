@@ -2,18 +2,18 @@ part of widgets;
 
 class CSCheckBox extends HookWidget {
   const CSCheckBox({
-    @required this.label,
-    @required this.value,
-    @required this.onChanged,
-    Key key,
+    required this.label,
+    required this.value,
+    required this.onChanged,
+    Key? key,
     this.labelChildren,
     this.alignment,
   }) : super(key: key);
 
   final String label;
   final bool value;
-  final MainAxisAlignment alignment;
-  final InlineSpan labelChildren;
+  final MainAxisAlignment? alignment;
+  final InlineSpan? labelChildren;
   final ValueChanged<bool> onChanged;
 
   @override
@@ -65,7 +65,7 @@ class CSCheckBox extends HookWidget {
             text: TextSpan(
               text: label,
               style: context.textSecondary(),
-              children: labelChildren != null ? [labelChildren] : null,
+              children: labelChildren != null ? [labelChildren!] : null,
             ),
           ),
         ],

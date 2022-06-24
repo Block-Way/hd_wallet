@@ -15,11 +15,11 @@ abstract class VMWithWalletWithdraw {
   ]) get submit;
 
   @BuiltValueField(compare: false)
-  double Function({@required String chain, @required String symbol})
+  double Function({required String chain, required String symbol})
       get getCoinBalance;
 
   @BuiltValueField(compare: false)
-  AssetCoin Function({@required String chain, @required String symbol})
+  AssetCoin Function({required String chain, required String symbol})
       get getCoinInfo;
 
   @BuiltValueField(compare: false)
@@ -29,8 +29,8 @@ abstract class VMWithWalletWithdraw {
 class VMWithWalletGetCoinInfoImplement {
   static AssetCoin getCoinInfo(
     Store<AppState> store, {
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) {
     return store.state.assetState.getCoinInfo(
       chain: chain,

@@ -3,13 +3,13 @@ part of trade_ui_module;
 class TradeOrderDetailPage extends HookWidget {
   const TradeOrderDetailPage(
     this.paramsOrderInfo, {
-    Key key,
+    Key? key,
   }) : super(key: key);
   final TradeOrder paramsOrderInfo;
 
   static const routeName = '/trade/order/detail';
 
-  static Future<bool> open(
+  static Future<bool?>? open(
     TradeOrder paramsOrderInfo,
   ) {
     return AppNavigator.push<bool>(routeName, params: paramsOrderInfo);
@@ -18,7 +18,7 @@ class TradeOrderDetailPage extends HookWidget {
   static Route<bool> route(RouteSettings settings) {
     return DefaultTransition(
       settings,
-      TradeOrderDetailPage(settings.arguments as TradeOrder),
+      TradeOrderDetailPage(settings.arguments! as TradeOrder),
     );
   }
 
@@ -31,7 +31,7 @@ class TradeOrderDetailPage extends HookWidget {
     BuildContext context,
     TradeOrder detail,
     TradeOrderDetailVM viewModel, {
-    double balance,
+    double? balance,
   }) {
     final precision = GetIt.I<CoinConfig>().getDealPrecision(detail.symbol);
     final infoList = [
@@ -43,15 +43,21 @@ class TradeOrderDetailPage extends HookWidget {
         ),
       },
       {
-        'label': tr('trade:order_lbl_price', namedArgs: {
-          'symbol': detail.priceSymbol,
-        }),
+        'label': tr(
+          'trade:order_lbl_price',
+          namedArgs: {
+            'symbol': detail.priceSymbol,
+          },
+        ),
         'value': NumberUtil.truncateDecimal<String>(detail.price, 8),
       },
       {
-        'label': tr('trade:order_lbl_amount', namedArgs: {
-          'symbol': detail.tradeSymbol,
-        }),
+        'label': tr(
+          'trade:order_lbl_amount',
+          namedArgs: {
+            'symbol': detail.tradeSymbol,
+          },
+        ),
         'value': NumberUtil.truncateDecimal<String>(detail.amount, 8),
       },
       {
@@ -60,14 +66,18 @@ class TradeOrderDetailPage extends HookWidget {
         'value': NumberUtil.truncateDecimal<String>(detail.avgPrice, 8),
       },
       {
-        'label': tr('trade:order_lbl_trade_total',
-            namedArgs: {'symbol': detail.tradeSymbol}),
+        'label': tr(
+          'trade:order_lbl_trade_total',
+          namedArgs: {'symbol': detail.tradeSymbol},
+        ),
         'value': NumberUtil.truncateDecimal<String>(detail.filled, 8),
       },
       {
-        'label': tr('trade:order_lbl_remaining',
-            namedArgs: {'symbol': detail.symbol}),
-        'value': balance >= 0
+        'label': tr(
+          'trade:order_lbl_remaining',
+          namedArgs: {'symbol': detail.symbol},
+        ),
+        'value': (balance ?? 0) >= 0
             ? NumberUtil.truncateDecimal<String>(balance, precision)
             : '-',
       },
@@ -75,13 +85,13 @@ class TradeOrderDetailPage extends HookWidget {
         'label': detail.isChainUseApiRawTx
             ? tr('trade:order_lbl_template_key')
             : tr('trade:order_lbl_template_address'),
-        'value': detail.templateId ?? '',
+        'value': detail.templateId,
         'showCopyBtn': true,
         'fullWidth': true,
       },
       {
         'label': tr('trade:order_lbl_txid'),
-        'value': detail.txId ?? '-',
+        'value': detail.txId,
         'showCopyBtn': true,
         'fullWidth': true,
       },
@@ -107,7 +117,10 @@ class TradeOrderDetailPage extends HookWidget {
                     item['label'].toString(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: context.textTiny(),
+                    style: context.textTiny(
+                      bold: true,
+                      fontWeight: FontWeight.normal,
+                    ),
                     textAlign: TextAlign.start,
                   ),
                   SizedBox(height: 10),
@@ -127,6 +140,8 @@ class TradeOrderDetailPage extends HookWidget {
                           overflow: TextOverflow.ellipsis,
                           style: context.textSecondary(
                             color: context.bodyColor,
+                            bold: true,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
@@ -157,15 +172,15 @@ class TradeOrderDetailPage extends HookWidget {
     BuildContext context,
     TradeOrder detail,
     TradeOrderDetailVM viewModel, {
-    TradeOrderDetailItem data,
-    bool isLast,
-    bool isExchange,
+    TradeOrderDetailItem? data,
+    bool? isLast,
+    bool? isExchange,
   }) {
     final infoList = [
       {
         'label': tr('trade:order_lbl_time'),
         'value': formatDate(
-          DateTime.fromMillisecondsSinceEpoch(data.createdAt * 1000),
+          DateTime.fromMillisecondsSinceEpoch((data?.createdAt ?? 0) * 1000),
           'MM.dd HH:mm:ss',
         ),
       },
@@ -174,21 +189,21 @@ class TradeOrderDetailPage extends HookWidget {
           'trade:order_lbl_final_price',
           namedArgs: {'symbol': detail.priceSymbol},
         ),
-        'value': data.matchPrice,
+        'value': data?.matchPrice,
       },
       {
         'label': tr(
           'trade:order_lbl_quantity',
           namedArgs: {'symbol': detail.tradeSymbol},
         ),
-        'value': data.amount,
+        'value': data?.amount,
       },
       if (isExchange != true)
         {
           'label': detail.isChainUseApiRawTx
               ? tr('trade:order_lbl_template_key')
               : tr('trade:order_lbl_template_address'),
-          'value': data.matchId,
+          'value': data?.matchId,
           'showCopyBtn': true,
         },
       if (isExchange == true)
@@ -199,19 +214,19 @@ class TradeOrderDetailPage extends HookWidget {
               'symbol': detail.isBuy ? detail.tradeSymbol : detail.priceSymbol
             },
           ),
-          'value': data.fee,
+          'value': data?.fee,
         },
       if (isExchange == true)
         {
           'label': tr('trade:order_lbl_txid'),
-          'value': data.txId,
+          'value': data?.txId,
           'showCopyBtn': true,
         },
     ];
     return Container(
       width: context.mediaWidth,
       padding: context.edgeBottom16,
-      decoration: !isLast
+      decoration: !(isLast ?? false)
           ? context.boxCardBorder(
               borderColor: context.greyColor,
               borderWidth: 0.5,
@@ -230,7 +245,10 @@ class TradeOrderDetailPage extends HookWidget {
                 children: [
                   Text(
                     item['label'].toString(),
-                    style: context.textSecondary(),
+                    style: context.textSecondary(
+                      bold: true,
+                      fontWeight: FontWeight.normal,
+                    ),
                   ),
                   Row(
                     children: [
@@ -244,7 +262,11 @@ class TradeOrderDetailPage extends HookWidget {
                                     endKeep: 6,
                                   )
                                 : item['value'].toString(),
-                        style: context.textSecondary(color: context.bodyColor),
+                        style: context.textSecondary(
+                          color: context.bodyColor,
+                          bold: true,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                       if (item['showCopyBtn'] == true &&
                           item['value'] != null &&
@@ -281,7 +303,7 @@ class TradeOrderDetailPage extends HookWidget {
     void getOrderDetail(TradeOrderDetailVM viewModel, TradeOrder order) {
       if (order.isConfirming == false && order.isFailed == false) {
         LoadingDialog.show(context);
-        viewModel.getOrderDetail(order.txId).then((value) {
+        viewModel.getOrderDetail?.call(order.txId).then((value) {
           LoadingDialog.dismiss(context);
           orderDetailInfo.value = value;
         }).catchError((error) {
@@ -296,7 +318,7 @@ class TradeOrderDetailPage extends HookWidget {
       child: StoreConnector<AppState, TradeOrderDetailVM>(
         distinct: true,
         converter: TradeOrderDetailVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           // Get balance
           viewModel
               .getOrderBalance(order)
@@ -307,7 +329,7 @@ class TradeOrderDetailPage extends HookWidget {
             LoadingDialog.show(context);
             viewModel.doOrderCheckStatus(order).then((value) {
               LoadingDialog.dismiss(context);
-              orderInfo.value = value ?? order;
+              orderInfo.value = value;
               getOrderDetail(viewModel, orderInfo.value);
             }).catchError((error) {
               LoadingDialog.dismiss(context);
@@ -340,7 +362,10 @@ class TradeOrderDetailPage extends HookWidget {
                             ),
                             Text(
                               tr(order.statusTransKey),
-                              style: context.textSmall(),
+                              style: context.textSmall(
+                                bold: true,
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ],
                         ),
@@ -354,7 +379,7 @@ class TradeOrderDetailPage extends HookWidget {
                       ],
                     ),
                   ),
-                  if (orderDetailInfo.value?.hasMatchList == true)
+                  if (orderDetailInfo.value.hasMatchList == true)
                     CSContainer(
                       margin: context.edgeAll.copyWith(top: 0),
                       padding: context.edgeAll8.copyWith(
@@ -369,9 +394,10 @@ class TradeOrderDetailPage extends HookWidget {
                             style: context.textSecondary(
                               bold: true,
                               color: context.bodyColor,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
-                          ...orderDetailInfo.value.matchList
+                          ...orderDetailInfo.value.matchList!
                               .asMap()
                               .entries
                               .map(
@@ -381,14 +407,16 @@ class TradeOrderDetailPage extends HookWidget {
                                   viewModel,
                                   data: entry.value,
                                   isLast: (entry.key + 1) ==
-                                      orderDetailInfo.value.matchList.length,
+                                      (orderDetailInfo
+                                              .value.matchList?.length ??
+                                          0),
                                   isExchange: false,
                                 ),
                               ),
                         ],
                       ),
                     ),
-                  if (orderDetailInfo.value?.hasExchangeList == true)
+                  if (orderDetailInfo.value.hasExchangeList == true)
                     CSContainer(
                       margin: context.edgeAll.copyWith(
                         top: 0,
@@ -404,10 +432,11 @@ class TradeOrderDetailPage extends HookWidget {
                             tr('trade:order_detail_lbl_transaction'),
                             style: context.textSecondary(
                               bold: true,
+                              fontWeight: FontWeight.normal,
                               color: context.bodyColor,
                             ),
                           ),
-                          ...orderDetailInfo.value.exchangeList
+                          ...orderDetailInfo.value.exchangeList!
                               .asMap()
                               .entries
                               .map(
@@ -417,7 +446,9 @@ class TradeOrderDetailPage extends HookWidget {
                                   viewModel,
                                   data: entry.value,
                                   isLast: entry.key + 1 ==
-                                      orderDetailInfo.value.exchangeList.length,
+                                      (orderDetailInfo
+                                              .value.exchangeList?.length ??
+                                          0),
                                   isExchange: true,
                                 ),
                               ),

@@ -2,10 +2,10 @@ part of widgets;
 
 class CirclePainter extends CustomPainter {
   CirclePainter({
-    @required this.center,
-    @required this.radius,
-    @required this.radians,
-    @required this.colors,
+    required this.center,
+    required this.radius,
+    required this.radians,
+    required this.colors,
     this.stops,
   });
 
@@ -13,7 +13,7 @@ class CirclePainter extends CustomPainter {
   double radius;
   double radians;
   List<Color> colors;
-  List<double> stops;
+  List<double>? stops;
 
   @override
   void paint(Canvas canvas, Size size) {

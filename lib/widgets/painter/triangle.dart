@@ -8,13 +8,13 @@ class TrianglePainter extends CustomPainter {
   });
 
   bool isDown;
-  Color color;
+  Color? color;
 
   @override
   void paint(Canvas canvas, Size size) {
     final _paint = Paint();
     _paint.strokeWidth = 2.0;
-    _paint.color = color;
+    _paint.color = color!;
     _paint.style = PaintingStyle.fill;
 
     final path = Path();

@@ -33,7 +33,7 @@ class HDKeyDevice {
   final _statusChanged = BehaviorSubject<HDKeyDeviceStatus>();
   final _deviceAttached = StreamController<bool>.broadcast();
   final _walletCreated = StreamController<Wallet>.broadcast();
-  String _connectedWalletId;
+  late String _connectedWalletId;
 
   Stream<HDKeyDeviceStatus> get statusChanged => _statusChanged.stream;
   Stream<bool> get deviceAttached => _deviceAttached.stream;
@@ -58,7 +58,7 @@ class HDKeyDevice {
       switch (event?.toString()) {
         case 'DeviceAttached':
           _deviceAttached.add(true);
-          _connectedWalletId = null;
+          //_connectedWalletId = null;
           _emitStatus(HDKeyDeviceStatus.connecting);
 
           if (kDebugMode) {
@@ -87,7 +87,7 @@ class HDKeyDevice {
           break;
         case 'DeviceDetached':
           _deviceAttached.add(false);
-          _connectedWalletId = null;
+          //_connectedWalletId = null;
           _emitStatus(HDKeyDeviceStatus.disconnected);
           break;
         default:
@@ -106,7 +106,7 @@ class HDKeyDevice {
   // Methods
 
   // @visibleForTesting
-  Future<void> testDeviceConnection({bool isConnected}) async {
+  Future<void> testDeviceConnection({required bool isConnected}) async {
     if (isConnected) {
       return HDKeyCore.testDeviceDetached();
     }
@@ -142,7 +142,7 @@ class HDKeyDevice {
         }
       });
 
-      await HDKeyCore.writeSecret(secret: 0, data: mnemonic);
+      await HDKeyCore.writeSecret(secret: 0, data: mnemonic!);
       return true;
     } catch (e) {
       // 重置钱包，为了去掉有问题的 币种地址
@@ -172,8 +172,8 @@ class HDKeyDevice {
           return CoinAddress(
             chain: item.key,
             symbol: item.key,
-            address: coin.address,
-            publicKey: coin.publicKey,
+            address: coin?.address ?? '',
+            publicKey: coin?.publicKey ?? '',
           );
         }).toList();
 
@@ -198,8 +198,8 @@ class HDKeyDevice {
   }
 
   Future<bool> changePinCode({
-    @required String oldPinCode,
-    @required String newPinCode,
+    required String oldPinCode,
+    required String newPinCode,
   }) async {
     return HDKeyCore.changePin(oldPin: oldPinCode, newPin: newPinCode);
   }

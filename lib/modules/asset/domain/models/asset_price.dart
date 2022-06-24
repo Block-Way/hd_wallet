@@ -6,14 +6,14 @@ abstract class AssetPrice implements Built<AssetPrice, AssetPriceBuilder> {
   AssetPrice._();
 
   factory AssetPrice.fromJson(Map<String, dynamic> json) {
-    return deserialize<AssetPrice>(json);
+    return deserialize<AssetPrice>(json)!;
   }
 
   factory AssetPrice.fromPrice({
-    @required String tradePairId,
-    @required int precision,
-    @required double price,
-    @required double price24h,
+    required String tradePairId,
+    required int precision,
+    required double price,
+    required double price24h,
   }) =>
       AssetPrice(
         (b) => b
@@ -24,9 +24,9 @@ abstract class AssetPrice implements Built<AssetPrice, AssetPriceBuilder> {
       );
 
   factory AssetPrice.fromApi({
-    @required String tradePairId,
-    @required int precision,
-    @required Map<String, dynamic> json,
+    required String tradePairId,
+    required int precision,
+    required Map<String, dynamic> json,
   }) =>
       AssetPrice(
         (b) => b
@@ -57,5 +57,5 @@ abstract class AssetPrice implements Built<AssetPrice, AssetPriceBuilder> {
 
   double get change => (price <= 0 || price24h <= 0)
       ? 0
-      : NumberUtil.divide<double>(price - price24h, price24h) * 100;
+      : NumberUtil.getDoubleByTwo(price - price24h, price24h);
 }

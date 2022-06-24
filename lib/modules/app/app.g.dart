@@ -8,19 +8,19 @@ part of app_module;
 
 class _$ModulePermissionVM extends ModulePermissionVM {
   @override
-  final int configState;
+  final int? configState;
   @override
-  final int tradeConfigState;
+  final int? tradeConfigState;
   @override
-  final int investConfigState;
+  final int? investConfigState;
   @override
-  final int swapConfigState;
+  final int? swapConfigState;
   @override
-  final int communityConfigState;
+  final int? communityConfigState;
   @override
-  final ConfigUpdateData newVersionData;
+  final ConfigUpdateData? newVersionData;
   @override
-  final BuiltMap<String, String> disabledModules;
+  final BuiltMap<String, String>? disabledModules;
   @override
   final Future<bool> Function(
           String moduleName, ModulePermissionState permission)
@@ -29,8 +29,8 @@ class _$ModulePermissionVM extends ModulePermissionVM {
   final ModulePermissionState Function(String moduleName) getModulePermission;
 
   factory _$ModulePermissionVM(
-          [void Function(ModulePermissionVMBuilder) updates]) =>
-      (new ModulePermissionVMBuilder()..update(updates)).build();
+          [void Function(ModulePermissionVMBuilder)? updates]) =>
+      (new ModulePermissionVMBuilder()..update(updates))._build();
 
   _$ModulePermissionVM._(
       {this.configState,
@@ -40,17 +40,13 @@ class _$ModulePermissionVM extends ModulePermissionVM {
       this.communityConfigState,
       this.newVersionData,
       this.disabledModules,
-      this.doRefreshModulePermission,
-      this.getModulePermission})
+      required this.doRefreshModulePermission,
+      required this.getModulePermission})
       : super._() {
-    if (doRefreshModulePermission == null) {
-      throw new BuiltValueNullFieldError(
-          'ModulePermissionVM', 'doRefreshModulePermission');
-    }
-    if (getModulePermission == null) {
-      throw new BuiltValueNullFieldError(
-          'ModulePermissionVM', 'getModulePermission');
-    }
+    BuiltValueNullFieldError.checkNotNull(doRefreshModulePermission,
+        r'ModulePermissionVM', 'doRefreshModulePermission');
+    BuiltValueNullFieldError.checkNotNull(
+        getModulePermission, r'ModulePermissionVM', 'getModulePermission');
   }
 
   @override
@@ -93,7 +89,7 @@ class _$ModulePermissionVM extends ModulePermissionVM {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ModulePermissionVM')
+    return (newBuiltValueToStringHelper(r'ModulePermissionVM')
           ..add('configState', configState)
           ..add('tradeConfigState', tradeConfigState)
           ..add('investConfigState', investConfigState)
@@ -109,75 +105,76 @@ class _$ModulePermissionVM extends ModulePermissionVM {
 
 class ModulePermissionVMBuilder
     implements Builder<ModulePermissionVM, ModulePermissionVMBuilder> {
-  _$ModulePermissionVM _$v;
+  _$ModulePermissionVM? _$v;
 
-  int _configState;
-  int get configState => _$this._configState;
-  set configState(int configState) => _$this._configState = configState;
+  int? _configState;
+  int? get configState => _$this._configState;
+  set configState(int? configState) => _$this._configState = configState;
 
-  int _tradeConfigState;
-  int get tradeConfigState => _$this._tradeConfigState;
-  set tradeConfigState(int tradeConfigState) =>
+  int? _tradeConfigState;
+  int? get tradeConfigState => _$this._tradeConfigState;
+  set tradeConfigState(int? tradeConfigState) =>
       _$this._tradeConfigState = tradeConfigState;
 
-  int _investConfigState;
-  int get investConfigState => _$this._investConfigState;
-  set investConfigState(int investConfigState) =>
+  int? _investConfigState;
+  int? get investConfigState => _$this._investConfigState;
+  set investConfigState(int? investConfigState) =>
       _$this._investConfigState = investConfigState;
 
-  int _swapConfigState;
-  int get swapConfigState => _$this._swapConfigState;
-  set swapConfigState(int swapConfigState) =>
+  int? _swapConfigState;
+  int? get swapConfigState => _$this._swapConfigState;
+  set swapConfigState(int? swapConfigState) =>
       _$this._swapConfigState = swapConfigState;
 
-  int _communityConfigState;
-  int get communityConfigState => _$this._communityConfigState;
-  set communityConfigState(int communityConfigState) =>
+  int? _communityConfigState;
+  int? get communityConfigState => _$this._communityConfigState;
+  set communityConfigState(int? communityConfigState) =>
       _$this._communityConfigState = communityConfigState;
 
-  ConfigUpdateDataBuilder _newVersionData;
+  ConfigUpdateDataBuilder? _newVersionData;
   ConfigUpdateDataBuilder get newVersionData =>
       _$this._newVersionData ??= new ConfigUpdateDataBuilder();
-  set newVersionData(ConfigUpdateDataBuilder newVersionData) =>
+  set newVersionData(ConfigUpdateDataBuilder? newVersionData) =>
       _$this._newVersionData = newVersionData;
 
-  MapBuilder<String, String> _disabledModules;
+  MapBuilder<String, String>? _disabledModules;
   MapBuilder<String, String> get disabledModules =>
       _$this._disabledModules ??= new MapBuilder<String, String>();
-  set disabledModules(MapBuilder<String, String> disabledModules) =>
+  set disabledModules(MapBuilder<String, String>? disabledModules) =>
       _$this._disabledModules = disabledModules;
 
-  Future<bool> Function(String moduleName, ModulePermissionState permission)
+  Future<bool> Function(String moduleName, ModulePermissionState permission)?
       _doRefreshModulePermission;
-  Future<bool> Function(String moduleName, ModulePermissionState permission)
+  Future<bool> Function(String moduleName, ModulePermissionState permission)?
       get doRefreshModulePermission => _$this._doRefreshModulePermission;
   set doRefreshModulePermission(
           Future<bool> Function(
-                  String moduleName, ModulePermissionState permission)
+                  String moduleName, ModulePermissionState permission)?
               doRefreshModulePermission) =>
       _$this._doRefreshModulePermission = doRefreshModulePermission;
 
-  ModulePermissionState Function(String moduleName) _getModulePermission;
-  ModulePermissionState Function(String moduleName) get getModulePermission =>
+  ModulePermissionState Function(String moduleName)? _getModulePermission;
+  ModulePermissionState Function(String moduleName)? get getModulePermission =>
       _$this._getModulePermission;
   set getModulePermission(
-          ModulePermissionState Function(String moduleName)
+          ModulePermissionState Function(String moduleName)?
               getModulePermission) =>
       _$this._getModulePermission = getModulePermission;
 
   ModulePermissionVMBuilder();
 
   ModulePermissionVMBuilder get _$this {
-    if (_$v != null) {
-      _configState = _$v.configState;
-      _tradeConfigState = _$v.tradeConfigState;
-      _investConfigState = _$v.investConfigState;
-      _swapConfigState = _$v.swapConfigState;
-      _communityConfigState = _$v.communityConfigState;
-      _newVersionData = _$v.newVersionData?.toBuilder();
-      _disabledModules = _$v.disabledModules?.toBuilder();
-      _doRefreshModulePermission = _$v.doRefreshModulePermission;
-      _getModulePermission = _$v.getModulePermission;
+    final $v = _$v;
+    if ($v != null) {
+      _configState = $v.configState;
+      _tradeConfigState = $v.tradeConfigState;
+      _investConfigState = $v.investConfigState;
+      _swapConfigState = $v.swapConfigState;
+      _communityConfigState = $v.communityConfigState;
+      _newVersionData = $v.newVersionData?.toBuilder();
+      _disabledModules = $v.disabledModules?.toBuilder();
+      _doRefreshModulePermission = $v.doRefreshModulePermission;
+      _getModulePermission = $v.getModulePermission;
       _$v = null;
     }
     return this;
@@ -185,19 +182,19 @@ class ModulePermissionVMBuilder
 
   @override
   void replace(ModulePermissionVM other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ModulePermissionVM;
   }
 
   @override
-  void update(void Function(ModulePermissionVMBuilder) updates) {
+  void update(void Function(ModulePermissionVMBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ModulePermissionVM build() {
+  ModulePermissionVM build() => _build();
+
+  _$ModulePermissionVM _build() {
     _$ModulePermissionVM _$result;
     try {
       _$result = _$v ??
@@ -209,10 +206,16 @@ class ModulePermissionVMBuilder
               communityConfigState: communityConfigState,
               newVersionData: _newVersionData?.build(),
               disabledModules: _disabledModules?.build(),
-              doRefreshModulePermission: doRefreshModulePermission,
-              getModulePermission: getModulePermission);
+              doRefreshModulePermission: BuiltValueNullFieldError.checkNotNull(
+                  doRefreshModulePermission,
+                  r'ModulePermissionVM',
+                  'doRefreshModulePermission'),
+              getModulePermission: BuiltValueNullFieldError.checkNotNull(
+                  getModulePermission,
+                  r'ModulePermissionVM',
+                  'getModulePermission'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'newVersionData';
         _newVersionData?.build();
@@ -220,7 +223,7 @@ class ModulePermissionVMBuilder
         _disabledModules?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ModulePermissionVM', _$failedField, e.toString());
+            r'ModulePermissionVM', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -241,8 +244,6 @@ class _$AppState extends AppState {
   @override
   final HomeState homeState;
   @override
-  final SwapState swapState;
-  @override
   final TradeState tradeState;
   @override
   final InvitationState invitationState;
@@ -257,63 +258,46 @@ class _$AppState extends AppState {
   @override
   final ProjectState projectState;
 
-  factory _$AppState([void Function(AppStateBuilder) updates]) =>
-      (new AppStateBuilder()..update(updates)).build();
+  factory _$AppState([void Function(AppStateBuilder)? updates]) =>
+      (new AppStateBuilder()..update(updates))._build();
 
   _$AppState._(
-      {this.commonState,
-      this.assetState,
-      this.walletState,
-      this.noticeState,
-      this.homeState,
-      this.swapState,
-      this.tradeState,
-      this.invitationState,
-      this.communityState,
-      this.hdkeyState,
-      this.investState,
-      this.admissionState,
-      this.projectState})
+      {required this.commonState,
+      required this.assetState,
+      required this.walletState,
+      required this.noticeState,
+      required this.homeState,
+      required this.tradeState,
+      required this.invitationState,
+      required this.communityState,
+      required this.hdkeyState,
+      required this.investState,
+      required this.admissionState,
+      required this.projectState})
       : super._() {
-    if (commonState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'commonState');
-    }
-    if (assetState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'assetState');
-    }
-    if (walletState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'walletState');
-    }
-    if (noticeState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'noticeState');
-    }
-    if (homeState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'homeState');
-    }
-    if (swapState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'swapState');
-    }
-    if (tradeState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'tradeState');
-    }
-    if (invitationState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'invitationState');
-    }
-    if (communityState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'communityState');
-    }
-    if (hdkeyState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'hdkeyState');
-    }
-    if (investState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'investState');
-    }
-    if (admissionState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'admissionState');
-    }
-    if (projectState == null) {
-      throw new BuiltValueNullFieldError('AppState', 'projectState');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        commonState, r'AppState', 'commonState');
+    BuiltValueNullFieldError.checkNotNull(
+        assetState, r'AppState', 'assetState');
+    BuiltValueNullFieldError.checkNotNull(
+        walletState, r'AppState', 'walletState');
+    BuiltValueNullFieldError.checkNotNull(
+        noticeState, r'AppState', 'noticeState');
+    BuiltValueNullFieldError.checkNotNull(homeState, r'AppState', 'homeState');
+    BuiltValueNullFieldError.checkNotNull(
+        tradeState, r'AppState', 'tradeState');
+    BuiltValueNullFieldError.checkNotNull(
+        invitationState, r'AppState', 'invitationState');
+    BuiltValueNullFieldError.checkNotNull(
+        communityState, r'AppState', 'communityState');
+    BuiltValueNullFieldError.checkNotNull(
+        hdkeyState, r'AppState', 'hdkeyState');
+    BuiltValueNullFieldError.checkNotNull(
+        investState, r'AppState', 'investState');
+    BuiltValueNullFieldError.checkNotNull(
+        admissionState, r'AppState', 'admissionState');
+    BuiltValueNullFieldError.checkNotNull(
+        projectState, r'AppState', 'projectState');
   }
 
   @override
@@ -332,7 +316,6 @@ class _$AppState extends AppState {
         walletState == other.walletState &&
         noticeState == other.noticeState &&
         homeState == other.homeState &&
-        swapState == other.swapState &&
         tradeState == other.tradeState &&
         invitationState == other.invitationState &&
         communityState == other.communityState &&
@@ -354,15 +337,11 @@ class _$AppState extends AppState {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(0,
-                                                        commonState.hashCode),
-                                                    assetState.hashCode),
-                                                walletState.hashCode),
-                                            noticeState.hashCode),
-                                        homeState.hashCode),
-                                    swapState.hashCode),
+                                            $jc($jc(0, commonState.hashCode),
+                                                assetState.hashCode),
+                                            walletState.hashCode),
+                                        noticeState.hashCode),
+                                    homeState.hashCode),
                                 tradeState.hashCode),
                             invitationState.hashCode),
                         communityState.hashCode),
@@ -374,13 +353,12 @@ class _$AppState extends AppState {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AppState')
+    return (newBuiltValueToStringHelper(r'AppState')
           ..add('commonState', commonState)
           ..add('assetState', assetState)
           ..add('walletState', walletState)
           ..add('noticeState', noticeState)
           ..add('homeState', homeState)
-          ..add('swapState', swapState)
           ..add('tradeState', tradeState)
           ..add('invitationState', invitationState)
           ..add('communityState', communityState)
@@ -393,101 +371,96 @@ class _$AppState extends AppState {
 }
 
 class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
-  _$AppState _$v;
+  _$AppState? _$v;
 
-  CommonStateBuilder _commonState;
+  CommonStateBuilder? _commonState;
   CommonStateBuilder get commonState =>
       _$this._commonState ??= new CommonStateBuilder();
-  set commonState(CommonStateBuilder commonState) =>
+  set commonState(CommonStateBuilder? commonState) =>
       _$this._commonState = commonState;
 
-  AssetStateBuilder _assetState;
+  AssetStateBuilder? _assetState;
   AssetStateBuilder get assetState =>
       _$this._assetState ??= new AssetStateBuilder();
-  set assetState(AssetStateBuilder assetState) =>
+  set assetState(AssetStateBuilder? assetState) =>
       _$this._assetState = assetState;
 
-  WalletStateBuilder _walletState;
+  WalletStateBuilder? _walletState;
   WalletStateBuilder get walletState =>
       _$this._walletState ??= new WalletStateBuilder();
-  set walletState(WalletStateBuilder walletState) =>
+  set walletState(WalletStateBuilder? walletState) =>
       _$this._walletState = walletState;
 
-  NoticeStateBuilder _noticeState;
+  NoticeStateBuilder? _noticeState;
   NoticeStateBuilder get noticeState =>
       _$this._noticeState ??= new NoticeStateBuilder();
-  set noticeState(NoticeStateBuilder noticeState) =>
+  set noticeState(NoticeStateBuilder? noticeState) =>
       _$this._noticeState = noticeState;
 
-  HomeStateBuilder _homeState;
+  HomeStateBuilder? _homeState;
   HomeStateBuilder get homeState =>
       _$this._homeState ??= new HomeStateBuilder();
-  set homeState(HomeStateBuilder homeState) => _$this._homeState = homeState;
+  set homeState(HomeStateBuilder? homeState) => _$this._homeState = homeState;
 
-  SwapStateBuilder _swapState;
-  SwapStateBuilder get swapState =>
-      _$this._swapState ??= new SwapStateBuilder();
-  set swapState(SwapStateBuilder swapState) => _$this._swapState = swapState;
-
-  TradeStateBuilder _tradeState;
+  TradeStateBuilder? _tradeState;
   TradeStateBuilder get tradeState =>
       _$this._tradeState ??= new TradeStateBuilder();
-  set tradeState(TradeStateBuilder tradeState) =>
+  set tradeState(TradeStateBuilder? tradeState) =>
       _$this._tradeState = tradeState;
 
-  InvitationStateBuilder _invitationState;
+  InvitationStateBuilder? _invitationState;
   InvitationStateBuilder get invitationState =>
       _$this._invitationState ??= new InvitationStateBuilder();
-  set invitationState(InvitationStateBuilder invitationState) =>
+  set invitationState(InvitationStateBuilder? invitationState) =>
       _$this._invitationState = invitationState;
 
-  CommunityStateBuilder _communityState;
+  CommunityStateBuilder? _communityState;
   CommunityStateBuilder get communityState =>
       _$this._communityState ??= new CommunityStateBuilder();
-  set communityState(CommunityStateBuilder communityState) =>
+  set communityState(CommunityStateBuilder? communityState) =>
       _$this._communityState = communityState;
 
-  HDKeyStateBuilder _hdkeyState;
+  HDKeyStateBuilder? _hdkeyState;
   HDKeyStateBuilder get hdkeyState =>
       _$this._hdkeyState ??= new HDKeyStateBuilder();
-  set hdkeyState(HDKeyStateBuilder hdkeyState) =>
+  set hdkeyState(HDKeyStateBuilder? hdkeyState) =>
       _$this._hdkeyState = hdkeyState;
 
-  InvestStateBuilder _investState;
+  InvestStateBuilder? _investState;
   InvestStateBuilder get investState =>
       _$this._investState ??= new InvestStateBuilder();
-  set investState(InvestStateBuilder investState) =>
+  set investState(InvestStateBuilder? investState) =>
       _$this._investState = investState;
 
-  AdmissionStateBuilder _admissionState;
+  AdmissionStateBuilder? _admissionState;
   AdmissionStateBuilder get admissionState =>
       _$this._admissionState ??= new AdmissionStateBuilder();
-  set admissionState(AdmissionStateBuilder admissionState) =>
+  set admissionState(AdmissionStateBuilder? admissionState) =>
       _$this._admissionState = admissionState;
 
-  ProjectStateBuilder _projectState;
+  ProjectStateBuilder? _projectState;
   ProjectStateBuilder get projectState =>
       _$this._projectState ??= new ProjectStateBuilder();
-  set projectState(ProjectStateBuilder projectState) =>
+  set projectState(ProjectStateBuilder? projectState) =>
       _$this._projectState = projectState;
 
   AppStateBuilder();
 
   AppStateBuilder get _$this {
-    if (_$v != null) {
-      _commonState = _$v.commonState?.toBuilder();
-      _assetState = _$v.assetState?.toBuilder();
-      _walletState = _$v.walletState?.toBuilder();
-      _noticeState = _$v.noticeState?.toBuilder();
-      _homeState = _$v.homeState?.toBuilder();
-      _swapState = _$v.swapState?.toBuilder();
-      _tradeState = _$v.tradeState?.toBuilder();
-      _invitationState = _$v.invitationState?.toBuilder();
-      _communityState = _$v.communityState?.toBuilder();
-      _hdkeyState = _$v.hdkeyState?.toBuilder();
-      _investState = _$v.investState?.toBuilder();
-      _admissionState = _$v.admissionState?.toBuilder();
-      _projectState = _$v.projectState?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _commonState = $v.commonState.toBuilder();
+      _assetState = $v.assetState.toBuilder();
+      _walletState = $v.walletState.toBuilder();
+      _noticeState = $v.noticeState.toBuilder();
+      _homeState = $v.homeState.toBuilder();
+      _tradeState = $v.tradeState.toBuilder();
+      _invitationState = $v.invitationState.toBuilder();
+      _communityState = $v.communityState.toBuilder();
+      _hdkeyState = $v.hdkeyState.toBuilder();
+      _investState = $v.investState.toBuilder();
+      _admissionState = $v.admissionState.toBuilder();
+      _projectState = $v.projectState.toBuilder();
       _$v = null;
     }
     return this;
@@ -495,19 +468,19 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
   @override
   void replace(AppState other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AppState;
   }
 
   @override
-  void update(void Function(AppStateBuilder) updates) {
+  void update(void Function(AppStateBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AppState build() {
+  AppState build() => _build();
+
+  _$AppState _build() {
     _$AppState _$result;
     try {
       _$result = _$v ??
@@ -517,7 +490,6 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
               walletState: walletState.build(),
               noticeState: noticeState.build(),
               homeState: homeState.build(),
-              swapState: swapState.build(),
               tradeState: tradeState.build(),
               invitationState: invitationState.build(),
               communityState: communityState.build(),
@@ -526,7 +498,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
               admissionState: admissionState.build(),
               projectState: projectState.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'commonState';
         commonState.build();
@@ -538,8 +510,6 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
         noticeState.build();
         _$failedField = 'homeState';
         homeState.build();
-        _$failedField = 'swapState';
-        swapState.build();
         _$failedField = 'tradeState';
         tradeState.build();
         _$failedField = 'invitationState';
@@ -556,7 +526,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
         projectState.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'AppState', _$failedField, e.toString());
+            r'AppState', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -565,4 +535,4 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

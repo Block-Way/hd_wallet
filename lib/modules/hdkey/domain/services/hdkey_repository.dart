@@ -4,8 +4,8 @@ class HDKeyRepository {
 // Singleton instance
 
   factory HDKeyRepository([
-    HDKeyApi _api,
-    FlutterSecureStorage _storage,
+    HDKeyApi? _api,
+    FlutterSecureStorage? _storage,
   ]) {
     _instance._api = _api ?? HDKeyApi();
     _instance._storage = _storage ?? FlutterSecureStorage();
@@ -15,8 +15,8 @@ class HDKeyRepository {
 
   static final _instance = HDKeyRepository._internal();
 
-  HDKeyApi _api;
-  FlutterSecureStorage _storage;
+  late HDKeyApi _api;
+  late FlutterSecureStorage _storage;
 
 // Methods
 

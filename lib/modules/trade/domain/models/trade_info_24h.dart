@@ -8,26 +8,26 @@ abstract class TradeInfo24h
   TradeInfo24h._();
 
   // Serializers
-  static TradeInfo24h fromJson(Map<String, dynamic> json) {
+  static TradeInfo24h? fromJson(Map<String, dynamic> json) {
     return deserialize<TradeInfo24h>(json);
   }
 
   static Serializer<TradeInfo24h> get serializer => _$tradeInfo24hSerializer;
 
-  @nullable
-  String get high;
+  //@nullable
+  String? get high;
 
-  @nullable
-  String get low;
+  //@nullable
+  String? get low;
 
-  @nullable
-  String get vol;
+  //@nullable
+  String? get vol;
 
-  String get displayHigh => high == null || high.isEmpty ? '-' : high;
+  String get displayHigh => (high?.isEmpty ?? true) ? '-' : high!;
 
-  String get displayLow => low == null || low.isEmpty ? '-' : low;
+  String get displayLow => (low?.isEmpty ?? true) ? '-' : low!;
 
-  String get displayVol => vol == null || vol.isEmpty
+  String get displayVol => (vol?.isEmpty ?? true)
       ? '-'
       : StringUtils.displaySize(NumberUtil.getDouble(vol), 0);
 }

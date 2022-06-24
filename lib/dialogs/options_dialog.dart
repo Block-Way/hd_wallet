@@ -2,28 +2,28 @@ part of dialogs;
 
 class CSOptionsItem<T> {
   CSOptionsItem({
-    @required this.value,
-    @required this.label,
+    required this.value,
+    required this.label,
     this.color,
     this.showBadge,
   });
 
   final T value;
   final String label;
-  final bool showBadge;
-  final Color color;
+  final bool? showBadge;
+  final Color? color;
 }
 
 Future<void> showOptionsDialog<T>(
   BuildContext context, {
-  List<CSOptionsItem<T>> options,
-  Function(T value) onSelected,
+  List<CSOptionsItem<T>>? options,
+  Function(T? value)? onSelected,
 }) {
   Widget buildOptionBtn({
-    String label,
-    T value,
+    String? label,
+    T? value,
     bool showBadge = false,
-    Color color,
+    Color? color,
   }) {
     return Container(
       width: double.infinity,
@@ -36,14 +36,14 @@ Future<void> showOptionsDialog<T>(
         ),
       ),
       child: CSButton(
-        label: label,
+        label: label ?? '',
         flat: true,
         textBold: false,
         padding: context.edgeVertical20,
         textColor: color ?? context.bodyColor,
         onPressed: () {
           AppNavigator.goBack();
-          onSelected(value);
+          onSelected?.call(value);
         },
         cmpRight: showBadge == true
             ? CSBadge(
@@ -74,11 +74,11 @@ Future<void> showOptionsDialog<T>(
           color: context.bgPrimaryColor,
           child: Column(
             children: [
-              ...options.map(
+              ...options!.map(
                 (e) => buildOptionBtn(
                   label: e.label,
                   value: e.value,
-                  showBadge: e.showBadge,
+                  showBadge: e.showBadge ?? false,
                   color: e.color,
                 ),
               ),

@@ -2,10 +2,10 @@ part of project_domain_module;
 
 class ProjectActionCreateSubmit extends _BaseAction {
   ProjectActionCreateSubmit({
-    @required this.params,
-    @required this.onUnlockWallet,
-    @required this.onConfirmData,
-    @required this.onSuccessTransaction,
+    required this.params,
+    required this.onUnlockWallet,
+    required this.onConfirmData,
+    required this.onSuccessTransaction,
     this.onConfirmSubmit,
   });
 
@@ -13,10 +13,12 @@ class ProjectActionCreateSubmit extends _BaseAction {
   final Future<WalletPrivateData> Function() onUnlockWallet;
   final Future<bool> Function(ProjectCreateParams) onConfirmData;
   final void Function(String txId) onSuccessTransaction;
-  final Future<bool> Function() onConfirmSubmit;
+  final Future<bool> Function()? onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    return null;
+    /*
     // final projectConfig = store.state.commonState.config.project;
 
     final payCoin = store.state.assetState.getCoinInfo(
@@ -88,10 +90,11 @@ class ProjectActionCreateSubmit extends _BaseAction {
     onSuccessTransaction(txId);
 
     return null;
+    */
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
@@ -101,7 +104,8 @@ class ProjectActionCreateSuccess extends _BaseAction {
   final ProjectCreateParams params;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = state.walletState.activeWalletId;
 
     // Save to cache
@@ -124,14 +128,15 @@ class ProjectActionCreateSuccess extends _BaseAction {
     //   txId: params.txId,
     //   type: BroadcastTxType.project,
     // ));
-
+    */
     return null;
   }
 }
 
 class ProjectActionReSubmitProjects extends _BaseAction {
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final broadcastRequest = Completer<List<BroadcastTxInfo>>();
     dispatch(WalletActionGetBroadcastsFailed(
       type: BroadcastTxType.project,
@@ -145,7 +150,7 @@ class ProjectActionReSubmitProjects extends _BaseAction {
           ProjectCreateParams.fromJson(broadcastInfo.apiParams),
         ),
       );
-    }
+    }*/
     return null;
   }
 }

@@ -153,7 +153,7 @@ class WalletExportPage extends HookWidget {
                     child: Padding(
                       padding: context.edgeAll,
                       child: Text(
-                        '' ?? '',
+                        '',
                         style: context.textBody(),
                       ),
                     ),

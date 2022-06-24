@@ -3,20 +3,11 @@ part of app_module;
 class AppErrors {
   static String parseErrorMessages(dynamic error) {
     // Common - Request
-    if (error is SocketException || error is RequestNetworkError) {
+    if (error is SocketException) {
       return tr('global:msg_network_error');
     }
     if (error is TimeoutException) {
       return tr('global:msg_network_timeout');
-    }
-    if (error is RequestEmptyError) {
-      return tr('global:msg_server_busy');
-    }
-    if (error is RequestResponseError) {
-      return error.message;
-    }
-    if (error is RequestNotFoundError) {
-      return tr('global:msg_server_not_found');
     }
     // Common - Permission
     if (error is ImagePermissionCameraError) {
@@ -41,12 +32,6 @@ class AppErrors {
         'wallet:wallet_error_tx_reject',
         namedArgs: {'error': error.message},
       );
-    }
-    if (error is WalletBBCFromPrivateKeyError) {
-      return tr('wallet:wallet_error_invalid_private_key');
-    }
-    if (error is WalletAddressBBCToPublicKeyError) {
-      return tr('wallet:wallet_error_invalid_address');
     }
     if (error is WalletExportPrivateKeyError) {
       return tr('wallet:wallet_error_generate_private_key');
@@ -104,7 +89,7 @@ class AppErrors {
 
     // Default message for unhandled errors
     if (kDebugMode || AppConstants.isBeta) {
-      return error?.toString();
+      return error.toString();
     } else {
       return tr('global:msg_app_code_error');
     }

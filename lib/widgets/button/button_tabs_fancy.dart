@@ -15,18 +15,18 @@ class _TabFancySelectedPainter extends CustomPainter {
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke
       ..isAntiAlias = true
-      ..strokeWidth = 3
-      ..color = isSelected ? Color(0xFFffdf0c) : Color(0xFFf0f0f0);
+      ..strokeWidth = 0
+      ..color = isSelected ? Color(0xFF1F2229) : Color(0xFF1F2229);
     // ..color = isSelected ? Colors.red : Colors.blue;
 
     final bgPaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = isSelected ? Colors.white : Color(0xFFfefcf1);
+      ..color = isSelected ? Color(0xFFECC586) : Color(0xFF33383D);
     // ..color = isSelected ? Colors.red : Colors.blue;
 
     const borderRadius = 10.0;
     const angle = 15.0;
-    final width = size.width;
+    final width = size.width + 1;
     final height = size.height + 1;
 
     final path = Path();
@@ -127,13 +127,13 @@ class _TabFancySelectedPainter extends CustomPainter {
 
 class CSButtonTabsFancy extends StatelessWidget {
   const CSButtonTabsFancy({
-    @required this.selected,
-    @required this.onSelected,
-    @required this.holdLbl,
-    @required this.holdValue,
-    @required this.invitationLbl,
-    @required this.invitationValue,
-    Key key,
+    required this.selected,
+    required this.onSelected,
+    required this.holdLbl,
+    required this.holdValue,
+    required this.invitationLbl,
+    required this.invitationValue,
+    Key? key,
   }) : super(key: key);
 
   final int selected;
@@ -181,6 +181,7 @@ class CSButtonTabsFancy extends StatelessWidget {
                             color: context.labelColor,
                           ),
                         ),
+                        SizedBox(height: context.edgeSizeHalf),
                         Text(
                           holdValue,
                           style: context.textBodyPrice(),
@@ -210,6 +211,7 @@ class CSButtonTabsFancy extends StatelessWidget {
                           color: context.labelColor,
                         ),
                       ),
+                      SizedBox(height: context.edgeSizeHalf),
                       Text(
                         invitationValue,
                         style: context.textBodyPrice(),

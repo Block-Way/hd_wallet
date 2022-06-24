@@ -6,9 +6,9 @@ abstract class _BaseAction extends ReduxAction<AppState> {
 
 class InvitationActionGetList extends _BaseAction {
   InvitationActionGetList({
-    @required this.isRefresh,
-    @required this.skip,
-    @required this.coin,
+    required this.isRefresh,
+    required this.skip,
+    required this.coin,
   });
 
   final bool isRefresh;
@@ -16,9 +16,10 @@ class InvitationActionGetList extends _BaseAction {
   final AssetCoin coin;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = state.walletState.activeWalletId;
-
+    
     final data = await InvitationRepository().getInvitationList(
       walletId: walletId,
       address: coin.address,
@@ -38,6 +39,8 @@ class InvitationActionGetList extends _BaseAction {
     return state.rebuild((a) => skip == 0
         ? a.invitationState.invitations.replace(list)
         : a.invitationState.invitations.addAll(list));
+        */
+    return null;
   }
 }
 
@@ -52,9 +55,9 @@ class InvitationActionClear extends _BaseAction {
 
 class InvitationActionCheckRelationParent extends _BaseAction {
   InvitationActionCheckRelationParent({
-    @required this.fork,
-    @required this.toAddress,
-    @required this.completer,
+    required this.fork,
+    required this.toAddress,
+    required this.completer,
   });
 
   final String fork;
@@ -62,7 +65,8 @@ class InvitationActionCheckRelationParent extends _BaseAction {
   final Completer<bool> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final deviceId = await PlatformUtils.getDeviceId();
     final walletId = state.walletState.activeWalletId;
 
@@ -74,21 +78,22 @@ class InvitationActionCheckRelationParent extends _BaseAction {
     );
 
     completer.complete(true);
+    */
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    //completer.completeError(error);
     return error;
   }
 }
 
 class InvitationActionCheckRelationChild extends _BaseAction {
   InvitationActionCheckRelationChild({
-    @required this.fork,
-    @required this.fromAddress,
-    @required this.completer,
+    required this.fork,
+    required this.fromAddress,
+    required this.completer,
   });
 
   final String fork;
@@ -96,7 +101,8 @@ class InvitationActionCheckRelationChild extends _BaseAction {
   final Completer<bool> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final deviceId = await PlatformUtils.getDeviceId();
     final walletId = state.walletState.activeWalletId;
 
@@ -108,19 +114,21 @@ class InvitationActionCheckRelationChild extends _BaseAction {
     );
 
     completer.complete(true);
+    */
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
-    completer.completeError(error);
+  Object? wrapError(dynamic error) {
+    //completer.completeError(error);
     return error;
   }
 }
 
 class InvitationActionLoadCode extends _BaseAction {
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = state.walletState.activeWalletId;
 
     final result = await InvitationRepository().getInvitationCodeFromCache(
@@ -128,20 +136,21 @@ class InvitationActionLoadCode extends _BaseAction {
     );
     return state.rebuild(
       (s) => s.invitationState.invitationCodes.replace(result),
-    );
+    );*/
+    return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }
 
 class InvitationActionCreateCode extends _BaseAction {
   InvitationActionCreateCode({
-    @required this.mnemonic,
-    @required this.coinInfo,
-    @required this.completer,
+    required this.mnemonic,
+    required this.coinInfo,
+    required this.completer,
   });
 
   final String mnemonic;
@@ -149,7 +158,8 @@ class InvitationActionCreateCode extends _BaseAction {
   final Completer<InvitationCode> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    /*
     final walletId = state.walletState.activeWalletId;
 
     // My Coin Chain private key
@@ -205,12 +215,14 @@ class InvitationActionCreateCode extends _BaseAction {
     return state.rebuild(
       (s) => s.invitationState.invitationCodes.replace(allCode),
     );
+    */
+    return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     final newError = parseWalletError(error);
-    completer.completeError(newError);
+    //completer.completeError(newError);
     return newError;
   }
 }

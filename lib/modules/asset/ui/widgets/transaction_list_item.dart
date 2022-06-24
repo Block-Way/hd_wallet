@@ -2,8 +2,8 @@ part of asset_ui_module;
 
 class TransactionListItem extends StatelessWidget {
   const TransactionListItem({
-    Key key,
-    this.item,
+    required this.item,
+    Key? key,
   }) : super(key: key);
 
   final Transaction item;
@@ -36,12 +36,25 @@ class TransactionListItem extends StatelessWidget {
 
     return CSContainer(
       secondary: true,
+      decoration: new BoxDecoration(
+        color: Color(0xFF32383E),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
       margin: context.edgeTop,
       padding: EdgeInsets.symmetric(
         vertical: 16,
         horizontal: context.edgeSize,
       ),
-      onTap: () => AssetTransactionPage.open(item),
+      onTap: () => {
+        //  AssetTransactionPage.open(item)
+        //   print('${item.statusTransKey}')
+        if (item.statusTransKey.toString() == 'asset:trans_msg_tx_pending')
+          {
+            Toast.show(tr('asset:trans_msg_tx_pending')),
+          }
+        else
+          {AssetTransactionPage.open(item)}
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,9 +65,12 @@ class TransactionListItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+//                  标题
                   Text(
                     tr(item.typeTransKey),
-                    style: context.textMedium(bold: true),
+                    style: context.textMedium(
+                        bold: true, color: context.placeholderColor),
+                    // textStyle: context.textSmall(color: context.borderColor),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -65,7 +81,7 @@ class TransactionListItem extends StatelessWidget {
               ),
               PriceText(
                 item.displayAmountWithSign,
-                item.symbol,
+                item.symbol ?? '',
                 TextSize.body,
                 color: priceColor,
               ),
@@ -76,7 +92,8 @@ class TransactionListItem extends StatelessWidget {
             padding: EdgeInsets.all(6),
             decoration: context.boxDecoration(
               radius: 4,
-              color: Color.fromRGBO(0, 0, 0, 0.02),
+              color: Color.fromRGBO(0, 0, 0, 0.08),
+              // color: Color(0xFF17191C)
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,17 +101,17 @@ class TransactionListItem extends StatelessWidget {
                 CSButton(
                   label: tr('asset:trans_lbl_txid_copy', namedArgs: {
                     'txId': StringUtils.strCut(
-                      item.txId,
+                      item.txId ?? '',
                       startKeep: 6,
                       endKeep: 5,
                     ),
                   }),
                   flat: true,
                   onPressed: () {
-                    copyTextToClipboard(item.txId);
+                    copyTextToClipboard(item.txId ?? '');
                     Toast.show(tr('global:msg_copy_success'));
                   },
-                  textStyle: context.textSmall(color: context.bodyColor),
+                  textStyle: context.textSmall(color: context.borderColor),
                   cmpRight: CSButtonIcon(
                     borderRadius: 4,
                     icon: CSIcons.Copy,

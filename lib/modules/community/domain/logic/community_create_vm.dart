@@ -6,11 +6,11 @@ abstract class CommunityCreateVM
       _$CommunityCreateVM;
   CommunityCreateVM._();
 
-  @nullable
-  String get walletId;
+  //@nullable
+  String? get walletId;
 
-  @nullable
-  BuiltList<AssetCoin> get coinList;
+  //@nullable
+  BuiltList<AssetCoin>? get coinList;
 
 // UI Actions、
   @BuiltValueField(compare: false)
@@ -21,14 +21,16 @@ abstract class CommunityCreateVM
 
 // UI Logic
   static CommunityCreateVM fromStore(Store<AppState> store) {
-    final ecological = store.state.communityState?.config?.ecological;
+    final ecological = store.state.communityState.config?.ecological;
     final coins = <AssetCoin>[];
     if (ecological != null && ecological.isNotEmpty) {
       for (final item in ecological) {
-        coins.add(store.state.assetState.getCoinInfo(
-          chain: item.chain,
-          symbol: item.symbol,
-        ));
+        coins.add(
+          store.state.assetState.getCoinInfo(
+            chain: item.chain ?? '',
+            symbol: item.symbol ?? '',
+          ),
+        );
       }
     }
 
@@ -38,14 +40,16 @@ abstract class CommunityCreateVM
         ..walletId = store.state.walletState.activeWalletId
         ..getMyTeam = (type) {
           final completer = Completer<CommunityTeam>();
-          store.dispatch(CommunityActionGetMyTeam(
-            type: type,
-            completer: completer,
-          ));
+          store.dispatch(
+            CommunityActionGetMyTeam(
+                //  type: type,
+                //  completer: completer,
+                ),
+          );
           return completer.future;
         }
         ..createCommunity = (params) {
-          return store.dispatchFuture(CommunityActionCreate(params));
+          return store.dispatchAsync(CommunityActionCreate(params));
         },
     );
   }

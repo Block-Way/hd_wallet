@@ -15,6 +15,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sugar/crypto/hah.dart';
 
 // Project imports:
 import 'package:sugar/dialogs/dialogs.dart';
@@ -41,16 +42,19 @@ part 'screens/asset_withdraw.dart';
 part 'screens/main_tab.dart';
 part 'screens/asset_address_add.dart';
 part 'screens/asset_address_list.dart';
+part 'screens/asset_dpos_list.dart';
+part 'screens/asset_dpos_detail.dart';
 part 'widgets/asset_list_item.dart';
 part 'widgets/asset_bg_circle.dart';
 part 'widgets/transaction_list_item.dart';
+part 'widgets/trans_drop_item.dart';
 part 'widgets/asset_withdraw_fee.dart';
 part 'widgets/asset_coin_box.dart';
 part 'widgets/asset_wallet_card.dart';
 part 'widgets/asset_wallet_status.dart';
 part 'process/asset_withdraw_process.dart';
 
-Route<dynamic> moduleAssetInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleAssetInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case AssetWalletSelectPage.routeName:
       return AssetWalletSelectPage.route(settings);
@@ -68,6 +72,10 @@ Route<dynamic> moduleAssetInitRoutes(RouteSettings settings) {
       return AssetAddressAddPage.route(settings);
     case AssetAddressListPage.routeName:
       return AssetAddressListPage.route(settings);
+    case AssetDposList.routeName:
+      return AssetDposList.route(settings);
+    case AssetDposDetail.routeName:
+      return AssetDposDetail.route(settings);
 
     default:
       return null;

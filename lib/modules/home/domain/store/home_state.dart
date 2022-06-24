@@ -17,10 +17,8 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   ) {
     try {
       return _$HomeState._(
-        homeBanners:
-            deserializeListOf<HomeBanner>(data[0]) ?? BuiltList<HomeBanner>([]),
-        homePrices:
-            deserializeListOf<AssetPrice>(data[1]) ?? BuiltList<AssetPrice>([]),
+        homeBanners: deserializeListOf<HomeBanner>(data[0]),
+        homePrices: deserializeListOf<AssetPrice>(data[1]),
         isInitialized: false,
       );
     } catch (_) {
@@ -42,11 +40,11 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   }
 
 // Fields
-  @nullable
-  BuiltList<HomeBanner> get homeBanners;
+  //@nullable
+  BuiltList<HomeBanner>? get homeBanners;
 
-  @nullable
-  BuiltList<AssetPrice> get homePrices;
+  //@nullable
+  BuiltList<AssetPrice>? get homePrices;
 
   bool get isInitialized;
 }

@@ -30,7 +30,7 @@ class InvestHomePage extends HookWidget {
       }
     }).catchError((error) {
       selectedTab.value = InvestTabs.error;
-      Toast.showError(error);
+      // Toast.showError(error);
     });
   }
 
@@ -45,16 +45,17 @@ class InvestHomePage extends HookWidget {
       hideLeading: true,
       titleCenter: false,
       addTopInset: false,
-      headerBgColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       extendBodyBehindAppBar: true,
       title: tr('invest:title'),
-      titleStyle: context.textHuge(fontWeight: FontWeight.w700),
+      titleStyle: context.textHuge(
+          fontWeight: FontWeight.w700, color: context.bgPrimaryColor),
       drawer: CSDrawer(
         width: 264,
         elevation: 100,
         decoration: BoxDecoration(
-          color: context.bgSecondaryColor,
+          color: context.mainColor,
           borderRadius: BorderRadius.horizontal(
             right: Radius.circular(24.0),
           ),
@@ -64,17 +65,18 @@ class InvestHomePage extends HookWidget {
           converter: InvestHomeVM.fromStore,
           builder: (context, viewModel) => MintSelectDrawer(
             mints: viewModel.mints.toList(),
-            activeMintId: viewModel.activeMint?.id,
+            activeMintId: viewModel.activeMint?.id ?? 0,
             onLoadMint: (mint) {
               loadMint(viewModel, mint, selectedTab);
             },
           ),
         ),
       ),
+      // child: Text('asdfasfasdf')
       child: StoreConnector<AppState, InvestHomeVM>(
         distinct: true,
         converter: InvestHomeVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           // Load first mint
           if (viewModel.mints.isNotEmpty) {
             loadMint(
@@ -94,7 +96,7 @@ class InvestHomePage extends HookWidget {
               if (viewModel.getDefaultMint() != null) {
                 loadMint(
                   viewModel,
-                  viewModel.getDefaultMint(),
+                  viewModel.getDefaultMint()!,
                   selectedTab,
                 );
               }
@@ -108,8 +110,8 @@ class InvestHomePage extends HookWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: const [
-                        Color(0xFFfff6bc),
-                        Color(0xFFffec70),
+                        Color(0xFF1F2229),
+                        Color(0xFF1F2229),
                       ],
                     ),
                   ),
@@ -117,42 +119,42 @@ class InvestHomePage extends HookWidget {
                     children: [
                       AppBar(
                         elevation: 0,
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: context.mainColor,
                         automaticallyImplyLeading: false,
                         titleSpacing: 0,
                         toolbarHeight: 46,
-                        title: InvestTitle(
-                          activeMint: viewModel.activeMint,
-                          onPressed: () {
-                            Scaffold.of(context).openDrawer();
-                          },
-                        ),
-                        actions: [
-                          if (viewModel.hasWallet)
-                            CSButtonIcon(
-                              icon: CSIcons.Menu,
-                              size: 20,
-                              padding: EdgeInsets.zero,
-                              background: Colors.transparent,
-                              onPressed: () {
-                                if (viewModel.hasWallet) {
-                                  MiningRewardRecordPage.open();
-                                }
-                              },
-                            ),
-                        ],
+                        // title: InvestTitle(
+                        //   activeMint: viewModel.activeMint,
+                        //   onPressed: () {
+                        //     //Scaffold.of(context).openDrawer();
+                        //   },
+                        // ),
+                        // actions: [
+                        //   if (viewModel.hasWallet)
+                        //     CSButtonIcon(
+                        //       icon: CSIcons.Menu,
+                        //       size: 20,
+                        //       padding: EdgeInsets.zero,
+                        //       background: Colors.transparent,
+                        //       onPressed: () {
+                        //         //if (viewModel.hasWallet) {
+                        //         //  MiningRewardRecordPage.open();
+                        //         //}
+                        //       },
+                        //     ),
+                        // ],
                       ),
                       CSContainer(
-                        decoration: context.boxDecorationOnlyTop(
-                          color: context.whiteColor.withOpacity(0.5),
-                        ),
+                        decoration: context.boxDecoration(
+                            // color: context.whiteColor.withOpacity(0.5),
+                            color: context.cardColor),
                         padding: EdgeInsets.zero,
                         margin: context.edgeHorizontal,
                         child: viewModel.activeMint == null ||
                                 !isLoaded ||
                                 !viewModel.hasWallet
                             ? LoadingHeader(hasWallet: viewModel.hasWallet)
-                            : viewModel.activeMint.isMining
+                            : viewModel.activeMint!.isMining
                                 ? MiningHeader(
                                     symbol: symbol,
                                     mintInfo: viewModel.mintInfo,
@@ -173,9 +175,11 @@ class InvestHomePage extends HookWidget {
                           ? InvestTabs.reward
                           : InvestTabs.invitation;
                     },
-                    holdLbl: 'Holding Reward ($symbol)',
+                    holdLbl: tr('invest:mining_record_lbl_holding'),
+                    //'Holding Reward ($symbol)',
                     holdValue: viewModel.mintInfo?.stakeReward ?? '-',
-                    invitationLbl: 'Invitation Reward ($symbol)',
+                    invitationLbl: tr('invest:mining_record_lbl_invitation'),
+                    //'Invitation Reward ($symbol)',
                     invitationValue: viewModel.mintInfo?.promotionReward ?? '-',
                   ),
                 buildContent(
@@ -238,7 +242,7 @@ class InvestHomePage extends HookWidget {
             showButton: true,
             btnText: tr('global:btn_refresh'),
             onPressed: () {
-              loadMint(viewModel, viewModel.activeMint, selectedTab);
+              loadMint(viewModel, viewModel.activeMint!, selectedTab);
             },
           ),
         ),
@@ -246,8 +250,8 @@ class InvestHomePage extends HookWidget {
     }
 
     final coinInfo = viewModel.getCoinInfo(
-      chain: viewModel.activeMint.chain,
-      symbol: viewModel.activeMint.symbol,
+      chain: viewModel.activeMint?.chain ?? '',
+      symbol: viewModel.activeMint?.symbol ?? '',
     );
 
     if (select == InvestTabs.airdrop) {
@@ -259,7 +263,7 @@ class InvestHomePage extends HookWidget {
         chartList: viewModel.chartList.toList(),
         mintInfo: viewModel.mintInfo,
         coinInfo: coinInfo,
-        mintItem: viewModel.activeMint,
+        mintItem: viewModel.activeMint!,
         symbol: symbol,
         doRefresh: viewModel.refreshMintReward,
       );

@@ -2,9 +2,9 @@ part of admission_ui_module;
 
 class AdmissionLatest extends StatelessWidget {
   const AdmissionLatest({
-    @required this.list,
-    @required this.hasWallet,
-    Key key,
+    required this.list,
+    required this.hasWallet,
+    Key? key,
   }) : super(key: key);
   final List<AdmissionInfo> list;
   final bool hasWallet;

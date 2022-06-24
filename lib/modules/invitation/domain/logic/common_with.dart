@@ -1,5 +1,6 @@
 part of invitation_domain_module;
 
+// 这里的数据结构是怎么填充的呢？
 class VMWithInvitation {
   static List<AssetCoin> getInvitationCoins(Store<AppState> store) {
     final coins = store.state.commonState.config?.coins;

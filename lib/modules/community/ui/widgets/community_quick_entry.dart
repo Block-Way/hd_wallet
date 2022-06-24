@@ -2,28 +2,28 @@ part of community_ui_module;
 
 class CommunityQuickEntry extends StatelessWidget {
   const CommunityQuickEntry({
-    Key key,
+    Key? key,
     this.hasWallet,
     this.communityConfig,
   }) : super(key: key);
 
-  final bool hasWallet;
-  final CommunityConfig communityConfig;
+  final bool? hasWallet;
+  final CommunityConfig? communityConfig;
 
   @override
   Widget build(BuildContext context) {
     final currentLangCode = context.locale.languageCode;
     final isZh = currentLangCode == 'zh';
     final items = communityConfig != null
-        ? communityConfig.types
-            .where((info) => info.homeQuickEntry != 'off')
+        ? communityConfig!.types
+            ?.where((info) => info.homeQuickEntry != 'off')
             .toList()
         : <CommunityInfo>[];
     final firstLine =
-        isZh ? items : items.sublist(0, items.length > 3 ? 3 : items.length);
+        isZh ? items : items?.sublist(0, items.length > 3 ? 3 : items.length);
     final secondLine = isZh
         ? <CommunityInfo>[]
-        : items.length > 3
+        : items!.length > 3
             ? items.sublist(3)
             : <CommunityInfo>[];
 
@@ -39,7 +39,7 @@ class CommunityQuickEntry extends StatelessWidget {
     }
 
     void openNewPage(CommunityTeamVM viewModel, CommunityInfo info) {
-      if (hasWallet) {
+      if (hasWallet!) {
         if (info == null) {
           return;
         }
@@ -65,7 +65,7 @@ class CommunityQuickEntry extends StatelessWidget {
       converter: CommunityTeamVM.fromStore,
       builder: (context, viewModel) => Column(
         children: [
-          if (firstLine.isNotEmpty)
+          if (firstLine!.isNotEmpty)
             SizedBox(
               height: 60,
               child: ListView(
@@ -113,14 +113,14 @@ class CommunityQuickEntry extends StatelessWidget {
 
 Widget buildQuickEntry(
   BuildContext context, {
-  String name,
-  void Function() onPress,
-  IconData icon,
+  String? name,
+  void Function()? onPress,
+  IconData? icon,
 }) {
   return CSContainer(
     onTap: onPress,
     height: 48,
-    width: null,
+    //width: null,
     margin: context.edgeAll.copyWith(
       right: 0,
       top: 0,
@@ -136,7 +136,7 @@ Widget buildQuickEntry(
         Padding(
           padding: EdgeInsets.only(left: 6),
           child: Text(
-            name,
+            name ?? '',
             style: context.textSecondary(color: context.bodyColor),
           ),
         ),

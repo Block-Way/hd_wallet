@@ -21,15 +21,15 @@ abstract class WalletState implements Built<WalletState, WalletStateBuilder> {
   }
 
 // Fields
-  @nullable
-  List<Wallet> get wallets;
+  //@nullable
+  List<Wallet>? get wallets;
 
-  @nullable
-  Wallet get activeWallet;
-  @nullable
-  String get activeWalletId;
-  @nullable
-  WalletStatus get activeWalletStatus;
+  //@nullable
+  Wallet? get activeWallet;
+  //@nullable
+  String? get activeWalletId;
+  //@nullable
+  WalletStatus? get activeWalletStatus;
 
   bool get hasWallet => activeWallet != null && activeWalletId != null;
 }

@@ -11,34 +11,34 @@ abstract class CommunityTeamOptions
       _$communityTeamOptionsSerializer;
 
 // Fields
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'valid_address_count')
-  int get addressCount;
+  int? get addressCount;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'valid_address_average_balance')
-  BuiltMap<String, String> get addressAverageBalance;
+  BuiltMap<String, String>? get addressAverageBalance;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'business_info')
-  BuiltList<String> get businessInfo;
+  BuiltList<String>? get businessInfo;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'telegram_account')
-  String get telegramAccount;
+  String? get telegramAccount;
 
-  @nullable
-  String get icon;
+  //@nullable
+  String? get icon;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'join_apply_type')
-  String get joinApplyType;
+  String? get joinApplyType;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'admin')
-  BuiltMap<String, String> get admin;
+  BuiltMap<String, String>? get admin;
 
   String get displayIcon => icon != null
-      ? AppConfig().getImageUrlFor(icon)
+      ? AppConfig().getImageUrlFor(icon ?? '')
       : 'assets/images/app_default_logo.png';
 }

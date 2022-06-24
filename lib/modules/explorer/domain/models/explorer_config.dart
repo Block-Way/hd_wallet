@@ -2,10 +2,10 @@ part of explorer_domain_module;
 
 class ExplorerConfig {
   ExplorerConfig({
-    @required this.chain,
-    @required this.name,
-    @required this.mainUrl,
-    @required this.txUrl,
+    required this.chain,
+    required this.name,
+    required this.mainUrl,
+    required this.txUrl,
     this.addressUrl = '',
   });
 
@@ -18,8 +18,8 @@ class ExplorerConfig {
 
 class ExplorerItem {
   ExplorerItem({
-    @required this.coinInfo,
-    @required this.config,
+    required this.coinInfo,
+    required this.config,
   });
 
   final AssetCoin coinInfo;

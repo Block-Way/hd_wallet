@@ -2,9 +2,9 @@ part of app_module;
 
 class AppDrawerMenuLink extends StatelessWidget {
   const AppDrawerMenuLink({
-    @required this.label,
-    @required this.url,
-    Key key,
+    required this.label,
+    required this.url,
+    Key? key,
   }) : super(key: key);
 
   final String label;
@@ -31,8 +31,8 @@ class AppDrawerMenuLink extends StatelessWidget {
           ),
           Icon(
             CSIcons.More,
-            size: 8,
-            color: context.blackColor,
+            size: 12,
+            color: context.drawMoreColor,
           ),
         ],
       ),

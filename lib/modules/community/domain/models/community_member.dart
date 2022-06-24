@@ -10,40 +10,40 @@ abstract class CommunityMember
   static Serializer<CommunityMember> get serializer =>
       _$communityMemberSerializer;
 
-  static CommunityMember fromJson(Map<String, dynamic> json) {
+  static CommunityMember? fromJson(Map<String, dynamic> json) {
     return deserialize<CommunityMember>(json);
   }
 
 // Fields
-  @nullable
-  String get id;
+  //@nullable
+  String? get id;
 
-  @nullable
-  int get status;
+  //@nullable
+  int? get status;
 
-  @nullable
-  String get team;
+  //@nullable
+  String? get team;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'bbc_address')
-  String get bbcAddress;
+  String? get bbcAddress;
 
-  @nullable
-  int get order;
+  //@nullable
+  int? get order;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'is_mine')
-  bool get isMine;
+  bool? get isMine;
 
-  @nullable
-  CommunityMemberInfo get info;
+  //@nullable
+  CommunityMemberInfo? get info;
 
   /// 拒绝理由
   String get rejectedMessage {
     if (info != null &&
-        info.admin != null &&
-        info.admin['rejected_message'] != null) {
-      return info.admin['rejected_message'].toString();
+        info?.admin != null &&
+        info?.admin?['rejected_message'] != null) {
+      return info?.admin?['rejected_message'].toString() ?? '';
     }
     return '';
   }
@@ -51,9 +51,9 @@ abstract class CommunityMember
   /// 禁用理由
   String get blackMessage {
     if (info != null &&
-        info.admin != null &&
-        info.admin['black_message'] != null) {
-      return info.admin['black_message'].toString();
+        info?.admin != null &&
+        info?.admin?['black_message'] != null) {
+      return info?.admin?['black_message'].toString() ?? '';
     }
     return '';
   }

@@ -1,24 +1,24 @@
 part of trade_domain_module;
 
 class TradeOrdersDealFailCubit extends TradeOrdersCubit {
-  TradeOrdersDealFailCubit([TradeRepository tradeRepository])
-      : super(tradeRepository) {
+  TradeOrdersDealFailCubit([TradeRepository? tradeRepository])
+      : super(tradeRepository ?? TradeRepository()) {
     _tradeRepository = tradeRepository ?? TradeRepository();
   }
 
-  TradeRepository _tradeRepository;
+  late TradeRepository _tradeRepository;
 
   @override
   Future<int> loadAll({
-    @required String walletId,
-    @required String tradePairId,
-    @required String tradeAddress,
-    @required String priceAddress,
-    @required int skip,
-    @required int take,
-    @required String tradeSide,
-    @required String status,
-    @required bool onlyCache,
+    required String walletId,
+    required String tradePairId,
+    required String tradeAddress,
+    required String priceAddress,
+    required int skip,
+    required int take,
+    required String tradeSide,
+    required String status,
+    required bool onlyCache,
   }) async {
     if (onlyCache == true) {
       return state.length;
@@ -28,10 +28,10 @@ class TradeOrdersDealFailCubit extends TradeOrdersCubit {
     return length;
   }
 
-  Future<int> refreshData(String walletId, [String tradePairId]) async {
+  Future<int> refreshData(String walletId, [String? tradePairId]) async {
     final list = await _tradeRepository.getOrdersDealFail(
       walletId: walletId,
-      tradePairId: tradePairId,
+      tradePairId: tradePairId ?? '',
     );
 
     // 不显示 已处理的记录

@@ -1,11 +1,11 @@
 part of project_ui_module;
 
 class ProjectApplySubmitPage extends HookWidget {
-  ProjectApplySubmitPage(this.createParams, {Key key}) : super(key: key);
+  ProjectApplySubmitPage(this.createParams, {Key? key}) : super(key: key);
 
   static const routeName = '/project/apply/submit';
 
-  static Future<dynamic> open(ProjectCreateParams createParams) {
+  static Future<dynamic>? open(ProjectCreateParams createParams) {
     return AppNavigator.push(
       routeName,
       params: createParams,
@@ -79,15 +79,15 @@ class ProjectApplySubmitPage extends HookWidget {
 
     void doSubmit(ProjectApplyVM viewModel) {
       if (isOpenPool.value) {
-        final isValid = formKey.currentState.validate();
+        final isValid = formKey.currentState?.validate();
 
         if (!autovalidate.value) {
           autovalidate.value = true;
         }
 
-        if (!isValid) {
-          return;
-        }
+        //if (!isValid) {
+        //  return;
+        //}
         final firstList = mintList.value.first;
 
         if (firstList.month == '' || firstList.ratio == '') {
@@ -105,7 +105,7 @@ class ProjectApplySubmitPage extends HookWidget {
           return;
         }
 
-        formKey.currentState.save();
+        formKey.currentState?.save();
       }
 
       final newParams = getUpdatedProjectParams();
@@ -289,6 +289,7 @@ class ProjectApplySubmitPage extends HookWidget {
                                       mintList.value,
                                       entry.key,
                                       month: month,
+                                      ratio: '',
                                     );
                                     remainAmount.value = getMintRemainAmount();
                                     remainMonth.value = getMintRemainMonths();
@@ -299,6 +300,7 @@ class ProjectApplySubmitPage extends HookWidget {
                                       mintList.value,
                                       entry.key,
                                       ratio: ratio,
+                                      month: '',
                                     );
                                     remainMonth.value = getMintRemainMonths();
                                     remainAmount.value = getMintRemainAmount();
@@ -310,7 +312,7 @@ class ProjectApplySubmitPage extends HookWidget {
                       labelItem(
                         context,
                         name: tr('project:create_lbl_pool_amount'),
-                        label: remainAmount.value ?? '0.00',
+                        label: remainAmount.value,
                       ),
                       labelItem(
                         context,
@@ -363,7 +365,11 @@ class ProjectApplySubmitPage extends HookWidget {
   }
 }
 
-Widget labelItem(BuildContext context, {String name, String label}) {
+Widget labelItem(
+  BuildContext context, {
+  required String name,
+  required String label,
+}) {
   return Padding(
     padding: EdgeInsets.only(
       top: 20,

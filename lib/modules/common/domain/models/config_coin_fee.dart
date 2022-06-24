@@ -12,11 +12,11 @@ abstract class ConfigCoinFee
 
   BuiltMap<String, double> get level;
 
-  double get fast => level['fast'];
+  double get fast => level['fast'] ?? 0;
 
-  double get fastest => level['fastest'];
+  double get fastest => level['fastest'] ?? 0;
 
-  double get slow => level['slow'];
+  double get slow => level['slow'] ?? 0;
 
-  double get slowest => level['slowest'];
+  double get slowest => level['slowest'] ?? 0;
 }

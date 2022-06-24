@@ -7,8 +7,8 @@ class SliverHeaderContainer extends SliverPersistentHeaderDelegate {
     this.height = 50,
   });
 
-  final Widget child;
-  final Color color;
+  final Widget? child;
+  final Color? color;
   final double height;
 
   @override
@@ -41,8 +41,8 @@ class SliverChildContainer extends SliverChildDelegate {
     this.height = 50,
   });
 
-  final Widget child;
-  final Color color;
+  final Widget? child;
+  final Color? color;
   final double height;
 
   @override

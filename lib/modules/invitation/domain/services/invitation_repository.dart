@@ -1,7 +1,7 @@
 part of invitation_domain_module;
 
 class InvitationRepository {
-  factory InvitationRepository([InvitationApi _api]) {
+  factory InvitationRepository([InvitationApi? _api]) {
     _instance._api = _api ?? InvitationApi();
     return _instance;
   }
@@ -9,8 +9,8 @@ class InvitationRepository {
 
   static final _instance = InvitationRepository._internal();
 
-  InvitationApi _api;
-  LazyBox<List<dynamic>> _invitationCodes;
+  late InvitationApi _api;
+  late LazyBox<List<dynamic>> _invitationCodes;
 
   static const _invitationCodeCacheKey = 'invitation_code_v1';
 
@@ -21,11 +21,11 @@ class InvitationRepository {
   }
 
   Future<List<Map<String, dynamic>>> getInvitationList({
-    @required String walletId,
-    @required String address,
-    @required String contract,
-    @required int skip,
-    @required int take,
+    required String walletId,
+    required String address,
+    required String contract,
+    required int skip,
+    required int take,
   }) {
     return _api.getInvitationList(
       walletId: walletId,
@@ -37,10 +37,10 @@ class InvitationRepository {
   }
 
   Future checkRelationParent({
-    @required String walletId,
-    @required String fork,
-    @required String deviceId,
-    @required String toAddress,
+    required String walletId,
+    required String fork,
+    required String deviceId,
+    required String toAddress,
   }) {
     return _api.checkRelationParent(
       walletId: walletId,
@@ -51,10 +51,10 @@ class InvitationRepository {
   }
 
   Future checkRelationChild({
-    @required String walletId,
-    @required String fork,
-    @required String deviceId,
-    @required String fromAddress,
+    required String walletId,
+    required String fork,
+    required String deviceId,
+    required String fromAddress,
   }) {
     return _api.checkRelationChild(
       walletId: walletId,
@@ -70,11 +70,12 @@ class InvitationRepository {
     String walletId,
   ) async {
     try {
+      /*
       final list = await _invitationCodes.get(
         walletId,
         defaultValue: [],
-      );
-      return List.from(list);
+      );*/
+      return List.from([]);
     } catch (_) {
       return List.from([]);
     }
@@ -101,12 +102,12 @@ class InvitationRepository {
 
   Future<InvitationCodeData> createInvitationCodeData({
     /// Private key for sign
-    @required String signPrivateKey,
-    @required String codePublicKey,
-    @required String codePrivateKey,
+    required String signPrivateKey,
+    required String codePublicKey,
+    required String codePrivateKey,
 
     /// Code Invitation coin forkId (can be empty string)
-    @required String codeForkId,
+    required String codeForkId,
   }) async {
     final invitationCode = 'DeFiRelation$codeForkId$codePublicKey';
 
@@ -117,7 +118,7 @@ class InvitationRepository {
 
     return InvitationCodeData(
       sharePrvKey: codePrivateKey,
-      subSign: subSign,
+      subSign: subSign ?? '',
     );
   }
 }

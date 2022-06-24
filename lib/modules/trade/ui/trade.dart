@@ -9,6 +9,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+//import 'package:async_redux/src/store.dart';
+//import 'package:async_redux/async_redux.dart';
+// import 'package:mars/modules/wallet/domain/wallet.dart';
+// import 'package:mars/modules/app/app.dart';
+
 // Package imports:
 import 'package:async_redux/async_redux.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -18,6 +23,8 @@ import 'package:flutter_k_chart/flutter_k_chart.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+//import 'package:date_format/date_format.dart';
 
 // Project imports:
 import 'package:sugar/dialogs/dialogs.dart';
@@ -25,7 +32,6 @@ import 'package:sugar/modules/app/app.dart';
 import 'package:sugar/modules/asset/domain/asset.dart';
 import 'package:sugar/modules/asset/ui/asset.dart';
 import 'package:sugar/modules/common/domain/common.dart';
-import 'package:sugar/modules/swap/ui/swap.dart';
 import 'package:sugar/modules/trade/domain/trade.dart';
 import 'package:sugar/modules/wallet/domain/wallet.dart';
 import 'package:sugar/modules/wallet/ui/wallet.dart';
@@ -67,7 +73,7 @@ part 'widgets/home_orders_card.dart';
 part 'widgets/trade_pair_item.dart';
 part 'widgets/trade_title.dart';
 
-Route<dynamic> moduleTradeInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleTradeInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case TradeChartPage.routeName:
       return TradeChartPage.route(settings);

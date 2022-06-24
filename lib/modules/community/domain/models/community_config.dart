@@ -10,23 +10,23 @@ abstract class CommunityConfig
   static Serializer<CommunityConfig> get serializer =>
       _$communityConfigSerializer;
 
-  static CommunityConfig fromJson(Map<String, dynamic> json) {
+  static CommunityConfig? fromJson(Map<String, dynamic> json) {
     return deserialize<CommunityConfig>(json);
   }
 
 // Fields
-  @nullable
-  String get fork;
+  //@nullable
+  String? get fork;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'home_list')
-  BuiltList<int> get homeList;
+  BuiltList<int>? get homeList;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'type')
-  BuiltList<CommunityInfo> get types;
+  BuiltList<CommunityInfo>? get types;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'ecological')
-  BuiltList<CommunityEcological> get ecological;
+  BuiltList<CommunityEcological>? get ecological;
 }

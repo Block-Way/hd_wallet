@@ -4,7 +4,7 @@ class TickerItem extends StatelessWidget {
   const TickerItem(
     this.price,
     this.amount, {
-    Key key,
+    Key? key,
     this.isBuy = true,
     this.reverse = false,
     this.showBackground = false,
@@ -22,7 +22,7 @@ class TickerItem extends StatelessWidget {
   final bool backgroundIsDark;
   final bool backgroundOnPrice;
   final double scale;
-  final Function(String) onPressed;
+  final Function(String)? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class TickerItem extends StatelessWidget {
       margin: EdgeInsets.zero,
       onTap: onPressed != null && price != '-'
           ? () {
-              onPressed(price);
+              onPressed?.call(price);
             }
           : null,
       decoration: showBackground
@@ -85,9 +85,13 @@ class TickerItem extends StatelessWidget {
         reverse ? price : amount,
         textStyle: context.textSmallPrice(
           color: reverse ? colorAmount : colorPrice,
+          bold: true,
+          fontWeight: FontWeight.normal,
         ),
         valueStyle: context.textSmallPrice(
           color: reverse ? colorPrice : colorAmount,
+          bold: true,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );

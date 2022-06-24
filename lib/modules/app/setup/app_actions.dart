@@ -10,19 +10,19 @@ class AppActionInitApp extends _BaseAction {
   final StreamController<double> progress;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     // Init App Actions
     progress.add(0.1);
 
     // 1- Load State
-    await store.dispatchFuture(CommonActionLoadCache(), notify: false);
+    await store.dispatch(CommonActionLoadCache(), notify: false);
 
     // 2- Load/Update device info in CommonState
-    await store.dispatchFuture(CommonActionLoadDeviceInfo(), notify: false);
+    await store.dispatch(CommonActionLoadDeviceInfo(), notify: false);
 
     // 3- Load Settings
-    await store.dispatchFuture(CommonActionLoadSettings(), notify: false);
-
+    await store.dispatch(CommonActionLoadSettings(), notify: false);
+    /*
     // 4- Setup API header with app info
     Request().setup(
       AppConstants.randomApiUrl,
@@ -32,9 +32,10 @@ class AppActionInitApp extends _BaseAction {
         'app-version': state.commonState.appInfo.version,
         'app-language': state.commonState.languageForApi,
       },
-    );
+    );*/
 
     if (AppConstants.isBeta) {
+      /*
       final settings = await SettingsRepository().getSettings();
       Request().updateHeader('env', 'develop');
       if (settings.hasApiBaseUrl) {
@@ -45,7 +46,7 @@ class AppActionInitApp extends _BaseAction {
       }
       if (settings.hasProxyUrl && Platform.isAndroid) {
         Request().setupProxy(settings.proxyUrl);
-      }
+      }*/
     } else {
       // First get api url from api1
       store.dispatch(CommonActionLoadHost(), notify: false);
@@ -54,26 +55,26 @@ class AppActionInitApp extends _BaseAction {
 
     // 5- Initial Data
     store
-        .dispatchFuture(WalletActionWalletLoadAll(), notify: false)
+        .dispatchAsync(WalletActionWalletLoadAll(), notify: false)
         .whenComplete(() {
       store.dispatch(AppActionLoadWallet(state.walletState.activeWallet));
     });
     store.dispatch(CommonActionLoadConfig(), notify: false);
-    store.dispatch(CommonActionLoadImageConfig(), notify: false);
-    store.dispatch(TradeActionLoadConfig(), notify: false);
-    store.dispatch(CommunityActionLoadConfig(), notify: false);
-    store.dispatch(AdmissionActionLoadConfig(), notify: false);
-    store.dispatch(SwapActionLoadConfig(), notify: false);
+    //store.dispatch(CommonActionLoadImageConfig(), notify: false);
+    //store.dispatch(TradeActionLoadConfig(), notify: false);
+    //store.dispatch(CommunityActionLoadConfig(), notify: false);
+    //store.dispatch(AdmissionActionLoadConfig(), notify: false);
+    //store.dispatch(SwapActionLoadConfig(), notify: false);
     if (AppConstants.isBeta) {
       store.dispatch(InvestActionLoadConfig(), notify: false);
     }
 
     progress.add(0.8);
 
-    AnalyticsReport().setUserId(state.commonState.deviceId);
+    AnalyticsReport().setUserId(state.commonState.deviceId ?? '');
     AnalyticsReport().reportLog(
       'InitApp',
-      {'version': state.commonState.appInfo.version},
+      {'version': state.commonState.appInfo?.version ?? ''},
     );
 
     progress.add(1);
@@ -81,7 +82,7 @@ class AppActionInitApp extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     CrashesReport().reportEvent(
       'CommonLog_01_InitApp',
       error,
@@ -96,38 +97,40 @@ class AppActionInitApp extends _BaseAction {
 // /// - We will create AssetCoin to display to our asset list
 class AppActionLoadWallet extends _BaseAction {
   AppActionLoadWallet(this.wallet);
-  final Wallet wallet;
+  final Wallet? wallet;
 
   @override
-  Future<AppState> reduce() async {
-    // Make sure I set the current wallet
-    await dispatchFuture(WalletActionWalletSetActive(wallet));
-
-    await dispatchFuture(AssetActionSyncWalletCoins(wallet));
-    // Action to be perform after we load the wallet
+  Future<AppState?> reduce() async {
     if (wallet != null) {
+      await dispatch(WalletActionWalletSetActive(wallet!));
+
+      await dispatch(AssetActionSyncWalletCoins(wallet!));
       // Update prices
-      dispatch(AssetActionUpdatePrices(
-        store.state.commonState.fiatCurrency,
-      ));
+      dispatch(
+        AssetActionUpdatePrices(
+          store.state.commonState.fiatCurrency ?? '',
+        ),
+      );
       // Update balances
-      dispatch(AssetActionUpdateWalletBalances(
-        wallet: wallet,
-        skipFrequentUpdate: true,
-      ));
+      dispatch(
+        AssetActionUpdateWalletBalances(
+          wallet: wallet!,
+          skipFrequentUpdate: true,
+        ),
+      );
 
       dispatch(InvestActionClear());
       dispatch(InvitationActionClear());
       dispatch(TradeActionReSubmitCancelTxid());
 
       // Check wallet status and register
-      dispatch(WalletActionWalletRegister(wallet));
+      dispatch(WalletActionWalletRegister(wallet!));
     }
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     CrashesReport().reportEvent(
       'WalletLog_03_LoadActiveWallet',
       error,
@@ -142,7 +145,7 @@ class AppActionAfterChangeLanguage extends _BaseAction {
   final String language;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
     // NOTE: Add Actions that need reload data when change Language
     dispatch(CommunityActionLoadConfig());
     dispatch(HomeActionInit());
@@ -156,7 +159,7 @@ class AppActionAfterChangeFiatCurrency extends _BaseAction {
   final String fiatCurrency;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
     // NOTE: Add Actions that need reload data when change Fiat Currency
     dispatch(AssetActionUpdatePrices(fiatCurrency));
 
@@ -169,10 +172,11 @@ class AppActionAfterCommonConfig extends _BaseAction {
   final Config config;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
     // NOTE: Add Actions that need execute after get the main config
-    dispatch(AssetActionSyncWalletCoins(state.walletState.activeWallet));
-
+    if (state.walletState.activeWallet != null) {
+      dispatch(AssetActionSyncWalletCoins(state.walletState.activeWallet!));
+    }
     return null;
   }
 }

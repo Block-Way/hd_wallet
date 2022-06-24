@@ -42,13 +42,17 @@ class WalletCreateButtons extends StatelessWidget {
                     WalletImportPage.open();
                   },
                   bordered: true,
-                  backgroundColor: context.bgPrimaryColor,
+                  // backgroundColor: context.bgPrimaryColor,
+                  backgroundColor: Color(0xFF2f3741),
+                  textColor: context.placeholderColor
                 ),
               ),
               SizedBox(width: context.edgeSize),
               Flexible(
                 child: CSButton(
                   label: tr('wallet:create_title'),
+                  backgroundColor: context.confirmTopColor,
+                  textColor: context.confirmWordColor,
                   onPressed: () {
                     if (isUseDialog) {
                       AppNavigator.goBack();

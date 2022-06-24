@@ -2,7 +2,7 @@ part of widgets;
 
 class CSButton extends StatelessWidget {
   const CSButton({
-    Key key,
+    Key? key,
     this.label,
     this.borderColor,
     this.borderRadius,
@@ -33,40 +33,40 @@ class CSButton extends StatelessWidget {
     this.alignment = MainAxisAlignment.center,
   }) : super(key: key);
 
-  final String label;
-  final Color borderColor;
-  final double borderRadius;
+  final String? label;
+  final Color? borderColor;
+  final double? borderRadius;
 
   /// 按钮事件
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   /// 按钮字体颜色
-  final Color textColor;
-  final TextStyle textStyle;
+  final Color? textColor;
+  final TextStyle? textStyle;
   final bool textBold;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final bool mini;
   final bool fullwidth;
   final bool autoWidth;
   final bool flat;
   final bool bordered;
-  final double borderWidth;
+  final double? borderWidth;
   final bool loading;
   final bool disabled;
-  final double height;
-  final double width;
-  final Widget child;
-  final Widget cmpLeft;
-  final Widget cmpRight;
+  final double? height;
+  final double? width;
+  final Widget? child;
+  final Widget? cmpLeft;
+  final Widget? cmpRight;
   final MainAxisAlignment alignment;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
   final MainAxisSize mainAxisSize;
 
   /// 关闭连续点击限制
   final bool disableDebounce;
   final int doubleClickInterval;
-  final ShapeBorder customBorder;
+  final ShapeBorder? customBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class CSButton extends StatelessWidget {
     final finalWidth = flat ? null : (fullwidth ? screenWidth : btnWidth);
     final finalHeight = flat ? null : btnHeight;
     final finalBgColor = flat ? Colors.transparent : btnBgColor;
-    final finalTextColor = flat ? context.bodyColor : btnTextColor;
+    final finalTextColor = flat ? context.placeholderColor : btnTextColor;
     final finalBorderRadius = flat ? 0.0 : btnBorderRadius;
     final finalBorderRadiusCircle = Radius.circular(
       borderRadius ?? finalBorderRadius,
@@ -97,9 +97,9 @@ class CSButton extends StatelessWidget {
     void handlePress() {
       if (onPressed != null) {
         if (disableDebounce) {
-          onPressed();
+          onPressed?.call();
         } else {
-          ButtonUtils.doubleClick(onPressed, doubleClickInterval);
+          ButtonUtils.doubleClick(onPressed!, doubleClickInterval);
         }
       }
     }
@@ -134,7 +134,7 @@ class CSButton extends StatelessWidget {
               mainAxisAlignment: alignment,
               mainAxisSize: mainAxisSize,
               children: [
-                if (cmpLeft != null) cmpLeft,
+                if (cmpLeft != null) cmpLeft!,
                 child ??
                     Center(
                       child: Text(
@@ -146,7 +146,7 @@ class CSButton extends StatelessWidget {
                             ),
                       ),
                     ),
-                if (cmpRight != null && !loading) cmpRight,
+                if (cmpRight != null && !loading) cmpRight!,
                 if (loading)
                   Padding(
                     padding: context.edgeLeft5,

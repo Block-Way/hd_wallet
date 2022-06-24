@@ -20,17 +20,17 @@ class WalletImportPage extends HookWidget {
     WalletType walletType,
     TextEditingController mnemonic,
   ) {
-    final isValid = formKey.currentState.validate();
+    final isValid = formKey.currentState?.validate();
 
     if (!autovalidate.value) {
       autovalidate.value = true;
     }
 
-    if (!isValid) {
-      return;
-    }
+    //if (!isValid) {
+    //  return;
+    //}
 
-    formKey.currentState.save();
+    formKey.currentState?.save();
     LoadingDialog.show(context);
     viewModel.validateMnemonic(mnemonic.text).then((_) {
       LoadingDialog.dismiss(context);
@@ -49,6 +49,8 @@ class WalletImportPage extends HookWidget {
 
     return CSScaffold(
       title: tr('wallet:import_title'),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       scrollable: true,
       child: Form(
         key: formKey,
@@ -64,7 +66,7 @@ class WalletImportPage extends HookWidget {
                   padding: EdgeInsets.zero,
                   child: FormCell(
                     label: walletType.value.transKey != null
-                        ? tr(walletType.value.transKey)
+                        ? tr(walletType.value.transKey ?? '')
                         : walletType.value.name,
                     cmpLeft: Padding(
                       padding: context.edgeRight8,
@@ -78,7 +80,7 @@ class WalletImportPage extends HookWidget {
                     ),
                     padding: context.edgeHorizontal,
                     onPress: () {
-                      WalletPathSelectPage.open().then((item) {
+                      WalletPathSelectPage.open()?.then((item) {
                         if (item != null) {
                           AnalyticsReport().reportLog('Wallet_Import_Path', {
                             'name': item.name,
@@ -108,6 +110,8 @@ class WalletImportPage extends HookWidget {
                   return CSButton(
                     disabled: disabled,
                     label: tr('wallet:backup_btn_next'),
+                    backgroundColor: context.confirmTopColor,
+                    textColor: context.confirmWordColor,
                     onPressed: () {
                       doImportWallet(
                         context,

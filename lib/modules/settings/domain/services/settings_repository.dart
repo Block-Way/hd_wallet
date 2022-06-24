@@ -4,7 +4,7 @@ class SettingsRepository {
 // Singleton instance
 
   factory SettingsRepository([
-    FlutterSecureStorage _storage,
+    FlutterSecureStorage? _storage,
   ]) {
     _instance._storage = _storage ?? FlutterSecureStorage();
     return _instance;
@@ -13,17 +13,17 @@ class SettingsRepository {
 
   static final _instance = SettingsRepository._internal();
 
-  FlutterSecureStorage _storage;
+  late FlutterSecureStorage _storage;
 
   /// Secure storage mnemonic key
   static const _storageKey = 'DevSettings@All';
 
 // Methods
 
-  Future<SettingsConfig> getSettings() async {
+  Future<SettingsConfig?> getSettings() async {
     final json = await _storage.read(key: _storageKey);
     try {
-      return SettingsConfig.fromJson(jsonDecode(json) as Map<String, dynamic>);
+      return SettingsConfig.fromJson(jsonDecode(json!) as Map<String, dynamic>);
     } catch (e) {
       return SettingsConfig();
     }

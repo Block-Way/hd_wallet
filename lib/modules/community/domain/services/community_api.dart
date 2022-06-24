@@ -1,6 +1,7 @@
 part of community_domain_module;
 
 class CommunityApi {
+  /*
   Future<Map<String, dynamic>> getConfig() => Request().getObject(
         '/v1/hd/team/config',
       );
@@ -141,4 +142,5 @@ class CommunityApi {
       Request().getObject(
         '/v1/hd/team/$teamId/info',
       );
+      */
 }

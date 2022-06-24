@@ -2,15 +2,15 @@ part of widgets;
 
 class CSBadge extends StatelessWidget {
   const CSBadge({
-    Key key,
+    Key? key,
     this.size = 10,
     this.margin,
     this.color,
   }) : super(key: key);
 
   final double size;
-  final EdgeInsets margin;
-  final Color color;
+  final EdgeInsets? margin;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

@@ -2,14 +2,14 @@ part of wallet_ui_module;
 
 class MnemonicCard extends StatelessWidget {
   const MnemonicCard({
-    @required this.mnemonic,
+    required this.mnemonic,
     this.selected,
     this.onSelect,
   });
 
   final List<String> mnemonic;
-  final List<String> selected;
-  final Function(String item) onSelect;
+  final List<String>? selected;
+  final Function(String item)? onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class MnemonicCard extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final item = mnemonic[index];
-          final isSelect = selected != null && selected.contains(item);
+          final isSelect = selected != null && selected!.contains(item);
           return InkWell(
             borderRadius: context.radiusAll,
             onTap: onSelect != null
                 ? () {
-                    onSelect(item);
+                    onSelect?.call(item);
                   }
                 : null,
             child: Container(
@@ -52,7 +52,7 @@ class MnemonicCard extends StatelessWidget {
                     ),
                   Center(
                     child: Text(
-                      item.split('_')[0] ?? '',
+                      item.split('_')[0],
                       style: context.textBody(bold: true),
                     ),
                   ),

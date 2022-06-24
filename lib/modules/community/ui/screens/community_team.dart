@@ -36,11 +36,11 @@ class CommunityTeamPage extends HookWidget {
       if (!info.joinIsOnChain)
         {
           'label': tr('community:join_sugar_develop_telegram_lbl'),
-          'value': team.options.telegramAccount,
+          'value': team.options?.telegramAccount,
         },
       {
         'label': tr('community:detail_lbl_address'),
-        'value': team.options.addressCount,
+        'value': team.options?.addressCount,
       },
       if (team.displayAverageSymbol.isNotEmpty)
         {
@@ -88,7 +88,7 @@ class CommunityTeamPage extends HookWidget {
                   children: [
                     Expanded(
                       child: SelectableText(
-                        team.name,
+                        team.name ?? '',
                         style: context.textMedium(bold: true, lineHeight: 1.5),
                       ),
                     ),

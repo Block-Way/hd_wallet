@@ -2,8 +2,10 @@ library asset_domain_module;
 
 // Dart imports:
 import 'dart:async';
+import 'dart:convert';
 
 // Flutter imports:
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 // Package imports:
@@ -14,13 +16,13 @@ import 'package:built_value/serializer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:network_flutter/network_flutter.dart';
 
 // Project imports:
 import 'package:sugar/modules/app/app.dart';
 import 'package:sugar/modules/common/domain/common.dart';
 import 'package:sugar/modules/wallet/domain/wallet.dart';
 import 'package:sugar/utils/utils.dart';
+import 'package:sugar/crypto/hah.dart';
 
 part 'asset.g.dart';
 
@@ -52,6 +54,8 @@ part 'store/asset_state.dart';
 part 'cubit/asset_balance.cubit.dart';
 part 'cubit/coin_price.cubit.dart';
 part 'cubit/asset_detail.cubit.dart';
+part 'cubit/asset_dpos.cubit.dart';
+part 'cubit/asset_dpos_trans.cubit.dart';
 part 'cubit/asset_transaction.cubit.dart';
 part 'cubit/fiat_price.cubit.dart';
 part 'store/utils.dart';

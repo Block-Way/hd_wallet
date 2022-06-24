@@ -6,8 +6,8 @@ class SwapItem extends StatelessWidget {
     this.onPress,
   });
 
-  final Swap item;
-  final void Function(Swap) onPress;
+  final Swap? item;
+  final void Function(Swap)? onPress;
 
   Widget buildCoinItem(
     BuildContext context,
@@ -40,7 +40,7 @@ class SwapItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      key: Key('${item.txId}${item.createdAt}'),
+      key: Key('${item?.txId}${item?.createdAt}'),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
         decoration: ThemeBorders.borderBottom,
@@ -57,13 +57,13 @@ class SwapItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  tr(item.statusTransKey),
+                  tr(item!.statusTransKey),
                   style: context.textSecondary(
-                    color: item.isFailed
+                    color: item!.isFailed
                         ? context.redColor
-                        : item.status == SwapStatus.pending
+                        : item!.status == SwapStatus.pending
                             ? context.primaryColor
-                            : item.status == SwapStatus.confirming
+                            : item!.status == SwapStatus.confirming
                                 ? context.greenColor
                                 : context.secondaryColor,
                   ),
@@ -73,7 +73,7 @@ class SwapItem extends StatelessWidget {
             Padding(
               padding: context.edgeTop10,
               child: Text(
-                item.displayTime,
+                item!.displayTime,
                 style: context.textSecondary(
                   color: context.placeholderColor,
                 ),
@@ -87,30 +87,30 @@ class SwapItem extends StatelessWidget {
               children: [
                 buildCoinItem(
                   context,
-                  '${item.outSymbol}(${item.outChain})',
-                  '- ${item.displayOutAmount}',
+                  '${item?.outSymbol}(${item?.outChain})',
+                  '- ${item?.displayOutAmount}',
                   context.redColor,
                 ),
                 buildCoinItem(
                   context,
-                  '${item.inSymbol}(${item.inChain})',
-                  '+ ${item.displayInAmount}',
+                  '${item?.inSymbol}(${item?.inChain})',
+                  '+ ${item?.displayInAmount}',
                   context.greenColor,
                 ),
                 buildCoinItem(
                   context,
                   tr('swap:list_actual_amount'),
-                  '+ ${item.displayActualAmount}',
+                  '+ ${item?.displayActualAmount}',
                   context.greenColor,
                 ),
               ],
             ),
-            if (item.status == SwapStatus.noTxid)
+            if (item!.status == SwapStatus.noTxid)
               SizedBox(height: context.edgeSize),
-            if (item.status == SwapStatus.noTxid)
+            if (item!.status == SwapStatus.noTxid)
               CSButton(
                 onPressed: () {
-                  onPress(item);
+                  onPress?.call(item!);
                 },
                 label: tr('swap:swap_btn_resubmit'),
                 borderRadius: context.edgeSize,

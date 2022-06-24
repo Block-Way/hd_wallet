@@ -11,11 +11,11 @@ class ImagePreview extends StatelessWidget {
   });
 
   final List<String> images;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final MainAxisAlignment alignment;
-  final VoidCallback onIconPressed;
-  final IconData icon;
+  final VoidCallback? onIconPressed;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ enum _CreateSteps {
 
 class HDKeyDeviceEmpty extends HookWidget {
   HDKeyDeviceEmpty({
-    @required this.onCreate,
+    required this.onCreate,
   });
 
   final pageController = PageController();
@@ -25,14 +25,14 @@ class HDKeyDeviceEmpty extends HookWidget {
     final textController = useStreamController<String>();
     final errorController = useStreamController<ErrorAnimationType>();
 
-    void goNextPage([int duration]) {
+    void goNextPage([int? duration]) {
       pageController.nextPage(
         duration: Duration(milliseconds: duration ?? 200),
         curve: Curves.easeIn,
       );
     }
 
-    void goPreviousPage([int duration]) {
+    void goPreviousPage([int? duration]) {
       pageController.previousPage(
         duration: Duration(milliseconds: duration ?? 200),
         curve: Curves.easeIn,

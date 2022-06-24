@@ -3,7 +3,7 @@ part of wallet_ui_module;
 class WalletPathSelectPage extends HookWidget {
   static const routeName = '/wallet/path/select';
 
-  static Future<WalletPathConfig> open() {
+  static Future<WalletPathConfig?>? open() {
     return AppNavigator.push<WalletPathConfig>(routeName);
   }
 
@@ -19,7 +19,7 @@ class WalletPathSelectPage extends HookWidget {
       margin: context.edgeAll.copyWith(top: 0),
       padding: EdgeInsets.zero,
       child: FormCell(
-        label: item.transKey != null ? tr(item.transKey) : item.name,
+        label: item.transKey != null ? tr(item.transKey ?? '') : item.name,
         cmpLeft: Padding(
           padding: context.edgeRight8,
           child: CSImage(
@@ -43,6 +43,8 @@ class WalletPathSelectPage extends HookWidget {
     final list = WalletPathUtils.pathConfigs;
     return CSScaffold(
       scrollable: true,
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: tr('wallet:select_path_title'),
       child: ListView.builder(
         primary: true,

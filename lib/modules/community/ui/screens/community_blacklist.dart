@@ -26,11 +26,13 @@ class CommunityBlacklistPage extends HookWidget {
       child: StoreConnector<AppState, CommunityBlacklistVM>(
         distinct: true,
         converter: CommunityBlacklistVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           viewModel.clearCommunityBlacklist();
-          request.add(CSListViewParams(
-            take: 20,
-          ));
+          request.add(
+            CSListViewParams(
+              take: 20,
+            ),
+          );
         },
         builder: (context, viewModel) => CSListViewStream(
           emptyLabel: tr('community:blacklist_list_empty'),
@@ -44,17 +46,17 @@ class CommunityBlacklistPage extends HookWidget {
               type: '${info.type}',
             );
           },
-          itemCount: viewModel.communityBlacklist.length,
+          itemCount: viewModel.communityBlacklist?.length ?? 0,
           itemBuilder: (context, index) => CommunityListItem(
-            name: viewModel.communityBlacklist[index].name,
-            displayIcon: viewModel.communityBlacklist[index].displayIcon,
+            name: viewModel.communityBlacklist?[index].name ?? '',
+            displayIcon: viewModel.communityBlacklist?[index].displayIcon ?? '',
             hasWallet: viewModel.hasWallet,
             isBlacklist: true,
             index: index,
             onPress: () {
               CommunityTeamPage.open(
                 info,
-                viewModel.communityBlacklist[index],
+                viewModel.communityBlacklist![index],
               );
             },
           ),

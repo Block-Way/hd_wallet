@@ -14,8 +14,8 @@ abstract class ProjectListVM
   // Methods
   @BuiltValueField(compare: false)
   Future<int> Function({
-    bool isRefresh,
-    int skip,
+    required bool isRefresh,
+    required int skip,
   }) get loadData;
 
   static ProjectListVM fromStore(Store<AppState> store) {
@@ -23,10 +23,10 @@ abstract class ProjectListVM
       (viewModel) => viewModel
         ..projectsList = ListBuilder(store.state.projectState.projectList)
         ..loadData = ({
-          isRefresh,
-          skip,
+          required isRefresh,
+          required skip,
         }) async {
-          await store.dispatchFuture(
+          await store.dispatch(
             ProjectActionGetList(
               isRefresh: isRefresh,
               skip: skip,

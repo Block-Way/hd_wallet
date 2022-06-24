@@ -53,7 +53,7 @@ class Transaction extends HiveObject {
     final outFirst = '${outList[0] ?? ''}';
 
     return Transaction()
-      ..txId = data['hash']?.toString()
+      ..txId = data['hash'].toString()
       ..chain = 'BTC'
       ..symbol = symbol
       ..fromAddress = isWithdraw ? fromAddress : inFirst
@@ -117,7 +117,7 @@ class Transaction extends HiveObject {
         : 0.0;
 
     return Transaction()
-      ..txId = data['transaction_id']?.toString() ?? data['txID']?.toString()
+      ..txId = data['hash'].toString()
       ..chain = 'TRX'
       ..symbol = symbol
       ..fromAddress = data['from'].toString()
@@ -139,11 +139,11 @@ class Transaction extends HiveObject {
   }
 
   factory Transaction.fromJson({
-    @required String chain,
-    @required String symbol,
-    @required String fromAddress,
-    @required int chainPrecision,
-    @required Map<String, dynamic> json,
+    required String chain,
+    required String symbol,
+    required String fromAddress,
+    required int chainPrecision,
+    required Map<String, dynamic> json,
   }) {
     switch (chain) {
       case 'BBC':
@@ -153,7 +153,7 @@ class Transaction extends HiveObject {
       case 'TRX':
         return Transaction.fromTrxTx(symbol, fromAddress, json);
       default:
-        return null;
+        return Transaction.fromTrxTx(symbol, fromAddress, json);
     }
   }
 
@@ -170,17 +170,17 @@ class Transaction extends HiveObject {
         ..toAddress = data['toAddress'].toString()
         ..timestamp = NumberUtil.getInt(data['timestamp'])
         ..confirmations = NumberUtil.getInt(data['confirmed'])
-        ..fee = double.tryParse(data['txFee'].toString())
+        ..fee = double.tryParse(data['txFee'].toString()) ?? 0
         ..feeSymbol = symbol
         ..type = fromAddress.toLowerCase() ==
                 data['fromAddress'].toString().toLowerCase()
             ? TransactionType.withdraw
             : TransactionType.deposit
-        ..amount = double.tryParse(data['amount'].toString());
+        ..amount = double.tryParse(data['amount'].toString()) ?? 0;
 
   factory Transaction.fromSubmit({
-    @required WithdrawSubmitParams params,
-    @required String txId,
+    required WithdrawSubmitParams params,
+    required String txId,
   }) =>
       Transaction()
         ..txId = txId
@@ -196,15 +196,15 @@ class Transaction extends HiveObject {
         ..amount = params.amount;
 
   factory Transaction.fromRaw({
-    @required String txId,
-    @required String chain,
-    @required String symbol,
-    @required String toAddress,
-    @required String fromAddress,
-    @required double feeValue,
-    @required String feeSymbol,
-    @required double amount,
-    @required TransactionType type,
+    required String txId,
+    required String chain,
+    required String symbol,
+    required String toAddress,
+    required String fromAddress,
+    required double feeValue,
+    required String feeSymbol,
+    required double amount,
+    required TransactionType type,
   }) =>
       Transaction()
         ..txId = txId
@@ -220,39 +220,39 @@ class Transaction extends HiveObject {
         ..amount = amount;
 
   @HiveField(0)
-  String txId;
+  String? txId;
   @HiveField(1)
-  String chain;
+  String? chain;
   @HiveField(2)
-  String symbol;
+  String? symbol;
   @HiveField(3)
-  int confirmations;
+  int? confirmations;
   @HiveField(4)
-  int timestamp;
+  int? timestamp;
   @HiveField(5)
-  int blockHeight;
+  int? blockHeight;
   @HiveField(6)
-  bool failed;
+  bool? failed;
 
   @HiveField(7)
-  String toAddress;
+  String? toAddress;
   @HiveField(8)
-  String fromAddress;
+  String? fromAddress;
 
   @HiveField(9)
-  double amount;
+  double? amount;
   @HiveField(10)
-  double fee;
+  double? fee;
   @HiveField(11)
-  String feeSymbol;
+  String? feeSymbol;
 
   /// ETH: Token contract
   /// BBC: Fork ID/TX
   @HiveField(12)
-  String contract;
+  String? contract;
 
   @HiveField(13)
-  TransactionType type;
+  TransactionType? type;
 
   String get displayTime => formatDate(
         DateTime.fromMillisecondsSinceEpoch((timestamp ?? 0) * 1000),
@@ -278,19 +278,19 @@ class Transaction extends HiveObject {
   bool get isExpired =>
       isConfirmed == false &&
       !isFailed &&
-      (SystemDate.getTime() - timestamp) > 24 * 60 * 60;
+      (SystemDate.getTime() - (timestamp ?? 0)) > 24 * 60 * 60;
 
   bool get isTakingLongTime =>
       isConfirmed == false &&
       !isFailed &&
-      (SystemDate.getTime() - timestamp) > 5 * 60;
+      (SystemDate.getTime() - (timestamp ?? 0)) > 5 * 60;
 
   /// If true, TX is confirmermed, reached the minimum Confirmation
   bool get isConfirmed =>
-      confirmations >= (kTransactionChainConfirmations[chain] ?? 0);
+      (confirmations ?? 0) >= (kTransactionChainConfirmations[chain] ?? 0);
 
   bool get isConfirming =>
-      confirmations <= (kTransactionChainConfirmations[chain] ?? 0);
+      (confirmations ?? 0) <= (kTransactionChainConfirmations[chain] ?? 0);
 
   String get confirmingTransKey {
     if (isFailed) {
@@ -306,7 +306,7 @@ class Transaction extends HiveObject {
     if (isFailed) {
       return 'asset:trans_msg_tx_failed'; // 失败
     }
-    if (confirmations > 0) {
+    if ((confirmations ?? 0) > 0) {
       return 'asset:trans_msg_tx_success'; //已完成
     }
     return 'asset:trans_msg_tx_pending'; //确认中

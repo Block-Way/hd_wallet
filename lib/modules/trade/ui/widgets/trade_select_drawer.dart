@@ -2,8 +2,8 @@ part of trade_ui_module;
 
 class TradeSelectDrawer extends HookWidget {
   const TradeSelectDrawer({
-    @required this.onSelected,
-    @required this.selected,
+    required this.onSelected,
+    required this.selected,
     this.showSelectAll = false,
   });
 
@@ -23,22 +23,20 @@ class TradeSelectDrawer extends HookWidget {
         child: StoreConnector<AppState, TradePairVM>(
           distinct: true,
           converter: TradePairVM.fromStore,
-          onInitialBuild: (viewModel) {
+          onInitialBuild: (_, __, viewModel) {
             viewModel.doLoadTradePair();
             if (viewModel.allTradeMarkets != null &&
                 viewModel.allTradeMarkets.isNotEmpty) {
               final item = viewModel.allTradeMarkets.firstWhere(
-                (e) => (selected?.priceName ?? '').contains(e.id),
-                orElse: () => null,
+                (e) => (selected.priceName).contains(e.id),
               );
-              selectedMarket.value =
-                  item?.id ?? viewModel.allTradeMarkets.first.id;
+              selectedMarket.value = item.id;
             }
           },
           builder: (context, viewModel) {
             final markets = viewModel.allTradeMarkets;
             final pairs = viewModel.allTradePairs;
-            final selectedId = selected?.id;
+            final selectedId = selected.id;
             if (markets.isEmpty || pairs.isEmpty) {
               return CSEmpty(
                 isLoading: true,
@@ -62,7 +60,10 @@ class TradeSelectDrawer extends HookWidget {
                   padding: context.edgeAll,
                   child: Text(
                     tr('trade:trade_pair_select_title'),
-                    style: context.textHuge(fontWeight: FontWeight.w700),
+                    style: context.textHuge(
+                      fontWeight: FontWeight.w700,
+                      bold: true,
+                    ),
                   ),
                 ),
                 CSSearchInput(
@@ -110,11 +111,17 @@ class TradeSelectDrawer extends HookWidget {
                     children: [
                       Text(
                         tr('trade:trade_pair_select_lbl_pair'),
-                        style: context.textSmall(),
+                        style: context.textSmall(
+                          bold: true,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                       Text(
                         tr('trade:trade_pair_select_lbl_price'),
-                        style: context.textSmall(),
+                        style: context.textSmall(
+                          bold: true,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ],
                   ),
@@ -139,7 +146,7 @@ class TradeSelectDrawer extends HookWidget {
                       label: tr('global:btn_all'),
                       onPressed: () {
                         AppNavigator.goBack();
-                        onSelected(null);
+                        //onSelected(null);
                       },
                     ),
                   ),

@@ -30,7 +30,7 @@ part 'screens/admission_create.dart';
 part 'widgets/admission_latest.dart';
 part 'process/admission_submit_process.dart';
 
-Route<dynamic> moduleAdmissionInitRoutes(RouteSettings settings) {
+Route<dynamic>? moduleAdmissionInitRoutes(RouteSettings settings) {
   switch (settings.name) {
     case AdmissionCreatePage.routeName:
       return AdmissionCreatePage.route(settings);

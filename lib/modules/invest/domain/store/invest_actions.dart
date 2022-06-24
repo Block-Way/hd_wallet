@@ -27,7 +27,7 @@ class InvestActionLoadMintBefore extends _BaseAction {
     final activeMint = store.state.investState.activeMint;
     if (mint != null && activeMint != null && activeMint.id != mint.id) {
       // 切换矿池的话 需要清除state中的数据
-      await store.dispatchFuture(InvestActionClear());
+      await store.dispatch(InvestActionClear());
     }
     return state.rebuild(
       (a) => a.investState.activeMint = mint.toBuilder(),
@@ -45,10 +45,10 @@ class InvestActionLoadMint extends _BaseAction {
   }
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     if (state.walletState.hasWallet) {
-      await store.dispatchFuture(InvestActionLoadMintInfo());
-      await store.dispatchFuture(InvestActionLoadChart());
+      await store.dispatch(InvestActionLoadMintInfo());
+      await store.dispatch(InvestActionLoadChart());
     }
 
     return null;
@@ -60,7 +60,7 @@ class InvestActionLoadMint extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     return error;
   }
 }

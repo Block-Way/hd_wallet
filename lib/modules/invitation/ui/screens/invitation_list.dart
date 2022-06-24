@@ -22,13 +22,13 @@ class InvitationListPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coinInfo = useState<AssetCoin>(null);
+    final coinInfo = useState<AssetCoin?>(null);
     final request = useBehaviorStreamController<
         CSListViewParams<_GetInvitationListParams>>();
 
     void loadDefaultCoin(InvitationListVM viewModel) {
       final coins = viewModel.getInvitationCoins();
-      if (coins?.isNotEmpty == true) {
+      if (coins.isNotEmpty == true) {
         final defaultCoin = coinInfo.value ?? coins.first;
         coinInfo.value = defaultCoin;
         request.add(
@@ -46,18 +46,18 @@ class InvitationListPage extends HookWidget {
             builder: (context, viewModel) {
               return CSButton(
                 padding: context.edgeHorizontal,
-                label: coinInfo.value.name,
+                label: coinInfo.value?.name ?? '',
                 flat: true,
                 textStyle: context.textBody(),
                 onPressed: () {
-                  InvitationCoinSelectPage.open().then((coin) {
-                    if (coin.chain != coinInfo.value.chain ||
-                        coin.symbol != coinInfo.value.symbol) {
+                  InvitationCoinSelectPage.open()?.then((coin) {
+                    if (coin?.chain != coinInfo.value?.chain ||
+                        coin?.symbol != coinInfo.value?.symbol) {
                       coinInfo.value = coin;
                       viewModel.clearInvitationList();
                       request.add(
                         CSListViewParams.withParams(
-                          _GetInvitationListParams(coin),
+                          _GetInvitationListParams(coin!),
                         ),
                       );
                     }
@@ -80,7 +80,7 @@ class InvitationListPage extends HookWidget {
       child: StoreConnector<AppState, InvitationListVM>(
         distinct: true,
         converter: InvitationListVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           loadDefaultCoin(viewModel);
         },
         builder: (context, viewModel) => ModelPermissionView(
@@ -96,7 +96,7 @@ class InvitationListPage extends HookWidget {
               return viewModel.loadInvitationList(
                 params.isRefresh,
                 params.skip,
-                params.params.coinInfo,
+                params.params!.coinInfo,
               );
             },
             itemCount: viewModel.invitations.length,
@@ -111,9 +111,9 @@ class InvitationListPage extends HookWidget {
 
   Widget _buildItem(BuildContext context, Invitation item) {
     final date = formatDate(
-      DateTime.fromMillisecondsSinceEpoch((item.createAt ?? 0) * 1000),
+      DateTime.fromMillisecondsSinceEpoch((item.createAt) * 1000),
     );
-    final address = item.address ?? '';
+    final address = item.address;
 
     return CSContainer(
       margin: context.edgeAll.copyWith(bottom: 0),

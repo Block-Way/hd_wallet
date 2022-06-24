@@ -7,88 +7,90 @@ abstract class ProjectInfo implements Built<ProjectInfo, ProjectInfoBuilder> {
 
   static Serializer<ProjectInfo> get serializer => _$projectInfoSerializer;
 
-  static ProjectInfo fromJson(Map<String, dynamic> json) {
+  static ProjectInfo? fromJson(Map<String, dynamic> json) {
     return deserialize<ProjectInfo>(json);
   }
 
 // Fields
-  @nullable
-  int get id;
+  //@nullable
+  int? get id;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'currency')
-  String get symbol;
+  String? get symbol;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'currency_price')
-  String get currencyPrice;
+  String? get currencyPrice;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'init_amount')
-  String get initAmount;
+  String? get initAmount;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'project_name')
-  String get projectName;
+  String? get projectName;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'target_number')
-  double get targetNumber;
+  double? get targetNumber;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'invite_number')
-  double get inviteNumber;
+  double? get inviteNumber;
 
-  @nullable
-  String get fork;
+  //@nullable
+  String? get fork;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'total_amount')
-  String get totalAmount;
+  String? get totalAmount;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'owner_website')
-  String get ownerWebsite;
+  String? get ownerWebsite;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'owner_name')
-  BuiltMap<String, String> get ownerName;
+  BuiltMap<String, String>? get ownerName;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'project_description')
-  BuiltMap<String, String> get projectDescription;
+  BuiltMap<String, String>? get projectDescription;
 
-  @nullable
-  int get status;
+  //@nullable
+  int? get status;
 
 //10-不显示矿池入口，11-显示矿池入口
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'mining_pool_status')
-  int get miningPoolStatus;
+  int? get miningPoolStatus;
 
-  @nullable
-  String get iconUrl;
+  //@nullable
+  String? get iconUrl;
 
-  @nullable
-  bool get displayPoolBtn => miningPoolStatus != null && miningPoolStatus == 11;
+  //@nullable
+  bool? get displayPoolBtn =>
+      miningPoolStatus != null && miningPoolStatus == 11;
 
-  @nullable
-  String get displayPrice => NumberUtil.truncateDecimal(currencyPrice, 6);
+  //@nullable
+  String? get displayPrice => NumberUtil.truncateDecimal(currencyPrice, 6);
 
-  @nullable
-  String get displayInviteNumber => NumberUtil.truncateDecimal(inviteNumber, 2);
+  //@nullable
+  String? get displayInviteNumber =>
+      NumberUtil.truncateDecimal(inviteNumber, 2);
 
-  @nullable
-  String get displayTotalAmount => NumberUtil.truncateDecimal(totalAmount, 2);
+  //@nullable
+  String? get displayTotalAmount => NumberUtil.truncateDecimal(totalAmount, 2);
 
-  @nullable
-  String get displayInitAmount => NumberUtil.truncateDecimal(initAmount, 2);
+  //@nullable
+  String? get displayInitAmount => NumberUtil.truncateDecimal(initAmount, 2);
 
-  @nullable
-  String get displayProgressPair =>
-      '${inviteNumber.toInt()}/${targetNumber.toInt()}';
+  //@nullable
+  String? get displayProgressPair =>
+      '${inviteNumber?.toInt()}/${targetNumber?.toInt()}';
 
-  @nullable
-  double get displayProgress =>
+  //@nullable
+  double? get displayProgress =>
       NumberUtil.multiply(NumberUtil.divide(inviteNumber, targetNumber), 120);
 }

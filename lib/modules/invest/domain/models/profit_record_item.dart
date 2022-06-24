@@ -26,5 +26,5 @@ abstract class ProfitRecordItem
   String get promotionReward;
 
   String get totalReward =>
-      NumberUtil.plus<String>(stakeReward ?? 0, promotionReward ?? 0);
+      NumberUtil.plus<String>(stakeReward, promotionReward) ?? '';
 }

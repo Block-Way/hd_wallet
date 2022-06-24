@@ -64,35 +64,30 @@ abstract class AssetState implements Built<AssetState, AssetStateBuilder> {
   String get coinsSearchTerm;
 
   // asset address
-  BuiltList<AssetAddress> get addressList;
+  BuiltList<AssetAddress>? get addressList;
 
-  @nullable
-  String get addressRequestId;
+  //@nullable
+  String? get addressRequestId;
 
 // Methods
   AssetCoin getCoinInfo({
-    @required String chain,
-    @required String symbol,
+    required String chain,
+    required String symbol,
   }) {
     if (chain == null || chain.isEmpty) {
       return coins.firstWhere(
         (e) => e.symbol == symbol,
-        orElse: () => null,
       );
     }
 
     return coins.firstWhere(
       (e) => e.symbol == symbol && e.chain == chain,
-      orElse: () => null,
     );
   }
 
   AssetCoin getCoinInfoByContract({
-    @required String contract,
+    required String contract,
   }) {
-    return coins.firstWhere(
-      (e) => e.contract == contract,
-      orElse: () => null,
-    );
+    return coins.firstWhere((e) => e.contract == contract);
   }
 }

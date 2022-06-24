@@ -2,10 +2,10 @@ part of wallet_domain_module;
 
 class WithdrawSubmitParams {
   WithdrawSubmitParams({
-    @required this.amount,
-    @required this.toAddress,
-    @required this.chainPrecision,
-    @required this.withdrawData,
+    required this.amount,
+    required this.toAddress,
+    required this.chainPrecision,
+    required this.withdrawData,
     this.txData,
     this.txDataUUID,
     this.txTemplateData,
@@ -19,42 +19,40 @@ class WithdrawSubmitParams {
   final int chainPrecision;
   final WalletWithdrawData withdrawData;
 
-// BBC chain props
-  final String txData;
-  final String txDataUUID;
-  final String txTemplateData;
-  final BbcDataType dataType;
+  final String? txData;
+  final String? txDataUUID;
+  final String? txTemplateData;
+  final BbcDataType? dataType;
 
-  /// bbc type 0-token 2-invitation
-  final int type;
+  final int? type;
 
-  final String broadcastType;
+  final String? broadcastType;
 }
 
 class WalletActionWithdrawSubmit extends _BaseAction {
   WalletActionWithdrawSubmit({
-    @required this.params,
-    @required this.walletData,
-    @required this.completer,
+    required this.params,
+    required this.walletData,
+    required this.completer,
     this.onConfirmSubmit,
   });
 
   final WithdrawSubmitParams params;
   final WalletPrivateData walletData;
   final Completer<String> completer;
-  final Future<bool> Function() onConfirmSubmit;
+  final Future<bool> Function()? onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
-    _BaseAction action;
-    final chain = params.withdrawData.chain;
+  Future<AppState?> reduce() async {
+    late _BaseAction action;
+    final chain = 'BBC';
     switch (chain) {
       case 'BTC':
         action = WalletActionBTCTxSubmit(
           params,
           walletData,
           completer,
-          onConfirmSubmit,
+          onConfirmSubmit!,
         );
         break;
       case 'ETH':
@@ -62,7 +60,7 @@ class WalletActionWithdrawSubmit extends _BaseAction {
           params,
           walletData,
           completer,
-          onConfirmSubmit,
+          onConfirmSubmit!,
         );
         break;
       case 'BBC':
@@ -70,7 +68,7 @@ class WalletActionWithdrawSubmit extends _BaseAction {
           params,
           walletData,
           completer,
-          onConfirmSubmit,
+          onConfirmSubmit as Future<bool> Function(),
         );
         break;
       case 'TRX':
@@ -78,12 +76,12 @@ class WalletActionWithdrawSubmit extends _BaseAction {
           params,
           walletData,
           completer,
-          onConfirmSubmit,
+          onConfirmSubmit!,
         );
         break;
     }
     if (action != null) {
-      await dispatchFuture(action, notify: false);
+      await dispatchAsync(action, notify: false);
     }
 
     return null;
@@ -92,7 +90,7 @@ class WalletActionWithdrawSubmit extends _BaseAction {
   @override
   Object wrapError(dynamic error) {
     if (error is PlatformException) {
-      if (error.message.contains(
+      if (error.message!.contains(
         'build transaction failed: no input provided',
       )) {
         WalletRepository().clearUnspentCache(
@@ -100,15 +98,17 @@ class WalletActionWithdrawSubmit extends _BaseAction {
           address: params.withdrawData.fromAddress,
         );
         // Update balance if have error
-        dispatch(AssetActionGetCoinBalance(
-          wallet: store.state.walletState.activeWallet,
-          chain: params.withdrawData.chain,
-          symbol: params.withdrawData.symbol,
-          address: params.withdrawData.fromAddress,
-          ignoreBalanceLock: true,
-        ));
-        completer.completeError(WalletTransTxRejected(error.message));
-        return WalletTransTxRejected(error.message);
+        dispatch(
+          AssetActionGetCoinBalance(
+            wallet: store.state.walletState.activeWallet!,
+            chain: params.withdrawData.chain,
+            symbol: params.withdrawData.symbol,
+            address: params.withdrawData.fromAddress,
+            ignoreBalanceLock: true,
+          ),
+        );
+        completer.completeError(WalletTransTxRejected(error.message ?? ''));
+        return WalletTransTxRejected(error.message ?? '');
       }
     }
 
@@ -121,7 +121,7 @@ class WalletActionWithdrawSubmit extends _BaseAction {
         'symbol': params.withdrawData.symbol,
       },
     );
-    completer.completeError(error);
+    completer.completeError(error as Object);
     return error;
   }
 }
@@ -144,7 +144,7 @@ class WalletActionBTCTxSubmit extends _BaseAction {
   final Future<bool> Function() onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final data = params.withdrawData;
     final toAddress = params.toAddress;
     final amount = params.amount;
@@ -171,22 +171,25 @@ class WalletActionBTCTxSubmit extends _BaseAction {
     );
 
     final requestSubmit = Completer<String>();
-    dispatch(WalletActionSignAndSubmitRawTx(
-      chain: chain,
-      symbol: data.symbol,
-      rawTx: rawTx,
-      walletData: walletData,
-      fromAddress: fromAddress,
-      broadcastType: params.broadcastType,
-      onConfirmSubmit: onConfirmSubmit,
-      completer: requestSubmit,
-      amount: params.withdrawData.isFeeOnSymbol
-          ? NumberUtil.plus<double>(
-              params.amount,
-              params.withdrawData.fee.feeValue,
-            )
-          : params.amount,
-    ));
+    dispatch(
+      WalletActionSignAndSubmitRawTx(
+        chain: chain,
+        symbol: data.symbol,
+        rawTx: rawTx!,
+        walletData: walletData,
+        fromAddress: fromAddress,
+        broadcastType: params.broadcastType!,
+        onConfirmSubmit: onConfirmSubmit,
+        completer: requestSubmit,
+        amount: (params.withdrawData.isFeeOnSymbol)
+            ? NumberUtil.plus<double>(
+                  params.amount,
+                  params.withdrawData.fee.feeValue,
+                ) ??
+                0
+            : params.amount,
+      ),
+    );
     final txId = await requestSubmit.future;
 
     dispatch(AssetActionAddTransaction(Transaction.fromSubmit(
@@ -215,7 +218,7 @@ class WalletActionETHTxSubmit extends _BaseAction {
   final Future<bool> Function() onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final data = params.withdrawData;
     final amount = params.amount;
     final toAddress = params.toAddress;
@@ -238,25 +241,30 @@ class WalletActionETHTxSubmit extends _BaseAction {
     dispatch(WalletActionSignAndSubmitRawTx(
       chain: chain,
       symbol: data.symbol,
-      rawTx: rawTx,
+      rawTx: rawTx!,
       walletData: walletData,
       fromAddress: fromAddress,
-      broadcastType: params.broadcastType,
+      broadcastType: params.broadcastType!,
       onConfirmSubmit: onConfirmSubmit,
       completer: requestSubmit,
       amount: params.withdrawData.isFeeOnSymbol
           ? NumberUtil.plus<double>(
-              params.amount,
-              params.withdrawData.fee.feeValue,
-            )
+                params.amount,
+                params.withdrawData.fee.feeValue,
+              ) ??
+              0
           : params.amount,
     ));
     final txId = await requestSubmit.future;
 
-    dispatch(AssetActionAddTransaction(Transaction.fromSubmit(
-      params: params,
-      txId: txId,
-    )));
+    dispatch(
+      AssetActionAddTransaction(
+        Transaction.fromSubmit(
+          params: params,
+          txId: txId,
+        ),
+      ),
+    );
 
     completer.complete(txId);
     return null;
@@ -279,62 +287,81 @@ class WalletActionBBCTxSubmit extends _BaseAction {
   final Future<bool> Function() onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final data = params.withdrawData;
     final toAddress = params.toAddress;
     final fromAddress = data.fromAddress;
     final amount = params.amount;
     final timestamp = SystemDate.getTime();
-    final utxos = data.utxos
-        .where((item) => item['txid'] != null)
-        .map((item) => {
-              'txId': item['txid'],
-              'vOut': NumberUtil.getInt(item['out']),
-            })
-        .toList();
 
-    final rawTx = await WalletRepository().createBBCTransaction(
-      utxos: utxos,
-      address: toAddress,
-      timestamp: timestamp,
-      anchor: data.contract,
-      amount: amount,
-      fee: data.fee.feeRateToDouble,
-      version: 1, // version
-      lockUntil: 0, // lockUntil 王杰新说用 0
-      type: params.type ?? 0, // type 0-token 2-invitation
-      data: params.txData,
-      dataUUID: params.txDataUUID,
-      templateData: params.txTemplateData,
-      dataType: params.dataType,
+    String txData = '';
+    if (params.txData == null) {
+      txData = '00';
+    } else {
+      txData = '010000a0${params.txData}';
+      params.withdrawData.fee.gasLimit = (params.withdrawData.fee.gasLimit) * 2;
+    }
+    final paramsRawTx = {
+      'to': toAddress,
+      'from': fromAddress,
+      'fork': AppConstants.hah_fork,
+      'time': timestamp,
+      'nonce': data.fee.nonce + 1,
+      'amount': amount.toString(),
+      'gasprice':
+          '1000000000000.0', //params.withdrawData.fee.gasPrice.toString(),
+      'gaslimit': params.withdrawData.fee.gasLimit.toString(),
+      'data': txData,
+      'type': txData.length > 160 ? 1 : 0,
+    };
+    final rawTx = getTx(paramsRawTx);
+    final pri = await WalletRepository().exportPrivateKey(
+      mnemonic: walletData.mnemonic!,
+      chain: 'BBC',
+      forkId: AppConstants.hah_fork,
     );
 
-    final requestSubmit = Completer<String>();
-    dispatch(WalletActionSignAndSubmitRawTx(
-      chain: chain,
-      symbol: data.symbol,
-      rawTx: rawTx,
-      walletData: walletData,
-      fromAddress: fromAddress,
-      broadcastType: params.broadcastType,
-      onConfirmSubmit: onConfirmSubmit,
-      completer: requestSubmit,
-      amount: params.withdrawData.isFeeOnSymbol
-          ? NumberUtil.plus<double>(
-              params.amount,
-              params.withdrawData.fee.feeValue,
-            )
-          : params.amount,
-    ));
-    final txId = await requestSubmit.future;
+    final privateKey = Uint8List.fromList(HEX.decode(pri));
 
-    dispatch(AssetActionAddTransaction(Transaction.fromSubmit(
-      params: params,
-      txId: txId,
-    )));
-
+    final rpk = Uint8List.fromList(privateKey.reversed.toList());
+    final public = publicKey(rpk);
+    final message = HEX.decode(rawTx['tx_hash'].toString());
+    final signature = sign(Uint8List.fromList(message.toList()), rpk, public);
+    final signedTx = '${rawTx['tx_hex']}40${HEX.encode(signature)}';
+    final txId = await WalletRepository().submitTransaction(
+      type: params.broadcastType ?? '',
+      chain: 'BBC',
+      symbol: 'BBC',
+      signedTx: signedTx,
+      walletId: walletData.walletId!,
+    );
+    dispatch(
+      AssetActionAddTransaction(
+        Transaction.fromSubmit(
+          params: params,
+          txId: txId,
+        ),
+      ),
+    );
     completer.complete(txId);
     return null;
+  }
+
+  @override
+  static Future<dynamic> reduceDpos(dynamic rawTx, String mnemonic) async {
+    final pri = await WalletRepository().exportPrivateKey(
+      mnemonic: mnemonic,
+      chain: 'BBC',
+      forkId: AppConstants.hah_fork,
+    );
+
+    final privateKey = Uint8List.fromList(HEX.decode(pri));
+    final rpk = Uint8List.fromList(privateKey.reversed.toList());
+    final public = publicKey(rpk);
+    final message = HEX.decode(rawTx['tx_hash'].toString());
+    final signature = sign(Uint8List.fromList(message.toList()), rpk, public);
+    final signedTx = '${rawTx['tx_hex']}40${HEX.encode(signature)}';
+    return signedTx;
   }
 }
 
@@ -354,7 +381,7 @@ class WalletActionTRXTxSubmit extends _BaseAction {
   final Future<bool> Function() onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final data = params.withdrawData;
     final toAddress = params.toAddress;
     final fromAddress = data.fromAddress;
@@ -375,22 +402,27 @@ class WalletActionTRXTxSubmit extends _BaseAction {
       rawTx: rawTx,
       walletData: walletData,
       fromAddress: fromAddress,
-      broadcastType: params.broadcastType,
+      broadcastType: params.broadcastType!,
       onConfirmSubmit: onConfirmSubmit,
       completer: requestSubmit,
       amount: params.withdrawData.isFeeOnSymbol
           ? NumberUtil.plus<double>(
-              params.amount,
-              params.withdrawData.fee.feeValue,
-            )
+                params.amount,
+                params.withdrawData.fee.feeValue,
+              ) ??
+              0
           : params.amount,
     ));
     final txId = await requestSubmit.future;
 
-    dispatch(AssetActionAddTransaction(Transaction.fromSubmit(
-      params: params,
-      txId: txId,
-    )));
+    dispatch(
+      AssetActionAddTransaction(
+        Transaction.fromSubmit(
+          params: params,
+          txId: txId,
+        ),
+      ),
+    );
 
     completer.complete(txId);
     return null;
@@ -399,13 +431,13 @@ class WalletActionTRXTxSubmit extends _BaseAction {
 
 class WalletActionSignAndSubmitRawTx extends _BaseAction {
   WalletActionSignAndSubmitRawTx({
-    @required this.chain,
-    @required this.symbol,
-    @required this.rawTx,
-    @required this.fromAddress,
-    @required this.walletData,
-    @required this.amount,
-    @required this.completer,
+    required this.chain,
+    required this.symbol,
+    required this.rawTx,
+    required this.fromAddress,
+    required this.walletData,
+    required this.amount,
+    required this.completer,
     this.broadcastType,
     this.onConfirmSubmit,
   });
@@ -415,20 +447,20 @@ class WalletActionSignAndSubmitRawTx extends _BaseAction {
   final String rawTx;
   final String fromAddress;
   final double amount;
-  final String broadcastType;
+  final String? broadcastType;
   final WalletPrivateData walletData;
   final Completer<String> completer;
-  final Future<bool> Function() onConfirmSubmit;
+  final Future<bool> Function()? onConfirmSubmit;
 
   @override
-  Future<AppState> reduce() async {
-    String signedTx;
+  Future<AppState?> reduce() async {
+    String? signedTx;
 
     if (walletData.walletType == WalletType.device) {
       // TODO: use HDKeyCore.signTx
     } else {
       signedTx = await WalletRepository().signTx(
-        mnemonic: walletData.mnemonic,
+        mnemonic: walletData.mnemonic!,
         chain: chain,
         rawTx: rawTx,
         options: WalletCoreOptions(
@@ -439,18 +471,18 @@ class WalletActionSignAndSubmitRawTx extends _BaseAction {
     }
 
     if (onConfirmSubmit != null) {
-      final canContinue = await onConfirmSubmit();
+      final canContinue = await onConfirmSubmit!();
       if (canContinue != true) {
         return null;
       }
     }
 
     final txId = await WalletRepository().submitTransaction(
-      type: broadcastType,
+      type: broadcastType!,
       chain: chain,
       symbol: symbol,
-      signedTx: signedTx,
-      walletId: walletData.walletId,
+      signedTx: signedTx!,
+      walletId: walletData.walletId!,
     );
 
     if (kChainsNeedUnspent.contains(chain)) {
@@ -462,7 +494,7 @@ class WalletActionSignAndSubmitRawTx extends _BaseAction {
 
     // Update balance after submit
     dispatch(AssetActionGetCoinBalance(
-      wallet: store.state.walletState.activeWallet,
+      wallet: store.state.walletState.activeWallet!,
       chain: chain,
       symbol: symbol,
       address: fromAddress,
@@ -476,10 +508,10 @@ class WalletActionSignAndSubmitRawTx extends _BaseAction {
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     // If the error is about broadcasting, maybe unspent have problem,
     // so we need to clear it
-    // "Tx rejected" is the error message from BBC wallet
+    /*
     final responseError = Request().getResponseError(error);
     if (responseError.message.contains('Tx rejected')) {
       WalletRepository().clearUnspentCache(
@@ -488,7 +520,7 @@ class WalletActionSignAndSubmitRawTx extends _BaseAction {
       );
       // Update balance if have error
       dispatch(AssetActionGetCoinBalance(
-        wallet: store.state.walletState.activeWallet,
+        wallet: store.state.walletState.activeWallet!,
         chain: chain,
         symbol: symbol,
         address: fromAddress,
@@ -498,8 +530,8 @@ class WalletActionSignAndSubmitRawTx extends _BaseAction {
       completer.completeError(WalletTransTxRejected(responseError.message));
       return WalletTransTxRejected(responseError.message);
     }
-
-    completer.completeError(error);
+    */
+    completer.completeError(error as Object);
     return error;
   }
 }

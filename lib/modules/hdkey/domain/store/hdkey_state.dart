@@ -11,7 +11,8 @@ abstract class HDKeyState implements Built<HDKeyState, HDKeyStateBuilder> {
 
   factory HDKeyState.fromCache() {
     try {
-      return _$HDKeyState._();
+      return HDKeyState();
+      //return _$HDKeyState._();
     } catch (error) {
       return HDKeyState();
     }

@@ -2,28 +2,28 @@ part of dialogs;
 
 class CSConfirmItem {
   CSConfirmItem({
-    @required this.label,
-    @required this.value,
+    required this.label,
+    required this.value,
     this.notice,
   });
 
   final String label;
-  final String notice;
+  final String? notice;
   final String value;
 }
 
 void showCSTransactionDialog(
   BuildContext context, {
-  @required List<CSConfirmItem> confirmList,
-  String title,
-  String cancelBtnText,
-  String confirmBtnText,
-  String errorText,
-  String approveText,
-  void Function() onCancel,
-  void Function() onConfirm,
+  required List<CSConfirmItem> confirmList,
+  String? title,
+  String? cancelBtnText,
+  String? confirmBtnText,
+  String? errorText,
+  String? approveText,
+  void Function()? onCancel,
+  void Function()? onConfirm,
   bool isDismissible = true,
-  Widget subtitleWidget,
+  Widget? subtitleWidget,
 }) {
   showCSBottomSheet(
     context,
@@ -36,7 +36,7 @@ void showCSTransactionDialog(
           Padding(
             padding: context.edgeBottom16,
             child: Text(
-              title,
+              title ?? '',
               style: context.textBody(bold: true),
             ),
           ),
@@ -59,7 +59,7 @@ void showCSTransactionDialog(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            item.label ?? '-',
+                            item.label,
                             style: context.textSmall(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -71,7 +71,7 @@ void showCSTransactionDialog(
                             children: [
                               Expanded(
                                 child: Text(
-                                  item.value ?? '-',
+                                  item.value,
                                   style: context.textSmall(
                                     color: context.bodyColor,
                                   ),
@@ -96,7 +96,7 @@ void showCSTransactionDialog(
                   ),
                   if (approveText != null && approveText.isNotEmpty)
                     Text(
-                      approveText ?? '',
+                      approveText,
                       style: context.textSmall(
                         color: context.redColor,
                       ),
@@ -105,7 +105,7 @@ void showCSTransactionDialog(
                     Padding(
                       padding: context.edgeTop5,
                       child: Text(
-                        errorText ?? '-',
+                        errorText,
                         style: context.textSmall(color: context.redColor),
                       ),
                     ),
@@ -134,7 +134,7 @@ void showCSTransactionDialog(
                 SizedBox(width: context.edgeSize),
                 Flexible(
                   child: CSButton(
-                    label: confirmBtnText,
+                    label: confirmBtnText ?? '',
                     onPressed: () {
                       AppNavigator.goBack();
                       if (onConfirm != null) {

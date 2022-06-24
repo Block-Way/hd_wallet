@@ -3,7 +3,7 @@ part of asset_ui_module;
 class AssetWalletSelectPage extends StatelessWidget {
   static const routeName = '/asset/wallet/select';
 
-  static Future<Wallet> open() {
+  static Future? open() {
     return AppNavigator.push(routeName);
   }
 
@@ -18,6 +18,8 @@ class AssetWalletSelectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CSScaffold(
       title: tr('asset:select_wallet_title'),
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       addBottomInset: false,
       child: StoreConnector<AppState, AssetListVM>(
         distinct: true,
@@ -37,9 +39,9 @@ class AssetWalletSelectPage extends StatelessWidget {
                 },
               ),
             ),
-            DividerShadow(),
+            // DividerShadow(),
             Container(
-              color: context.bgPrimaryColor,
+              color: context.mainColor,
               padding: context.edgeHorizontal.copyWith(
                 bottom: context.safeAreaBottom,
               ),
@@ -53,8 +55,8 @@ class AssetWalletSelectPage extends StatelessWidget {
 
   Widget buildItem(
     BuildContext context, {
-    Wallet wallet,
-    String activeWalletId,
+    required Wallet wallet,
+    required String activeWalletId,
   }) {
     return CSContainer(
       margin: context.edgeAll.copyWith(bottom: 0),
@@ -64,7 +66,8 @@ class AssetWalletSelectPage extends StatelessWidget {
       child: FormCell(
         autoHeight: true,
         padding: context.edgeVertical8,
-        hideAccess: activeWalletId == wallet.id,
+        // hideAccess: activeWalletId == wallet.id,
+        hideAccess: true,
         cmpRight: activeWalletId == wallet.id
             ? CSButtonIcon(
                 padding: EdgeInsets.only(
@@ -75,8 +78,19 @@ class AssetWalletSelectPage extends StatelessWidget {
                 size: 6,
                 borderRadius: 16,
                 icon: CSIcons.WalletCheck,
+                background: context.confirmTopColor,
+                color: context.confirmWordColor,
               )
-            : Container(),
+            : CSButtonIcon(
+                padding: EdgeInsets.only(
+                  right: 2,
+                  top: 1,
+                ),
+                containerSize: 16,
+                size: 6,
+                borderRadius: 16,
+                icon: CSIcons.WalletCheck,
+              ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -89,7 +103,7 @@ class AssetWalletSelectPage extends StatelessWidget {
             SizedBox(height: 8),
             Text(
               tr('asset:lbl_bbc_address', namedArgs: {
-                'address': wallet.bbcAddress,
+                'address': wallet.addresses.toString(),
               }),
               maxLines: 1,
               style: context.textSmall(),

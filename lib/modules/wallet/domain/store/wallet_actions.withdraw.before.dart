@@ -2,10 +2,10 @@ part of wallet_domain_module;
 
 class WithdrawBeforeParams {
   WithdrawBeforeParams({
-    @required this.chain,
-    @required this.symbol,
-    @required this.fromAddress,
-    @required this.chainPrecision,
+    required this.chain,
+    required this.symbol,
+    required this.fromAddress,
+    required this.chainPrecision,
     this.contractOrForkId,
     this.toAddress,
     this.amount,
@@ -19,16 +19,15 @@ class WithdrawBeforeParams {
   final int chainPrecision;
 
   /// [ETH or BCC Only]:  token contract/fork
-  final String contractOrForkId;
+  final String? contractOrForkId;
 
   /// [ETH and BTC Only]: need toAddress to check for GAS fee
-  final String toAddress;
+  final String? toAddress;
 
   /// [BTC Only]: need to check for fee
-  final double amount;
+  final double? amount;
 
-  /// [BBC Only]: transaction data, need for calculate the fee
-  final String txData;
+  final String? txData;
 }
 
 class WalletActionWithdrawBefore extends _BaseAction {
@@ -39,64 +38,64 @@ class WalletActionWithdrawBefore extends _BaseAction {
     this.ignoreAddressCheck = false,
   });
 
-  final WithdrawBeforeParams params;
-  final WalletWithdrawData previousData;
-  final Completer<WalletWithdrawData> completer;
+  final WithdrawBeforeParams? params;
+  final WalletWithdrawData? previousData;
+  final Completer<WalletWithdrawData>? completer;
   final bool ignoreAddressCheck;
 
   @override
-  Future<AppState> reduce() async {
-    final toAddress = params.toAddress;
-    final chain = params.chain;
+  Future<AppState?> reduce() async {
+    final toAddress = params?.toAddress;
+    final chain = params?.chain;
 
     // Validate toAddress
     if (ignoreAddressCheck != true &&
         toAddress != null &&
         toAddress.isNotEmpty) {
       await WalletRepository().validateAddress(
-        chain: chain,
+        chain: chain!,
         address: toAddress,
       );
     }
 
-    _BaseAction action;
+    late _BaseAction action;
     switch (chain) {
       case 'BTC':
-        action = WalletActionBTCTxBefore(params, completer, previousData);
+        action = WalletActionBTCTxBefore(params!, completer!, previousData!);
         break;
       case 'ETH':
-        action = WalletActionETHTxBefore(params, completer);
+        action = WalletActionETHTxBefore(params!, completer!);
         break;
       case 'BBC':
-        action = WalletActionBBCTxBefore(params, completer);
+        action = WalletActionETHTxBefore(params!, completer!);
         break;
       case 'TRX':
-        action = WalletActionTRXTxBefore(params, completer);
+        action = WalletActionTRXTxBefore(params!, completer!);
         break;
       default:
-        completer.complete();
+        completer?.complete();
     }
     if (action != null) {
-      await store.dispatchFuture(action, notify: false);
+      await store.dispatchAsync(action, notify: false);
     }
     return null;
   }
 
   @override
-  Object wrapError(dynamic error) {
+  Object? wrapError(dynamic error) {
     // Customize errors
     if (error is PlatformException && error.code == 'AddressError') {
-      completer.completeError(WalletAddressError());
+      completer?.completeError(WalletAddressError());
       return error;
     }
-    completer.completeError(error);
+    completer?.completeError(error as Object);
     CrashesReport().reportEvent(
       'WalletLog_10_WithdrawBefore',
       error,
       StackTrace.current,
       {
-        'chain': params.chain,
-        'symbol': params.symbol,
+        'chain': params!.chain,
+        'symbol': params!.symbol,
       },
     );
     return error;
@@ -114,11 +113,11 @@ class WalletActionBTCTxBefore extends _BaseAction {
   static const chain = 'BTC';
 
   final WithdrawBeforeParams params;
-  final WalletWithdrawData perviousData;
+  final WalletWithdrawData? perviousData;
   final Completer<WalletWithdrawData> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final toAddress = params.fromAddress;
     final fromAddress = params.fromAddress;
     final symbol = params.symbol;
@@ -126,7 +125,7 @@ class WalletActionBTCTxBefore extends _BaseAction {
     var data = perviousData;
     if (perviousData == null || perviousData?.utxos == null) {
       final utxosRequest = Completer<List<Map<String, dynamic>>>();
-      final balance = state.walletState.activeWallet.getCoinBalance(
+      final balance = state.walletState.activeWallet!.getCoinBalance(
         chain: params.chain,
         symbol: symbol,
       );
@@ -159,12 +158,12 @@ class WalletActionBTCTxBefore extends _BaseAction {
         fee: fee,
         feeDefault: fee,
         utxos: unspent,
-        contract: params.contractOrForkId,
+        contract: params.contractOrForkId ?? '',
       );
     }
 
     // Update fee with BTC value
-    data.fee.feeValue = await WalletFeeUtils.getBTCFeeValue(
+    data?.fee.feeValue = await WalletFeeUtils.getBTCFeeValue(
       satoshi: data.fee.feeRateToInt,
       fromAddress: fromAddress,
     );
@@ -180,13 +179,12 @@ class WalletActionETHTxBefore extends _BaseAction {
     this.completer,
   );
 
-  static const chain = 'ETH';
-
   final WithdrawBeforeParams params;
   final Completer<WalletWithdrawData> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
+    final chain = params.chain; //modify chain
     final symbol = params.symbol;
     final toAddress = params.toAddress;
     final fromAddress = params.fromAddress;
@@ -206,8 +204,8 @@ class WalletActionETHTxBefore extends _BaseAction {
 
     final fee = WalletWithdrawFeeData.fromJson(
       json: feeJson,
-      feeSymbol: 'ETH',
-      feeUnit: 'Gwei',
+      feeSymbol: 'HAH',
+      feeUnit: 'HAH',
     )
       ..nonce = nonce
       ..gasLimit = gasLimit
@@ -221,76 +219,12 @@ class WalletActionETHTxBefore extends _BaseAction {
     final info = WalletWithdrawData(
       chain: chain,
       symbol: symbol,
-      toAddress: toAddress,
+      toAddress: toAddress ?? '',
       fromAddress: fromAddress,
       fee: fee,
       feeDefault: fee,
       utxos: [], // ETH don't have unspent
-      contract: params.contractOrForkId,
-    );
-
-    completer.complete(info);
-    return null;
-  }
-}
-
-class WalletActionBBCTxBefore extends _BaseAction {
-  WalletActionBBCTxBefore(
-    this.params,
-    this.completer,
-  );
-  static const chain = 'BBC';
-
-  final WithdrawBeforeParams params;
-  final Completer<WalletWithdrawData> completer;
-
-  @override
-  Future<AppState> reduce() async {
-    final symbol = params.symbol;
-    final toAddress = params.toAddress;
-    final fromAddress = params.fromAddress;
-
-    final utxosRequest = Completer<List<Map<String, dynamic>>>();
-    final balance = state.walletState.activeWallet.getCoinBalance(
-      chain: params.chain,
-      symbol: symbol,
-    );
-
-    dispatch(WalletActionGetUnspent(
-      chain: chain,
-      symbol: symbol,
-      address: fromAddress,
-      completer: utxosRequest,
-      balance: balance,
-    ));
-    final unspent = await utxosRequest.future;
-
-    final feeJson = await WalletRepository().getFee(
-      chain: chain,
-      symbol: symbol,
-      data: params.txData,
-      toAddress: toAddress,
-      fromAddress: fromAddress,
-    );
-
-    final fee = WalletWithdrawFeeData.fromJson(
-      json: feeJson,
-      feeSymbol: feeJson['unit']?.toString() ?? symbol,
-    );
-    fee.feeValue = WalletFeeUtils.getBBCFeeValue(
-      bbc: fee.feeRateToDouble,
-      chainPrecision: params.chainPrecision,
-    );
-
-    final info = WalletWithdrawData(
-      chain: chain,
-      symbol: symbol,
-      toAddress: toAddress,
-      fromAddress: fromAddress,
-      fee: fee,
-      feeDefault: fee,
-      utxos: unspent,
-      contract: params.contractOrForkId,
+      contract: params.contractOrForkId ?? '',
     );
 
     completer.complete(info);
@@ -309,7 +243,7 @@ class WalletActionTRXTxBefore extends _BaseAction {
   final Completer<WalletWithdrawData> completer;
 
   @override
-  Future<AppState> reduce() async {
+  Future<AppState?> reduce() async {
     final symbol = params.symbol;
     final toAddress = params.toAddress;
     final fromAddress = params.fromAddress;
@@ -317,7 +251,7 @@ class WalletActionTRXTxBefore extends _BaseAction {
     final feeJson = await WalletRepository().getFee(
       chain: chain,
       symbol: symbol,
-      data: params.txData,
+      data: params.txData!,
       toAddress: toAddress,
       fromAddress: fromAddress,
     );
@@ -334,12 +268,12 @@ class WalletActionTRXTxBefore extends _BaseAction {
     final info = WalletWithdrawData(
       chain: chain,
       symbol: symbol,
-      toAddress: toAddress,
+      toAddress: toAddress ?? '',
       fromAddress: fromAddress,
       fee: fee,
       feeDefault: fee,
       utxos: [],
-      contract: params.contractOrForkId,
+      contract: params.contractOrForkId!,
     );
 
     completer.complete(info);

@@ -10,10 +10,13 @@ class SystemDate {
 
   static int getTime() {
     final nowTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    return nowTime;
+    /*
     if (systemTime == 0) {
       return nowTime;
     }
 
     return nowTime - localTime + systemTime;
+    */
   }
 }

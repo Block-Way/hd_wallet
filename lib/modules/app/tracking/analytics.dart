@@ -27,7 +27,7 @@ class AnalyticsReport {
 
   static final AnalyticsReport _instance = AnalyticsReport._internal();
 
-  Amplitude _analytics;
+  late Amplitude _analytics;
 
   void setUserId(String id) {
     _analytics.setUserId(id);

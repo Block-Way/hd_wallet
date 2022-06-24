@@ -1,12 +1,12 @@
 part of asset_domain_module;
 
 class AssetTransactionCubit extends AssetDetailCubit {
-  AssetTransactionCubit([AssetRepository assetRepository])
+  AssetTransactionCubit([AssetRepository? assetRepository])
       : super(assetRepository) {
     _assetRepository = assetRepository ?? AssetRepository();
   }
 
-  AssetRepository _assetRepository;
+  late AssetRepository _assetRepository;
 
   void updateList(List<Transaction> list) {
     emit(list);
@@ -14,31 +14,33 @@ class AssetTransactionCubit extends AssetDetailCubit {
 
   @override
   Future<int> loadAll({
-    @required AssetCoin coin,
-    @required bool isRefresh,
-    @required int page,
-    @required int skip,
-    @required bool onlyCache,
+    required AssetCoin coin,
+    required bool isRefresh,
+    required int page,
+    required int skip,
+    required bool onlyCache,
   }) async {
     final allTransactions = await _assetRepository.getTransactionsFromCache(
-      symbol: coin.symbol,
-      address: coin.address,
+      symbol: coin.symbol ?? '',
+      address: coin.address ?? '',
     );
 
     if (onlyCache == true) {
-      allTransactions.sort((a, b) => b.timestamp == a.timestamp
-          ? b.txId.compareTo(b.txId)
-          : (b.timestamp ?? 0).compareTo(a.timestamp ?? 0));
+      allTransactions.sort(
+        (a, b) => b.timestamp == a.timestamp
+            ? b.txId!.compareTo(b.txId ?? '')
+            : (b.timestamp ?? 0).compareTo(a.timestamp ?? 0),
+      );
       emit(allTransactions);
       return allTransactions.length;
     }
 
     // ↓↓↓↓↓↓↓↓↓↓ net data ↓↓↓↓↓↓↓↓↓↓
     final apiResult = await _assetRepository.getTransactionsFromApi(
-      chain: coin.chain,
-      symbol: coin.symbol,
-      address: coin.address,
-      contract: coin.contract,
+      chain: coin.chain ?? '',
+      symbol: coin.symbol ?? '',
+      address: coin.address ?? '',
+      contract: coin.contract ?? '',
       page: page,
       skip: skip,
     );
@@ -49,23 +51,47 @@ class AssetTransactionCubit extends AssetDetailCubit {
     switch (coin.chain) {
       case 'ETH':
         newTransactions = rawData
-            .map((e) => Transaction.fromEthTx(
-                coin.symbol, coin.address, coin.chainPrecision, e))
+            .map(
+              (e) => Transaction.fromEthTx(
+                coin.symbol ?? '',
+                coin.address ?? '',
+                coin.chainPrecision ?? 0,
+                e as Map<String, dynamic>,
+              ),
+            )
             .toList();
         break;
       case 'BTC':
         newTransactions = rawData
-            .map((e) => Transaction.fromBtcTx(coin.symbol, coin.address, e))
+            .map(
+              (e) => Transaction.fromBtcTx(
+                coin.symbol ?? '',
+                coin.address ?? '',
+                e as Map<String, dynamic>,
+              ),
+            )
             .toList();
         break;
       case 'BBC':
         newTransactions = rawData
-            .map((e) => Transaction.fromBbcTx(coin.symbol, coin.address, e))
+            .map(
+              (e) => Transaction.fromBbcTx(
+                coin.symbol ?? '',
+                coin.address ?? '',
+                e as Map<String, dynamic>,
+              ),
+            )
             .toList();
         break;
       case 'TRX':
         newTransactions = rawData
-            .map((e) => Transaction.fromTrxTx(coin.symbol, coin.address, e))
+            .map(
+              (e) => Transaction.fromTrxTx(
+                coin.symbol ?? '',
+                coin.address ?? '',
+                e as Map<String, dynamic>,
+              ),
+            )
             .toList();
         break;
       default:
@@ -81,13 +107,15 @@ class AssetTransactionCubit extends AssetDetailCubit {
     // Fix Api returned null txId
     allTransactions.retainWhere((x) => x.txId != 'null');
 
-    allTransactions.sort((a, b) => b.timestamp == a.timestamp
-        ? b.txId.compareTo(b.txId)
-        : (b.timestamp ?? 0).compareTo(a.timestamp ?? 0));
+    allTransactions.sort(
+      (a, b) => b.timestamp == a.timestamp
+          ? b.txId!.compareTo(b.txId ?? '')
+          : (b.timestamp ?? 0).compareTo(a.timestamp ?? 0),
+    );
 
     await AssetRepository().saveTransactionsToCache(
-      symbol: coin.symbol,
-      address: coin.address,
+      symbol: coin.symbol ?? '',
+      address: coin.address ?? '',
       transactions: allTransactions.toList(),
     );
 
@@ -102,6 +130,7 @@ class AssetTransactionCubit extends AssetDetailCubit {
         : displayData.length;
 
     emit(displayData);
+
     return dataCount;
   }
 

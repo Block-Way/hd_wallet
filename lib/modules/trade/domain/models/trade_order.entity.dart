@@ -64,9 +64,9 @@ class TradeOrder extends HiveObject {
   TradeOrder();
 
   factory TradeOrder.fromSubmit({
-    @required DexCreateOrderParams params,
-    @required WalletTemplateData result,
-    @required String txId,
+    required DexCreateOrderParams params,
+    required WalletTemplateData result,
+    required String txId,
   }) =>
       TradeOrder()
         ..txId = txId
@@ -97,16 +97,16 @@ class TradeOrder extends HiveObject {
         ..dealAmount = 0;
 
   factory TradeOrder.fromApi({
-    @required TradeOrder cached,
-    @required Map<String, dynamic> json,
+    required TradeOrder cached,
+    required Map<String, dynamic> json,
   }) =>
       TradeOrder()
         ..txId = json['tx'].toString()
         ..type = 'order'
         ..status = _mapStatusFromInt(
           NumberUtil.getInt(json['status']),
-          cached?.status,
-        )
+          cached.status,
+        )!
         ..chain = json['chain'].toString()
         ..symbol = json['symbol'].toString()
         ..tradeSideId =
@@ -118,35 +118,34 @@ class TradeOrder extends HiveObject {
         // We keep the cached templateAddress
         // and use the template for the templateHex
         ..templateAddress = ['ETH', 'TRX'].contains(json['chain'].toString())
-            ? cached?.templateAddress
-            : json['template']?.toString() ?? cached?.templateAddress
+            ? cached.templateAddress
+            : json['template'].toString()
         ..templateHex = ['ETH', 'TRX'].contains(json['chain'].toString())
-            ? json['template']?.toString()
-            : cached?.templateHex
-        ..fromAddress = cached?.fromAddress ?? ''
+            ? json['template'].toString()
+            : cached.templateHex
+        ..fromAddress = cached.fromAddress
         ..confirmedAt = NumberUtil.getInt(json['created_at'])
-        ..confirmations = cached?.confirmations
-        ..matchFee = cached?.matchFee
+        ..confirmations = cached.confirmations
+        ..matchFee = cached.matchFee
         ..networkFee =
-            NumberUtil.getDouble(json['miner_fee'], cached?.networkFee)
-        ..submitAt = cached?.submitAt ?? NumberUtil.getInt(json['created_at'])
-        ..cancelAt = cached?.cancelAt
-        ..cancelTxId = cached?.cancelTxId
+            NumberUtil.getDouble(json['miner_fee'], cached.networkFee)
+        ..submitAt = cached.submitAt
+        ..cancelAt = cached.cancelAt
+        ..cancelTxId = cached.cancelTxId
         ..feeSymbol = json['symbol'].toString()
         // TODO: USDT goes online need to check,
         // TODO: API need to return fee symbol,
-        ..validHeight = cached?.validHeight
-        ..currentHeight = cached?.currentHeight
-        ..price = NumberUtil.getDouble(json['price'], cached?.price)
-        ..avgPrice = NumberUtil.getDouble(json['avg_price'], cached?.avgPrice)
-        ..filled =
-            NumberUtil.getDouble(json['already_exchange'], cached?.filled)
+        ..validHeight = cached.validHeight
+        ..currentHeight = cached.currentHeight
+        ..price = NumberUtil.getDouble(json['price'], cached.price)
+        ..avgPrice = NumberUtil.getDouble(json['avg_price'], cached.avgPrice)
+        ..filled = NumberUtil.getDouble(json['already_exchange'], cached.filled)
         ..remaining = NumberUtil.getDouble(
-            json['remaining_entire_amount'], cached?.remaining)
-        ..amount = NumberUtil.getDouble(json['entire_amount'], cached?.amount)
-        ..total = NumberUtil.getDouble(json['amount'], cached?.amount)
+            json['remaining_entire_amount'], cached.remaining)
+        ..amount = NumberUtil.getDouble(json['entire_amount'], cached.amount)
+        ..total = NumberUtil.getDouble(json['amount'], cached.amount)
         ..dealAmount =
-            NumberUtil.getDouble(json['deal_amount'], cached?.dealAmount);
+            NumberUtil.getDouble(json['deal_amount'], cached.dealAmount);
 
   factory TradeOrder.fromDealFailApi(
     Map<String, dynamic> json,
@@ -168,105 +167,104 @@ class TradeOrder extends HiveObject {
         ..amount = NumberUtil.getDouble(json['match_amount']);
 
   @HiveField(0)
-  String txId;
+  late String txId;
   @HiveField(1)
-  String chain;
+  late String chain;
   @HiveField(2)
-  String symbol;
+  late String symbol;
   @HiveField(3)
-  String priceSymbol;
+  late String priceSymbol;
   @HiveField(4)
-  String tradeSymbol;
+  late String tradeSymbol;
 
   @HiveField(5)
-  int tradeSideId;
+  late int tradeSideId;
   @HiveField(6)
-  String tradePairId;
+  late String tradePairId;
 
   @HiveField(7)
-  int confirmations;
+  late int confirmations;
   @HiveField(8)
-  int validHeight;
+  late int validHeight;
   @HiveField(9)
-  int currentHeight;
+  late int currentHeight;
   @HiveField(10)
-  int submitAt;
+  late int submitAt;
   @HiveField(11)
-  int confirmedAt;
+  late int confirmedAt;
   @HiveField(12)
-  int tradedAt;
+  late int tradedAt;
   @HiveField(13)
-  int cancelAt;
+  late int cancelAt;
   @HiveField(14)
-  String cancelTxId;
+  late String cancelTxId;
 
   @HiveField(15)
-  String templateAddress;
+  late String templateAddress;
 
   /// For ETH/TRX templateHex is primaryKey
-  /// Fort BBC templateHex is template hex data
   @HiveField(16)
-  String templateHex;
+  late String templateHex;
 
   @HiveField(17)
-  String fromAddress;
+  late String fromAddress;
   @HiveField(18)
-  String matchAddress;
+  late String matchAddress;
   @HiveField(19)
-  String dealAddress;
+  late String dealAddress;
 
   /// 挂单价格
   @HiveField(20)
-  double price;
+  late double price;
 
   /// 成交均价
   @HiveField(21)
-  double avgPrice;
+  late double avgPrice;
 
   /// 剩余数量
   @HiveField(22)
-  double remaining;
+  late double remaining;
 
   /// 数量
   @HiveField(23)
-  double amount;
+  late double amount;
 
   /// 已成交数量
   @HiveField(24)
-  double filled;
+  late double filled;
 
   @HiveField(25)
-  double total;
+  late double total;
 
   /// 交易额
   @HiveField(26)
-  double dealAmount;
+  late double dealAmount;
 
   /// Amount left that can be withdraw
   @HiveField(30)
-  double withdrawAmount;
+  late double withdrawAmount;
 
   /// 矿工费
   @HiveField(27)
-  double networkFee;
+  late double networkFee;
 
   /// 手续费
   @HiveField(28)
-  int matchFee;
+  late int matchFee;
 
   // Fee
   @HiveField(29)
-  String feeSymbol;
+  late String feeSymbol;
 
   @HiveField(40)
-  TradeOrderStatus status;
+  late TradeOrderStatus status;
 
   @HiveField(41)
-  String type;
+  late String type;
 
   bool get isBuy => tradeSideId == TradeSide.buy.index;
 
-  double get payAmount => (isBuy ? total : amount) ?? 0.0;
+  double get payAmount => (isBuy ? total : amount);
 
   /// Order confirmed, pending for trade
   bool get isPending => status == TradeOrderStatus.pending;
@@ -288,7 +286,6 @@ class TradeOrder extends HiveObject {
   bool get isChainUseApiRawTx => ['ETH', 'TRX'].contains(chain);
 
   /// For ETH/TRX templateId is primaryKey
-  /// Fort BBC templateId is address
   String get templateId => isChainUseApiRawTx ? templateHex : templateAddress;
 
   bool get needStatusCheck =>
@@ -316,12 +313,12 @@ class TradeOrder extends HiveObject {
 
   /// Use order confirmed time (when the transaction is confirmed),
   /// otherwise use local submitted time
-  int get displayTime => (confirmedAt ?? submitAt) * 1000;
+  int get displayTime => confirmedAt * 1000;
 
   /// Map the api number status to our enum
   /// - If api status is [pending] (10) but our status is [cancelling],
   /// use cancelling and wait for api to return new status
-  static TradeOrderStatus _mapStatusFromInt(
+  static TradeOrderStatus? _mapStatusFromInt(
     int apiStatus,
     TradeOrderStatus cachedStatus,
   ) {
@@ -346,7 +343,7 @@ class TradeOrder extends HiveObject {
     }
   }
 
-  TradeSide get tradeSide {
+  TradeSide? get tradeSide {
     if (tradeSideId == TradeSide.buy.index) {
       return TradeSide.buy;
     }

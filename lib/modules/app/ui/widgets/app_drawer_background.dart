@@ -2,14 +2,16 @@ part of app_module;
 
 class AppDrawerBackground extends Decoration {
   const AppDrawerBackground({
-    this.borderRadius,
+    required this.borderRadius,
   });
   final BorderRadiusGeometry borderRadius;
 
   @override
-  BoxPainter createBoxPainter([_]) {
-    const startColor = Color(0xFFFFE56C);
-    const endColor = Color(0xFFFFEA8A);
+  BoxPainter createBoxPainter([void Function()? F]) {
+    /*const startColor = Color(0xFFFFE56C);
+    const endColor = Color(0xFFFFEA8A);*/
+    const startColor = Color(0xFF32383E);
+    const endColor = Color(0xFF32383E);
     return _AppDrawerBackgroundPainter(
       borderRadius: borderRadius,
       colors: [startColor, endColor],
@@ -19,8 +21,8 @@ class AppDrawerBackground extends Decoration {
 
 class _AppDrawerBackgroundPainter extends BoxPainter {
   const _AppDrawerBackgroundPainter({
-    this.colors,
-    this.borderRadius,
+    required this.colors,
+    required this.borderRadius,
   });
 
   final List<Color> colors;
@@ -28,7 +30,7 @@ class _AppDrawerBackgroundPainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final bounds = offset & configuration.size;
+    final bounds = offset & (configuration.size ?? Size(0, 0));
 
     final gradient = LinearGradient(
       colors: colors,

@@ -31,7 +31,7 @@ class WalletManagementPage extends HookWidget {
   ) {
     AnalyticsReport().reportLog('Wallet_Management_Action', {
       'type': type.toString(),
-      'walletId': viewModel.activeWallet.id,
+      'walletId': viewModel.activeWallet?.id ?? '',
     });
     switch (type) {
       case _InvitationMenu.invitationCode:
@@ -58,17 +58,17 @@ class WalletManagementPage extends HookWidget {
       (data, password) {
         AnalyticsReport().reportLog('Wallet_Management_Action', {
           'type': type.toString(),
-          'walletId': viewModel.activeWallet.id,
+          'walletId': viewModel.activeWallet?.id,
         });
         switch (type) {
           case _WalletMenu.changeName:
-            WalletChangeNamePage.open(viewModel.activeWallet.name);
+            WalletChangeNamePage.open(viewModel.activeWallet?.name ?? '');
             break;
           case _WalletMenu.changePassword:
             WalletChangePasswordPage.open(password);
             break;
           case _WalletMenu.backup:
-            WalletBackupPage.open(data.mnemonic);
+            WalletBackupPage.open(data.mnemonic ?? '');
             break;
           case _WalletMenu.export:
             WalletExportPage.open(data);
@@ -106,6 +106,8 @@ class WalletManagementPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return CSScaffold(
+      headerBgColor: context.mainColor,
+      backgroundColor: context.mainColor,
       title: tr('wallet:management_title'),
       scrollable: true,
       child: StoreConnector<AppState, WalletManagementVM>(
@@ -119,7 +121,7 @@ class WalletManagementPage extends HookWidget {
               child: Text(
                 tr('wallet:management_title'),
                 style: context.textBody(
-                  color: context.labelColor,
+                  color: context.iconColor,
                   bold: true,
                 ),
               ),
@@ -152,7 +154,7 @@ class WalletManagementPage extends HookWidget {
                   FormCell(
                     label: tr('wallet:management_btn_backup'),
                     showBorderTop: true,
-                    cmpRight: viewModel.activeWallet.hasBackup == false
+                    cmpRight: viewModel.activeWallet?.hasBackup == false
                         ? CSBadge(size: 8)
                         : null,
                     onPress: () {
@@ -177,52 +179,52 @@ class WalletManagementPage extends HookWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: context.edgeAll.copyWith(bottom: 0),
-              child: Text(
-                tr('wallet:management_btn_invitation_create'),
-                style: context.textBody(
-                  color: context.labelColor,
-                  bold: true,
-                ),
-              ),
-            ),
-            CSContainer(
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  FormCell(
-                    label: tr('wallet:management_btn_invitation_code'),
-                    onPress: () {
-                      handleInvitationMenuPress(
-                        viewModel,
-                        _InvitationMenu.invitationCode,
-                      );
-                    },
-                  ),
-                  FormCell(
-                    label: tr('wallet:management_btn_invitation_create'),
-                    showBorderTop: true,
-                    onPress: () {
-                      handleInvitationMenuPress(
-                        viewModel,
-                        _InvitationMenu.invitationCreate,
-                      );
-                    },
-                  ),
-                  FormCell(
-                    label: tr('wallet:management_btn_invitation_list'),
-                    showBorderTop: true,
-                    onPress: () {
-                      handleInvitationMenuPress(
-                        viewModel,
-                        _InvitationMenu.invitationRecord,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: context.edgeAll.copyWith(bottom: 0),
+            //   child: Text(
+            //     tr('wallet:management_btn_invitation_create'),
+            //     style: context.textBody(
+            //       color: context.labelColor,
+            //       bold: true,
+            //     ),
+            //   ),
+            // ),
+            // CSContainer(
+            //   padding: EdgeInsets.zero,
+            //   child: Column(
+            //     children: [
+            //       FormCell(
+            //         label: tr('wallet:management_btn_invitation_code'),
+            //         onPress: () {
+            //           handleInvitationMenuPress(
+            //             viewModel,
+            //             _InvitationMenu.invitationCode,
+            //           );
+            //         },
+            //       ),
+            //       FormCell(
+            //         label: tr('wallet:management_btn_invitation_create'),
+            //         showBorderTop: true,
+            //         onPress: () {
+            //           handleInvitationMenuPress(
+            //             viewModel,
+            //             _InvitationMenu.invitationCreate,
+            //           );
+            //         },
+            //       ),
+            //       FormCell(
+            //         label: tr('wallet:management_btn_invitation_list'),
+            //         showBorderTop: true,
+            //         onPress: () {
+            //           handleInvitationMenuPress(
+            //             viewModel,
+            //             _InvitationMenu.invitationRecord,
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             CSContainer(
               padding: EdgeInsets.zero,
               child: FormCell(

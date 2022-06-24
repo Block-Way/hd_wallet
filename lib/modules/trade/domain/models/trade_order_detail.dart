@@ -10,21 +10,23 @@ abstract class TradeOrderDetail
   static Serializer<TradeOrderDetail> get serializer =>
       _$tradeOrderDetailSerializer;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'min_amount')
-  String get total;
+  String? get total;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'match_list')
-  BuiltList<TradeOrderDetailItem> get matchList;
+  BuiltList<TradeOrderDetailItem>? get matchList;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'exchange_list')
-  BuiltList<TradeOrderDetailItem> get exchangeList;
+  BuiltList<TradeOrderDetailItem>? get exchangeList;
 
-  bool get hasMatchList => matchList != null && matchList.isNotEmpty;
+  bool get hasMatchList =>
+      matchList != null && (matchList?.isNotEmpty ?? false);
 
-  bool get hasExchangeList => exchangeList != null && exchangeList.isNotEmpty;
+  bool get hasExchangeList =>
+      exchangeList != null && (exchangeList?.isNotEmpty ?? false);
 }
 
 abstract class TradeOrderDetailItem
@@ -37,25 +39,25 @@ abstract class TradeOrderDetailItem
   static Serializer<TradeOrderDetailItem> get serializer =>
       _$tradeOrderDetailItemSerializer;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'match_price')
-  String get matchPrice;
+  String? get matchPrice;
 
-  @nullable
-  String get amount;
+  //@nullable
+  String? get amount;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'created_at')
-  int get createdAt;
+  int? get createdAt;
 
-  @nullable
-  String get fee;
+  //@nullable
+  String? get fee;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'tx_id')
-  String get txId;
+  String? get txId;
 
-  @nullable
+  //@nullable
   @BuiltValueField(wireName: 'template_match_address')
-  String get matchId;
+  String? get matchId;
 }

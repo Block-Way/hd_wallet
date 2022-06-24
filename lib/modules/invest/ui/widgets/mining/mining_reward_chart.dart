@@ -40,15 +40,16 @@ class _LineChartHoldState extends State<MiningRewardChart> {
 
     selectSort(widget.chartList);
 
-    final data = (widget.chartList ?? [])
+    final data = (widget.chartList)
         .map(
           (e) => FlSpot(
             NumberUtil.getDouble(e.balance),
-            NumberUtil.getDouble(e.reward) * 10000, // 扩大 Y 轴的值
+            NumberUtil.getDouble(e.reward),
           ),
         )
         .toList();
-    final showIndex = (widget.chartList ?? []).indexWhere((e) => e.isBalance);
+    final showIndex =
+        (widget.chartList).indexWhere((e) => e.isBalance ?? false);
     return Stack(
       children: <Widget>[
         Padding(
@@ -66,6 +67,7 @@ class _LineChartHoldState extends State<MiningRewardChart> {
               tr('invest:reward_lbl_chart_tip'),
               style: context.textSmall(),
             ),
+            /*
             Spacer(),
             Container(
               margin: EdgeInsets.only(top: 2),
@@ -78,11 +80,12 @@ class _LineChartHoldState extends State<MiningRewardChart> {
                 ),
               ),
             ),
+            
             SizedBox(width: 2),
             Text(
               tr('invest:reward_lbl_chart_where'),
               style: context.textSmall(),
-            )
+            )*/
           ],
         ),
       ],
@@ -98,27 +101,16 @@ class _LineChartHoldState extends State<MiningRewardChart> {
     return value;
   }
 
-  String formatLbl(double value, {bool isZh}) {
+  String formatLbl(double value, {required bool isZh}) {
     if (isZh) {
-      if (value < 100) {
-        return value.toStringAsFixed(2);
-      } else if (value < 1000) {
-        return value.toInt().toString();
-      } else if (value < 10000) {
-        return '${(value / 1000.0).toStringAsFixed(1)} K';
-      } else if (value < 100000) {
-        return '${value ~/ 1000.0} K';
-      } else if (value < 1000000) {
-        return '${(value / 10000.0).toStringAsFixed(1)}W';
-      } else {
-        return '${value ~/ 10000.0}W';
-      }
+      final date = DateTime.fromMillisecondsSinceEpoch((value * 1000).toInt());
+      return '${date.month}-${date.day}';
     } else {
       return StringUtils.displaySize(value);
     }
   }
 
-  bool checkToShowTitle(
+  bool? checkToShowTitle(
     double minValue,
     double maxValue,
     SideTitles sideTitles,
@@ -142,8 +134,9 @@ class _LineChartHoldState extends State<MiningRewardChart> {
       }
       return false;
     }
-    return defaultCheckToShowTitle(
-        minValue, maxValue, sideTitles, appliedInterval, value);
+    return false;
+    //return defaultCheckToShowTitle(
+    //    minValue, maxValue, sideTitles, appliedInterval, value);
   }
 
   LineChartData mainData(
@@ -203,32 +196,33 @@ class _LineChartHoldState extends State<MiningRewardChart> {
       // clipData: FlClipData.horizontal(),
       titlesData: FlTitlesData(
         show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          checkToShowTitle: checkToShowTitle,
-          // 下面文字
-          getTextStyles: (_) => context.textSmall(
-            color: context.placeholderColor,
-          ),
-          getTitles: (value) {
-            return formatLbl(value, isZh: isZh);
-          },
-          margin: 10,
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          // 左面的坐标文字
-          getTextStyles: (value) => context.textSmall(
-            color: context.placeholderColor,
-          ),
-          getTitles: (value) {
-            return NumberUtil.divide<double>(value, 10, 2).toStringAsFixed(2);
-          },
-          checkToShowTitle: checkToShowTitle,
-          reservedSize: 28,
-          margin: 5,
-        ),
+        // bottomTitles: SideTitles(
+        //   showTitles: true,
+        //   reservedSize: 22,
+        //   checkToShowTitle: checkToShowTitle,
+        //   // 下面文字
+        //   getTextStyles: (_) => context.textSmall(
+        //     color: context.placeholderColor,
+        //   ),
+        //   getTitles: (value) {
+        //     return formatLbl(value, isZh: isZh);
+        //   },
+        //   margin: 10,
+        // ),
+        // leftTitles: SideTitles(
+        //   showTitles: true,
+        //   getTextStyles: (value) => context.textSmall(
+        //     color: context.placeholderColor,
+        //   ),
+        //   getTitles: (value) {
+        //     final ret = value.toStringAsFixed(2);
+        //     //NumberUtil.divide<double>(value, 10, 2).toStringAsFixed(2);
+        //     return ret;
+        //   },
+        //   checkToShowTitle: checkToShowTitle,
+        //   reservedSize: 28,
+        //   margin: 5,
+        // ),
       ),
       borderData: FlBorderData(
           show: true,
@@ -242,7 +236,7 @@ class _LineChartHoldState extends State<MiningRewardChart> {
           spots: data,
           // isCurved: true,
           // curveSmoothness: 0.05,
-          colors: gradientColors,
+          //colors: gradientColors,
           barWidth: 2.5,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -250,8 +244,8 @@ class _LineChartHoldState extends State<MiningRewardChart> {
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors:
-                gradientColors.map((color) => color.withOpacity(0.05)).toList(),
+            //colors:
+            //    gradientColors.map((color) => color.withOpacity(0.05)).toList(),
           ),
         ),
       ],

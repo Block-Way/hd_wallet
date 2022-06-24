@@ -6,11 +6,11 @@ class PoleDecorator extends Decoration {
     this.isCircleBottom,
   });
   final Color color;
-  final bool isCircleBottom;
+  final bool? isCircleBottom;
 
   @override
-  BoxPainter createBoxPainter([_]) {
-    return PolePainter(color, isCircleBottom: isCircleBottom);
+  BoxPainter createBoxPainter([void Function()? f]) {
+    return PolePainter(color, isCircleBottom: isCircleBottom!);
   }
 }
 
@@ -24,7 +24,7 @@ class PolePainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Rect bounds = offset & configuration.size;
+    final Rect bounds = offset & configuration.size!;
 
     canvas.drawLine(
       offset,

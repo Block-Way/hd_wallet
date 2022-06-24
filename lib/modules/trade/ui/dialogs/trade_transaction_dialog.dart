@@ -2,9 +2,13 @@ part of trade_ui_module;
 
 Future<bool> showTradeOrderConfirmDialog(
   BuildContext context, {
-  @required TradePair tradePair,
-  @required DexCreateOrderParams orderParams,
-  @required AssetCoin Function({String chain, String symbol}) getCoinInfo,
+  required TradePair tradePair,
+  required DexCreateOrderParams orderParams,
+  required AssetCoin Function({
+    required String chain,
+    required String symbol,
+  })
+      getCoinInfo,
 }) {
   final response = Completer<bool>();
 
@@ -30,22 +34,34 @@ Future<bool> showTradeOrderConfirmDialog(
     symbol: tradePair.tradeSymbol,
   );
 
-  final priceName = tr('asset:lbl_coin_name', namedArgs: {
-    'name': priceCoin.symbol,
-    'fullName': priceCoin.fullName,
-  });
-  final tradeName = tr('asset:lbl_coin_name', namedArgs: {
-    'name': tradeCoin.symbol,
-    'fullName': tradeCoin.fullName,
-  });
-  final amountName = tr('asset:lbl_coin_name', namedArgs: {
-    'name': amountCoin.symbol,
-    'fullName': amountCoin.fullName,
-  });
-  final feeName = tr('asset:lbl_coin_name', namedArgs: {
-    'name': feeCoin.symbol,
-    'fullName': feeCoin.fullName,
-  });
+  final priceName = tr(
+    'asset:lbl_coin_name',
+    namedArgs: {
+      'name': priceCoin.symbol ?? '',
+      'fullName': priceCoin.fullName ?? '',
+    },
+  );
+  final tradeName = tr(
+    'asset:lbl_coin_name',
+    namedArgs: {
+      'name': tradeCoin.symbol ?? '',
+      'fullName': tradeCoin.fullName ?? '',
+    },
+  );
+  final amountName = tr(
+    'asset:lbl_coin_name',
+    namedArgs: {
+      'name': amountCoin.symbol ?? '',
+      'fullName': amountCoin.fullName ?? '',
+    },
+  );
+  final feeName = tr(
+    'asset:lbl_coin_name',
+    namedArgs: {
+      'name': feeCoin.symbol ?? '',
+      'fullName': feeCoin.fullName ?? '',
+    },
+  );
 
   var canSubmit = true;
   var isFeeNeedDeposit = false;
@@ -77,9 +93,10 @@ Future<bool> showTradeOrderConfirmDialog(
         label: tr('trade:order_confirm_dialog_lbl_total'),
         notice: amountName,
         value: NumberUtil.plus(
-          payAmount,
-          orderParams.withdrawData.fee.feeValue,
-        ),
+              payAmount,
+              orderParams.withdrawData.fee.feeValue,
+            ) ??
+            '',
       ),
     if (!isFeeSameChain)
       CSConfirmItem(
@@ -101,11 +118,11 @@ Future<bool> showTradeOrderConfirmDialog(
           orderParams.withdrawData.fee.feeValue, payAmount)
       : payAmount;
 
-  if (amountCoin.balance < totalToPayFromBalance) {
+  if ((amountCoin.balance ?? 0) < (totalToPayFromBalance ?? 0)) {
     canSubmit = false;
   }
 
-  if (feeCoin.balance < orderParams.withdrawData.fee.feeValue) {
+  if ((feeCoin.balance ?? 0) < orderParams.withdrawData.fee.feeValue) {
     canSubmit = false;
     isFeeNeedDeposit = true;
   }
@@ -119,7 +136,9 @@ Future<bool> showTradeOrderConfirmDialog(
         : tr(
             'trade:order_confirm_dialog_msg_balance',
             namedArgs: {
-              'symbol': isFeeNeedDeposit ? feeCoin.symbol : amountCoin.symbol
+              'symbol': isFeeNeedDeposit
+                  ? feeCoin.symbol.toString()
+                  : amountCoin.symbol.toString()
             },
           ),
     confirmBtnText: canSubmit
@@ -144,15 +163,19 @@ Future<bool> showTradeOrderConfirmDialog(
 
 Future<bool> showTradeOrderApproveDialog(
   BuildContext context, {
-  @required AssetCoin coinInfo,
-  @required WalletTemplateData approveData,
+  required AssetCoin coinInfo,
+  required WalletTemplateData approveData,
 
   /// User manually request a reset
-  @required bool userReset,
-  @required bool needReset,
-  @required double currentBalance,
-  @required double approveAmount,
-  @required AssetCoin Function({String chain, String symbol}) getCoinInfo,
+  required bool userReset,
+  required bool needReset,
+  required double currentBalance,
+  required double approveAmount,
+  required AssetCoin Function({
+    required String chain,
+    required String symbol,
+  })
+      getCoinInfo,
 }) {
   final response = Completer<bool>();
 
@@ -161,19 +184,25 @@ Future<bool> showTradeOrderApproveDialog(
     symbol: approveData.feeSymbol,
   );
   final amountCoin = getCoinInfo(
-    chain: coinInfo.chain,
-    symbol: coinInfo.symbol,
+    chain: coinInfo.chain ?? '',
+    symbol: coinInfo.symbol ?? '',
   );
 
-  final amountName = tr('asset:lbl_coin_name', namedArgs: {
-    'name': amountCoin.symbol,
-    'fullName': amountCoin.fullName,
-  });
+  final amountName = tr(
+    'asset:lbl_coin_name',
+    namedArgs: {
+      'name': amountCoin.symbol ?? '',
+      'fullName': amountCoin.fullName ?? '',
+    },
+  );
 
-  final feeName = tr('asset:lbl_coin_name', namedArgs: {
-    'name': feeCoin.symbol,
-    'fullName': feeCoin.fullName,
-  });
+  final feeName = tr(
+    'asset:lbl_coin_name',
+    namedArgs: {
+      'name': feeCoin.symbol ?? '',
+      'fullName': feeCoin.fullName ?? '',
+    },
+  );
 
   var canSubmit = true;
   var isFeeNeedDeposit = false;
@@ -199,11 +228,11 @@ Future<bool> showTradeOrderApproveDialog(
   // Check if I have enough balance to pay the total and the network fee
   final totalToPayFromBalance = approveData.feeValue;
 
-  if (amountCoin.balance < totalToPayFromBalance) {
+  if ((amountCoin.balance ?? 0) < totalToPayFromBalance) {
     canSubmit = false;
   }
 
-  if (feeCoin.balance < approveData.feeValue) {
+  if ((feeCoin.balance ?? 0) < approveData.feeValue) {
     canSubmit = false;
     isFeeNeedDeposit = true;
   }
@@ -248,20 +277,16 @@ Future<bool> showTradeOrderApproveDialog(
 
 void showTradeOrderTransactionPendingDialog(
   BuildContext context, {
-  @required
-      String chain,
-  @required
-      String txId,
-  @required
-      Future<Transaction> Function(
+  required String chain,
+  required String txId,
+  required Future<Transaction> Function(
     String txId,
   )
-          getTransactionInfo,
-  @required
-      void Function(String) onConfirmed,
+      getTransactionInfo,
+  required void Function(String) onConfirmed,
 }) {
   // Start check for txId
-  Timer checkTxTimer;
+  late Timer checkTxTimer;
   final checkStartTime = DateTime.now();
   bool isFetching = false;
   checkTxTimer = Timer.periodic(
@@ -279,7 +304,7 @@ void showTradeOrderTransactionPendingDialog(
       isFetching = true;
       getTransactionInfo(txId).then(
         (value) {
-          if (value != null && value.confirmations >= 1) {
+          if (value != null && value.confirmations! >= 1) {
             checkTxTimer.cancel();
             AppNavigator.goBack();
             onConfirmed(txId);
@@ -302,14 +327,21 @@ void showTradeOrderTransactionPendingDialog(
           padding: context.edgeAll.copyWith(top: 0),
           child: Text(
             tr('trade:order_approve_dialog_waiting_title'),
-            style: context.textBody(bold: true),
+            style: context.textBody(
+              bold: true,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
         Padding(
           padding: context.edgeHorizontal,
           child: Text(
             tr('trade:order_approve_dialog_waiting_msg'),
-            style: context.textSmall(lineHeight: 1.71),
+            style: context.textSmall(
+              lineHeight: 1.71,
+              bold: true,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
         Padding(
@@ -324,7 +356,10 @@ void showTradeOrderTransactionPendingDialog(
         Center(
           child: Text(
             tr('trade:order_approve_dialog_waiting_tip'),
-            style: context.textSmall(),
+            style: context.textSmall(
+              bold: true,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
       ],

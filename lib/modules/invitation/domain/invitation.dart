@@ -4,6 +4,7 @@ library invitation_domain_module;
 import 'dart:async';
 
 // Flutter imports:
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 // Package imports:
@@ -12,7 +13,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:hive/hive.dart';
-import 'package:network_flutter/network_flutter.dart';
 import 'package:wallet_sdk_flutter/wallet_sdk_flutter.dart';
 
 // Project imports:

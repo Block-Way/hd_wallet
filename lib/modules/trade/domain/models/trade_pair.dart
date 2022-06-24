@@ -1,16 +1,16 @@
 part of trade_domain_module;
 
 enum TradePairStatus {
-  /// 0-未开始  NOT_ONLINE
+  /// 0-  NOT_ONLINE
   opening,
 
-  /// 1-正常 ONLINE
+  /// 1- ONLINE
   online,
 
-  /// 2-关闭中 ABOUT_CLOSE
+  /// 2- ABOUT_CLOSE
   closing,
 
-  /// 3-已关闭 CLOSE
+  /// 3- CLOSE
   close,
 }
 
@@ -20,16 +20,16 @@ abstract class TradePair implements Built<TradePair, TradePairBuilder> {
   TradePair._();
 
   factory TradePair.fromConfig({
-    @required String priceChain,
-    @required String priceSymbol,
-    @required String tradeChain,
-    @required String tradeSymbol,
-    @required String speed,
-    @required List<String> spans,
-    @required String pairId,
-    @required String pairName,
-    @required String marketId,
-    @required String apiStatus,
+    required String priceChain,
+    required String priceSymbol,
+    required String tradeChain,
+    required String tradeSymbol,
+    required String speed,
+    required List<String> spans,
+    required String pairId,
+    required String pairName,
+    required String marketId,
+    required String apiStatus,
   }) {
     final names = pairName.split('/');
     return TradePair(
@@ -39,7 +39,7 @@ abstract class TradePair implements Built<TradePair, TradePairBuilder> {
         ..speed = speed
         ..spans = ListBuilder(spans)
         ..marketId = marketId
-        ..apiStatus = apiStatus ?? ''
+        ..apiStatus = apiStatus
         ..tradeName = names.first
         ..tradeChain = tradeChain
         ..tradeSymbol = tradeSymbol

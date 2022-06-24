@@ -22,7 +22,7 @@ class InvitationCodePage extends HookWidget {
   void saveQRCodeView(BuildContext context) {
     LoadingDialog.show(context);
     saveImageState.currentState
-        .capture()
+        ?.capture()
         .whenComplete(() => LoadingDialog.dismiss(context));
   }
 
@@ -34,26 +34,26 @@ class InvitationCodePage extends HookWidget {
     final coinName = useState('');
 
     final qrCodeStr = InvitationCodeUtils.encodeQRCodeData(
-      chain: inviteCode.chain,
-      symbol: inviteCode.symbol,
-      address: address,
-      subSign: subSign,
-      sharePrvKey: sharePrvKey,
+      chain: inviteCode.chain ?? '',
+      symbol: inviteCode.symbol ?? '',
+      address: address ?? '',
+      subSign: subSign ?? '',
+      sharePrvKey: sharePrvKey ?? '',
     );
 
     final copyLblAddress = tr(
       'invitation:code_copy_lbl_address',
-      namedArgs: {'symbol': coinName.value, 'address': address},
+      namedArgs: {'symbol': coinName.value, 'address': address ?? ''},
     );
 
     final copyLblCode = tr(
       'invitation:code_copy_lbl_code',
-      namedArgs: {'symbol': coinName.value, 'code': subSign},
+      namedArgs: {'symbol': coinName.value, 'code': subSign ?? ''},
     );
 
     final copyLblPrvkey = tr(
       'invitation:code_copy_lbl_prvkey',
-      namedArgs: {'symbol': coinName.value, 'prvkey': sharePrvKey},
+      namedArgs: {'symbol': coinName.value, 'prvkey': sharePrvKey ?? ''},
     );
 
     void copyAll() {
@@ -81,12 +81,12 @@ class InvitationCodePage extends HookWidget {
       backgroundColor: context.bgSecondaryColor,
       child: StoreConnector<AppState, InvitationCreateVM>(
         converter: InvitationCreateVM.fromStore,
-        onInitialBuild: (viewModel) {
+        onInitialBuild: (_, __, viewModel) {
           final coinInfo = viewModel.getCoinInfo(
-            chain: inviteCode.chain,
-            symbol: inviteCode.symbol,
+            chain: inviteCode.chain ?? '',
+            symbol: inviteCode.symbol ?? '',
           );
-          coinName.value = coinInfo.name;
+          coinName.value = coinInfo.name ?? '';
         },
         builder: (context, viewModel) {
           return Stack(
@@ -104,7 +104,7 @@ class InvitationCodePage extends HookWidget {
                         children: [
                           Center(
                             child: CSContainer(
-                              width: null,
+                              //width: null,
                               child: QrCodeView(
                                 qrCodeStr,
                                 size: context.mediaWidth * 0.437,
@@ -116,7 +116,7 @@ class InvitationCodePage extends HookWidget {
                             context,
                             title: tr('invitation:code_detail_address',
                                 namedArgs: {'symbol': coinName.value}),
-                            value: address,
+                            value: address ?? '',
                             copyLbl: copyLblAddress,
                           ),
                           Divider(height: 1, color: context.borderColor),
@@ -124,14 +124,14 @@ class InvitationCodePage extends HookWidget {
                             context,
                             title: tr('invitation:code_detail_invitation',
                                 namedArgs: {'symbol': coinName.value}),
-                            value: subSign,
+                            value: subSign ?? '',
                             copyLbl: copyLblCode,
                           ),
                           Divider(height: 1, color: context.borderColor),
                           renderItem(
                             context,
                             title: tr('invitation:defi_create_lbl_prvkey'),
-                            value: sharePrvKey,
+                            value: sharePrvKey ?? '',
                             copyLbl: copyLblPrvkey,
                           ),
                         ],
@@ -188,9 +188,9 @@ class InvitationCodePage extends HookWidget {
 
   Widget renderItem(
     BuildContext context, {
-    String title,
-    String value,
-    String copyLbl,
+    String? title,
+    String? value,
+    String? copyLbl,
   }) {
     return FormBox(
       margin: context.edgeVertical,
@@ -204,12 +204,12 @@ class InvitationCodePage extends HookWidget {
         size: 18,
         margin: EdgeInsets.symmetric(horizontal: 2),
         onPressed: () {
-          copyTextToClipboard(copyLbl);
+          copyTextToClipboard(copyLbl ?? '');
           Toast.show(tr('global:msg_copy_success'));
         },
       ),
       child: Text(
-        value,
+        value ?? '',
         style: context.textSecondary(
           bold: true,
           color: context.bodyColor,
@@ -233,9 +233,12 @@ class InvitationCodePage extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              tr('invitation:code_detail_invitation', namedArgs: {
-                'symbol': coinName,
-              }),
+              tr(
+                'invitation:code_detail_invitation',
+                namedArgs: {
+                  'symbol': coinName,
+                },
+              ),
               style: context.textMedium(bold: true),
             ),
             SizedBox(height: context.edgeSize),
@@ -244,7 +247,7 @@ class InvitationCodePage extends HookWidget {
               size: context.mediaWidth * 0.8,
               padding: context.edgeAll5,
               backgroundColor: context.bgSecondaryColor,
-              embeddedImage: AssetImage('assets/images/logo.png'),
+              embeddedImage: AssetImage('assets/images/logo.svg'),
               embeddedSize: context.mediaWidth * 0.05,
               errorCorrectionLevel: QrErrorCorrectLevel.H, //纠错等级
             ),

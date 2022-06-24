@@ -2,15 +2,19 @@ part of invest_ui_module;
 
 class MiningInvitationTab extends HookWidget {
   const MiningInvitationTab({
-    @required this.listData,
-    @required this.doLoadData,
-    @required this.coinInfo,
-    Key key,
+    required this.listData,
+    required this.doLoadData,
+    required this.coinInfo,
+    Key? key,
   }) : super(key: key);
 
   final AssetCoin coinInfo;
   final List<ProfitInvitationItem> listData;
-  final Future<int> Function({bool isRefresh, int skip, int take}) doLoadData;
+  final Future<int> Function({
+    required bool isRefresh,
+    required int skip,
+    required int take,
+  }) doLoadData;
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +43,15 @@ class MiningInvitationTab extends HookWidget {
           return buildItem(context, listData[index], index);
         },
         emptyWidget: CSEmpty(
-          label: tr('invitation:list_empty_tips'),
-          showButton: true,
-          heightFromTop: 30,
-          imageUrl: 'assets/images/empty_record.png',
-          btnText: tr('新建推广关系'),
-          onPressed: () {
-            InvitationCreatePage.open(coinInfo);
-          },
-        ),
+            //label: tr('invitation:list_empty_tips'),
+            //showButton: true,
+            //heightFromTop: 30,
+            //imageUrl: 'assets/images/empty_record.png',
+            //btnText: tr('invitation:defi_create_title'),
+            //onPressed: () {
+            //  InvitationCreatePage.open(coinInfo);
+            //},
+            ),
       ),
     );
   }
@@ -60,13 +64,26 @@ class MiningInvitationTab extends HookWidget {
         children: [
           if (index != 0) Divider(color: context.greyColor),
           SizedBox(height: context.edgeSize),
-          Text(tr('invest:mining_lbl_address'), style: context.textSmall()),
-          SizedBox(height: context.edgeSizeHalf),
+          // Text('金额 : ${item.amount} HAH', style: context.textBody()),
           Text(
-            item.address ?? '-',
-            style: context.textBody(),
-          ),
-          SizedBox(height: context.edgeSize),
+              tr(
+                'invest:reward_amount',
+                namedArgs: {
+                  'amount': item.amount,
+                },
+              ),
+              style: context.textBody()),
+          // SizedBox(height: context.edgeSizeHalf),
+          // Text(
+          //   '高度 : ${item.height} . 时间 : ${item.time}',
+          //   style: context.textSmall(),
+          // ),
+          Text(tr('invest:reward_height', namedArgs: {
+            'height': item.height!,
+          })),
+          Text(tr('invest:reward_time', namedArgs: {
+            'time': item.time!,
+          })),
         ],
       ),
     );

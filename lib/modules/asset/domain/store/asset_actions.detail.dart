@@ -5,7 +5,7 @@ class AssetActionLoadDetail extends _BaseAction {
   final AssetCoin coin;
 
   @override
-  AppState reduce() {
+  AppState? reduce() {
     return null;
   }
 }

@@ -2,19 +2,19 @@ part of trade_ui_module;
 
 class TradeOrderItem extends StatelessWidget {
   const TradeOrderItem({
-    @required this.order,
-    @required this.onCancelOrder,
-    Key key,
+    required this.order,
+    required this.onCancelOrder,
+    Key? key,
     this.isHistory = false,
     this.margin,
     this.onPress,
   }) : super(key: key);
 
   final TradeOrder order;
-  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry? margin;
   final bool isHistory;
   final Function(TradeOrder) onCancelOrder;
-  final void Function() onPress;
+  final void Function()? onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +30,21 @@ class TradeOrderItem extends StatelessWidget {
           'trade:order_lbl_price',
           namedArgs: {'symbol': order.priceSymbol},
         ),
-        'value': NumberUtil.truncateDecimal<String>(order.price, 8) ?? '0',
+        'value': NumberUtil.truncateDecimal<String>(order.price, 8),
       },
       {
         'label': tr(
           'trade:order_lbl_amount',
           namedArgs: {'symbol': order.tradeSymbol},
         ),
-        'value': NumberUtil.truncateDecimal<String>(order.amount, 8) ?? '0',
+        'value': NumberUtil.truncateDecimal<String>(order.amount, 8),
       },
       {
         'label': tr(
           'trade:order_lbl_entire_total',
           namedArgs: {'symbol': order.priceSymbol},
         ),
-        'value': NumberUtil.truncateDecimal<String>(order.dealAmount, 8) ?? '0',
+        'value': NumberUtil.truncateDecimal<String>(order.dealAmount, 8),
       },
       if (isHistory) // 均价
         {
@@ -52,7 +52,7 @@ class TradeOrderItem extends StatelessWidget {
             'trade:order_lbl_average_price',
             namedArgs: {'symbol': order.priceSymbol},
           ),
-          'value': NumberUtil.truncateDecimal<String>(order.avgPrice, 8) ?? '0',
+          'value': NumberUtil.truncateDecimal<String>(order.avgPrice, 8),
         },
       if (isHistory)
         {
@@ -60,8 +60,7 @@ class TradeOrderItem extends StatelessWidget {
             'trade:order_lbl_miner_fee_all',
             namedArgs: {'symbol': order.feeSymbol},
           ),
-          'value':
-              NumberUtil.truncateDecimal<String>(order.networkFee, 8) ?? '0',
+          'value': NumberUtil.truncateDecimal<String>(order.networkFee, 8),
         },
       {
         'label': tr('trade:order_lbl_trade_time'),
@@ -97,6 +96,7 @@ class TradeOrderItem extends StatelessWidget {
                   textStyle: context.textSmall(
                     bold: true,
                     color: context.bodyColor,
+                    fontWeight: FontWeight.normal,
                   ),
                   autoWidth: true,
                   onPressed: () {
@@ -112,6 +112,7 @@ class TradeOrderItem extends StatelessWidget {
                   style: context.textSmall(
                     bold: true,
                     color: statusColor,
+                    fontWeight: FontWeight.normal,
                   ),
                 )
             ],
@@ -131,13 +132,18 @@ class TradeOrderItem extends StatelessWidget {
                     children: [
                       Text(
                         infoList[index]['label'].toString(),
-                        style: context.textTiny(),
+                        style: context.textTiny(
+                          bold: true,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                       SizedBox(height: 10),
                       Text(
                         infoList[index]['value'].toString(),
                         style: context.textSecondary(
                           color: context.bodyColor,
+                          bold: true,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],

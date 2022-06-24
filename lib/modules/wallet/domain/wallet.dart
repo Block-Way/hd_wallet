@@ -3,10 +3,14 @@ library wallet_domain_module;
 // Dart imports:
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 // Flutter imports:
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:ed25519_dart_base/ed25519_dart.dart';
+import 'package:hex/hex.dart';
 
 // Package imports:
 import 'package:async_redux/async_redux.dart';
@@ -19,9 +23,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:network_flutter/network_flutter.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:wallet_sdk_flutter/wallet_sdk_flutter.dart';
+import 'package:sugar/crypto/hah.dart';
 
 // Project imports:
 import 'package:sugar/modules/app/app.dart';

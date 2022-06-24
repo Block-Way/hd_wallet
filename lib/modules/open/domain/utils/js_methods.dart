@@ -24,15 +24,15 @@ class JsMethods {
     transferOut
   ];
 
-  static MapEntry<String, String> getParamsChainSymbol(List<dynamic> args) {
-    final Map params = args != null && args.isNotEmpty && args[0] is Map
-        ? args[0] as Map
-        : null;
-    if (params != null && params['chain'] != null && params['symbol'] != null) {
-      return MapEntry(
-        params['chain'].toString(),
-        params['symbol'].toString(),
-      );
+  static MapEntry<String, String>? getParamsChainSymbol(List<dynamic> args) {
+    if (args.isNotEmpty) {
+      final Map params = args[0] as Map;
+      if (params['chain'] != null && params['symbol'] != null) {
+        return MapEntry(
+          params['chain'].toString(),
+          params['symbol'].toString(),
+        );
+      }
     }
     return null;
   }

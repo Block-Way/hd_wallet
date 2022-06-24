@@ -5,8 +5,8 @@ class FilterType {
     this.id,
     this.label,
   });
-  final String id;
-  final String label;
+  final String? id;
+  final String? label;
 }
 
 class _FilterHeader {
@@ -16,16 +16,16 @@ class _FilterHeader {
     this.onTap,
   });
 
-  final String id;
-  final String title;
-  final Function onTap;
+  final String? id;
+  final String? title;
+  final Function? onTap;
 }
 
 class TradeOrderFilterBar extends HookWidget {
   TradeOrderFilterBar({
-    @required this.onChange,
-    @required this.filterTradePair,
-    Key key,
+    required this.onChange,
+    required this.filterTradePair,
+    Key? key,
     this.isHistory = false,
   }) : super(key: key);
 
@@ -74,7 +74,7 @@ class TradeOrderFilterBar extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedTradePair = useState<TradePair>(null);
+    final selectedTradePair = useState<TradePair?>(null);
     final selectedTradeSide = useState<FilterType>(tradeSide.first);
     final selectedStatus = useState<FilterType>(status.first);
 
@@ -84,9 +84,9 @@ class TradeOrderFilterBar extends HookWidget {
     }, [filterTradePair]);
 
     void doApplyFilters() {
-      onChange(
-        selectedTradeSide.value.id,
-        selectedStatus.value.id,
+      onChange.call(
+        selectedTradeSide.value.id ?? '',
+        selectedStatus.value.id ?? '',
       );
     }
 
@@ -95,7 +95,7 @@ class TradeOrderFilterBar extends HookWidget {
         id: 'tradePair',
         title: selectedTradePair.value == null
             ? tr('trade:order_list_filter_trade_pair')
-            : selectedTradePair.value.id,
+            : selectedTradePair.value?.id,
         onTap: () {
           Scaffold.of(context).openDrawer();
         },
@@ -109,7 +109,7 @@ class TradeOrderFilterBar extends HookWidget {
           showOrderListTradeFilterDialog(
             context,
             tradeSide,
-            selectedTradeSide.value.id,
+            selectedTradeSide.value.id ?? '',
             onSelect: (type) {
               if (type.id != selectedTradeSide.value.id) {
                 selectedTradeSide.value = type;
@@ -129,7 +129,7 @@ class TradeOrderFilterBar extends HookWidget {
             showOrderListTradeFilterDialog(
               context,
               status,
-              selectedStatus.value.id,
+              selectedStatus.value.id ?? '',
               onSelect: (type) {
                 if (type.id != selectedStatus.value.id) {
                   selectedStatus.value = type;
@@ -155,6 +155,7 @@ class TradeOrderFilterBar extends HookWidget {
                       textStyle: context.textSecondary(
                         bold: true,
                         color: context.bodyColor,
+                        fontWeight: FontWeight.normal,
                       ),
                       cmpRight: Padding(
                         padding: EdgeInsets.only(
@@ -173,7 +174,7 @@ class TradeOrderFilterBar extends HookWidget {
                       height: 40,
                       backgroundColor: Colors.transparent,
                       onPressed: () {
-                        filterList[index].onTap();
+                        filterList[index].onTap?.call();
                       },
                     ),
                   ),

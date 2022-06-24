@@ -2,7 +2,7 @@ part of widgets;
 
 class CSEmpty extends HookWidget {
   const CSEmpty({
-    Key key,
+    Key? key,
     this.header,
     this.imageUrl,
     this.label,
@@ -11,18 +11,18 @@ class CSEmpty extends HookWidget {
     this.showButton = false,
     this.heightFromTop = 60,
     this.onPressed,
-    this.width = 156,
-    this.height = 156,
+    this.width = 100,
+    this.height = 100,
   }) : super(key: key);
 
-  final Widget header;
-  final String imageUrl;
-  final String label;
-  final String btnText;
+  final Widget? header;
+  final String? imageUrl;
+  final String? label;
+  final String? btnText;
   final bool isLoading;
   final bool showButton;
   final double heightFromTop;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final double width;
   final double height;
 
@@ -57,7 +57,10 @@ class CSEmpty extends HookWidget {
         if (showButton == true)
           CSButton(
             label: btnText,
-            backgroundColor: context.primaryColor,
+            backgroundColor: context.cardColor,
+            bordered: true,
+            borderColor: context.refreshBtnColor,
+            textColor: context.refreshBtnColor,
             borderRadius: 25,
             onPressed: onPressed,
             margin: EdgeInsets.only(top: 30),
