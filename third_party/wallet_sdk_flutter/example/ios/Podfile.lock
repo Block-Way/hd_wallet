@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - wallet_sdk_flutter (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - wallet_sdk_flutter (from `.symlinks/plugins/wallet_sdk_flutter/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  wallet_sdk_flutter:
+    :path: ".symlinks/plugins/wallet_sdk_flutter/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  wallet_sdk_flutter: 8b51113b6bd15f5fd8bca41320e23122a26201dd
+
+PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
+
+COCOAPODS: 1.9.3
