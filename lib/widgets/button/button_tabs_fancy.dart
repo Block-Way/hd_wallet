@@ -26,7 +26,7 @@ class _TabFancySelectedPainter extends CustomPainter {
 
     const borderRadius = 10.0;
     const angle = 15.0;
-    final width = size.width + 1;
+    final width = size.width;
     final height = size.height + 1;
 
     final path = Path();
